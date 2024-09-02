@@ -7,13 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{94459CD0-8BFD-4DB4-A03F-F41638FD2BB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Standard", "Standard\Standard.csproj", "{FBB5DD16-278F-4E4F-AE2B-97E263A91E49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Standard", "Standard\Standard.csproj", "{FBB5DD16-278F-4E4F-AE2B-97E263A91E49}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{F7878E88-618B-41D2-868A-584E4C799F4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{20C1660D-A1F0-46BF-A899-F772C5E0CDCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{20C1660D-A1F0-46BF-A899-F772C5E0CDCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{FEEE425A-089A-4B43-BE6D-E10DC6CA808C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{FEEE425A-089A-4B43-BE6D-E10DC6CA808C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebAPI", "WebAPI", "{C5BBE95F-561C-4879-89D2-8CF06451EC9C}"
 EndProject
