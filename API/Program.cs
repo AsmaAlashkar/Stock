@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Repository;
+using Repository.MainWearHouse;
 using Standard.Entities;
 using Standard.Mapping.mainwearhouseProf;
 
@@ -17,7 +18,7 @@ builder.Services.AddDbContext<StockContext>(options =>
 
 // Repositories
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-
+builder.Services.AddScoped<IMWHRepository, MWHRepository>();
 
 //Mapping
 builder.Services.AddAutoMapper(
