@@ -41,9 +41,7 @@ public partial class StockContext : DbContext
 
             entity.ToTable("Category");
 
-            entity.Property(e => e.CatId)
-                .ValueGeneratedNever()
-                .HasColumnName("Cat_ID");
+            entity.Property(e => e.CatId).HasColumnName("Cat_ID");
             entity.Property(e => e.CatName)
                 .HasMaxLength(50)
                 .HasColumnName("Cat_Name");
@@ -51,9 +49,7 @@ public partial class StockContext : DbContext
 
         modelBuilder.Entity<Item>(entity =>
         {
-            entity.Property(e => e.ItemId)
-                .ValueGeneratedNever()
-                .HasColumnName("Item_ID");
+            entity.Property(e => e.ItemId).HasColumnName("Item_ID");
             entity.Property(e => e.CatFk).HasColumnName("Cat_FK");
             entity.Property(e => e.ItemCreatedat)
                 .HasColumnType("datetime")
@@ -86,9 +82,7 @@ public partial class StockContext : DbContext
         {
             entity.HasKey(e => e.ItemSuppliersId);
 
-            entity.Property(e => e.ItemSuppliersId)
-                .ValueGeneratedNever()
-                .HasColumnName("ItemSuppliers_ID");
+            entity.Property(e => e.ItemSuppliersId).HasColumnName("ItemSuppliers_ID");
             entity.Property(e => e.ItemsFk).HasColumnName("Items_FK");
             entity.Property(e => e.SuppliersFk).HasColumnName("Suppliers_Fk");
 
@@ -107,12 +101,8 @@ public partial class StockContext : DbContext
 
             entity.ToTable("MainWearhouse");
 
-            entity.Property(e => e.MainId)
-                .ValueGeneratedNever()
-                .HasColumnName("Main_ID");
-            entity.Property(e => e.MainAdderess)
-                .HasColumnType("text")
-                .HasColumnName("Main_Adderess");
+            entity.Property(e => e.MainId).HasColumnName("Main_ID");
+            entity.Property(e => e.MainAdderess).HasColumnName("Main_Adderess");
             entity.Property(e => e.MainCreatedat)
                 .HasColumnType("datetime")
                 .HasColumnName("Main_Createdat");
@@ -131,9 +121,7 @@ public partial class StockContext : DbContext
         {
             entity.ToTable("Stock");
 
-            entity.Property(e => e.StockId)
-                .ValueGeneratedNever()
-                .HasColumnName("Stock_ID");
+            entity.Property(e => e.StockId).HasColumnName("Stock_ID");
             entity.Property(e => e.ItemFk).HasColumnName("Item_FK");
             entity.Property(e => e.StockCreatedat)
                 .HasColumnType("datetime")
@@ -154,9 +142,7 @@ public partial class StockContext : DbContext
 
             entity.ToTable("SubWearhouse");
 
-            entity.Property(e => e.SubId)
-                .ValueGeneratedNever()
-                .HasColumnName("Sub_ID");
+            entity.Property(e => e.SubId).HasColumnName("Sub_ID");
             entity.Property(e => e.MainFk).HasColumnName("Main_FK");
             entity.Property(e => e.SubAddress).HasColumnName("Sub_Address");
             entity.Property(e => e.SubCreatedat)
@@ -175,9 +161,7 @@ public partial class StockContext : DbContext
 
         modelBuilder.Entity<Supplier>(entity =>
         {
-            entity.Property(e => e.SupplierId)
-                .ValueGeneratedNever()
-                .HasColumnName("Supplier_ID");
+            entity.Property(e => e.SupplierId).HasColumnName("Supplier_ID");
             entity.Property(e => e.ContactPeraon).HasMaxLength(50);
             entity.Property(e => e.Email).HasMaxLength(50);
             entity.Property(e => e.Phone)
@@ -189,9 +173,7 @@ public partial class StockContext : DbContext
             entity.Property(e => e.SupUpdatedat)
                 .HasColumnType("datetime")
                 .HasColumnName("Sup_Updatedat");
-            entity.Property(e => e.SuppliarAddreaa)
-                .HasColumnType("text")
-                .HasColumnName("Suppliar_Addreaa");
+            entity.Property(e => e.SuppliarAddreaa).HasColumnName("Suppliar_Addreaa");
             entity.Property(e => e.SuppliersName)
                 .HasMaxLength(50)
                 .HasColumnName("Suppliers_Name");

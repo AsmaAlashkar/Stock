@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Repository;
 using Standard.Entities;
+using Standard.Mapping.mainwearhouseProf;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +13,21 @@ builder.Services.AddDbContext<StockContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ??
     throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
 
+
+
+// Repositories
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+
+//Mapping
+builder.Services.AddAutoMapper(
+
+    typeof(MainWearhouseProfile)
+    
+    );
+
+
+builder.Services.AddEndpointsApiExplorer();
 // Add controller services
 builder.Services.AddControllers();
 

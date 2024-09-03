@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Repository;
+using Standard.DTOs;
 using Standard.Entities;
 
 namespace API.Controller
@@ -9,18 +12,44 @@ namespace API.Controller
     [ApiController]
     public class MainWearhouseController : ControllerBase
     {
-        private readonly StockContext _context;
-        public MainWearhouseController(StockContext context)
+        private readonly IGenericRepository<MainWearhouse> _repo;
+        private readonly IMapper _mapper;
+        public MainWearhouseController(IGenericRepository<MainWearhouse> repo, IMapper mapper)
         {
-            _context = context;
+            _repo = repo;
+            _mapper = mapper;
+
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<MainWearhouse>>> GetWearhouse() {
+        public async Task<ActionResult<List<MainWearhouseDTO>>> GetMainWearhouse() {
 
-            var mainwearhouse = await _context.MainWearhouses.ToListAsync();
+            var mainwearhouses = await _repo.GetAll();
 
-            return mainwearhouse;
+            return Ok(_mapper.Map<IReadOnlyList<MainWearhouseDTO>>(mainwearhouses));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<MainWearhouseDTO?>> GetmainById(int id)
+        {
+
+            var mainwearhouse = await _repo.GetById(id);
+            return Ok(_mapper.Map<MainWearhouseDTO>(mainwearhouse));
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateNewMainWearhouse(MainWearhouseDTO mainwearhouse)
+        {
+            var mwh = _mapper.Map<MainWearhouse>(mainwearhouse);
+
+            mwh.MainCreatedat = DateTime.Now;
+            mwh.MainUpdatedat = null; 
+            mwh.Delet = false;
+
+            await _repo.CreateNew(mwh);
+            return Ok("MainWearHouse Created Successfully");
+
         }
     }
 }
