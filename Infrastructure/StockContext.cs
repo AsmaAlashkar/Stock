@@ -149,6 +149,9 @@ public partial class StockContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("Sub_Createdat");
             entity.Property(e => e.SubDescription).HasColumnName("Sub_Description");
+            entity.Property(e => e.SubName)
+                .HasMaxLength(50)
+                .HasColumnName("Sub_Name");
             entity.Property(e => e.SubUpdatedat)
                 .HasColumnType("datetime")
                 .HasColumnName("Sub_Updatedat");

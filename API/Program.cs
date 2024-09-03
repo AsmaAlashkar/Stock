@@ -3,8 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Repository;
 using Repository.MainWearHouse;
+using Repository.SubWearHouse;
 using Standard.Entities;
 using Standard.Mapping.mainwearhouseProf;
+using Standard.Mapping.SubwearhouseProf;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,12 +21,15 @@ builder.Services.AddDbContext<StockContext>(options =>
 // Repositories
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IMWHRepository, MWHRepository>();
+builder.Services.AddScoped<ISWHRepository, SWHRepository>();
+
 
 //Mapping
 builder.Services.AddAutoMapper(
 
-    typeof(MainWearhouseProfile)
-    
+    typeof(MainWearhouseProfile),
+    typeof(SubWearhouseProfile)
+
     );
 
 

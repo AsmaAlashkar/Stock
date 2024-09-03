@@ -9,6 +9,8 @@ public partial class SubWearhouse
 
     public int MainFk { get; set; }
 
+    public string SubName { get; set; } = null!;
+
     public string? SubDescription { get; set; }
 
     public string? SubAddress { get; set; }
