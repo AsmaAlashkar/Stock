@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-
+import { MainwearhouseComponent } from './mainwearhouse/mainwearhouse.component';
 
 
 
 @NgModule({
   declarations: [
-    NavBarComponent
+    MainwearhouseComponent
   ],
   imports: [
     CommonModule,
     BsDropdownModule.forRoot(),
-
   ],
-  exports:[NavBarComponent]
+  exports:[MainwearhouseComponent]
 })
-export class CoreModule { }
+export class WearhouseModule { }
