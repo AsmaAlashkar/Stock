@@ -1,4 +1,49 @@
-<p>mainwearhouse works!</p>
-<div class="col-md-3" *ngFor="let wearhous of mhouses">
-{{wearhous.mainName}}
+<div class="container-fluid">
+    <div class="row">
+        <section class="col-12 col-md-3 mb-4">
+            <h4 class="text-info mb-3" style="border: 1px solid #ceecfc; padding: 5px;">Sort</h4>
+            <select class="custom-select w-100">
+                <option selected>Alphabetical</option>
+                <option>Option one</option>
+                <option>Option two</option>
+            </select>
+            <ul class="list-group my-3">
+                <li class="list-group-item active">option one</li>
+                <li class="list-group-item">option two</li>
+                <li class="list-group-item">option three</li>
+            </ul>
+        </section>
+        
+        <section class="col-12 col-md-9">
+            <div class="d-flex justify-content-between align-items-center pb-2 flex-wrap">
+                <header>
+                    <span>Showing <strong>10 of 16 results</strong></span>
+                </header>
+                <div class="form-inline mt-2 d-flex w-100 w-md-auto">
+                    <input class="form-control my-2 me-3 w-100" style="flex: 2;" placeholder="search" type="text">
+                    <button class="btn btn-outline-primary my-2 me-3" style="flex: 0.5;">Search</button>
+                    <button class="btn btn-outline-success my-2" style="flex: 0.5;">Reset</button>
+                </div>
+            </div>
+
+            <div class="cards-container">
+                <div class="col-md-3 mb-4" *ngFor="let wearhous of mhouses">
+                    <mat-card class="example-card" appearance="outlined">
+                        <mat-card-header>
+                            <mat-card-title>{{wearhous.mainName}}</mat-card-title>
+                            <mat-card-subtitle>Main Wearhouse</mat-card-subtitle>
+                        </mat-card-header>
+                        <img mat-card-image src="/assets/images/wearhouse.png" alt="Photo of a Shiba Inu">
+                        <mat-card-content>
+                            <p>The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.</p>
+                        </mat-card-content>
+                        <mat-card-actions>
+                            <button mat-button>LIKE</button>
+                            <button mat-button>SHARE</button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </div>
+        </section>
+    </div>
 </div>
