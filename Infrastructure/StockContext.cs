@@ -31,6 +31,8 @@ public partial class StockContext : DbContext
 
     public virtual DbSet<Unit> Units { get; set; }
 
+    public virtual DbSet<ViewWearhouseItem> ViewWearhouseItems { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=DESKTOP-F9A72EH;Database=Stock;Trusted_Connection=True;TrustServerCertificate=True;");
@@ -67,9 +69,6 @@ public partial class StockContext : DbContext
             entity.Property(e => e.ItemName)
                 .HasMaxLength(50)
                 .HasColumnName("Item_Name");
-            entity.Property(e => e.ItemUnit)
-                .HasMaxLength(50)
-                .HasColumnName("Item_Unit");
             entity.Property(e => e.ItemUpdatedat)
                 .HasColumnType("datetime")
                 .HasColumnName("Item_Updatedat");
@@ -211,6 +210,49 @@ public partial class StockContext : DbContext
             entity.Property(e => e.UnitUpdatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("Unit_UpdatedAt");
+        });
+
+        modelBuilder.Entity<ViewWearhouseItem>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("View_WearhouseItem");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.ItemExperationdate)
+                .HasColumnType("datetime")
+                .HasColumnName("Item_Experationdate");
+            entity.Property(e => e.ItemId).HasColumnName("Item_ID");
+            entity.Property(e => e.ItemName)
+                .HasMaxLength(50)
+                .HasColumnName("Item_Name");
+            entity.Property(e => e.MainAdderess).HasColumnName("Main_Adderess");
+            entity.Property(e => e.MainCreatedat)
+                .HasColumnType("datetime")
+                .HasColumnName("Main_Createdat");
+            entity.Property(e => e.MainDescription)
+                .HasMaxLength(50)
+                .HasColumnName("Main_Description");
+            entity.Property(e => e.MainId).HasColumnName("Main_ID");
+            entity.Property(e => e.MainName)
+                .HasMaxLength(50)
+                .HasColumnName("Main_Name");
+            entity.Property(e => e.MainUpdatedat)
+                .HasColumnType("datetime")
+                .HasColumnName("Main_Updatedat");
+            entity.Property(e => e.Md).HasColumnName("MD");
+            entity.Property(e => e.Sd).HasColumnName("SD");
+            entity.Property(e => e.SubAddress).HasColumnName("Sub_Address");
+            entity.Property(e => e.SubCreatedat)
+                .HasColumnType("datetime")
+                .HasColumnName("Sub_Createdat");
+            entity.Property(e => e.SubId).HasColumnName("Sub_ID");
+            entity.Property(e => e.SubName)
+                .HasMaxLength(50)
+                .HasColumnName("Sub_Name");
+            entity.Property(e => e.SubUpdatedat)
+                .HasColumnType("datetime")
+                .HasColumnName("Sub_Updatedat");
         });
 
         OnModelCreatingPartial(modelBuilder);

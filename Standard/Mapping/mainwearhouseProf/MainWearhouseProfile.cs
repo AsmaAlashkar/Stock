@@ -16,7 +16,6 @@ namespace Standard.Mapping.mainwearhouseProf
             CreateMap<MainWearhouse, MainWearhouseDTO>().ReverseMap();
             CreateMap<MainWearhouseDTO, MainWearhouse>().ReverseMap();
 
-
         }
     }
 }

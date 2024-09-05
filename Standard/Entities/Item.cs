@@ -15,9 +15,7 @@ public partial class Item
 
     public int? SubFk { get; set; }
 
-    public string ItemUnit { get; set; } = null!;
-
-    public DateTime ItemExperationdate { get; set; }
+    public DateTime? ItemExperationdate { get; set; }
 
     public DateTime? ItemCreatedat { get; set; }
 
