@@ -29,6 +29,8 @@ public partial class StockContext : DbContext
 
     public virtual DbSet<Supplier> Suppliers { get; set; }
 
+    public virtual DbSet<Unit> Units { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=DESKTOP-F9A72EH;Database=Stock;Trusted_Connection=True;TrustServerCertificate=True;");
@@ -42,9 +44,14 @@ public partial class StockContext : DbContext
             entity.ToTable("Category");
 
             entity.Property(e => e.CatId).HasColumnName("Cat_ID");
-            entity.Property(e => e.CatName)
+            entity.Property(e => e.CatDesAr).HasColumnName("Cat_DesAr");
+            entity.Property(e => e.CatDesEn).HasColumnName("Cat_DesEn");
+            entity.Property(e => e.CatNameAr)
                 .HasMaxLength(50)
-                .HasColumnName("Cat_Name");
+                .HasColumnName("Cat_NameAr");
+            entity.Property(e => e.CatNameEn)
+                .HasMaxLength(50)
+                .HasColumnName("Cat_NameEn");
         });
 
         modelBuilder.Entity<Item>(entity =>
@@ -67,6 +74,7 @@ public partial class StockContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("Item_Updatedat");
             entity.Property(e => e.SubFk).HasColumnName("Sub_FK");
+            entity.Property(e => e.UniteFk).HasColumnName("Unite_FK");
 
             entity.HasOne(d => d.CatFkNavigation).WithMany(p => p.Items)
                 .HasForeignKey(d => d.CatFk)
@@ -76,6 +84,10 @@ public partial class StockContext : DbContext
             entity.HasOne(d => d.SubFkNavigation).WithMany(p => p.Items)
                 .HasForeignKey(d => d.SubFk)
                 .HasConstraintName("FK_Items_SubWearhouse");
+
+            entity.HasOne(d => d.UniteFkNavigation).WithMany(p => p.Items)
+                .HasForeignKey(d => d.UniteFk)
+                .HasConstraintName("FK_Items_Unite");
         });
 
         modelBuilder.Entity<ItemSupplier>(entity =>
@@ -180,6 +192,25 @@ public partial class StockContext : DbContext
             entity.Property(e => e.SuppliersName)
                 .HasMaxLength(50)
                 .HasColumnName("Suppliers_Name");
+        });
+
+        modelBuilder.Entity<Unit>(entity =>
+        {
+            entity.HasKey(e => e.UnitId).HasName("PK_Unite");
+
+            entity.ToTable("Unit");
+
+            entity.Property(e => e.UnitId).HasColumnName("Unit_ID");
+            entity.Property(e => e.UnitCreatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("Unit_CreatedAt");
+            entity.Property(e => e.UnitDesc).HasColumnName("Unit_Desc");
+            entity.Property(e => e.UnitName)
+                .HasMaxLength(50)
+                .HasColumnName("Unit_Name");
+            entity.Property(e => e.UnitUpdatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("Unit_UpdatedAt");
         });
 
         OnModelCreatingPartial(modelBuilder);

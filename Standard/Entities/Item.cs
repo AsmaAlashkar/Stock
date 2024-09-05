@@ -7,11 +7,13 @@ public partial class Item
 {
     public int ItemId { get; set; }
 
+    public string ItemName { get; set; } = null!;
+
     public int CatFk { get; set; }
 
-    public int? SubFk { get; set; }
+    public int? UniteFk { get; set; }
 
-    public string ItemName { get; set; } = null!;
+    public int? SubFk { get; set; }
 
     public string ItemUnit { get; set; } = null!;
 
@@ -30,4 +32,6 @@ public partial class Item
     public virtual ICollection<Stock> Stocks { get; set; } = new List<Stock>();
 
     public virtual SubWearhouse? SubFkNavigation { get; set; }
+
+    public virtual Unit? UniteFkNavigation { get; set; }
 }
