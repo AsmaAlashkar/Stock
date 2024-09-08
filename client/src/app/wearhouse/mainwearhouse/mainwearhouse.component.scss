@@ -22,6 +22,18 @@
   }
 
 
-
-
+  .button {
+    width: 85%;
+    height: 40px;
+    margin-left: 5px;
+    color: black; /* Keep the text color */
+    background-color: transparent; /* Make the background transparent */
+    border: 2px solid #ff9900; /* Add border to create the outline */
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #ff9900; /* Background color on hover */
+    color: white; /* Text color on hover */
+  }
   

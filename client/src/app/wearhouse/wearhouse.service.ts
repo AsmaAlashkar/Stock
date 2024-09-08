@@ -13,4 +13,6 @@ export class WearhouseService {
   getmainwearhouse(){
     return this.http.get<IMainWearhouse[]>(this.baseUrl+'MainWearhouse/GetMainWearhouse');
   }
+
+  
 }

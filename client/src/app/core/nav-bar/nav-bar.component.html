@@ -1,5 +1,5 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm ">
-    <img src="/assets/images/logo.png" alt="logo">
+    <img src="/assets/images/logo.png" alt="logo" routerLink="/">
     
     <nav class="my-2 my-md-0 mr-md-3 ms-md-auto d-flex align-items-center">
         <div class="dropdown" bsDropdown>
@@ -7,8 +7,12 @@
                 Wearhouse
             </a>
             <ul *bsDropdownMenu class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">MainWearhouse</a></li>
-                <li><a class="dropdown-item" href="#">SubWearhouse</a></li>
+                <li>
+                    <a class="dropdown-item" [routerLink]="['/']" routerLinkActive="active" 
+                    [routerLinkActiveOptions]="{exact: true}">MainWearhouse</a></li>
+                <li>
+                    <a class="dropdown-item" routerLink="/Subwearhouse" routerLinkActive="active">SubWearhouse</a>
+                </li>
             </ul>
         </div>
         <a class="p-2 text-dark" href="#">Items</a>

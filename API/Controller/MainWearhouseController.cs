@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 using Repository.MainWearHouse;
+using Repository.VMainWearhouseItem;
 using Standard.DTOs;
 using Standard.Entities;
 
@@ -15,42 +16,43 @@ namespace API.Controller
     {
         private readonly IGenericRepository<MainWearhouse> _repo;
         private readonly IMWHRepository _mwh;
+        private readonly IVWHIRepository _vwh;
         private readonly IMapper _mapper;
         public MainWearhouseController(IGenericRepository<MainWearhouse> repo,
-            IMWHRepository mWH,IMapper mapper)
-        {
+            IMWHRepository mWH, IVWHIRepository vWH, IMapper mapper)
+        { 
             _repo = repo;
             _mapper = mapper;
             _mwh = mWH;
+            _vwh = vWH;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<MainWearhouseDTO>>> GetMainWearhouse()
+        [HttpGet]  
+        public async Task<ActionResult<List<ViewWearhouseItemDTO>>> GetMainWearhouse()
         {
-            
-            var mainwearhouses = await _mwh.GetAllMainWearHouse();
 
-         
-            var mainwearhouseDtos = _mapper.Map<List<MainWearhouseDTO>>(mainwearhouses);
+            var vwhi = await _vwh.GetAllMainWearHouse();
+
+            var vmhiDtos = _mapper.Map<List<ViewWearhouseItemDTO>>(vwhi);
 
             // Return the list of DTOs
-            return Ok(mainwearhouseDtos);
+            return Ok(vmhiDtos);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<MainWearhouseDTO?>> GetMainWearhouseById(int id)
+        public async Task<ActionResult<ViewWearhouseItemDTO?>> GetMainWearhouseById(int id)
         {
-           
-            var mainwearhouse = await _mwh.GetMainWearHouseById(id);
 
-            
+            var mainwearhouse = await _vwh.GetMainWearHouseById(id);
+
+
             if (mainwearhouse == null)
             {
                 return NotFound("MainWearhouse not found or has been deleted.");
             }
 
             // Map the entity to a DTO and return it
-            return Ok(_mapper.Map<MainWearhouseDTO>(mainwearhouse));
+            return Ok(_mapper.Map<ViewWearhouseItemDTO>(mainwearhouse));
         }
 
         [HttpPost]

@@ -20,6 +20,8 @@ namespace Repository.VMainWearhouseItem
         {
             return await _context.ViewWearhouseItems
                 .Where(mw => mw.Md == false || mw.Md == null)
+                .GroupBy(mw => mw.MainId)        // Group by MainId to eliminate duplicates
+                .Select(g => g.First())          // Select the first item from each group
                 .ToListAsync();
         }
         public async Task<ViewWearhouseItem?> GetMainWearHouseById(int id)

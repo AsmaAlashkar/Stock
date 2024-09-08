@@ -25,6 +25,7 @@ import {MatCardModule} from '@angular/material/card';
     MatInputModule,
     BsDropdownModule.forRoot(),
     MatCardModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

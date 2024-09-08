@@ -6,6 +6,7 @@ using Repository;
 using Standard.Entities;
 using Repository.SubWearHouse;
 using Standard.DTOs;
+using Repository.VMainWearhouseItem;
 
 namespace API.Controller
 {
@@ -15,33 +16,34 @@ namespace API.Controller
     {
         private readonly IGenericRepository<SubWearhouse> _repo;
         private readonly ISWHRepository _swh;
+        private readonly IVWHIRepository _vwh;
         private readonly IMapper _mapper;
         public SubWearhouseController(IGenericRepository<SubWearhouse> repo,
-            ISWHRepository sWH, IMapper mapper)
+            ISWHRepository sWH, IVWHIRepository vWH, IMapper mapper)
         {
             _repo = repo;
             _swh = sWH;
+            _vwh = vWH;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<SubWearhouse>>> GetSubWearhouse()
+        public async Task<ActionResult<List<ViewWearhouseItemDTO>>> GetSubWearhouse()
         {
 
-            var subwearhouses = await _swh.GetAllSubWearHouse();
+            var subwearhouse = await _vwh.GetAllSubWearHouse();
 
-
-            var subwearhouseDtos = _mapper.Map<List<SubWearHouseDTO>>(subwearhouses);
+            var vmhiDtos = _mapper.Map<List<ViewWearhouseItemDTO>>(subwearhouse);
 
             // Return the list of DTOs
-            return Ok(subwearhouseDtos);
+            return Ok(vmhiDtos);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<SubWearHouseDTO?>> GetSubWearhouseById(int id)
+        public async Task<ActionResult<ViewWearhouseItemDTO  ?>> GetSubWearhouseById(int id)
         {
 
-            var subwearhouse = await _swh.GetSubWearHouseById(id);
+            var subwearhouse = await _vwh.GetSubWearHouseById(id);
 
 
             if (subwearhouse == null)
@@ -50,7 +52,7 @@ namespace API.Controller
             }
 
             // Map the entity to a DTO and return it
-            return Ok(_mapper.Map<SubWearHouseDTO>(subwearhouse));
+            return Ok(_mapper.Map<ViewWearhouseItemDTO>(subwearhouse));
         }
 
         [HttpPost]
