@@ -40,7 +40,7 @@ namespace API.Controller
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ViewWearhouseItemDTO  ?>> GetSubWearhouseById(int id)
+        public async Task<ActionResult<ViewWearhouseItemDTO?>> GetSubWearhouseById(int id)
         {
 
             var subwearhouse = await _vwh.GetSubWearHouseById(id);
@@ -53,6 +53,23 @@ namespace API.Controller
 
             // Map the entity to a DTO and return it
             return Ok(_mapper.Map<ViewWearhouseItemDTO>(subwearhouse));
+
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ViewWearhouseItemDTO?>> GetSubWearhouseByMainId(int id)
+        {
+
+            var subwearhouse = await _vwh.GetAllSubByMainId(id);
+
+
+            if (subwearhouse == null)
+            {
+                return NotFound("SubWearhouse not found or has been deleted.");
+            }
+
+            // Map the entity to a DTO and return it
+            return Ok(_mapper.Map<List<ViewWearhouseItemDTO>>(subwearhouse));
         }
 
         [HttpPost]

@@ -10,6 +10,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { WearhouseModule } from './wearhouse/wearhouse.module';
 import { HttpClientModule } from '@angular/common/http';
 import {MatCardModule} from '@angular/material/card';
+import { HomepageModule } from './homepage/homepage.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,6 +23,7 @@ import {MatCardModule} from '@angular/material/card';
     HttpClientModule,
     CoreModule,
     WearhouseModule,
+    HomepageModule,
     MatInputModule,
     BsDropdownModule.forRoot(),
     MatCardModule,

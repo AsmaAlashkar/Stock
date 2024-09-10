@@ -24,12 +24,13 @@ namespace Repository.VMainWearhouseItem
                 .Select(g => g.First())          // Select the first item from each group
                 .ToListAsync();
         }
-        public async Task<ViewWearhouseItem?> GetMainWearHouseById(int id)
+        public async Task<List<ViewWearhouseItem>> GetMainWearHouseById(int mainId)
         {
             return await _context.ViewWearhouseItems
-                .Where(mw => mw.Md == false || mw.Md == null)
-                .FirstOrDefaultAsync(mw => mw.MainId == id);
+                .Where(mw => mw.MainId == mainId && (mw.Md == false || mw.Md == null))
+                .ToListAsync();
         }
+      
 
         public async Task<List<ViewWearhouseItem>> GetAllSubWearHouse()
         {
@@ -45,5 +46,11 @@ namespace Repository.VMainWearhouseItem
                 .FirstOrDefaultAsync(sw => sw.SubId == id);
         }
 
+        public async Task<List<ViewWearhouseItem>> GetAllSubByMainId(int mainId)
+        {
+            return await _context.ViewWearhouseItems
+                .Where(sw => sw.MainId == mainId && (sw.Sd == false || sw.Sd == null))
+                .ToListAsync();
+        }
     }
 }

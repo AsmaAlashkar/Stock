@@ -52,7 +52,7 @@ namespace API.Controller
             }
 
             // Map the entity to a DTO and return it
-            return Ok(_mapper.Map<ViewWearhouseItemDTO>(mainwearhouse));
+            return Ok(_mapper.Map< List<ViewWearhouseItemDTO>>(mainwearhouse));
         }
 
         [HttpPost]
