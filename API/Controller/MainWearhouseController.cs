@@ -71,7 +71,7 @@ namespace API.Controller
 
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult> UpdateMainWearHouse(int id, [FromForm] MainWearhouseDTO mainWearhouseDTO)
+        public async Task<ActionResult> UpdateMainWearHouse(int id, [FromBody] MainWearhouseDTO mainWearhouseDTO)
         {
             try
             {

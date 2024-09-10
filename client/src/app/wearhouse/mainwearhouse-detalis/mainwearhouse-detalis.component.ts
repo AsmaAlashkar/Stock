@@ -69,12 +69,23 @@ export class MainwearhouseDetalisComponent {
   onSubmit() {
     if (this.wearhouseForm.valid) {
       const updatedWearhouse = this.wearhouseForm.value;
-      console.log("Form Submitted", updatedWearhouse);
-
-      // You can send the updatedWearhouse object to the backend for processing
-      // For example, you can create a method in WearhouseService to update wearhouse data
+      const mainID = this.activeRoute.snapshot.paramMap.get('id');
+      if (mainID) {
+        const numericItemID = +mainID;
+        this.mainwearService.updateMainWearhouse(numericItemID, updatedWearhouse).subscribe(
+          response => {
+            console.log('Update successful:', response);
+            // Handle success
+          },
+          error => {
+            console.log('Update error:', error);
+            // Handle error
+          }
+        );
+      }
     }
   }
+  
 
 
   getDayAndMonth(dateString: string): { dayOfWeek: string, monthName: string } {
