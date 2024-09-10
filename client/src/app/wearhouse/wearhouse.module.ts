@@ -7,6 +7,7 @@ import { SubwearhouseComponent } from './subwearhouse/subwearhouse.component';
 import { RouterModule } from '@angular/router';
 import { MainwearhouseDetalisComponent } from './mainwearhouse-detalis/mainwearhouse-detalis.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -21,7 +22,13 @@ import { ReactiveFormsModule } from '@angular/forms';
     BsDropdownModule.forRoot(),
     MatCardModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot({
+      timeOut: 3000, // Set the duration in milliseconds
+      positionClass: 'toast-bottom-right', // Set the position
+      preventDuplicates: false, // Prevent duplicate messages
+      
+    }),
     
   ],
   exports:[MainwearhouseComponent,SubwearhouseComponent]

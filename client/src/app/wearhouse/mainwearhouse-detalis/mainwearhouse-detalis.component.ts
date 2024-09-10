@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { IViewWearhouseItem } from 'src/app/shared/models/IViewWearhouseItem';
 import { WearhouseService } from '../wearhouse.service';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-mainwearhouse-detalis',
@@ -16,7 +17,8 @@ export class MainwearhouseDetalisComponent {
   constructor(
     private mainwearService: WearhouseService, 
     private activeRoute: ActivatedRoute, 
-    private fb: FormBuilder  
+    private fb: FormBuilder  ,
+    private toastr: ToastrService,
   ) {}
 
   ngOnInit() {
@@ -74,7 +76,7 @@ export class MainwearhouseDetalisComponent {
         const numericItemID = +mainID;
         this.mainwearService.updateMainWearhouse(numericItemID, updatedWearhouse).subscribe(
           response => {
-            console.log('Update successful:', response);
+            this.toastr.success('Update Main WareHouse Successfully')
             // Handle success
           },
           error => {

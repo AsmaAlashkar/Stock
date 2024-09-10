@@ -11,6 +11,8 @@ import { WearhouseModule } from './wearhouse/wearhouse.module';
 import { HttpClientModule } from '@angular/common/http';
 import {MatCardModule} from '@angular/material/card';
 import { HomepageModule } from './homepage/homepage.module';
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +29,12 @@ import { HomepageModule } from './homepage/homepage.module';
     MatInputModule,
     BsDropdownModule.forRoot(),
     MatCardModule,
-
+    ToastrModule.forRoot({
+      timeOut: 3000, // Set the duration in milliseconds
+      positionClass: 'toast-bottom-right', // Set the position
+      preventDuplicates: false, // Prevent duplicate messages
+      
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
