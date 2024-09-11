@@ -12,6 +12,8 @@ namespace Standard.DTOs
 
         public int MainFk { get; set; }
 
+        public int? ParentSubWearhouseId { get; set; }
+
         public string SubName { get; set; } = null!;
 
         public string? SubDescription { get; set; }

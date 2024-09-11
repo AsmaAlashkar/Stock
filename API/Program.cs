@@ -5,10 +5,12 @@ using Repository;
 using Repository.MainWearHouse;
 using Repository.SubWearHouse;
 using Repository.VMainWearhouseItem;
+using Repository.VWearhouseWithSubHierarchy;
 using Standard.Entities;
 using Standard.Mapping.mainwearhouseProf;
 using Standard.Mapping.SubwearhouseProf;
 using Standard.Mapping.ViewWearHItemProf;
+using Standard.Mapping.ViewWearhouseWithSubHierarchyProf;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,6 +27,8 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 builder.Services.AddScoped<IMWHRepository, MWHRepository>();
 builder.Services.AddScoped<ISWHRepository, SWHRepository>();
 builder.Services.AddScoped<IVWHIRepository, VWHIRepository>();
+builder.Services.AddScoped<IVWHIWHRepository,VWHIWHRepository >();
+
 
 
 //Mapping
@@ -32,7 +36,8 @@ builder.Services.AddAutoMapper(
 
     typeof(MainWearhouseProfile),
     typeof(SubWearhouseProfile),
-    typeof(ViewWearHItemProfile)
+    typeof(ViewWearHItemProfile),
+    typeof(ViewWearhouseWithSubHierarchyProfile)
 
     );
 

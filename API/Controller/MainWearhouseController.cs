@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Repository;
 using Repository.MainWearHouse;
 using Repository.VMainWearhouseItem;
+using Repository.VWearhouseWithSubHierarchy;
 using Standard.DTOs;
 using Standard.Entities;
 
@@ -17,33 +18,37 @@ namespace API.Controller
         private readonly IGenericRepository<MainWearhouse> _repo;
         private readonly IMWHRepository _mwh;
         private readonly IVWHIRepository _vwh;
+        private readonly IVWHIWHRepository _vwhw;
         private readonly IMapper _mapper;
         public MainWearhouseController(IGenericRepository<MainWearhouse> repo,
-            IMWHRepository mWH, IVWHIRepository vWH, IMapper mapper)
+            IMWHRepository mWH, IVWHIRepository vWH,
+            IVWHIWHRepository vwhw,
+            IMapper mapper)
         { 
             _repo = repo;
             _mapper = mapper;
             _mwh = mWH;
             _vwh = vWH;
+            _vwhw = vwhw;
         }
 
         [HttpGet]  
-        public async Task<ActionResult<List<ViewWearhouseItemDTO>>> GetMainWearhouse()
+        public async Task<ActionResult<List<ViewWearhouseWithSubHierarchyDTO>>> GetMainWearhouse()
         {
 
-            var vwhi = await _vwh.GetAllMainWearHouse();
+            var vwhi = await _vwhw.GetAllMainWearHouse();
 
-            var vmhiDtos = _mapper.Map<List<ViewWearhouseItemDTO>>(vwhi);
+            var vmhiDtos = _mapper.Map<List<ViewWearhouseWithSubHierarchyDTO>>(vwhi);
 
             // Return the list of DTOs
             return Ok(vmhiDtos);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ViewWearhouseItemDTO?>> GetMainWearhouseById(int id)
+        public async Task<ActionResult<ViewWearhouseWithSubHierarchyDTO?>> GetMainWearhouseById(int id)
         {
 
-            var mainwearhouse = await _vwh.GetMainWearHouseById(id);
+            var mainwearhouse = await _vwhw.GetMainWearHouseById(id);
 
 
             if (mainwearhouse == null)
@@ -52,7 +57,7 @@ namespace API.Controller
             }
 
             // Map the entity to a DTO and return it
-            return Ok(_mapper.Map< List<ViewWearhouseItemDTO>>(mainwearhouse));
+            return Ok(_mapper.Map< List<ViewWearhouseWithSubHierarchyDTO>>(mainwearhouse));
         }
 
         [HttpPost]
@@ -66,7 +71,6 @@ namespace API.Controller
 
             await _repo.CreateNew(mwh);
             return Ok("MainWearHouse Created Successfully");
-
         }
 
 

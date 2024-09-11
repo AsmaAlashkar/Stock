@@ -30,14 +30,6 @@ export class SubwearhouseComponent {
       );
     }
   }
-  // loadsubwearhouses (Id: number){
-  //   this.mainwearService.getSubWearhouseByMainId(Id).subscribe(
-  //     product =>{
-  //       this.subwearhouses = product;
-  //     },error =>{
-  //       console.log(error)
-  //     }
-  //   )
-  //   }
+  
 }
 

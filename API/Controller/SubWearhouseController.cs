@@ -7,6 +7,7 @@ using Standard.Entities;
 using Repository.SubWearHouse;
 using Standard.DTOs;
 using Repository.VMainWearhouseItem;
+using Repository.VWearhouseWithSubHierarchy;
 
 namespace API.Controller
 {
@@ -17,33 +18,37 @@ namespace API.Controller
         private readonly IGenericRepository<SubWearhouse> _repo;
         private readonly ISWHRepository _swh;
         private readonly IVWHIRepository _vwh;
+        private readonly IVWHIWHRepository _vwhw;
         private readonly IMapper _mapper;
         public SubWearhouseController(IGenericRepository<SubWearhouse> repo,
-            ISWHRepository sWH, IVWHIRepository vWH, IMapper mapper)
+            ISWHRepository sWH, IVWHIRepository vWH,
+             IVWHIWHRepository vwhw
+            , IMapper mapper)
         {
             _repo = repo;
             _swh = sWH;
             _vwh = vWH;
+            _vwhw = vwhw;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ViewWearhouseItemDTO>>> GetSubWearhouse()
+        public async Task<ActionResult<List<ViewWearhouseWithSubHierarchyDTO>>> GetSubWearhouse()
         {
 
-            var subwearhouse = await _vwh.GetAllSubWearHouse();
+            var subwearhouse = await _vwhw.GetAllSubWearHouse();
 
-            var vmhiDtos = _mapper.Map<List<ViewWearhouseItemDTO>>(subwearhouse);
+            var vmhiDtos = _mapper.Map<List<ViewWearhouseWithSubHierarchyDTO>>(subwearhouse);
 
             // Return the list of DTOs
             return Ok(vmhiDtos);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ViewWearhouseItemDTO?>> GetSubWearhouseById(int id)
+        public async Task<ActionResult<ViewWearhouseWithSubHierarchyDTO?>> GetSubWearhouseById(int id)
         {
 
-            var subwearhouse = await _vwh.GetSubWearHouseById(id);
+            var subwearhouse = await _vwhw.GetSubWearHouseById(id);
 
 
             if (subwearhouse == null)
@@ -52,15 +57,15 @@ namespace API.Controller
             }
 
             // Map the entity to a DTO and return it
-            return Ok(_mapper.Map<ViewWearhouseItemDTO>(subwearhouse));
+            return Ok(_mapper.Map<ViewWearhouseWithSubHierarchyDTO>(subwearhouse));
 
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ViewWearhouseItemDTO?>> GetSubWearhouseByMainId(int id)
+        public async Task<ActionResult<ViewWearhouseWithSubHierarchyDTO?>> GetSubWearhouseByMainId(int id)
         {
 
-            var subwearhouse = await _vwh.GetAllSubByMainId(id);
+            var subwearhouse = await _vwhw.GetAllSubByMainId(id);
 
 
             if (subwearhouse == null)
@@ -69,7 +74,7 @@ namespace API.Controller
             }
 
             // Map the entity to a DTO and return it
-            return Ok(_mapper.Map<List<ViewWearhouseItemDTO>>(subwearhouse));
+            return Ok(_mapper.Map<List<ViewWearhouseWithSubHierarchyDTO>>(subwearhouse));
         }
 
         [HttpPost]
@@ -113,6 +118,11 @@ namespace API.Controller
                 if (!string.IsNullOrEmpty(subWearhouseDTO.SubDescription))
                 {
                     existingItem.SubDescription = subWearhouseDTO.SubDescription;
+                }
+
+                if (!string.IsNullOrEmpty(subWearhouseDTO.SubAddress))
+                {
+                    existingItem.SubAddress = subWearhouseDTO.SubAddress;
                 }
 
                 if (!string.IsNullOrEmpty(subWearhouseDTO.SubAddress))

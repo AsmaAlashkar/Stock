@@ -9,6 +9,8 @@ public partial class SubWearhouse
 
     public int MainFk { get; set; }
 
+    public int? ParentSubWearhouseId { get; set; }
+
     public string SubName { get; set; } = null!;
 
     public string? SubDescription { get; set; }
@@ -21,7 +23,11 @@ public partial class SubWearhouse
 
     public bool? Delet { get; set; }
 
+    public virtual ICollection<SubWearhouse> InverseParentSubWearhouse { get; set; } = new List<SubWearhouse>();
+
     public virtual ICollection<Item> Items { get; set; } = new List<Item>();
 
     public virtual MainWearhouse MainFkNavigation { get; set; } = null!;
+
+    public virtual SubWearhouse? ParentSubWearhouse { get; set; }
 }
