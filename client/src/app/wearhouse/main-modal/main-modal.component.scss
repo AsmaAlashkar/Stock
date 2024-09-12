@@ -1,0 +1,59 @@
+/* Custom modal form styles */
+.custom-modal-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    background: #fff; /* Background color for the modal */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  }
+  
+  .custom-modal-form .p-field {
+    margin-bottom: 16px;
+  }
+  
+  .custom-modal-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333; /* Text color for labels */
+  }
+  
+  .custom-modal-form input, 
+  .custom-modal-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .custom-modal-form textarea {
+    resize: vertical; /* Allow vertical resizing of textarea */
+    min-height: 100px;
+  }
+  
+  .custom-modal-form p-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+  }
+  
+  .custom-modal-form button {
+    margin-left: 8px;
+  }
+  
+  .custom-modal-form button.p-button {
+    padding: 8px 16px;
+  }
+  
+  .custom-modal-form button.p-button-secondary {
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    color: #333;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 5px;
+  }

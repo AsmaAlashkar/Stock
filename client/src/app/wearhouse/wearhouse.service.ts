@@ -22,10 +22,10 @@ export class WearhouseService {
     return this.http.get<IViewWearhouseItem[]>(this.baseUrl + 'SubWearhouse/GetSubWearhouseByMainId/' + mainId);
   }
   
-  // Create a new main warehouse
-  createMainWearhouse(mainwearhouse: IMainWearhouse): Observable<any> {
-    return this.http.post(this.baseUrl + 'MainWearhouse/CreateNewMainWearhouse', mainwearhouse);
-  }
+ // Create a new main warehouse
+ createNewMainWearhouse(mainwearhouse: IMainWearhouse): Observable<any> {
+  return this.http.post(this.baseUrl + 'MainWearhouse/CreateNewMainWearhouse', mainwearhouse, { responseType: 'text' });
+}
 
   // Update an existing main warehouse
   updateMainWearhouse(id: number, mainwearhouse: IMainWearhouse): Observable<any> {

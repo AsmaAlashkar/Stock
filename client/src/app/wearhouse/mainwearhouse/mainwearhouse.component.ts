@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IMainWearhouse } from 'src/app/shared/models/wearhouse';
 import { WearhouseService } from '../wearhouse.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { MainModalComponent } from '../main-modal/main-modal.component';
 
 @Component({
   selector: 'app-mainwearhouse',
@@ -8,17 +10,31 @@ import { WearhouseService } from '../wearhouse.service';
   styleUrls: ['./mainwearhouse.component.scss']
 })
 export class MainwearhouseComponent {
-mhouses! : IMainWearhouse[];
+  mhouses!: IMainWearhouse[];
 
-constructor(private mainwearService : WearhouseService){}
+  constructor(private mainwearService: WearhouseService, 
+              private dialogService: DialogService) {}
 
-ngOnInit(): void {
-  this.mainwearService.getmainwearhouse().subscribe(
-    (data: IMainWearhouse[]) => {
-      this.mhouses = data;
-    },error => {console.log(error)}
-    
-  );
-}
+  ngOnInit(): void {
+    this.loadhouses();
+  }
 
+  loadhouses() {
+    this.mainwearService.getmainwearhouse().subscribe(
+      (data: IMainWearhouse[]) => {
+        this.mhouses = data;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  openCreateWarehouseModal() {
+    this.dialogService.open(MainModalComponent, {
+      header: 'Create New Main Warehouse',
+      width: '70%',
+      contentStyle: { 'max-height': '80vh', overflow: 'auto' }
+    });
+  }
 }

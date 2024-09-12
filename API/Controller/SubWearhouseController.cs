@@ -140,7 +140,7 @@ namespace API.Controller
                 await _repo.Update(existingItem);
 
                 return Ok("SubWearHouse updated successfully");
-            }
+            } 
             catch (Exception ex)
             {
                 // Log the exception or handle it accordingly

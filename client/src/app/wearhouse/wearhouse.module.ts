@@ -8,6 +8,10 @@ import { RouterModule } from '@angular/router';
 import { MainwearhouseDetalisComponent } from './mainwearhouse-detalis/mainwearhouse-detalis.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { MainModalComponent } from './main-modal/main-modal.component';
+import { DialogModule } from 'primeng/dialog';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ButtonModule } from 'primeng/button';
 
 
 
@@ -15,7 +19,8 @@ import { ToastrModule } from 'ngx-toastr';
   declarations: [
     MainwearhouseComponent,
     SubwearhouseComponent,
-    MainwearhouseDetalisComponent
+    MainwearhouseDetalisComponent,
+    MainModalComponent
   ],
   imports: [
     CommonModule,
@@ -29,8 +34,13 @@ import { ToastrModule } from 'ngx-toastr';
       preventDuplicates: false, // Prevent duplicate messages
       
     }),
+    DialogModule,
+    DynamicDialogModule,
+    ButtonModule,
+
+    
     
   ],
-  exports:[MainwearhouseComponent,SubwearhouseComponent]
+  exports:[MainwearhouseComponent,SubwearhouseComponent,MainModalComponent]
 })
 export class WearhouseModule { }

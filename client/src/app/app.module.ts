@@ -12,6 +12,10 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatCardModule} from '@angular/material/card';
 import { HomepageModule } from './homepage/homepage.module';
 import { ToastrModule } from 'ngx-toastr';
+import { DialogModule } from 'primeng/dialog';  // PrimeNG Dialog module
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
+import { ButtonModule } from 'primeng/button';  // Ensure ButtonModule is also imported if needed
+
 
 @NgModule({
   declarations: [
@@ -35,8 +39,12 @@ import { ToastrModule } from 'ngx-toastr';
       preventDuplicates: false, // Prevent duplicate messages
       
     }),
+    DialogModule,
+    DynamicDialogModule,
+    ButtonModule,  // Import ButtonModule if using PrimeNG buttons
+
   ],
-  providers: [],
+  providers: [DialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

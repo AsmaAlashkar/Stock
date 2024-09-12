@@ -6,4 +6,4 @@ export interface IMainWearhouse {
     mainCreatedat: string
     mainUpdatedat: string
     delet: boolean
-  }
+  } 

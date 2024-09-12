@@ -1,0 +1,24 @@
+<form [formGroup]="MainWearhouseForm" (ngSubmit)="save()" class="custom-modal-form">
+    <div class="p-field">
+        <label for="mainName">
+            Warehouse Name <span class="required-star" style="color: red;">*</span>
+          </label>
+        <input id="mainName" type="text" pInputText formControlName="mainName" />
+        <div *ngIf="MainWearhouseForm.get('mainName')?.touched && MainWearhouseForm.get('mainName')?.hasError('required')" class="error-message">
+          Warehouse Name is required.
+        </div>
+      </div>
+    <div class="p-field">
+      <label for="mainDescription">Description</label>
+      <textarea id="mainDescription" pInputTextarea formControlName="mainDescription"></textarea>
+    </div>
+    <div class="p-field">
+      <label for="mainAdderess">Address</label>
+      <input id="mainAdderess" type="text" pInputText formControlName="mainAdderess" />
+    </div>
+   
+    <p-footer>
+      <button type="submit" pButton icon="pi pi-check">Save</button>
+      <!-- <button type="button" pButton icon="pi pi-times" (click)="hide()" class="p-button-secondary">Cancel</button> -->
+    </p-footer>
+</form>
