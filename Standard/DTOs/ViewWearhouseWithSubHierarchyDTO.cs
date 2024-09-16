@@ -47,5 +47,7 @@ namespace Standard.DTOs
         public bool? Sd { get; set; }
 
         public bool? Id { get; set; }
+        // Recursive structure for child sub-warehouses
+        public List<ViewWearhouseWithSubHierarchyDTO> Children { get; set; }
     }
 }

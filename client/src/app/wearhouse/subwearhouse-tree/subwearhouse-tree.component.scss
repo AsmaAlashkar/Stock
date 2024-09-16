@@ -1,0 +1,73 @@
+.wearhouse-tree {
+    list-style-type: none;
+    padding-left: 0;
+  
+    li {
+      margin-bottom: 16px; /* Space between items */
+      position: relative;
+  
+      /* Nested list styling */
+      .children-list {
+        list-style-type: none;
+        padding-left: 20px;
+        margin-top: 10px;
+        border-left: 2px solid #007bff; /* Optional: Visual hierarchy */
+      }
+    }
+  
+    .wearhouse-item {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 16px;
+      width: 100%;
+  
+      .mat-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  
+        &:hover {
+          transform: scale(1.05);
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+  
+        .mat-card-header {
+          background-color: #f8f9fa;
+        }
+  
+        .mat-card-actions {
+          display: flex;
+          justify-content: space-between;
+        }
+  
+        .btn {
+          margin: 5px;
+          width: 100%;
+          height: 40px;
+          transition: background-color 0.3s ease, color 0.3s ease;
+  
+          &.btn-outline-warning-sm {
+            border-color: #ff9900;
+            color: #ff9900;
+  
+            &:hover {
+              background-color: #ff9900;
+              color: white;
+            }
+          }
+  
+          &.btn-sm {
+            background-color: transparent;
+            border: 2px solid #007bff;
+            color: #007bff;
+  
+            &:hover {
+              background-color: #007bff;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+  

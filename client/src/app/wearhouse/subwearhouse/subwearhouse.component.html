@@ -1,54 +1,40 @@
 <div class="container-fluid">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb p-3 bg-body-tertiary rounded-3" *ngIf="subwearhouses">
-          <li class="breadcrumb-item">
-            <a [routerLink]="['/mainwearhouse']">{{'MainWearHouse'}}</a>
-          </li>
-          <li class="breadcrumb-item active" aria-current="page">
-            <a  style="font-size: larger;">
-              {{ subwearhouses[0].mainName }}
-            </a>
-            
-          </li>
-        </ol>
-      </nav>
-    <div class="row">
-        <section class="col-12 col-md-3 mb-4"></section>
-        <section class="col-12 col-md-9">
-            <div class="d-flex justify-content-between align-items-center pb-2 flex-wrap">
-                <header>
-                    <span>Showing<strong> {{subwearhouses.length}}</strong> Results</span>
-                </header>
-                <div class="form-inline mt-2 d-flex w-100 w-md-auto">
-                    <input class="form-control my-2 me-3 w-100" style="flex: 2;" placeholder="search" type="text">
-                    <button class="btn btn-outline-primary my-2 me-3" style="flex: 0.5;">Search</button>
-                    <button class="btn btn-outline-success my-2" style="flex: 0.5;">Reset</button>
-                </div>
-                <header class="text-center w-100 py-2">
-                    <span><strong>Subwear Houses</strong> of {{ subwearhouses[0].mainName }}</span>
-                </header>
-            </div>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb p-3 bg-body-tertiary rounded-3" *ngIf="subwearhouses.length">
+      <li class="breadcrumb-item">
+        <a [routerLink]="['/mainwearhouse']">{{'MainWearHouse'}}</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <a style="font-size: larger;">
+          {{ subwearhouses[0].mainName }}
+        </a>
+      </li>
+    </ol>
+  </nav>
 
-            <div class="cards-container">
-                <div class="col-md-3 mb-4" *ngFor="let subhous of subwearhouses">
+  <div class="row">
+    <section class="col-12 col-md-3 mb-4"></section>
+    <section class="col-12 col-md-9">
+      <div class="d-flex justify-content-between align-items-center pb-2 flex-wrap">
+        <header>
+          <span>Showing<strong> {{subwearhouses.length}}</strong> Results</span>
+        </header>
+        <div class="form-inline mt-2 d-flex w-100 w-md-auto">
+          <input class="form-control my-2 me-3 w-100" style="flex: 2;" placeholder="search" type="text">
+          <button class="btn btn-outline-primary my-2 me-3" style="flex: 0.5;">Search</button>
+          <button class="btn btn-outline-success my-2" style="flex: 0.5;">Reset</button>
+        </div>
+        <header class="text-center w-100 py-2">
+          <span><strong>Subwear Houses</strong> of {{ subwearhouses[0].mainName }}</span>
+        </header>
+      </div>
 
-                    <mat-card class="example-card" appearance="outlined">
-                        <mat-card-header>
-                            <mat-card-title>{{subhous.subName}}</mat-card-title>
-                            <mat-card-subtitle>{{subhous.subAddress}}</mat-card-subtitle>
-                        </mat-card-header>
-                        <img mat-card-image src="/assets/images/wearhouse.png" alt="Photo of a Shiba Inu">
-                        <mat-card-content>
-                            <p>{{subhous.mainDescription}}</p>
-                        </mat-card-content>
-                        <mat-card-actions>
-                            <button routerLink="" class="button btn btn-outline-warning-sm  mb-2" mat-button>View</button>
-                            <button routerLink="" class="button btn btn-sm  mb-2" mat-button>Details</button>
-                        </mat-card-actions>
-                    </mat-card>
-
-                </div>
-            </div>
-        </section>
-</div>
+      <!-- Render hierarchical structure -->
+      <div class="cards-container">
+        <ul>
+          <app-subwearhouse-tree [subWearhouses]="structuredWearhouses"></app-subwearhouse-tree>
+        </ul>
+      </div>
+    </section>
+  </div>
 </div>

@@ -19,4 +19,5 @@ export interface IViewWearhouseItem {
   md: boolean
   sd: any
   id: any
+  children?: IViewWearhouseItem[];  // Recursive structure for sub-warehouses
   }

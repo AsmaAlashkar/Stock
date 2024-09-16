@@ -1,0 +1,26 @@
+<ul class="wearhouse-tree">
+    <li *ngFor="let wearhouse of subWearhouses">
+      <div class="wearhouse-item card">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title><strong>Main Name :</strong>{{ wearhouse.mainName }}</mat-card-title>
+            <mat-card-title><strong>Name :</strong> {{ wearhouse.subName }}</mat-card-title>
+            <mat-card-subtitle><strong>Sub Address :</strong> {{ wearhouse.subAddress }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p><strong>Description</strong> {{ wearhouse.subDescription }}.</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button class="btn btn-outline-warning-sm" mat-button>View</button>
+            <button routerLink="/mainwearhouse/{{wearhouse.mainId}}" class="button btn btn-sm mb-2" mat-button>Details</button>
+        </mat-card-actions>
+        </mat-card>
+      </div>
+  
+      <!-- Only show nested list if children exist -->
+      <ul *ngIf="wearhouse.children && wearhouse.children.length > 0" class="children-list">
+        <app-subwearhouse-tree [subWearhouses]="wearhouse.children"></app-subwearhouse-tree>
+      </ul>
+    </li>
+  </ul>
+  

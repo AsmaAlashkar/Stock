@@ -12,6 +12,7 @@ import { MainModalComponent } from './main-modal/main-modal.component';
 import { DialogModule } from 'primeng/dialog';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ButtonModule } from 'primeng/button';
+import { SubwearhouseTreeComponent } from './subwearhouse-tree/subwearhouse-tree.component';
 
 
 
@@ -20,7 +21,8 @@ import { ButtonModule } from 'primeng/button';
     MainwearhouseComponent,
     SubwearhouseComponent,
     MainwearhouseDetalisComponent,
-    MainModalComponent
+    MainModalComponent,
+    SubwearhouseTreeComponent
   ],
   imports: [
     CommonModule,
@@ -41,6 +43,6 @@ import { ButtonModule } from 'primeng/button';
     
     
   ],
-  exports:[MainwearhouseComponent,SubwearhouseComponent,MainModalComponent]
+  exports:[MainwearhouseComponent,SubwearhouseComponent,MainModalComponent,SubwearhouseComponent]
 })
 export class WearhouseModule { }
