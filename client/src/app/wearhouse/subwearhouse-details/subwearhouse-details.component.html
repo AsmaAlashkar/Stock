@@ -1,0 +1,56 @@
+<div *ngIf="subwearhouse && subwearhouse.length > 0">
+  <div class="container-fluid">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a (click)="goBack()" style="cursor: pointer; color: #007bff;">SubWearHouse</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page" style="color: #6c757d;">
+          test6
+        </li>
+      </ol>
+    </nav>
+
+    <section class="mainwearhouse-details">
+      <h3>{{ subwearhouse[0].mainName }}</h3>
+      <div class="wearhouse-info">
+        <div class="wearhouse-section">
+          <h4>Sub Warhouse Details</h4>
+
+          <!-- Form to update wearhouse details -->
+          <form [formGroup]="wearhouseForm">
+            <div class="form-group">
+              <label for="subName"><strong>Name of WearHouse:</strong></label>
+              <input type="text" id="subName" class="form-control" formControlName="subName" />
+            </div>
+
+           
+
+            <div class="form-group">
+              <label for="subDescription"><strong>Description:</strong></label>
+              <input type="text" id="subDescription" class="form-control" formControlName="subDescription" />
+            </div>
+
+            <div class="form-group">
+              <label for="subAddress"><strong>Address:</strong></label>
+              <input type="text" id="subAddress" class="form-control" formControlName="subAddress" />
+            </div>
+           
+            <div class="form-group">
+              <p><strong>CreatedAT:</strong> {{ subwearhouse[0].subCreatedat | date: 'yyyy-MM-dd' }}
+              </p>
+
+            </div>
+
+            <div class="form-group">
+              <p><strong>UpdatedAT:</strong> {{ subwearhouse[0].subUpdatedat | date: 'yyyy-MM-dd' }}</p>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
