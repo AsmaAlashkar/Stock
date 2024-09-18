@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IViewWearhouseItem } from 'src/app/shared/models/IViewWearhouseItem';
 import { WearhouseService } from '../wearhouse.service';
+import { DialogService } from 'primeng/dynamicdialog';
+import { CreatesubModalComponent } from '../createsub-modal/createsub-modal.component';
 
 @Component({
   selector: 'app-subwearhouse',
@@ -12,7 +14,9 @@ export class SubwearhouseComponent implements OnInit {
   subwearhouses: IViewWearhouseItem[] = [];
   structuredWearhouses: IViewWearhouseItem[] = []; // Structured version for hierarchical display
 
-  constructor(private mainwearService: WearhouseService, private activeRoute: ActivatedRoute) {}
+  constructor(private mainwearService: WearhouseService, private activeRoute: ActivatedRoute,
+    private dialogService: DialogService
+  ) {}
 
   ngOnInit() {
     this.loadsubwearhouses();
@@ -64,6 +68,12 @@ export class SubwearhouseComponent implements OnInit {
     });
 }
 
-
+openCreateSubWarehouseModal() {
+  this.dialogService.open(CreatesubModalComponent, {
+    header: 'Create New Sub Warehouse',
+    width: '70%',
+    contentStyle: { 'max-height': '80vh', overflow: 'auto' }
+  });
+}
 
 }

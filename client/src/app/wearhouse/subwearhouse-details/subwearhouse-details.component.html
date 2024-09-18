@@ -1,30 +1,34 @@
-<div *ngIf="subwearhouse && subwearhouse.length > 0">
+<div *ngIf="subwearhouse">
   <div class="container-fluid">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
-          <a (click)="goBack()" style="cursor: pointer; color: #007bff;">SubWearHouse</a>
+          <a (click)="goBack()" style="cursor: pointer; color: #007bff;">Sub Warehouse</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page" style="color: #6c757d;">
-          test6
+          {{ subwearhouse.subName }}
         </li>
       </ol>
     </nav>
 
-    <section class="mainwearhouse-details">
-      <h3>{{ subwearhouse[0].mainName }}</h3>
+    <section class="subwearhouse-details">
+      <h3>{{ subwearhouse.mainName }}</h3>
       <div class="wearhouse-info">
         <div class="wearhouse-section">
-          <h4>Sub Warhouse Details</h4>
+          <h4>Sub Warehouse Details</h4>
 
-          <!-- Form to update wearhouse details -->
-          <form [formGroup]="wearhouseForm">
+          <!-- Form to update warehouse details -->
+          <form [formGroup]="wearhouseForm" (ngSubmit)="onSubmit()"> 
             <div class="form-group">
-              <label for="subName"><strong>Name of WearHouse:</strong></label>
+              <label for="subName">
+                <strong>Name of Warehouse:</strong>
+                <span class="text-danger">*</span>
+              </label>
               <input type="text" id="subName" class="form-control" formControlName="subName" />
+              <div *ngIf="wearhouseForm.get('subName')?.invalid && (wearhouseForm.get('subName')?.dirty || wearhouseForm.get('subName')?.touched)" class="text-danger">
+                <small *ngIf="wearhouseForm.get('subName')?.errors?.['required']">Name is required.</small>
+              </div>
             </div>
-
-           
 
             <div class="form-group">
               <label for="subDescription"><strong>Description:</strong></label>
@@ -35,15 +39,12 @@
               <label for="subAddress"><strong>Address:</strong></label>
               <input type="text" id="subAddress" class="form-control" formControlName="subAddress" />
             </div>
-           
             <div class="form-group">
-              <p><strong>CreatedAT:</strong> {{ subwearhouse[0].subCreatedat | date: 'yyyy-MM-dd' }}
-              </p>
-
+              <p><strong>Created AT:</strong> {{ subwearhouse.subCreatedat | date: 'yyyy-MM-dd' }}</p>
             </div>
 
             <div class="form-group">
-              <p><strong>UpdatedAT:</strong> {{ subwearhouse[0].subUpdatedat | date: 'yyyy-MM-dd' }}</p>
+              <p><strong>Updated AT:</strong> {{ subwearhouse.subUpdatedat | date: 'yyyy-MM-dd' }}</p>
             </div>
 
             <button type="submit" class="btn btn-primary">Save Changes</button>
@@ -53,4 +54,3 @@
     </section>
   </div>
 </div>
-

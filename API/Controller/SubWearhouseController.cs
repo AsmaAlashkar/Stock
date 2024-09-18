@@ -93,7 +93,7 @@ namespace API.Controller
 
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult> UpdateSubWearHouse(int id, [FromForm] SubWearHouseDTO subWearhouseDTO)
+        public async Task<ActionResult> UpdateSubWearHouse(int id, [FromBody] SubWearHouseDTO subWearHouseDTO)
         {
             try
             {
@@ -103,34 +103,25 @@ namespace API.Controller
                 {
                     return NotFound($"SubWearHouse with ID {id} not found");
                 }
-                // Check if the Delet field is true and return NotFound
-                if (subWearhouseDTO.Delet == true)
-                {
-                    return NotFound($"MainWearHouse with ID {id} not found");
-                }
+              
 
                 // Update only the fields that are provided in the DTO
-                if (!string.IsNullOrEmpty(subWearhouseDTO.SubName))
+                if (!string.IsNullOrEmpty(subWearHouseDTO.SubName))
                 {
-                    existingItem.SubName = subWearhouseDTO.SubName;
+                    existingItem.SubName = subWearHouseDTO.SubName;
                 }
 
-                if (!string.IsNullOrEmpty(subWearhouseDTO.SubDescription))
+                if (!string.IsNullOrEmpty(subWearHouseDTO.SubDescription))
                 {
-                    existingItem.SubDescription = subWearhouseDTO.SubDescription;
+                    existingItem.SubDescription = subWearHouseDTO.SubDescription;
                 }
 
-                if (!string.IsNullOrEmpty(subWearhouseDTO.SubAddress))
+                if (!string.IsNullOrEmpty(subWearHouseDTO.SubAddress))
                 {
-                    existingItem.SubAddress = subWearhouseDTO.SubAddress;
+                    existingItem.SubAddress = subWearHouseDTO.SubAddress;
                 }
 
-                if (!string.IsNullOrEmpty(subWearhouseDTO.SubAddress))
-                {
-                    existingItem.SubAddress = subWearhouseDTO.SubAddress;
-                }
-
-                if (subWearhouseDTO.Delet.HasValue)
+                if (subWearHouseDTO.Delet.HasValue)
                 {
                     existingItem.Delet = false;
                 }
@@ -139,12 +130,12 @@ namespace API.Controller
 
                 await _repo.Update(existingItem);
 
-                return Ok("SubWearHouse updated successfully");
-            } 
+                return Ok("MainWearHouse updated successfully");
+            }
             catch (Exception ex)
             {
                 // Log the exception or handle it accordingly
-                return BadRequest($"Error updating SubWearHouse: {ex.Message}");
+                return BadRequest($"Error updating MainWearHouse: {ex.Message}");
             }
         }
 

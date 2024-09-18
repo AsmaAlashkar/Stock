@@ -1,10 +1,11 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { IViewWearhouseItem } from 'src/app/shared/models/IViewWearhouseItem';
 import { WearhouseService } from '../wearhouse.service';
-import { Location } from '@angular/common';  // Import Location
+import { Location } from '@angular/common';
+import { IViewWearhouseItem } from 'src/app/shared/models/IViewWearhouseItem';
+import { ISubWearhouse } from 'src/app/shared/models/subwearhouse';
 
 @Component({
   selector: 'app-subwearhouse-details',
@@ -12,48 +13,78 @@ import { Location } from '@angular/common';  // Import Location
   styleUrls: ['./subwearhouse-details.component.scss']
 })
 export class SubwearhouseDetailsComponent implements OnInit {
-  subwearhouse: IViewWearhouseItem[] = [];
+  subwearhouse: IViewWearhouseItem | null = null;
   wearhouseForm!: FormGroup;
-  mainId!: number;
 
   constructor(
     private wearhouseService: WearhouseService, 
     private activeRoute: ActivatedRoute, 
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private cd: ChangeDetectorRef,
-    private location: Location  // Inject Location
+    private location: Location
   ) {}
 
   ngOnInit() {
-    this.wearhouseForm = this.fb.group({
-      subName: [''],
-      subDescription: [''],
-      subAddress: ['']
-    });
-
-    this.mainId = +this.activeRoute.snapshot.paramMap.get('id')!;
+    this.initForm();
     this.loadSubwearhouseDetails();
   }
 
+  initForm() {
+    this.wearhouseForm = this.fb.group({
+      subName: ['', Validators.required],
+      subDescription: [''],
+      subAddress: ['']
+    });
+  }
+
   loadSubwearhouseDetails() {
-    this.wearhouseService.getSubWearhouseById(this.mainId).subscribe(
-      (data: IViewWearhouseItem) => {
-        this.subwearhouse = [data];
-        this.wearhouseForm.patchValue({
-          subName: data.subName,
-          subDescription: data.subDescription,
-          subAddress: data.subAddress
-        });
-        this.cd.detectChanges();
-      },
-      (error) => {
-        this.toastr.error('Error fetching sub-warehouse details', 'Error');
+    const mainID = this.activeRoute.snapshot.paramMap.get('id');
+    if (mainID) {
+      const numericItemID = +mainID;
+      this.wearhouseService.getSubWearhouseById(numericItemID).subscribe(
+        (data: IViewWearhouseItem) => {
+          this.subwearhouse = data;
+          this.populateForm();
+        },
+        error => {
+          console.error('Error fetching sub-warehouse details:', error);
+          this.toastr.error('Error fetching sub-warehouse details', 'Error');
+        }
+      );
+    }
+  }
+
+  populateForm() {
+    if (this.subwearhouse) {
+      this.wearhouseForm.patchValue({
+        subName: this.subwearhouse.subName,
+        subDescription: this.subwearhouse.subDescription,
+        subAddress: this.subwearhouse.subAddress
+      });
+    }
+  }
+
+  onSubmit() {
+    if (this.wearhouseForm.valid) {
+      const updatedSubWearhouse: ISubWearhouse = this.wearhouseForm.value;
+      const id = this.subwearhouse?.subId;
+      if (id) {
+        this.wearhouseService.updateSubWearhouse(id, updatedSubWearhouse).subscribe(
+          response => {
+            this.toastr.success('Sub-Warehouse updated successfully', 'Success');
+          },
+          error => {
+            console.error('Error updating sub-warehouse:', error);
+            this.toastr.error('Error updating sub-warehouse', 'Error');
+          }
+        );
       }
-    );
+    } else {
+      this.toastr.error('Please fill out the form correctly', 'Error');
+    }
   }
 
   goBack() {
-    this.location.back();  // Navigate back to the previous page
+    this.location.back(); // Navigate back to the previous page
   }
 }

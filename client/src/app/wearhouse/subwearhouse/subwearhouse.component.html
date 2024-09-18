@@ -4,7 +4,7 @@
       <li class="breadcrumb-item">
         <a [routerLink]="['/mainwearhouse']">{{'MainWearHouse'}}</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page">
+      <li class="breadcrumb-item active" aria-current="page" *ngIf="subwearhouses[0]">
         <a style="font-size: larger;">
           {{ subwearhouses[0].mainName }}
         </a>
@@ -12,21 +12,54 @@
     </ol>
   </nav>
 
-  <div class="row">
-    <section class="col-12 col-md-3 mb-4"></section>
+  <div class="row" *ngIf="subwearhouses.length">
+    <section class="col-12 col-md-3 mb-4">
+      <!-- Summary of Sub-Warehouses -->
+      <div class="card mb-3" *ngIf="subwearhouses[0]">
+        <div class="card-header">
+          <strong>Summary</strong>
+        </div>
+        <div class="card-body">
+          <p>Total Sub-Warehouses: <strong>{{ subwearhouses.length }}</strong></p>
+          <p>Main Warehouse: <strong>{{ subwearhouses[0].mainName }}</strong></p>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="card mb-3">
+        <div class="card-header">
+          <strong>Filters</strong>
+        </div>
+        <div class="card-body">
+          <label for="filterByName">Filter by Name:</label>
+          <input id="filterByName" type="text" class="form-control mb-3" placeholder="Enter name">
+          <button class="btn btn-primary w-100">Apply Filter</button>
+        </div>
+      </div>
+
+      <!-- Additional Actions -->
+      <div class="card" *ngIf="subwearhouses[0]">
+        <div class="card-header">
+          <strong>Actions</strong>
+        </div>
+        <div class="card-body">
+          <button class="btn btn-success w-100 mb-2" (click)="openCreateSubWarehouseModal()">
+            <i class="fa fa-plus" aria-hidden="true"></i> Add New Sub-Warehouse</button>       
+            {{ subwearhouses[0].mainId }}
+        </div>
+      </div>
+    </section>
+
     <section class="col-12 col-md-9">
       <div class="d-flex justify-content-between align-items-center pb-2 flex-wrap">
         <header>
-          <span>Showing<strong> {{subwearhouses.length}}</strong> Results</span>
+          <span>Showing<strong> {{ subwearhouses.length }}</strong> Results</span>
         </header>
         <div class="form-inline mt-2 d-flex w-100 w-md-auto">
           <input class="form-control my-2 me-3 w-100" style="flex: 2;" placeholder="search" type="text">
           <button class="btn btn-outline-primary my-2 me-3" style="flex: 0.5;">Search</button>
           <button class="btn btn-outline-success my-2" style="flex: 0.5;">Reset</button>
         </div>
-        <header class="text-center w-100 py-2">
-          <span><strong>Subwear Houses</strong> of {{ subwearhouses[0].mainName }}</span>
-        </header>
       </div>
 
       <!-- Render hierarchical structure -->

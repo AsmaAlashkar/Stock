@@ -36,7 +36,14 @@ export class WearhouseService {
   return this.http.put(this.baseUrl + 'MainWearhouse/UpdateMainWearHouse/' + id, mainwearhouse, { responseType: 'text' });
 }
 
+// Create a new main warehouse
+createNewSubWearhouse(subwearhouse: ISubWearhouse): Observable<any> {
+  return this.http.post(this.baseUrl + 'SubWearhouse/CreateNewSubWearhouse', subwearhouse, { responseType: 'text' });
+}
+
 updateSubWearhouse(id: number, subwearhouse: ISubWearhouse): Observable<any> {
   return this.http.put(this.baseUrl + 'SubWearhouse/UpdateSubWearHouse/' + id, subwearhouse, { responseType: 'text' });
 }
+
+
 }
