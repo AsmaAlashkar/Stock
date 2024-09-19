@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { WearhouseService } from '../wearhouse.service';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog'; // Import these
 
 @Component({
   selector: 'app-createsub-modal',
@@ -15,7 +16,9 @@ export class CreatesubModalComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private mainwearService: WearhouseService
+    private mainwearService: WearhouseService,
+    public config: DynamicDialogConfig,  // Inject DynamicDialogConfig
+    public ref: DynamicDialogRef  // Inject DynamicDialogRef for closing the modal
   ) {}
 
   ngOnInit(): void {
@@ -23,10 +26,11 @@ export class CreatesubModalComponent implements OnInit {
   }
 
   createMainWearForm() {
+    // Initialize the form and set the mainFk value from the data passed into the modal
     this.SubMainWearhouseForm = this.fb.group({
-      subId: [''],
-      mainFk: ['', Validators.required],
-      parentSubWearhouseId: [null],  // Ensure it's initialized as null if empty
+      subId: [0],
+      mainFk: [this.config.data.mainId, Validators.required],  // Set mainFk with the passed mainId
+      parentSubWearhouseId: [null],
       subName: ['', Validators.required],
       subDescription: [''],
       subAddress: [''],
@@ -41,19 +45,17 @@ export class CreatesubModalComponent implements OnInit {
       this.toastr.error('Please fill in all required fields.');
       return;
     }
-  
+
     this.mainwearService.createNewSubWearhouse(this.SubMainWearhouseForm.value).subscribe({
       next: () => {
         this.toastr.success('Sub Warehouse created successfully');
         this.SubMainWearhouseForm.reset(); // Clear the form after successful creation
+        this.ref.close(); // Close the modal after saving
       },
       error: (error) => {
         console.error('Error details:', error);
-        console.error('Error message:', error.message);
-        console.error('Error body:', error.error); // Log the actual response from the server
         this.errors = (error.error && error.error.errors) || ['An unexpected error occurred'];
       }
     });
   }
-  
 }

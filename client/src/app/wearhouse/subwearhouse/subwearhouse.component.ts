@@ -69,7 +69,9 @@ export class SubwearhouseComponent implements OnInit {
 }
 
 openCreateSubWarehouseModal() {
+  const mainId = this.subwearhouses[0]?.mainId;
   this.dialogService.open(CreatesubModalComponent, {
+    data: { mainId: mainId }, // Pass the mainId to the modal
     header: 'Create New Sub Warehouse',
     width: '70%',
     contentStyle: { 'max-height': '80vh', overflow: 'auto' }
