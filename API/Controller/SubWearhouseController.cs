@@ -91,6 +91,19 @@ namespace API.Controller
 
         }
 
+        [HttpGet]
+        public async Task<ActionResult<List<SubWearHouseDTO>>> GetSubNamesAndParentIdsByMainFk(int mainFk)
+        {
+            var result = await _swh.GetSubNamesAndParentIdsByMainFk(mainFk);
+
+            if (result == null || !result.Any())
+            {
+                return NotFound("No sub-warehouses found for the given MainFk.");
+            }
+
+            return Ok(result);
+        }
+
 
         [HttpPut("{id:int}")]
         public async Task<ActionResult> UpdateSubWearHouse(int id, [FromBody] SubWearHouseDTO subWearHouseDTO)

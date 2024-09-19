@@ -1,4 +1,5 @@
-﻿using Standard.Entities;
+﻿using Standard.DTOs;
+using Standard.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,6 @@ namespace Repository.SubWearHouse
     {
         Task<List<SubWearhouse>> GetAllSubWearHouse();
         Task<SubWearhouse?> GetSubWearHouseById(int id);
-
+        Task<List<SubWearHouseDTO>> GetSubNamesAndParentIdsByMainFk(int mainFk);
     }
 }

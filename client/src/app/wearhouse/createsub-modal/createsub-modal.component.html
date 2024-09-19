@@ -19,14 +19,18 @@
     <input id="subAddress" type="text" formControlName="subAddress" class="form-control">
   </div>
 
-  <div class="form-group" hidden>
+  <div class="form-group" >
     <label for="mainFk">Main Warehouse ID</label>
     <input id="mainFk" type="number" formControlName="mainFk" class="form-control">
   </div>
 
   <div class="form-group">
-    <label for="parentSubWearhouseId">Parent Sub Warehouse ID</label>
-    <input id="parentSubWearhouseId" type="number" formControlName="parentSubWearhouseId" class="form-control">
+    <label for="parentSubWearhouseId">Parent Sub Warehouse</label>
+    <select id="parentSubWearhouseId" formControlName="parentSubWearhouseId" class="form-control">
+      <option *ngFor="let subWearhouse of ParentsubWearhouses" [value]="subWearhouse.parentSubWearhouseId">
+        {{ subWearhouse.subName }}
+      </option>
+    </select>
   </div>
 
   <button type="submit" class="btn btn-primary" [disabled]="SubMainWearhouseForm.invalid">Save Sub Warehouse</button>

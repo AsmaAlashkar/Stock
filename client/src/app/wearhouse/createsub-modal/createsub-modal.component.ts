@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { WearhouseService } from '../wearhouse.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog'; // Import these
+import { ISubWearhouse } from 'src/app/shared/models/subwearhouse';
 
 @Component({
   selector: 'app-createsub-modal',
@@ -12,6 +13,7 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog'; /
 export class CreatesubModalComponent implements OnInit {
   SubMainWearhouseForm!: FormGroup;
   errors: string[] = [];
+  ParentsubWearhouses: ISubWearhouse[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -23,6 +25,9 @@ export class CreatesubModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.createMainWearForm();
+    
+    const mainFk = this.SubMainWearhouseForm.get('mainFk')?.value;
+    this.loadSubWearhouses(mainFk);
   }
 
   createMainWearForm() {
@@ -40,6 +45,12 @@ export class CreatesubModalComponent implements OnInit {
     });
   }
 
+  loadSubWearhouses(mainId: number) {
+    this.mainwearService.getSubNamesAndParentIdsByMainFk(mainId).subscribe({
+      next: (response) => this.ParentsubWearhouses = response,
+      error: (err) => console.error(err)
+    });
+  }
   save() {
     if (this.SubMainWearhouseForm.invalid) {
       this.toastr.error('Please fill in all required fields.');
