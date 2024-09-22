@@ -6,15 +6,16 @@ import { MatCardModule } from '@angular/material/card';
 import { SubwearhouseComponent } from './subwearhouse/subwearhouse.component';
 import { RouterModule } from '@angular/router';
 import { MainwearhouseDetalisComponent } from './mainwearhouse-detalis/mainwearhouse-detalis.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { MainModalComponent } from './main-modal/main-modal.component';
 import { DialogModule } from 'primeng/dialog';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
-import { ButtonModule } from 'primeng/button';
+import { MatButtonModule } from '@angular/material/button';
 import { SubwearhouseTreeComponent } from './subwearhouse-tree/subwearhouse-tree.component';
 import { SubwearhouseDetailsComponent } from './subwearhouse-details/subwearhouse-details.component';
 import { CreatesubModalComponent } from './createsub-modal/createsub-modal.component';
+import { ButtonModule } from 'primeng/button';
 
 
 
@@ -31,6 +32,7 @@ import { CreatesubModalComponent } from './createsub-modal/createsub-modal.compo
   imports: [
     CommonModule,
     BsDropdownModule.forRoot(),
+    FormsModule,
     MatCardModule,
     RouterModule,
     ReactiveFormsModule,
@@ -42,7 +44,8 @@ import { CreatesubModalComponent } from './createsub-modal/createsub-modal.compo
     }),
     DialogModule,
     DynamicDialogModule,
-    ButtonModule,
+    MatButtonModule,
+    ButtonModule
   ],
   exports:[MainwearhouseComponent,SubwearhouseComponent,MainModalComponent,CreatesubModalComponent
     ,SubwearhouseComponent,SubwearhouseDetailsComponent]

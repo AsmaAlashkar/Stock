@@ -15,7 +15,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { DialogModule } from 'primeng/dialog';  // PrimeNG Dialog module
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ButtonModule } from 'primeng/button';  // Ensure ButtonModule is also imported if needed
-
+import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ButtonModule } from 'primeng/button';  // Ensure ButtonModule is also i
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
     CoreModule,
     WearhouseModule,
     HomepageModule,
@@ -42,6 +44,7 @@ import { ButtonModule } from 'primeng/button';  // Ensure ButtonModule is also i
     DialogModule,
     DynamicDialogModule,
     ButtonModule,  // Import ButtonModule if using PrimeNG buttons
+    MatButtonModule,
 
   ],
   providers: [DialogService],

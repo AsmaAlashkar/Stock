@@ -41,9 +41,10 @@ createNewSubWearhouse(subwearhouse: ISubWearhouse): Observable<any> {
   return this.http.post(this.baseUrl + 'SubWearhouse/CreateNewSubWearhouse', subwearhouse, { responseType: 'text' });
 }
 
-getSubNamesAndParentIdsByMainFk(mainId: number): Observable<ISubWearhouse[]> {
-  return this.http.get<ISubWearhouse[]>(this.baseUrl + 'SubWearhouse/GetSubNamesAndParentIdsByMainFk/' + mainId);
+getSubNamesAndParentIdsByMainFk(mainId: number) : Observable<ISubWearhouse[]> {
+  return this.http.get<ISubWearhouse[]>(this.baseUrl + 'SubWearhouse/GetSubWearhouseByMainId/' + mainId);
 }
+
 updateSubWearhouse(id: number, subwearhouse: ISubWearhouse): Observable<any> {
   return this.http.put(this.baseUrl + 'SubWearhouse/UpdateSubWearHouse/' + id, subwearhouse, { responseType: 'text' });
 }

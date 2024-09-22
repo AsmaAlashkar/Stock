@@ -14,7 +14,7 @@ export class CreatesubModalComponent implements OnInit {
   SubMainWearhouseForm!: FormGroup;
   errors: string[] = [];
   ParentsubWearhouses: ISubWearhouse[] = [];
-
+ 
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -27,6 +27,8 @@ export class CreatesubModalComponent implements OnInit {
     this.createMainWearForm();
     
     const mainFk = this.SubMainWearhouseForm.get('mainFk')?.value;
+    console.log('mainFk value:', mainFk);  // This will output the value of mainFk
+    
     this.loadSubWearhouses(mainFk);
   }
 
@@ -41,16 +43,23 @@ export class CreatesubModalComponent implements OnInit {
       subAddress: [''],
       mainCreatedat: [null],
       mainUpdatedat: [null],
-      delet: [false]
+      delet: [false],
+      showParentSubWearhouse: [false]  // Add a form control for the checkbox
     });
   }
 
   loadSubWearhouses(mainId: number) {
     this.mainwearService.getSubNamesAndParentIdsByMainFk(mainId).subscribe({
-      next: (response) => this.ParentsubWearhouses = response,
+      next: (response) => {
+        console.log(response); // Log the response to check its structure
+        this.ParentsubWearhouses = response;
+      },
       error: (err) => console.error(err)
     });
   }
+
+
+
   save() {
     if (this.SubMainWearhouseForm.invalid) {
       this.toastr.error('Please fill in all required fields.');

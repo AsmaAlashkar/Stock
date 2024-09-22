@@ -1,47 +1,98 @@
 .wearhouse-tree {
-    list-style-type: none;
-    padding-left: 0;
-  
-    li {
-      margin-bottom: 16px; /* Space between items */
-      position: relative;
-  
-      /* Nested list styling */
-      .children-list {
-        list-style-type: none;
-        padding-left: 20px;
-        margin-top: 10px;
-        border-left: 2px solid #007bff; /* Optional: Visual hierarchy */
-      }
+  list-style-type: none;
+  padding-left: 0;
+
+  li {
+    margin-bottom: 16px;
+    position: relative;
+
+    .children-list {
+      list-style-type: none;
+      padding-left: 20px;
+      margin-top: 10px;
+      border-left: 2px solid #007bff;
     }
-  
+
     .wearhouse-item {
       display: flex;
       flex-direction: column;
       align-items: stretch;
       gap: 16px;
       width: 100%;
-  
-      .mat-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  
+
+      /* Enhanced mat-card styles */
+      mat-card {
+        background-color: #fff; /* Clean white background */
+        border: 1px solid #e0e0e0; /* Subtle border */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+        padding: 16px;
+        border-radius: 12px; /* Softer rounded corners */
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        
         &:hover {
-          transform: scale(1.05);
-          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+          transform: translateY(-5px); /* Slight hover effect */
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
         }
-  
-        .mat-card-header {
-          background-color: #f8f9fa;
+
+        mat-card-header {
+          border-bottom: 1px solid #ddd;
+          margin-bottom: 12px;
+
+          mat-card-title {
+            font-size: 1.1rem;
+            color: #333;
+            font-weight: 600; /* Bolder title */
+          }
+
+          mat-card-subtitle {
+            font-size: 1rem;
+            color: #888; /* Softer color for subtitle */
+          }
         }
-  
-        .mat-card-actions {
+
+        mat-card-content {
+          p {
+            font-size: 1rem;
+            color: #555;
+          }
+        }
+
+        mat-card-actions {
           display: flex;
-          justify-content: space-between;
+          justify-content: flex-start;
+          gap: 10px;
+
+          button {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            padding: 8px 16px;
+            border-radius: 8px; /* Rounded button corners */
+          }
+
+          .btn-outline-warning {
+            color: #f39c12; /* Enhanced yellow color */
+            border: 2px solid #f39c12;
+            background-color: transparent;
+
+            &:hover {
+              background-color: #f39c12;
+              color: white;
+            }
+          }
+
+          .btn-outline-info {
+            color: #17a2b8;
+            border: 2px solid #17a2b8;
+            background-color: transparent;
+
+            &:hover {
+              background-color: #17a2b8;
+              color: white;
+            }
+          }
         }
-  
-      
       }
     }
   }
-  
+}

@@ -3,17 +3,22 @@
     <div class="wearhouse-item card">
       <mat-card>
         <mat-card-header>
-          
-          <mat-card-title><strong>Name :</strong> {{ wearhouse?.subName }}</mat-card-title>
-          <mat-card-subtitle><strong>Sub Address :</strong> {{ wearhouse?.subAddress }}</mat-card-subtitle>
+          <mat-card-title>
+            <strong>Name :</strong> {{ wearhouse?.subName }}</mat-card-title>
+          <mat-card-subtitle>
+            <strong>Sub Address :</strong> {{ wearhouse?.subAddress }}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
           <p>
             <strong>Description:</strong> {{ wearhouse?.subDescription }}.</p>
         </mat-card-content>
+        <mat-card-content>
+          <p>
+            <strong>CreatedAT:</strong> {{ wearhouse?.subCreatedat }}.</p>
+        </mat-card-content>
         <mat-card-actions>
-          <button class="btn btn-outline-warning-sm" mat-button>View Items</button>
-          <button routerLink="/Subwearhouse-details/{{wearhouse?.subId}}" class="button btn btn-sm mb-2" mat-button>Details</button>
+          <button class="btn btn-outline-warning mb-2" mat-button>View Items</button>
+          <button routerLink="/Subwearhouse-details/{{wearhouse?.subId}}" class="btn btn-outline-info mb-2" mat-button>Details</button>
         </mat-card-actions>
       </mat-card>
     </div>
@@ -23,5 +28,6 @@
       <!-- Pass an empty array if wearhouse?.children is undefined -->
       <app-subwearhouse-tree [subWearhouses]="wearhouse?.children ?? []"></app-subwearhouse-tree>
     </ul>
+   
   </li>
 </ul>
