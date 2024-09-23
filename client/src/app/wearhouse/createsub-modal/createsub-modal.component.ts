@@ -31,7 +31,9 @@ export class CreatesubModalComponent implements OnInit {
     
     this.loadSubWearhouses(mainFk);
   }
-
+  getValidParentSubwearhouseCount(): number {
+    return this.ParentsubWearhouses.filter(wh => wh.subId).length;
+  }
   createMainWearForm() {
     // Initialize the form and set the mainFk value from the data passed into the modal
     this.SubMainWearhouseForm = this.fb.group({

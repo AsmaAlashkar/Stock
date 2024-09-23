@@ -8,7 +8,7 @@ import { CoreModule } from './core/core.module';
 import { MatInputModule } from '@angular/material/input';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { WearhouseModule } from './wearhouse/wearhouse.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import {MatCardModule} from '@angular/material/card';
 import { HomepageModule } from './homepage/homepage.module';
 import { ToastrModule } from 'ngx-toastr';
@@ -17,6 +17,8 @@ import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { ButtonModule } from 'primeng/button';  // Ensure ButtonModule is also imported if needed
 import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { LoadingInterceptor } from './core/interceptors/loading.interceptors';
 
 @NgModule({
   declarations: [
@@ -45,9 +47,12 @@ import { FormsModule } from '@angular/forms';
     DynamicDialogModule,
     ButtonModule,  // Import ButtonModule if using PrimeNG buttons
     MatButtonModule,
+    NgxSpinnerModule,
 
   ],
-  providers: [DialogService],
+  providers: [DialogService,
+    {provide:HTTP_INTERCEPTORS, useClass: LoadingInterceptor,multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

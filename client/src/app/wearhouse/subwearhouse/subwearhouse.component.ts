@@ -21,7 +21,9 @@ export class SubwearhouseComponent implements OnInit {
   ngOnInit() {
     this.loadsubwearhouses();
   }
-
+  getValidSubwearhouseCount(): number {
+    return this.subwearhouses.filter(wh => wh.subId).length;
+  }
   loadsubwearhouses() {
     const mainID = this.activeRoute.snapshot.paramMap.get('id');
     if (mainID) {

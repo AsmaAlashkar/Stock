@@ -25,7 +25,7 @@
   </div>
 
 <!-- Checkbox to show/hide Parent Sub Warehouse selection -->
-<div class="form-group form-check my-3">
+<div class="form-group form-check my-3" *ngIf="getValidParentSubwearhouseCount() > 0">
   <input type="checkbox" id="showParentSubWearhouse" class="form-check-input" formControlName="showParentSubWearhouse">
   <label class="form-check-label" for="showParentSubWearhouse">Is Follow Parent</label>
 </div>
