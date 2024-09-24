@@ -1,3 +1,4 @@
+using API.Extensions;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -51,7 +52,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 
 // Add role-related services if needed (e.g., Identity services)
-// builder.Services.AddIdentityServices(_config);
+builder.Services.AddIdentityServices();
 
 // Add AutoMapper services if needed
 // builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
