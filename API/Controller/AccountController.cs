@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Repository.Identity;
 using Standard.DTOs;
 using Standard.Entities.Identity;
-
+using System.ComponentModel;
 using System.Security.Claims;
 
 namespace API.Controller
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -59,7 +59,7 @@ namespace API.Controller
         }
 
 
-        [HttpPut("address")]
+        [HttpPut]
         public async Task<ActionResult<AddressDto>> UpdateUserAddress([FromBody] AddressDto address)
         {
             var user = await _userManager.FindByUserByClaimsPrinciplelWithAddressAsync(HttpContext.User);
@@ -112,6 +112,10 @@ namespace API.Controller
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
+            if(CheckEmailAsync(registerDto.Email).Result.Value)
+            {
+                return new BadRequestObjectResult("Email Address is in use");
+            }
             var user = new AppUser
             {
                 DisplayName = registerDto.DisplayName,
