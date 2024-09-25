@@ -12,7 +12,7 @@ namespace API.Extensions
 {
     public static class IdentityServiceExtensions
     {
-        public static IServiceCollection AddIdentityServices(this IServiceCollection services)
+        public static IServiceCollection AddIdentityServices(this IServiceCollection services,IConfiguration config)
         {
             var builder = services.AddIdentityCore<AppUser>(options =>
             {
@@ -31,9 +31,9 @@ namespace API.Extensions
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        //IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Token:Key"])),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Token:Key"])),
                         ValidateIssuer = false,
-                        //ValidIssuer = config["Token:Issuer"],
+                        ValidIssuer = config["Token:Issuer"],
                         ValidateAudience = false,
                     };
                 });

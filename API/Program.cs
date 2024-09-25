@@ -4,11 +4,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Repository;
+using Repository.Identity;
 using Repository.MainWearHouse;
+using Repository.Service;
 using Repository.SubWearHouse;
 using Repository.VMainWearhouseItem;
 using Repository.VWearhouseWithSubHierarchy;
 using Standard.Entities;
+using Standard.Mapping.AddressDtoProf;
 using Standard.Mapping.mainwearhouseProf;
 using Standard.Mapping.SubwearhouseProf;
 using Standard.Mapping.ViewWearHItemProf;
@@ -16,7 +19,7 @@ using Standard.Mapping.ViewWearhouseWithSubHierarchyProf;
 
 
 var builder = WebApplication.CreateBuilder(args);
-
+var _config = builder.Configuration;
 // Add services to the container.
 builder.Services.AddDbContext<StockContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ??
@@ -28,6 +31,7 @@ builder.Services.AddDbContext<AppIdentityDbContext>(options =>
 
 
 // Repositories
+builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>)); 
 builder.Services.AddScoped<IMWHRepository, MWHRepository>();
 builder.Services.AddScoped<ISWHRepository, SWHRepository>();
@@ -42,8 +46,8 @@ builder.Services.AddAutoMapper(
     typeof(MainWearhouseProfile),
     typeof(SubWearhouseProfile),
     typeof(ViewWearHItemProfile),
-    typeof(ViewWearhouseWithSubHierarchyProfile)
-
+    typeof(ViewWearhouseWithSubHierarchyProfile),
+    typeof(AddressProf)
     );
 
 
@@ -52,7 +56,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddControllers();
 
 // Add role-related services if needed (e.g., Identity services)
-builder.Services.AddIdentityServices();
+builder.Services.AddIdentityServices(_config);
 
 // Add AutoMapper services if needed
 // builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
