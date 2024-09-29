@@ -19,9 +19,15 @@
         <a class="p-2 text-dark" href="#">Suppliers</a>
         <a class="p-2 text-dark" href="#">Settings</a>
     </nav>
-
+    <ng-container *ngIf="(currentUser$ |async)=== null">
     <div class="d-flex align-items-center ms-md-auto">
         <a routerLink="login" class="btn btn-outline-secondary me-3" href="#">Login</a>
         <a routerLink="register" class="btn btn-outline-success me-2" href="#">Sign up</a>
     </div>
+</ng-container>
+<ng-container *ngIf="currentUser$ | async as currentUser">
+    <a  style="cursor:pointer" *ngIf="currentUser.displayName">
+        <strong> {{ 'WELCOME' }},{{ currentUser.displayName }} </strong> 
+      </a>
+</ng-container>
 </div>
