@@ -17,7 +17,7 @@
         <section class="col-12 col-md-9">
             <div class="d-flex justify-content-between align-items-center pb-2 flex-wrap">
                 <header>
-                    <span>Showing <strong>{{mhouses.length}} results</strong></span>
+                    <span>Showing <strong>{{mhouses?.length || 0}} results</strong></span>
                 </header>
                 <div class="form-inline mt-2 d-flex w-100 w-md-auto">
                     <input class="form-control my-2 me-3 w-100" style="flex: 2;" placeholder="search" type="text">

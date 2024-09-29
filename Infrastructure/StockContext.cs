@@ -56,6 +56,10 @@ public partial class StockContext : DbContext
             entity.Property(e => e.CatNameEn)
                 .HasMaxLength(50)
                 .HasColumnName("Cat_NameEn");
+
+            entity.HasOne(d => d.ParentCategory).WithMany(p => p.InverseParentCategory)
+                .HasForeignKey(d => d.ParentCategoryId)
+                .HasConstraintName("FK_Category_Category");
         });
 
         modelBuilder.Entity<Item>(entity =>
@@ -154,6 +158,8 @@ public partial class StockContext : DbContext
             entity.HasKey(e => e.SubId);
 
             entity.ToTable("SubWearhouse");
+
+            entity.HasIndex(e => new { e.ParentSubWearhouseId, e.Delet }, "idx_SubWearhouse_ParentDelet");
 
             entity.Property(e => e.SubId).HasColumnName("Sub_ID");
             entity.Property(e => e.MainFk).HasColumnName("Main_FK");

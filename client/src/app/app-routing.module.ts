@@ -7,6 +7,8 @@ import { MainwearhouseComponent } from './wearhouse/mainwearhouse/mainwearhouse.
 import { MainwearhouseDetalisComponent } from './wearhouse/mainwearhouse-detalis/mainwearhouse-detalis.component';
 import { HomeComponent } from './homepage/home/home.component';
 import { SubwearhouseDetailsComponent } from './wearhouse/subwearhouse-details/subwearhouse-details.component';
+import { LoginComponent } from './account/login/login.component';
+import { RegisterComponent } from './account/register/register.component';
 
 const routes: Routes = [
   {path:'', component:HomeComponent},
@@ -15,6 +17,8 @@ const routes: Routes = [
   {path:'Subwearhouse', component:SubwearhouseComponent},
   {path:'Subwearhouse/:id', component:SubwearhouseComponent},
   {path:'Subwearhouse-details/:id', component:SubwearhouseDetailsComponent},
+  {path:'login', component:LoginComponent},
+  {path:'register', component:RegisterComponent},
   {path:'**', redirectTo:'', pathMatch: 'full'},
 ];
 

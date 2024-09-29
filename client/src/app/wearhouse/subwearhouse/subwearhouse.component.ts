@@ -21,9 +21,11 @@ export class SubwearhouseComponent implements OnInit {
   ngOnInit() {
     this.loadsubwearhouses();
   }
+
   getValidSubwearhouseCount(): number {
     return this.subwearhouses.filter(wh => wh.subId).length;
   }
+
   loadsubwearhouses() {
     const mainID = this.activeRoute.snapshot.paramMap.get('id');
     if (mainID) {
@@ -43,7 +45,7 @@ export class SubwearhouseComponent implements OnInit {
       );
     }
   }
-
+  
   // Recursively build the hierarchy
   buildHierarchy(subWearhouses: IViewWearhouseItem[], parentId: any = null): IViewWearhouseItem[] {
 
@@ -55,13 +57,10 @@ export class SubwearhouseComponent implements OnInit {
     if (filteredWearhouses.length === 0) {
         return [];
     }
-
     // Recursively build the hierarchy for each filtered item
     return filteredWearhouses.map(wh => {
         // Recursively find children
         const children = this.buildHierarchy(subWearhouses, wh.subId);
-
-
         // Return the warehouse with its children
         return {
             ...wh,
@@ -69,7 +68,6 @@ export class SubwearhouseComponent implements OnInit {
         };
     });
 }
-
 openCreateSubWarehouseModal() {
   const mainId = this.subwearhouses[0]?.mainId;
   this.dialogService.open(CreatesubModalComponent, {
@@ -79,5 +77,4 @@ openCreateSubWarehouseModal() {
     contentStyle: { 'max-height': '80vh', overflow: 'auto' }
   });
 }
-
 }

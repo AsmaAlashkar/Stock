@@ -15,6 +15,7 @@ using System.Security.Claims;
 namespace API.Controller
 {
     [Route("api/[controller]/[action]")]
+
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -51,7 +52,7 @@ namespace API.Controller
         }
 
         [Authorize]
-        [HttpGet("address")]
+        [HttpGet("Useraddress")]
         public async Task<ActionResult<AddressDto>> GetUserAddress()
         {
             var user = await _userManager.FindByUserByClaimsPrinciplelWithAddressAsync(HttpContext.User);
@@ -59,7 +60,7 @@ namespace API.Controller
         }
 
 
-        [HttpPut]
+        [HttpPut("Updateaddress")]
         public async Task<ActionResult<AddressDto>> UpdateUserAddress([FromBody] AddressDto address)
         {
             var user = await _userManager.FindByUserByClaimsPrinciplelWithAddressAsync(HttpContext.User);
@@ -133,4 +134,5 @@ namespace API.Controller
                 Token = _tokenService.CreteToken(user)
             };
         }
-    } }
+    }
+}
