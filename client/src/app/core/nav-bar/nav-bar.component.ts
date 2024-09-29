@@ -10,8 +10,17 @@ import { IUser } from 'src/app/shared/models/user';
 })
 export class NavBarComponent {
   currentUser$!: Observable<IUser | null>;
+
   constructor(
-    private accountService: AccountService ){}
+    private accountService: AccountService )   
+    {}
+
     ngOnInit(): void {
       this.currentUser$ = this.accountService.currentUser$;}
+
+logout(): void {
+        this.accountService.logout();}
+    
+
+        
 }

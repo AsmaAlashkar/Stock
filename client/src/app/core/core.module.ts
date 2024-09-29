@@ -17,6 +17,6 @@ import { RouterModule } from '@angular/router';
     RouterModule
 
   ],
-  exports:[NavBarComponent]
+  exports:[NavBarComponent, BsDropdownModule]
 })
 export class CoreModule { }

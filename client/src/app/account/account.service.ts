@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, catchError, map, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, map, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../shared/models/user';
 
@@ -17,6 +17,30 @@ export class AccountService {
   getCurrentUserValue(): IUser | null {
     return this.currentUserSource.value;
   }
+
+  loadCurrentUser(token: string) {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  
+    // Include the headers in the HTTP request
+    return this.http.get<IUser>(this.baseUrl + 'account/GetCurrentUser/GetCurrentUser', { headers }).pipe(
+      map((user: IUser) => {
+        
+        if (user && typeof user === 'object') {
+          localStorage.setItem('token', user.token);
+          this.currentUserSource.next(user);
+          return user;
+        } else {
+          console.error('Invalid user loaded from token:', user);
+          return null;
+        }
+      }),
+      catchError(error => {
+        
+        return of(null);
+      })
+    );
+  }
+
   
   login(values: any) {
     return this.http.post<IUser>(this.baseUrl + 'account/Login/login', values).pipe(
