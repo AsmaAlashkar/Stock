@@ -19,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptors';
+import { AccountModule } from './account/account.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { LoadingInterceptor } from './core/interceptors/loading.interceptors';
     HttpClientModule,
     FormsModule,
     CoreModule,
+    AccountModule,
     WearhouseModule,
     HomepageModule,
     MatInputModule,

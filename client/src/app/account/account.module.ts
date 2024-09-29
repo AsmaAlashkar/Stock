@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -11,7 +14,11 @@ import { RegisterComponent } from './register/register.component';
     RegisterComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ToastrModule.forRoot(),
+    ReactiveFormsModule,
+    RouterModule,
   ],
   exports:[LoginComponent,
     RegisterComponent]
