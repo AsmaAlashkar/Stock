@@ -1,0 +1,74 @@
+.input-container {
+    position: relative;
+    width: clamp(100px, 100%, 200px);
+  }
+  
+  .input {
+    padding: 10px;
+    height: 40px;
+    width: clamp(100px, 100%, 200px);
+    border: 2px solid #cfdced;
+    border-top: none;
+    font-size: 14px;
+    background: transparent;
+    outline: none;
+    
+    transition: all 0.5s;
+  }
+  
+  .input:focus {
+    box-shadow: none;
+    transition: all 0.5s;
+  }
+  
+  .label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #0B2447;
+    transition: all 0.5s;
+    transform: scale(0);
+    z-index: -1;
+  }
+  
+
+  
+  .input-container input[type="text"]:focus~.under-line {
+    width: 100%;
+    transition: all 0.5s;
+  }
+  
+  .input-container input[type="text"]:focus~.label {
+    top: -10px;
+    transform: scale(1);
+    transition: all 0.5s;
+  }
+
+  @media (min-width: 344px) and (max-width: 500px)  {
+    .input {
+      padding: 10px;
+      height: 40px;
+      width: clamp(100px, 100%, 200px);
+      border: 2px solid #cfdced;
+      border-top: none;
+      font-size: 10px;
+      background: transparent;
+      outline: none;
+      
+      transition: all 0.5s;
+    }
+    .form-control{
+      width: clamp(180px, 100%, 200px);
+    }
+    .smaller-button {
+      font-size: smaller;
+      padding: 0.25rem 0.5rem;
+    }
+  }
+  
+  @media (min-width: 992px) and (max-width: 1200px) {
+    .row-cols-1 > * {
+      flex: 0 0 50%;
+      max-width: 50%;   
+    }
+  }

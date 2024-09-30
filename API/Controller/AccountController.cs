@@ -125,8 +125,10 @@ namespace API.Controller
             };
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
-            if (result.Succeeded) return BadRequest(result.Errors);
-
+            if (!result.Succeeded) // Corrected to check if the result was not successful
+            {
+                return BadRequest(result.Errors);
+            }
             return new UserDto
             {
                 DisplayName = user.DisplayName,
