@@ -13,8 +13,8 @@ namespace Standard.Mapping.CategoryDtoProf
     {
         public CategoryProfile()
         {
-            CreateMap<Category, CategoryDto>().ReverseMap();
-            CreateMap<CategoryDto, Category>().ReverseMap();
+            CreateMap<CategoriesHirarichy, CategoryDto>().ReverseMap();
+            CreateMap<CategoryDto, CategoriesHirarichy>().ReverseMap();
 
         }
     }

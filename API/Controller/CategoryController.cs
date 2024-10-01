@@ -12,10 +12,10 @@ namespace API.Controller
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly IGenericRepository<Category> _repo;
+        private readonly IGenericRepository<CategoriesHirarichy> _repo;
         private readonly IMapper _mapper;
         private readonly ICategoryRepository _categoryRepository;
-        public CategoryController(IGenericRepository<Category> repo,
+        public CategoryController(IGenericRepository<CategoriesHirarichy> repo,
             IMapper mapper,
             ICategoryRepository categoryRepository)
         {
@@ -23,8 +23,8 @@ namespace API.Controller
             _mapper = mapper;
             _categoryRepository = categoryRepository;
         }
-        [HttpGet]
-        public async Task<ActionResult<List<Category>>> GetCategories()
+        [HttpGet("GetCategories")]
+        public async Task<ActionResult<List<CategoriesHirarichy>>> GetCategories()
         {
             var cat = await _categoryRepository.GetCategories();
             var catDtos = _mapper.Map<List<CategoryDto>>(cat);

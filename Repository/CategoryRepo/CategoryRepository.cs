@@ -18,9 +18,9 @@ namespace Repository.CategoryRepo
             _context = context;
         }
 
-        public async Task<List<Category>> GetCategories()
+        public async Task<List<CategoriesHirarichy>> GetCategories()
         {
-            return await _context.Categories.OrderBy(c=>c.CatId).ToListAsync();
+            return await _context.CategoriesHirarichies.OrderBy(c=>c.CatId).ToListAsync();
         }
 
         public async Task<Category?> GetCategoryById(int id)

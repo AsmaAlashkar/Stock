@@ -5,6 +5,7 @@
 export const environment = {
     production: false,
     apiUrl: 'http://localhost:5050/api/',
+    getCtegories:'http://localhost:5050/api/Category/GetCategories'
   };
   
   /*
