@@ -15,6 +15,8 @@ public partial class StockContext : DbContext
     {
     }
 
+    public virtual DbSet<CategoriesHirarichy> CategoriesHirarichies { get; set; }
+
     public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<Item> Items { get; set; }
@@ -37,10 +39,23 @@ public partial class StockContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-F9A72EH;Database=Stock;Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=.;Database=Stock;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<CategoriesHirarichy>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("CategoriesHirarichy");
+
+            entity.Property(e => e.CatId).HasColumnName("Cat_ID");
+            entity.Property(e => e.CatNameAr)
+                .HasMaxLength(50)
+                .HasColumnName("Cat_NameAr");
+            entity.Property(e => e.Level).HasColumnName("level");
+        });
+
         modelBuilder.Entity<Category>(entity =>
         {
             entity.HasKey(e => e.CatId);
