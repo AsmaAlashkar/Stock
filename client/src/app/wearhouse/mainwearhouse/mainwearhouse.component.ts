@@ -10,7 +10,7 @@ import { MainModalComponent } from '../main-modal/main-modal.component';
   styleUrls: ['./mainwearhouse.component.scss']
 })
 export class MainwearhouseComponent {
-  mhouses!: IMainWearhouse[];
+  mhouses: IMainWearhouse[] = [];
 
   constructor(private mainwearService: WearhouseService, 
               private dialogService: DialogService) {}
