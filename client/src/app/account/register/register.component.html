@@ -68,7 +68,11 @@
             Role is required
           </span>
         </div> -->
-        
+        <ul class="text-danger" *ngIf="errors?.length">
+          <li *ngFor="let error of errors">
+            {{'Please try diffrent Password' }}
+          </li>
+        </ul>
   
         <button [disabled]="registerForm.invalid" class="btn btn-primary w-100 py-2" type="submit">{{'Register' }}</button>
   

@@ -66,7 +66,7 @@ builder.Services.AddSwaggerGen(options =>
 {
     // Add file upload support
 
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Amun", Version = "v1" });
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Stock", Version = "v1" });
     var securitySchema = new OpenApiSecurityScheme
     {
         Description = "JWT Auth Bearer Schema",
