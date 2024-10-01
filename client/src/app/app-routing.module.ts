@@ -9,6 +9,7 @@ import { HomeComponent } from './homepage/home/home.component';
 import { SubwearhouseDetailsComponent } from './wearhouse/subwearhouse-details/subwearhouse-details.component';
 import { LoginComponent } from './account/login/login.component';
 import { RegisterComponent } from './account/register/register.component';
+import { DisplayCategoriesComponent } from './category/display-categories/display-categories.component';
 
 const routes: Routes = [
   {path:'', component:HomeComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path:'Subwearhouse', component:SubwearhouseComponent},
   {path:'Subwearhouse/:id', component:SubwearhouseComponent},
   {path:'Subwearhouse-details/:id', component:SubwearhouseDetailsComponent},
+  {path:'categories',component: DisplayCategoriesComponent},
   {path:'login', component:LoginComponent},
   {path:'register', component:RegisterComponent},
   {path:'**', redirectTo:'', pathMatch: 'full'},

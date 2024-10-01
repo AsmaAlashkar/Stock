@@ -12,8 +12,5 @@ namespace Repository.MainWearHouse
     {
         Task<List<MainWearhouse>> GetAllMainWearHouse();
         Task<MainWearhouse?> GetMainWearHouseById(int id);
-        
-
-
     }
 }

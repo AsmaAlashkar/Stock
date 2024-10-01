@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Repository;
+using Repository.CategoryRepo;
 using Repository.Identity;
 using Repository.MainWearHouse;
 using Repository.Service;
@@ -12,6 +13,7 @@ using Repository.VMainWearhouseItem;
 using Repository.VWearhouseWithSubHierarchy;
 using Standard.Entities;
 using Standard.Mapping.AddressDtoProf;
+using Standard.Mapping.CategoryDtoProf;
 using Standard.Mapping.mainwearhouseProf;
 using Standard.Mapping.SubwearhouseProf;
 using Standard.Mapping.ViewWearHItemProf;
@@ -37,6 +39,8 @@ builder.Services.AddScoped<IMWHRepository, MWHRepository>();
 builder.Services.AddScoped<ISWHRepository, SWHRepository>();
 builder.Services.AddScoped<IVWHIRepository, VWHIRepository>();
 builder.Services.AddScoped<IVWHIWHRepository,VWHIWHRepository >();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
 
 
 
@@ -47,7 +51,9 @@ builder.Services.AddAutoMapper(
     typeof(SubWearhouseProfile),
     typeof(ViewWearHItemProfile),
     typeof(ViewWearhouseWithSubHierarchyProfile),
-    typeof(AddressProf)
+    typeof(AddressProf),
+    typeof(CategoryProfile)
+
     );
 
 
@@ -66,7 +72,7 @@ builder.Services.AddSwaggerGen(options =>
 {
     // Add file upload support
 
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Amun", Version = "v1" });
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Stock", Version = "v1" });
     var securitySchema = new OpenApiSecurityScheme
     {
         Description = "JWT Auth Bearer Schema",

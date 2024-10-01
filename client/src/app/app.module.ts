@@ -20,11 +20,11 @@ import { FormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptors';
 import { AccountModule } from './account/account.module';
+import { CategoryModule } from './category/category.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    
   ],
   imports: [
     BrowserModule,
@@ -35,6 +35,7 @@ import { AccountModule } from './account/account.module';
     CoreModule,
     AccountModule,
     WearhouseModule,
+    CategoryModule,
     HomepageModule,
     MatInputModule,
     BsDropdownModule.forRoot(),

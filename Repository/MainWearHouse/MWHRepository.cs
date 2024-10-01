@@ -31,10 +31,5 @@ namespace Repository.MainWearHouse
                 .FirstOrDefaultAsync(mw => mw.MainId == id);
         }
 
-        
-
-
-
-
     }
 }

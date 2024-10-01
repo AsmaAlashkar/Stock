@@ -20,14 +20,15 @@ export class MainwearhouseComponent {
   }
 
   loadhouses() {
-    this.mainwearService.getmainwearhouse().subscribe(
-      (data: IMainWearhouse[]) => {
+    this.mainwearService.getmainwearhouse().subscribe({
+      next:(data: IMainWearhouse[]) => {
         this.mhouses = data;
       },
-      error => {
+
+      error: error => {
         console.log(error);
       }
-    );
+    });
   }
 
   openCreateWarehouseModal() {
