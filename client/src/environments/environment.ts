@@ -5,6 +5,8 @@
 export const environment = {
     production: false,
     apiUrl: 'http://localhost:5050/api/',
+    getMainWearhouse: 'http://localhost:5050/api/MainWearhouse/GetMainWearhouse',
+    getMainWearhouseById:'http://localhost:5050/api/MainWearhouse/GetMainWearhouseById/'
   };
   
   /*

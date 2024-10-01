@@ -14,10 +14,10 @@ export class WearhouseService {
   constructor(private http: HttpClient) { }
 
   getmainwearhouse() {
-    return this.http.get<IMainWearhouse[]>(`${environment.apiUrl}MainWearhouse/GetMainWearhouse`);
+    return this.http.get<IMainWearhouse[]>(`${environment.getMainWearhouse}`);
   }
   getmainwearhousebyid(id: number) {
-    return this.http.get<IViewWearhouseItem[]>(`${environment.apiUrl}MainWearhouse/GetMainWearhouseById/${id}`);
+    return this.http.get<IViewWearhouseItem[]>(`${environment.getMainWearhouseById}${id}`);
   }
 
   getSubWearhouseByMainId(mainId: number) {
