@@ -1,0 +1,39 @@
+.category-tree {
+    font-family: Arial, sans-serif; /* Change the font family */
+    line-height: 1.5; /* Improve line spacing */
+  }
+  
+  ul {
+    list-style-type: none; /* Remove default list styling */
+    padding-left: 20px; /* Indent child lists */
+    margin: 0; /* Remove default margins */
+  }
+  
+  .category-item {
+    margin-bottom: 10px; /* Space between categories */
+    padding: 8px; /* Add padding to the items */
+    border: 1px solid #ddd; /* Light border around items */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background color */
+    transition: background-color 0.3s; /* Smooth background color transition */
+  
+    &:hover {
+      background-color: #e3f2fd; /* Change background color on hover */
+    }
+  }
+  
+  strong {
+    font-size: 1.1em; /* Slightly increase font size for category names */
+    color: #333; /* Darker text color */
+  }
+  
+  p {
+    margin: 5px 0; /* Space between paragraphs */
+    color: #555; /* Subtle gray color for descriptions */
+  }
+  
+  .level {
+    font-style: italic; /* Italicize the level */
+    color: #777; /* Lighter gray for level */
+  }
+  

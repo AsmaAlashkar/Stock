@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Standard.DTOs
 {
-    public class CategoryDto
+    public class CategoriesHirarichyDto
     {
-        public int CatId { get; set; }
+        public int? CatId { get; set; }
 
         public int? ParentCategoryId { get; set; }
 
-        public string CatNameAr { get; set; } = null!;
+        public string? CatNameAr { get; set; }
 
         public string? CatNameEn { get; set; }
 
@@ -20,5 +20,6 @@ namespace Standard.DTOs
 
         public string? CatDesEn { get; set; }
 
+        public int? Level { get; set; }
     }
 }

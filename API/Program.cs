@@ -52,7 +52,7 @@ builder.Services.AddAutoMapper(
     typeof(ViewWearHItemProfile),
     typeof(ViewWearhouseWithSubHierarchyProfile),
     typeof(AddressProf),
-    typeof(CategoryProfile)
+    typeof(CategoriesHirarichyProfile)
 
     );
 

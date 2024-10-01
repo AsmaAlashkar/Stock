@@ -1,44 +1,75 @@
-<!-- <div class="card">
-    <p-table [value]="categories" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Code</th>
-                <th>Category Name</th>
-                <th>Parent Category Id</th>
-                <th>Level</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-category>
-            <tr>
-                <td>{{ category.catId }}</td>
-                <td>{{ category.catNameAr }}</td>
-                <td>{{ category.parentCategoryId }}</td>
-                <td>{{ category.level }}</td>
-            </tr>
-        </ng-template>
-    </p-table>
-</div> -->
-<div class="p-grid">
-    <div class="p-col-12 p-md-4" *ngFor="let category of categoryTree">
-        <p-card>
-            <ng-template pTemplate="header">
-                <h5>{{ category.catNameAr }}</h5>
-            </ng-template>
-            <p>Level: {{ category.level }}</p>
-
-            <ng-container *ngIf="category.children?.length">
-                <div class="p-grid">
-                    <div class="p-col-12 p-md-4" *ngFor="let child of category.children">
-                        <p-card>
-                            <ng-template pTemplate="header">
-                                <h5>{{ child.catNameAr }}</h5>
-                            </ng-template>
-                            <p>Level: {{ child.level }}</p>
-                            <app-category-tree [categories]="child.children"></app-category-tree>
-                        </p-card>
-                    </div>
+<div class="category-tree">
+    <div class="row" *ngIf="categoryTree.length">
+        <section class="col-12 col-md-3 mb-4">
+            <div class="card mb-3" *ngIf="categoryTree[0]">
+                <div class="card-header">
+                  <strong>Summary</strong>
                 </div>
-            </ng-container>
-        </p-card>
+                <div class="card-body">
+                  <p>Total Categories: <strong>{{ categoryTree.length }}</strong></p>
+        
+                
+                </div>
+              </div>
+        
+              <!-- Filters -->
+              <div class="card mb-3">
+                <div class="card-header">
+                  <strong>Filters</strong>
+                </div>
+                <div class="card-body">
+                  <label for="filterByName">Filter by Name:</label>
+                  <input id="filterByName" type="text" class="form-control mb-3" placeholder="Enter name">
+                  <button class="btn btn-primary w-100">Apply Filter</button>
+                </div>
+              </div>
+        
+              <!-- Additional Actions -->
+              <div class="card" *ngIf="categoryTree[0]">
+                <div class="card-header">
+                  <strong>Actions</strong>
+                </div>
+                <div class="card-body">
+                  <button class="btn btn-success w-100 mb-2" >
+                    <i class="fa fa-plus" aria-hidden="true"></i> Add New Category</button>
+                </div>
+              </div>
+        </section>
+
+        <section class="col-12 col-md-9">
+            <ul>
+                <li *ngFor="let category of categoryTree">
+                  <div class="category-item">
+                    <strong>{{ category.catNameAr }}</strong> - {{ category.catNameEn }}
+                    <p>{{ category.catDesAr }}</p>
+                    <p>{{ category.catDesEn }}</p>
+                    <p>Level: {{ category.level }}</p>
+            
+                    <!-- Recursively display child categories if they exist -->
+                    <ul *ngIf="category.children?.length">
+                      <li *ngFor="let child of category.children">
+                        <div class="category-item">
+                          <strong>{{ child.catNameAr }}</strong> - {{ child.catNameEn }}
+                          <p>{{ child.catDesAr }}</p>
+                          <p>{{ child.catDesEn }}</p>
+                          <p>Level: {{ child.level }}</p>
+            
+                          <!-- Continue recursively for deeper levels -->
+                          <ul *ngIf="child.children?.length">
+                            <li *ngFor="let grandChild of child.children">
+                              <strong>{{ grandChild.catNameAr }}</strong> - {{ grandChild.catNameEn }}
+                              <p>{{ grandChild.catDesAr }}</p>
+                              <p>{{ grandChild.catDesEn }}</p>
+                              <p>Level: {{ grandChild.level }}</p>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+        </section>
     </div>
-</div>
+  </div>
+  
