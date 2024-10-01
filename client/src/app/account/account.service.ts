@@ -58,6 +58,14 @@ export class AccountService {
       })
     );
   }
+
+  isLoggedIn(): boolean {
+    const token = localStorage.getItem('token');
+    return !!token;  // Returns true if a token exists
+  }
+
+
+
   register(values: any) {
     return this.http.post<IUser>(this.baseUrl + 'account/Register/register', values).pipe(
       map((user: IUser) => {

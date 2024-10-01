@@ -4,7 +4,7 @@
         <li class="breadcrumb-item">
           <a [routerLink]="['/']" routerLinkActive="router-link-active">{{'Home'}}</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">{{'Register'}}</li>
+        <li class="breadcrumb-item active" aria-current="page">{{'Sign-Up'}}</li>
       </ol>
     </nav>
   </div>
@@ -68,7 +68,11 @@
             Role is required
           </span>
         </div> -->
-        
+        <ul class="text-danger" *ngIf="errors?.length">
+          <li *ngFor="let error of errors">
+            {{'Please try diffrent Password' }}
+          </li>
+        </ul>
   
         <button [disabled]="registerForm.invalid" class="btn btn-primary w-100 py-2" type="submit">{{'Register' }}</button>
   

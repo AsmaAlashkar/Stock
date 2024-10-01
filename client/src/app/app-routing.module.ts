@@ -10,6 +10,7 @@ import { SubwearhouseDetailsComponent } from './wearhouse/subwearhouse-details/s
 import { LoginComponent } from './account/login/login.component';
 import { RegisterComponent } from './account/register/register.component';
 import { DisplayCategoriesComponent } from './category/display-categories/display-categories.component';
+import { authGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {path:'', component:HomeComponent},
@@ -20,7 +21,7 @@ const routes: Routes = [
   {path:'Subwearhouse-details/:id', component:SubwearhouseDetailsComponent},
   {path:'categories',component: DisplayCategoriesComponent},
   {path:'login', component:LoginComponent},
-  {path:'register', component:RegisterComponent},
+  {path:'register', component:RegisterComponent , canActivate: [authGuard]},
   {path:'**', redirectTo:'', pathMatch: 'full'},
 ];
 
