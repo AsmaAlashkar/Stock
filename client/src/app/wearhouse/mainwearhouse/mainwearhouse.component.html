@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <section class="col-12 col-md-3 mb-4">
+        <!-- <section class="col-12 col-md-3 mb-4">
             <h4 class="text-info mb-3" style="border: 1px solid #ceecfc; padding: 5px;">Sort</h4>
             <select class="custom-select w-100">
                 <option selected>Alphabetical</option>
@@ -12,28 +12,63 @@
                 <li class="list-group-item">option two</li>
                 <li class="list-group-item">option three</li>
             </ul>
-        </section>
-
+        </section> -->
+        <section class="col-12 col-md-3 mb-4">
+            <!-- Summary of Sub-Warehouses -->
+            <div class="card mb-3" *ngIf="mhouses[0]">
+              <div class="card-header">
+                <strong>Summary</strong>
+              </div>
+              <div class="card-body">
+                <p>Total Warehouses: <strong>{{ mhouses?.length || 0 }}</strong></p>
+      
+              </div>
+            </div>
+      
+            <!-- Filters -->
+            <div class="card mb-3">
+              <div class="card-header">
+                <strong>Filters</strong>
+              </div>
+              <div class="card-body">
+                <label for="filterByName">Filter by Name:</label>
+                <input id="filterByName" type="text" class="form-control mb-3" placeholder="Enter name">
+                <button class="btn btn-primary w-100">Apply Filter</button>
+              </div>
+            </div>
+      
+            <!-- Additional Actions -->
+            <div class="card" *ngIf="mhouses[0]">
+              <div class="card-header">
+                <strong>Actions</strong>
+              </div>
+              <div class="card-body">
+                <button class="btn btn-outline-success my-2" (click)="openCreateWarehouseModal()">
+                    <i class="fa fa-plus" aria-hidden="true"></i> New Main Warehouse
+                  </button>
+              </div>
+            </div>
+          </section>
         <section class="col-12 col-md-9">
             <div class="d-flex justify-content-between align-items-center pb-2 flex-wrap">
-                <header>
+                <!-- <header>
                     <span>Showing <strong>{{mhouses?.length || 0}} results</strong></span>
-                </header>
+                </header> -->
                 <div class="form-inline mt-2 d-flex w-100 w-md-auto">
                     <input class="form-control my-2 me-3 w-100" style="flex: 2;" placeholder="search" type="text">
                     <button class="btn btn-outline-primary my-2 me-3" style="flex: 0.5;">Search</button>
                     <button class="btn btn-outline-success my-2" style="flex: 0.5;">Reset</button>
                 </div>
-                <header class="text-center w-100 py-2">
+                <!-- <header class="text-center w-100 py-2">
                     <span><strong> Main WareHouse</strong></span>
-                </header>
+                </header> -->
 
                 <!-- New Create Button -->
-                <div class="form-inline mt-2 d-flex w-100 w-sm-auto">
+                <!-- <div class="form-inline mt-2 d-flex w-100 w-sm-auto">
                     <button class="btn btn-outline-success my-2" (click)="openCreateWarehouseModal()">
                       <i class="fa fa-plus" aria-hidden="true"></i> New Main Warehouse
                     </button>
-                  </div>
+                  </div> -->
             </div>
 
             <div class="cards-container">
