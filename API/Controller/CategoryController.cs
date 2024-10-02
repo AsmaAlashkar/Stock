@@ -26,7 +26,7 @@ namespace API.Controller
         [HttpGet("GetCategories")]
         public async Task<ActionResult<List<CategoriesHirarichy>>> GetCategories()
         {
-            var cat = await _cp.GetAllCategories();
+            var cat = await _cp.GetCategories();
 
             var catDtos = _mapper.Map<List<CategoriesHirarichyDto>>(cat);
 
