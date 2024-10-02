@@ -10,8 +10,9 @@ import { CategoryService } from '../category.service';
 export class DisplayCategoriesComponent implements OnInit{
   categories!: Category[];
   categoryTree!: Category[];
+
   constructor(
-    private categoryService : CategoryService,
+    private categoryService : CategoryService
 
   ) {}
   ngOnInit(): void {
@@ -50,4 +51,5 @@ export class DisplayCategoriesComponent implements OnInit{
       };
     }) || [];
   }
+
 }
