@@ -18,6 +18,15 @@ namespace Repository.CategoryRepo
             _context = context;
         }
 
+
+        public async Task<List<CategoriesHirarichy>> GetAllCategories()
+        {
+            return await _context.CategoriesHirarichies
+               
+                .ToListAsync();
+        }
+
+
         public async Task<List<CategoriesHirarichy>> GetCategories()
         {
             return await _context.CategoriesHirarichies.OrderBy(c=>c.CatId).ToListAsync();

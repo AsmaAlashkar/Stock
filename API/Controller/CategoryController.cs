@@ -14,20 +14,22 @@ namespace API.Controller
     {
         private readonly IGenericRepository<CategoriesHirarichy> _repo;
         private readonly IMapper _mapper;
-        private readonly ICategoryRepository _categoryRepository;
+        private readonly ICategoryRepository _cp;
         public CategoryController(IGenericRepository<CategoriesHirarichy> repo,
             IMapper mapper,
-            ICategoryRepository categoryRepository)
+            ICategoryRepository cp)
         {
             _repo = repo;
             _mapper = mapper;
-            _categoryRepository = categoryRepository;
+            _cp = cp;
         }
         [HttpGet("GetCategories")]
         public async Task<ActionResult<List<CategoriesHirarichy>>> GetCategories()
         {
-            var cat = await _categoryRepository.GetCategories();
-            var catDtos = _mapper.Map<List<CategoryDto>>(cat);
+            var cat = await _cp.GetAllCategories();
+
+            var catDtos = _mapper.Map<List<CategoriesHirarichyDto>>(cat);
+
             return Ok(catDtos);
         }
     }

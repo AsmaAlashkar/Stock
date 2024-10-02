@@ -1,7 +1,10 @@
 export interface Category {
-    catId: number;
-    catNameAr:string;
-    parentCategoryId:number;
-    level:number;
+    catId: number
+    parentCategoryId: number
+    catNameAr: string
+    catNameEn: string
+    catDesAr: string
+    catDesEn: string
+    level: number
     children?: Category[];
 }
