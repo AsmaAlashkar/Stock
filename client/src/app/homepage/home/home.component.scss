@@ -1,13 +1,18 @@
 .c-item {
     height:100%;
   }
-  
-  .c-img {
-    height: 74vh;;
-    object-fit: cover;
-    // filter: brightness(0.6);
-  }
-  
-  .sec {
-    margin-top: 70px;
-  }
+
+.c-img {
+  height: 74vh;
+  object-fit: cover;
+  // filter: brightness(0.6);
+}
+
+.sec {
+  margin-top: 70px;
+  border: 1px solid #ddd; /* Initial thin border */
+  transition: border 0.3s ease; /* Smooth transition */
+}
+.sec:hover {
+  border: 1px solid #000; /* Border changes to black on hover */
+}

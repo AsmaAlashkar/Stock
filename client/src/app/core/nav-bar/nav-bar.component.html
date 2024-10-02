@@ -1,26 +1,33 @@
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm ">
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-0 bg-white border-bottom shadow-sm ">
     <img src="/assets/images/logo.png" alt="logo" routerLink="/">
-    
+
     <nav class="my-2 my-md-0 mr-md-3 ms-md-auto d-flex align-items-center">
         <div class="dropdown" bsDropdown>
+          <i class="fa fa-industry fa-2xl" style="color: #145fe1;" aria-hidden="true"></i>
             <a class="btn  dropdown-toggle" bsDropdownToggle>
-                Wearhouse
+              Wearhouse
             </a>
             <ul *bsDropdownMenu class="dropdown-menu">
                 <li>
-                    <a class="dropdown-item" [routerLink]="['/mainwearhouse']" routerLinkActive="active" 
+                    <a class="dropdown-item" [routerLink]="['/mainwearhouse']" routerLinkActive="active"
                     [routerLinkActiveOptions]="{exact: true}">MainWearhouse</a></li>
                 <!-- <li>
                     <a class="dropdown-item" routerLink="/Subwearhouse" routerLinkActive="active">SubWearhouse</a>
                 </li> -->
             </ul>
         </div>
+        <i class="fa fa-th-large fa-2xl" style="color: #fe0000;" aria-hidden="true"></i>
         <a class="p-2 text-dark" [routerLink]="['categories']">Categories</a>
 
+        <i class="fa fa-sitemap fa-2xl" style="color: #007194;" aria-hidden="true"></i>
         <a class="p-2 text-dark" href="#">Items</a>
+
+        <i class="fa fa-cubes fa-2xl" style="color: #009440;" aria-hidden="true"></i>
         <a class="p-2 text-dark" href="#">Suppliers</a>
-        <a class="p-2 text-dark" href="#">Settings</a>
-    </nav>
+
+        <i class="fa fa-cogs fa-2xl" style="color: #5c5c5c;" aria-hidden="true"></i>
+        <a class="p-2 text-dark set" href="#">Settings</a>
+
     <ng-container *ngIf="(currentUser$ |async)=== null">
     <div class="d-flex align-items-center ms-md-auto">
         <a routerLink="login" class="btn btn-outline-secondary me-3" href="#">Login</a>
@@ -30,7 +37,7 @@
 <ng-container *ngIf="currentUser$ | async as currentUser">
     <div class="dropdown ml-3 mr-5" dropdown>
         <a class="dropdown-toggle" style="cursor:pointer" dropdownToggle *ngIf="currentUser.displayName">
-          <strong> {{ 'WELCOME'}},{{ currentUser.displayName }} </strong> 
+          <strong> {{ 'WELCOME'}},{{ currentUser.displayName }} </strong>
         </a>
         <div class="dropdown-menu dropdown-menu-right" style="cursor:pointer" *dropdownMenu>
             <a  class="dropdown-item d-flex align-items-center py-2" >
@@ -46,4 +53,5 @@
         </div>
     </div>
 </ng-container>
+</nav>
 </div>
