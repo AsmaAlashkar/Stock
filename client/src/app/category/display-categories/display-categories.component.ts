@@ -12,7 +12,8 @@ export class DisplayCategoriesComponent implements OnInit {
   categoryTree!: Category[];
 
   constructor(
-    private categoryService: CategoryService,
+    private categoryService : CategoryService
+
   ) {}
 
   ngOnInit(): void {

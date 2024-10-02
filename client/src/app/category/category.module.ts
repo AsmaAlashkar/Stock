@@ -12,11 +12,13 @@ import { ToastrModule } from 'ngx-toastr';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { CreateCategoryComponent } from './create-category/create-category.component';
 
 
 @NgModule({
   declarations: [
-    DisplayCategoriesComponent
+    DisplayCategoriesComponent,
+    CreateCategoryComponent
   ],
   imports: [
     CommonModule,
