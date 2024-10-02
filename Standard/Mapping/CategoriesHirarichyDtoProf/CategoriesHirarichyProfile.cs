@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Standard.Mapping.CategoryDtoProf
 {
-    public class CategoryProfile:Profile
+    public class CategoriesHirarichyProfile:Profile
     {
-        public CategoryProfile()
+        public CategoriesHirarichyProfile()
         {
-            CreateMap<CategoriesHirarichy, CategoryDto>().ReverseMap();
-            CreateMap<CategoryDto, CategoriesHirarichy>().ReverseMap();
+            CreateMap<CategoriesHirarichy, CategoriesHirarichyDto>().ReverseMap();
+            CreateMap<CategoriesHirarichyDto, CategoriesHirarichy>().ReverseMap();
 
         }
     }

@@ -39,7 +39,7 @@ public partial class StockContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=.;Database=Stock;Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-F9A72EH;Database=Stock;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -49,11 +49,15 @@ public partial class StockContext : DbContext
                 .HasNoKey()
                 .ToView("CategoriesHirarichy");
 
+            entity.Property(e => e.CatDesAr).HasColumnName("Cat_DesAr");
+            entity.Property(e => e.CatDesEn).HasColumnName("Cat_DesEn");
             entity.Property(e => e.CatId).HasColumnName("Cat_ID");
             entity.Property(e => e.CatNameAr)
                 .HasMaxLength(50)
                 .HasColumnName("Cat_NameAr");
-            entity.Property(e => e.Level).HasColumnName("level");
+            entity.Property(e => e.CatNameEn)
+                .HasMaxLength(50)
+                .HasColumnName("Cat_NameEn");
         });
 
         modelBuilder.Entity<Category>(entity =>
