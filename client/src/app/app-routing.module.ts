@@ -21,7 +21,7 @@ const routes: Routes = [
   {path:'Subwearhouse-details/:id', component:SubwearhouseDetailsComponent},
   {path:'categories',component: DisplayCategoriesComponent},
   {path:'login', component:LoginComponent},
-  {path:'register', component:RegisterComponent , canActivate: [authGuard]},
+  {path:'register', component:RegisterComponent},
   {path:'**', redirectTo:'', pathMatch: 'full'},
 ];
 
