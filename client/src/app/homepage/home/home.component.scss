@@ -10,4 +10,9 @@
   
   .sec {
     margin-top: 70px;
+    border: 1px solid #ddd; /* Initial thin border */
+  transition: border 0.3s ease; /* Smooth transition */
+  }
+  .sec:hover {
+    border: 1px solid #000; /* Border changes to black on hover */
   }
