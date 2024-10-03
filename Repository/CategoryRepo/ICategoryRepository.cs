@@ -11,7 +11,7 @@ namespace Repository.CategoryRepo
     public interface ICategoryRepository
     {
         Task<List<CategoriesHirarichy>> GetCategories();
-        Task<Category?> GetCategoryById(int id);
+        Task<CategoriesHirarichy?> GetCategoryById(int id);
         Task<List<CategoryDto>> GetSubCategoriesByCategoryFk(int categoryFk);
 
 

@@ -34,13 +34,74 @@ namespace API.Controller
         }
 
         [HttpPost("CreateCategory")]
-        public async Task<ActionResult> CreateCategory(CategoriesHirarichyDto categoriesHirarichy)
+        public async Task<ActionResult> CreateCategory(CategoryDto category)
         {
-            var newCategory = _mapper.Map<Category>(categoriesHirarichy);
+            var newCategory = _mapper.Map<Category>(category);
 
             await _repo.CreateNew(newCategory);
             return Ok("Category Created Successfully");
 
+        }
+
+        [HttpGet("GetCategoryById/{id}")]
+        public async Task<ActionResult<CategoriesHirarichy>> GetCategoryById(int id)
+        {
+
+            var category = await _cp.GetCategoryById(id);
+
+
+            if (category == null)
+            {
+                return NotFound("Category not found or has been deleted.");
+            }
+
+            // Map the entity to a DTO and return it
+            return Ok(_mapper.Map<CategoriesHirarichy>(category));
+
+        }
+
+        [HttpPut("UpdateCategory/{id}")]
+        public async Task<ActionResult> UpdateCategory(int id, [FromBody] CategoryDto category)
+        {
+            try
+            {
+                var existingItem = await _repo.GetById(id);
+
+                if (existingItem == null)
+                {
+                    return NotFound($"Category with ID {id} not found");
+                }
+
+                // Update only the fields that are provided in the DTO
+                if (!string.IsNullOrEmpty(category.CatNameAr))
+                {
+                    existingItem.CatNameAr = category.CatNameAr;
+                }
+
+                if (!string.IsNullOrEmpty(category.CatNameEn))
+                {
+                    existingItem.CatNameEn = category.CatNameEn;
+                }
+
+                if (!string.IsNullOrEmpty(category.CatDesAr))
+                {
+                    existingItem.CatDesAr = category.CatDesAr;
+                }
+
+                if (!string.IsNullOrEmpty(category.CatDesEn))
+                {
+                    existingItem.CatDesEn = category.CatDesEn;
+                }
+
+                await _repo.Update(existingItem);
+
+                return Ok("Category updated successfully");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it accordingly
+                return BadRequest($"Error updating Category: {ex.Message}");
+            }
         }
     }
 }
