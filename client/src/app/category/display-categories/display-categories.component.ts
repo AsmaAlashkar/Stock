@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/shared/models/category';
 import { CategoryService } from '../category.service';
+import { CreateCategoryComponent } from '../create-category/create-category.component';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-display-categories',
@@ -8,11 +10,13 @@ import { CategoryService } from '../category.service';
   styleUrls: ['./display-categories.component.scss']
 })
 export class DisplayCategoriesComponent implements OnInit {
+
   categories!: Category[];
   categoryTree!: Category[];
 
   constructor(
-    private categoryService : CategoryService
+    private categoryService : CategoryService,
+    private dialogService: DialogService
 
   ) {}
 
@@ -47,5 +51,13 @@ buildHierarchy(categories: Category[], parentId: number | null = null): Category
     };
   });
 }
-
+openCreateCategoryModal() {
+  const catId = this.categories[0]?.catId;
+  this.dialogService.open(CreateCategoryComponent, {
+    data: { catId: catId },
+    header: 'Create New Category',
+    width: '70%',
+    contentStyle: { 'max-height': '80vh', overflow: 'auto' }
+  });
+}
 }
