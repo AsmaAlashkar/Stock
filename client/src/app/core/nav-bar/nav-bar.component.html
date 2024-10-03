@@ -2,9 +2,13 @@
     <img src="/assets/images/logo.png" alt="logo" routerLink="/">
 
     <nav class="my-2 my-md-0 mr-md-3 ms-md-auto d-flex align-items-center">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="d-flex align-items-center ms-md-auto">
         <div class="dropdown" bsDropdown>
           <i class="fa fa-industry fa-2xl" style="color: #145fe1;" aria-hidden="true"></i>
-            <a class="btn  dropdown-toggle" bsDropdownToggle>
+            <a class="btn dropdown-toggle" bsDropdownToggle>
               Wearhouse
             </a>
             <ul *bsDropdownMenu class="dropdown-menu">
@@ -27,6 +31,7 @@
 
         <i class="fa fa-cogs fa-2xl" style="color: #5c5c5c;" aria-hidden="true"></i>
         <a class="p-2 text-dark set" href="#">Settings</a>
+      </div>
     </nav>
       <ng-container *ngIf="(currentUser$ |async)=== null">
         <div class="d-flex align-items-center ms-md-auto">

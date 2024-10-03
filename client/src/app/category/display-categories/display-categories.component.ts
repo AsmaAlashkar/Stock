@@ -26,7 +26,7 @@ export class DisplayCategoriesComponent implements OnInit {
 
   loadCategories() {
     this.categoryService.getCtegories().subscribe({
-      next: (data) => {        
+      next: (data) => {
         this.categories = data;
         this.categoryTree = this.buildHierarchy(data);
       },
@@ -36,7 +36,6 @@ export class DisplayCategoriesComponent implements OnInit {
     });
   }
 
- 
   // Recursively build the hierarchy for categories
 buildHierarchy(categories: Category[], parentId: number | null = null): Category[] {
   // Filter categories where the parentCategoryId matches the parentId
@@ -51,6 +50,7 @@ buildHierarchy(categories: Category[], parentId: number | null = null): Category
     };
   });
 }
+
 openCreateCategoryModal() {
   const catId = this.categories[0]?.catId;
   this.dialogService.open(CreateCategoryComponent, {
