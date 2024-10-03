@@ -10,21 +10,15 @@ import { DialogService } from 'primeng/dynamicdialog';
   styleUrls: ['./display-categories.component.scss']
 })
 export class DisplayCategoriesComponent implements OnInit {
-onViewDetails(_t38: any) {
-throw new Error('Method not implemented.');
-}
-onEditCategory(_t38: any) {
-throw new Error('Method not implemented.');
-}
 
   categories!: Category[];
   categoryTree!: Category[];
 
   constructor(
-    private categoryService : CategoryService,
+    private categoryService: CategoryService,
     private dialogService: DialogService
 
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadCategories();
@@ -32,7 +26,7 @@ throw new Error('Method not implemented.');
 
   loadCategories() {
     this.categoryService.getCtegories().subscribe({
-      next: (data) => {        
+      next: (data) => {
         this.categories = data;
         this.categoryTree = this.buildHierarchy(data);
       },
@@ -42,28 +36,28 @@ throw new Error('Method not implemented.');
     });
   }
 
- 
-  // Recursively build the hierarchy for categories
-buildHierarchy(categories: Category[], parentId: number | null = null): Category[] {
-  // Filter categories where the parentCategoryId matches the parentId
-  const filteredCategories = categories.filter(cat => cat.parentCategoryId === parentId);
 
-  // Recursively build the hierarchy for each filtered category
-  return filteredCategories.map(cat => {
-    const children = this.buildHierarchy(categories, cat.catId);
-    return {
-      ...cat,
-      children: children.length > 0 ? children : [] // Ensure children is an empty array if no children exist
-    };
-  });
-}
-openCreateCategoryModal() {
-  const catId = this.categories[0]?.catId;
-  this.dialogService.open(CreateCategoryComponent, {
-    data: { catId: catId },
-    header: 'Create New Category',
-    width: '70%',
-    contentStyle: { 'max-height': '80vh', overflow: 'auto' }
-  });
-}
+  // Recursively build the hierarchy for categories
+  buildHierarchy(categories: Category[], parentId: number | null = null): Category[] {
+    // Filter categories where the parentCategoryId matches the parentId
+    const filteredCategories = categories.filter(cat => cat.parentCategoryId === parentId);
+
+    // Recursively build the hierarchy for each filtered category
+    return filteredCategories.map(cat => {
+      const children = this.buildHierarchy(categories, cat.catId);
+      return {
+        ...cat,
+        children: children.length > 0 ? children : [] // Ensure children is an empty array if no children exist
+      };
+    });
+  }
+  openCreateCategoryModal() {
+    const catId = this.categories[0]?.catId;
+    this.dialogService.open(CreateCategoryComponent, {
+      data: { catId: catId },
+      header: 'Create New Category',
+      width: '70%',
+      contentStyle: { 'max-height': '80vh', overflow: 'auto' }
+    });
+  }
 }

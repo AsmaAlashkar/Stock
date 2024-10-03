@@ -20,7 +20,7 @@ import { AccordionModule } from 'primeng/accordion';
   declarations: [
     DisplayCategoriesComponent,
     CreateCategoryComponent,
-    CategoryDetailsComponent
+    CategoryDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -42,7 +42,7 @@ import { AccordionModule } from 'primeng/accordion';
     DynamicDialogModule,
     MatButtonModule,
     ButtonModule,
-    AccordionModule
+    AccordionModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

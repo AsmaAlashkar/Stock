@@ -61,12 +61,12 @@
             <!-- Action Icons -->
             <div>
               <!-- Edit icon -->
-              <button class="btn btn-outline-primary me-2" (click)="onEditCategory(category)">
+              <button class="btn btn-outline-primary me-2" [routerLink]="['/category-details', category.catId]">
                 <i class="fa fa-edit"></i>
               </button>
               
               <!-- View Details icon -->
-              <button class="btn btn-outline-info" (click)="onViewDetails(category)">
+              <button class="btn btn-outline-info" [routerLink]="['/category-details', category.catId]">
                 <i class="fa fa-eye"></i>
               </button>
             </div>

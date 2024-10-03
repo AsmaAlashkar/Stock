@@ -1,1 +1,60 @@
-<p>category-details works!</p>
+<div *ngIf="category">
+    <div class="container-fluid">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a (click)="goBack()" style="cursor: pointer; color: #007bff;">Categories</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page" style="color: #6c757d;">
+            {{ category.catNameEn }}
+          </li>
+        </ol>
+      </nav>
+  
+      <section class="category-details">
+        <h3>{{ category.catNameEn }}</h3>
+        <div class="category-info">
+          <div class="category-section">
+            <h4>Category Details</h4>
+  
+            <!-- Form to update category details -->
+            <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                <label for="catNameAr">
+                  <strong>Category Name (Arabic):</strong>
+                  <span class="text-danger">*</span>
+                </label>
+                <input type="text" id="catNameAr" class="form-control" formControlName="catNameAr" />
+                <div *ngIf="categoryForm.get('catNameAr')?.invalid && (categoryForm.get('catNameAr')?.dirty || categoryForm.get('catNameAr')?.touched)" class="text-danger">
+                  <small *ngIf="categoryForm.get('catNameAr')?.errors?.['required']">Category Name (Arabic) is required.</small>
+                </div>
+              </div>
+  
+              <div class="form-group">
+                <label for="catNameEn">
+                  <strong>Category Name (English):</strong>
+                  <span class="text-danger">*</span>
+                </label>
+                <input type="text" id="catNameEn" class="form-control" formControlName="catNameEn" />
+                <div *ngIf="categoryForm.get('catNameEn')?.invalid && (categoryForm.get('catNameEn')?.dirty || categoryForm.get('catNameEn')?.touched)" class="text-danger">
+                  <small *ngIf="categoryForm.get('catNameEn')?.errors?.['required']">Category Name (English) is required.</small>
+                </div>
+              </div>
+  
+              <div class="form-group">
+                <label for="catDesAr"><strong>Description (Arabic):</strong></label>
+                <input type="text" id="catDesAr" class="form-control" formControlName="catDesAr" />
+              </div>
+  
+              <div class="form-group">
+                <label for="catDesEn"><strong>Description (English):</strong></label>
+                <input type="text" id="catDesEn" class="form-control" formControlName="catDesEn" />
+              </div>
+              <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  

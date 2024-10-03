@@ -20,9 +20,19 @@ export class CategoryService {
     return this.http.get<Category[]>(`${environment.getCtegories}`, this.httpHeader);
   }
 
+  getCtegoryById(id:number){
+    return this.http.get<Category>(`${environment.getCategoryById}${id}`, this.httpHeader);
+  }
+
   createCategory(category: Category) :Observable<Category>{
     return this.http.post<Category>(`${environment.createCtegory}`, category, 
       {headers:this.httpHeader.headers, responseType: 'text' as 'json'});
+  }
+
+  updateCategory(catId: number, updatedCategory: Partial<Category>): Observable<Category> {
+    return this.http.put<Category>(`${environment.updateCategory}${catId}`, updatedCategory, 
+      {headers:this.httpHeader.headers, responseType: 'text' as 'json'}
+    );
   }
 
 }
