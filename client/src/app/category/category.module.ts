@@ -13,12 +13,14 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { CreateCategoryComponent } from './create-category/create-category.component';
+import { CategoryDetailsComponent } from './category-details/category-details.component';
 
 
 @NgModule({
   declarations: [
     DisplayCategoriesComponent,
-    CreateCategoryComponent
+    CreateCategoryComponent,
+    CategoryDetailsComponent
   ],
   imports: [
     CommonModule,

@@ -5,10 +5,14 @@
 export const environment = {
     production: false,
     apiUrl: 'http://localhost:5050/api/',
+
     getMainWearhouse: 'http://localhost:5050/api/MainWearhouse/GetMainWearhouse',
     getMainWearhouseById:'http://localhost:5050/api/MainWearhouse/GetMainWearhouseById/',
+
     getCtegories:'http://localhost:5050/api/Category/GetCategories',
-    createCtegory:'http://localhost:5050/api/Category/CreateCategory'
+    getCategoryById:'http://localhost:5050/api/Category/GetCategoryById/',
+    createCtegory:'http://localhost:5050/api/Category/CreateCategory',
+    updateCategory:'http://localhost:5050/api/Category/UpdateCategory/'
   };
   
   /*

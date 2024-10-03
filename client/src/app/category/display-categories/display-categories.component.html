@@ -1,73 +1,69 @@
 <div class="category-tree">
-    <div class="row" *ngIf="categoryTree?.length">
-        <section class="col-12 col-md-3 mb-4">
-            <div class="card mb-3" *ngIf="categoryTree[0]">
-                <div class="card-header">
-                  <strong>Summary</strong>
-                </div>
-                <div class="card-body">
-                  <p>Total Categories: <strong>{{ categoryTree.length }}</strong></p>
-                </div>
-              </div>
-              
-              <!-- Filters -->
-              <div class="card mb-3">
-                <div class="card-header">
-                  <strong>Filters</strong>
-                </div>
-                <div class="card-body">
-                  <label for="filterByName">Filter by Name:</label>
-                  <input id="filterByName" type="text" class="form-control mb-3" placeholder="Enter name">
-                  <button class="btn btn-primary w-100">Apply Filter</button>
-                </div>
-              </div>
-        
-              <!-- Additional Actions -->
-              <div class="card" *ngIf="categoryTree[0]">
-                <div class="card-header">
-                  <strong>Actions</strong>
-                </div>
-                <div class="card-body">
-                  <button class="btn btn-success w-100 mb-2" (click)="openCreateCategoryModal()">
-                    <i class="fa fa-plus" aria-hidden="true" ></i> Add New Category</button>
-                </div>
-              </div>
-        </section>
+  <div class="row" *ngIf="categoryTree?.length">
+    <!-- Sidebar for summary and actions -->
+    <section class="col-12 col-md-3 mb-4">
+      <!-- Summary card -->
+      <div class="card mb-3" *ngIf="categoryTree.length">
+        <div class="card-header">
+          <strong>Summary</strong>
+        </div>
+        <div class="card-body">
+          <p>Total Categories: <strong>{{ categoryTree.length }}</strong></p>
+        </div>
+      </div>
 
-        <section class="col-12 col-md-9">
-            <ul>
-                <li *ngFor="let category of categoryTree">
-                  <div class="category-item">
-                    <strong>{{ category.catNameAr }}</strong> - {{ category.catNameEn }}
-                    <p>{{ category.catDesAr }}</p>
-                    <p>{{ category.catDesEn }}</p>
-                    <p>Level: {{ category.level }}</p>
-            
-                    <!-- Recursively display child categories if they exist -->
-                    <ul *ngIf="category.children?.length">
-                      <li *ngFor="let child of category.children">
-                        <div class="category-item">
-                          <strong>{{ child.catNameAr }}</strong> - {{ child.catNameEn }}
-                          <p>{{ child.catDesAr }}</p>
-                          <p>{{ child.catDesEn }}</p>
-                          <p>Level: {{ child.level }}</p>
-            
-                          <!-- Continue recursively for deeper levels -->
-                          <ul *ngIf="child.children?.length">
-                            <li *ngFor="let grandChild of child.children">
-                              <strong>{{ grandChild.catNameAr }}</strong> - {{ grandChild.catNameEn }}
-                              <p>{{ grandChild.catDesAr }}</p>
-                              <p>{{ grandChild.catDesEn }}</p>
-                              <p>Level: {{ grandChild.level }}</p>
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-        </section>
-    </div>
+      <!-- Filters -->
+      <div class="card mb-3">
+        <div class="card-header">
+          <strong>Filters</strong>
+        </div>
+        <div class="card-body">
+          <label for="filterByName">Filter by Name:</label>
+          <input id="filterByName" type="text" class="form-control mb-3" placeholder="Enter name">
+          <button class="btn btn-primary w-100">Apply Filter</button>
+        </div>
+      </div>
+
+      <!-- Additional Actions -->
+      <div class="card">
+        <div class="card-header">
+          <strong>Actions</strong>
+        </div>
+        <div class="card-body">
+          <button class="btn btn-success w-100 mb-2" (click)="openCreateCategoryModal()">
+            <i class="fa fa-plus"></i> Add New Category
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category tree display -->
+    <section class="col-12 col-md-9">
+      <ul>
+        <!-- Recursively display categories and their children -->
+        <ng-container *ngFor="let category of categoryTree">
+          <ng-container *ngTemplateOutlet="recursiveCategories; context: { $implicit: category }"></ng-container>
+        </ng-container>
+      </ul>
+
+      <!-- Recursive template for category display -->
+      <ng-template #recursiveCategories let-category>
+        <li>
+          <div class="category-item">
+            <strong>{{ category.catNameAr }}</strong> - {{ category.catNameEn }}
+            <p>{{ category.catDesAr }}</p>
+            <p>{{ category.catDesEn }}</p>
+            <p>Level: {{ category.level }}</p>
+
+            <!-- Check if category has children and recursively display them -->
+            <ul *ngIf="category.children?.length">
+              <ng-container *ngFor="let child of category.children">
+                <ng-container *ngTemplateOutlet="recursiveCategories; context: { $implicit: child }"></ng-container>
+              </ng-container>
+            </ul>
+          </div>
+        </li>
+      </ng-template>
+    </section>
   </div>
-  
+</div>
