@@ -1,4 +1,4 @@
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-0 bg-white border-bottom shadow-sm ">
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-5 mb-0 bg-white border-bottom shadow-sm ">
     <img src="/assets/images/logo.png" alt="logo" routerLink="/">
 
     <nav class="my-2 my-md-0 mr-md-3 ms-md-auto d-flex align-items-center">
@@ -27,31 +27,32 @@
 
         <i class="fa fa-cogs fa-2xl" style="color: #5c5c5c;" aria-hidden="true"></i>
         <a class="p-2 text-dark set" href="#">Settings</a>
-
-    <ng-container *ngIf="(currentUser$ |async)=== null">
-    <div class="d-flex align-items-center ms-md-auto">
-        <a routerLink="login" class="btn btn-outline-secondary me-3" href="#">Login</a>
-        <a routerLink="register" class="btn btn-outline-success me-2" href="#">Sign up</a>
-    </div>
-</ng-container>
-<ng-container *ngIf="currentUser$ | async as currentUser">
-    <div class="dropdown ml-3 mr-5" dropdown>
-        <a class="dropdown-toggle" style="cursor:pointer" dropdownToggle *ngIf="currentUser.displayName">
-          <strong> {{ 'WELCOME'}},{{ currentUser.displayName }} </strong>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" style="cursor:pointer" *dropdownMenu>
-            <a  class="dropdown-item d-flex align-items-center py-2" >
-                <i class="fa fa-handshake-o mr-3"></i> {{'Option One'}}
-            </a>
-            <a  class="dropdown-item d-flex align-items-center py-2" >
-                <i class="fa fa-eye" aria-hidden="true"></i> {{'Option Two'}}
-            </a>
-            <div class="dropdown-divider"></div>
-            <a (click)="logout()" class="dropdown-item d-flex align-items-center py-2">
-                <i class="fa fa-sign-out mr-3"></i> {{'Logout'}}
-              </a>
+    </nav>
+      <ng-container *ngIf="(currentUser$ |async)=== null">
+        <div class="d-flex align-items-center ms-md-auto">
+            <a routerLink="login" class="btn btn-outline-secondary me-3" href="#">Login</a>
+            <a routerLink="register" class="btn btn-outline-success me-0" href="#">Sign up</a>
         </div>
-    </div>
-</ng-container>
-</nav>
+      </ng-container>
+      <ng-container *ngIf="currentUser$ | async as currentUser">
+        <div class="d-flex align-items-center ms-md-auto">
+          <div class="dropdown ml-3 mr-5" dropdown>
+              <a class="dropdown-toggle" style="cursor:pointer" dropdownToggle *ngIf="currentUser.displayName">
+                <strong> {{ 'WELCOME'}},{{ currentUser.displayName }} </strong>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" style="cursor:pointer" *dropdownMenu>
+                  <a  class="dropdown-item d-flex align-items-center py-2" >
+                      <i class="fa fa-handshake-o mr-3"></i> {{'Option One'}}
+                  </a>
+                  <a  class="dropdown-item d-flex align-items-center py-2" >
+                      <i class="fa fa-eye" aria-hidden="true"></i> {{'Option Two'}}
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a (click)="logout()" class="dropdown-item d-flex align-items-center py-2">
+                      <i class="fa fa-sign-out mr-3"></i> {{'Logout'}}
+                    </a>
+              </div>
+          </div>
+        </div>
+      </ng-container>
 </div>
