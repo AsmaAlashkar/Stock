@@ -24,6 +24,8 @@ export class CreatesubModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(`data: ${this.config.data}`);
+
     this.createMainWearForm();
     
     const mainFk = this.SubMainWearhouseForm.get('mainFk')?.value;

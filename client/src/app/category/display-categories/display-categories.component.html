@@ -1,5 +1,5 @@
 <div class="category-tree">
-    <div class="row" *ngIf="categoryTree.length">
+    <div class="row" *ngIf="categoryTree?.length">
         <section class="col-12 col-md-3 mb-4">
             <div class="card mb-3" *ngIf="categoryTree[0]">
                 <div class="card-header">
@@ -30,8 +30,8 @@
                   <strong>Actions</strong>
                 </div>
                 <div class="card-body">
-                  <button class="btn btn-success w-100 mb-2" >
-                    <i class="fa fa-plus" aria-hidden="true"></i> Add New Category</button>
+                  <button class="btn btn-success w-100 mb-2" (click)="openCreateCategoryModal()">
+                    <i class="fa fa-plus" aria-hidden="true" ></i> Add New Category</button>
                 </div>
               </div>
         </section>
