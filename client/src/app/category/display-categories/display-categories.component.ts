@@ -10,6 +10,12 @@ import { DialogService } from 'primeng/dynamicdialog';
   styleUrls: ['./display-categories.component.scss']
 })
 export class DisplayCategoriesComponent implements OnInit {
+onViewDetails(_t38: any) {
+throw new Error('Method not implemented.');
+}
+onEditCategory(_t38: any) {
+throw new Error('Method not implemented.');
+}
 
   categories!: Category[];
   categoryTree!: Category[];
