@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Category } from 'src/app/shared/models/category';
+import { Category, Column } from 'src/app/shared/models/category';
 import { CategoryService } from '../category.service';
 import { CreateCategoryComponent } from '../create-category/create-category.component';
 import { DialogService } from 'primeng/dynamicdialog';
+import { TreeNode } from 'primeng/api';
 
 @Component({
   selector: 'app-display-categories',
@@ -12,8 +13,8 @@ import { DialogService } from 'primeng/dynamicdialog';
 export class DisplayCategoriesComponent implements OnInit {
 
   categories!: Category[];
-  categoryTree!: Category[];
-
+  categoryTree!: TreeNode[];
+  cols!: Column[];
   constructor(
     private categoryService: CategoryService,
     private dialogService: DialogService
@@ -22,6 +23,14 @@ export class DisplayCategoriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCategories();
+
+    this.cols = [
+      { field: 'catNameAr', header: 'Name (Arabic)' },
+      { field: 'catNameEn', header: 'Name (English)' },
+      { field: 'catDesAr', header: 'Description (Arabic)' },
+      { field: 'catDesEn', header: 'Description (English)' },
+      { field: '', header: 'Actions' } 
+    ];
   }
 
   loadCategories() {
@@ -35,22 +44,21 @@ export class DisplayCategoriesComponent implements OnInit {
       }
     });
   }
-
-
-  // Recursively build the hierarchy for categories
-  buildHierarchy(categories: Category[], parentId: number | null = null): Category[] {
-    // Filter categories where the parentCategoryId matches the parentId
+  buildHierarchy(categories: Category[], parentId: number | null = null): TreeNode[] {
     const filteredCategories = categories.filter(cat => cat.parentCategoryId === parentId);
 
-    // Recursively build the hierarchy for each filtered category
-    return filteredCategories.map(cat => {
-      const children = this.buildHierarchy(categories, cat.catId);
-      return {
-        ...cat,
-        children: children.length > 0 ? children : [] // Ensure children is an empty array if no children exist
-      };
-    });
+    return filteredCategories.map(cat => ({
+      data: {
+        catId: cat.catId,
+        catNameAr: cat.catNameAr,
+        catNameEn: cat.catNameEn,
+        catDesAr: cat.catDesAr,
+        catDesEn: cat.catDesEn,
+      },
+      children: this.buildHierarchy(categories, cat.catId)
+    }));
   }
+
   openCreateCategoryModal() {
     const catId = this.categories[0]?.catId;
     this.dialogService.open(CreateCategoryComponent, {

@@ -8,3 +8,7 @@ export interface Category {
     level: number
     children?: Category[];
 }
+export interface Column {
+    field: string;
+    header: string;
+  }
