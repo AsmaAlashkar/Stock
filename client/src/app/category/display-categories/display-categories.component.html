@@ -1,8 +1,6 @@
 <div class="container-fluid mt-5 category-tree">
   <div class="row" *ngIf="categoryTree?.length">
-    <!-- Sidebar for summary and actions -->
     <section class="col-12 col-md-3 mb-4">
-      <!-- Summary card -->
       <div class="card mb-3" *ngIf="categoryTree.length">
         <div class="card-header">
           <strong>Summary</strong>
@@ -12,7 +10,6 @@
         </div>
       </div>
 
-      <!-- Filters -->
       <div class="card mb-3">
         <div class="card-header">
           <strong>Filters</strong>
@@ -24,7 +21,6 @@
         </div>
       </div>
 
-      <!-- Additional Actions -->
       <div class="card">
         <div class="card-header">
           <strong>Actions</strong>
@@ -37,49 +33,36 @@
       </div>
     </section>
 
-    <!-- Category tree display -->
     <section class="col-12 col-md-9">
-      <ul>
-        <!-- Recursively display categories and their children -->
-        <ng-container *ngFor="let category of categoryTree">
-          <ng-container *ngTemplateOutlet="recursiveCategories; context: { $implicit: category }"></ng-container>
-        </ng-container>
-      </ul>
+      <div class="card">
+        <p-treeTable [value]="categoryTree" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns">
+                {{ col.header }}
+              </th>
+            </tr>
+          </ng-template>
 
-      <!-- Recursive template for category display -->
-      <ng-template #recursiveCategories let-category>
-        <li>
-          <div class="category-item d-flex justify-content-between align-items-center">
-            <!-- Category Information -->
-            <div>
-              <strong>{{ category.catNameAr }}</strong> - {{ category.catNameEn }}
-              <p>{{ category.catDesAr }}</p>
-              <p>{{ category.catDesEn }}</p>
-              <p>Level: {{ category.level }}</p>
-            </div>
-
-            <!-- Action Icons -->
-            <div>
-              <!-- Edit icon -->
-              <button class="btn btn-outline-primary me-2" [routerLink]="['/category-details', category.catId]">
-                <i class="fa fa-edit"></i>
-              </button>
-              
-              <!-- View Details icon -->
-              <button class="btn btn-outline-info" [routerLink]="['/category-details', category.catId]">
-                <i class="fa fa-eye"></i>
-              </button>
-            </div>
-          </div>
-
-          <!-- Check if category has children and recursively display them -->
-          <ul *ngIf="category.children?.length">
-            <ng-container *ngFor="let child of category.children">
-              <ng-container *ngTemplateOutlet="recursiveCategories; context: { $implicit: child }"></ng-container>
-            </ng-container>
-          </ul>
-        </li>
-      </ng-template>
+          <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+            <tr [ttRow]="rowNode">
+              <td *ngFor="let col of columns; let i = index; let last = last">
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                {{ rowData[col.field] }}
+                <ng-container *ngIf="last">
+                  <button class="btn btn-outline-primary me-2" [routerLink]="['/category-details', rowData.catId]">
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  <button class="btn btn-outline-info" [routerLink]="['/category-details', rowData.catId]">
+                    <i class="fa fa-eye"></i>
+                  </button>
+                </ng-container>
+              </td>
+            </tr>
+          </ng-template>
+        </p-treeTable>
+      </div>
     </section>
   </div>
 </div>
+
