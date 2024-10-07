@@ -15,7 +15,6 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { CreateCategoryComponent } from './create-category/create-category.component';
 import { CategoryDetailsComponent } from './category-details/category-details.component';
 import { AccordionModule } from 'primeng/accordion';
-
 @NgModule({
   declarations: [
     DisplayCategoriesComponent,
