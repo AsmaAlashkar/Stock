@@ -16,7 +16,9 @@ import { SubwearhouseTreeComponent } from './subwearhouse-tree/subwearhouse-tree
 import { SubwearhouseDetailsComponent } from './subwearhouse-details/subwearhouse-details.component';
 import { CreatesubModalComponent } from './createsub-modal/createsub-modal.component';
 import { ButtonModule } from 'primeng/button';
-
+import { AccordionModule } from 'primeng/accordion';
+import { TreeModule } from 'primeng/tree';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -40,12 +42,15 @@ import { ButtonModule } from 'primeng/button';
       timeOut: 3000, // Set the duration in milliseconds
       positionClass: 'toast-bottom-right', // Set the position
       preventDuplicates: false, // Prevent duplicate messages
-      
+
     }),
     DialogModule,
     DynamicDialogModule,
     MatButtonModule,
-    ButtonModule
+    ButtonModule,
+    AccordionModule,
+    TreeModule,
+    BrowserAnimationsModule
   ],
   exports:[MainwearhouseComponent,SubwearhouseComponent,MainModalComponent,CreatesubModalComponent
     ,SubwearhouseComponent,SubwearhouseDetailsComponent]

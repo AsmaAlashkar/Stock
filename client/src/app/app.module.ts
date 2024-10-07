@@ -44,7 +44,7 @@ import { CategoryModule } from './category/category.module';
       timeOut: 3000, // Set the duration in milliseconds
       positionClass: 'toast-bottom-right', // Set the position
       preventDuplicates: false, // Prevent duplicate messages
-      
+
     }),
     DialogModule,
     DynamicDialogModule,
