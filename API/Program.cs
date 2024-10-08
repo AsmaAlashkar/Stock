@@ -6,6 +6,7 @@ using Microsoft.OpenApi.Models;
 using Repository;
 using Repository.CategoryRepo;
 using Repository.Identity;
+using Repository.ItemRepo;
 using Repository.MainWearHouse;
 using Repository.Service;
 using Repository.SubWearHouse;
@@ -14,6 +15,7 @@ using Repository.VWearhouseWithSubHierarchy;
 using Standard.Entities;
 using Standard.Mapping.AddressDtoProf;
 using Standard.Mapping.CategoryDtoProf;
+using Standard.Mapping.ItemProf;
 using Standard.Mapping.mainwearhouseProf;
 using Standard.Mapping.SubwearhouseProf;
 using Standard.Mapping.ViewWearHItemProf;
@@ -40,6 +42,8 @@ builder.Services.AddScoped<ISWHRepository, SWHRepository>();
 builder.Services.AddScoped<IVWHIRepository, VWHIRepository>();
 builder.Services.AddScoped<IVWHIWHRepository,VWHIWHRepository >();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
+
 
 
 
@@ -52,7 +56,8 @@ builder.Services.AddAutoMapper(
     typeof(ViewWearHItemProfile),
     typeof(ViewWearhouseWithSubHierarchyProfile),
     typeof(AddressProf),
-    typeof(CategoriesHirarichyProfile)
+    typeof(CategoriesHirarichyProfile),
+    typeof(ItemProfile)
 
     );
 
