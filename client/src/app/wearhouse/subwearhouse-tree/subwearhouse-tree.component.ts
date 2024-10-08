@@ -8,5 +8,7 @@ import { IViewWearhouseItem } from 'src/app/shared/models/IViewWearhouseItem';
 })
 export class SubwearhouseTreeComponent {
   @Input() subWearhouses: IViewWearhouseItem[] = [];
+
+
   
 }

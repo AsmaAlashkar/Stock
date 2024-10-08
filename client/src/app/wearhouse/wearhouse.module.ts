@@ -19,6 +19,7 @@ import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 import { TreeModule } from 'primeng/tree';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TreeTableModule } from 'primeng/treetable';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ButtonModule,
     AccordionModule,
     TreeModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    TreeTableModule
   ],
   exports:[MainwearhouseComponent,SubwearhouseComponent,MainModalComponent,CreatesubModalComponent
     ,SubwearhouseComponent,SubwearhouseDetailsComponent]
