@@ -1,68 +1,34 @@
-
-<div class="card">
-  <p-treeTable [value]="subWearhouses" [columns]="cols" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
-      <!-- <ng-template pTemplate="caption"> FileViewer </ng-template> -->
-      <ng-template pTemplate="header" let-columns>
-          <tr>
+<div class="container-fluid mt-5 subwearhouse-tree">
+  <div class="row">
+    <section class="col-12">
+      <div class="card">
+        <p-treeTable [value]="subWearhousestree" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
               <th *ngFor="let col of columns">
-                  {{ col.header }}
+                {{ col.header }}
               </th>
-              <!-- <th style="width: 10rem">
-                  <p-button icon="pi pi-cog"></p-button>
-              </th> -->
-          </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-          <tr [ttRow]="rowNode">
-              <td *ngFor="let col of columns; let i = index">
-                  <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
-                  {{ rowData[col.field] }}
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+            <tr [ttRow]="rowNode">
+              <td *ngFor="let col of columns; let i = index; let last = last">
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                {{ rowData[col.field] }}
+                <ng-container *ngIf="last">
+                  <button class="btn btn-outline-primary me-2" [routerLink]="[]">
+                    <i class="fa fa-edit"></i>
+                  </button>
+                  <button class="btn btn-outline-info" [routerLink]="['/Subwearhouse-details', rowData.subId]">
+                    <i class="fa fa-eye"></i>
+                  </button>
+                </ng-container>
               </td>
-              <td>
-                  <p-button icon="pi pi-search" styleClass="p-button-success" [style]="{ 'margin-right': '.5em' }"></p-button>
-                  <p-button icon="pi pi-pencil" styleClass="p-button-warning"></p-button>
-              </td>
-          </tr>
-      </ng-template>
-      <ng-template pTemplate="summary">
-          <div style="text-align:left">
-              <p-button icon="pi pi-refresh" label="Reload"></p-button>
-          </div>
-      </ng-template>
-  </p-treeTable>
+            </tr>
+          </ng-template>
+        </p-treeTable>
+      </div>
+    </section>
+  </div>
 </div>
-
-
-
-
-<!-- <ul class="wearhouse-tree">
-  <li *ngFor="let wearhouse of subWearhouses">
-    <div class="wearhouse-item card">
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>
-            <strong>Name :</strong> {{ wearhouse?.subName }}</mat-card-title>
-          <mat-card-subtitle>
-            <strong>Sub Address :</strong> {{ wearhouse?.subAddress }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>
-            <strong>Description:</strong> {{ wearhouse?.subDescription }}.</p>
-        </mat-card-content>
-        <mat-card-content>
-          <p>
-            <strong>CreatedAT:</strong> {{ wearhouse?.subCreatedat | date: 'yyyy-MM-dd' }}.</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button class="btn btn-outline-warning mb-2" mat-button>View Items</button>
-          <button routerLink="/Subwearhouse-details/{{wearhouse?.subId}}" class="btn btn-outline-info mb-2" mat-button>Details</button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-
-    <ul *ngIf="wearhouse && wearhouse.children && wearhouse.children.length > 0" class="children-list">
-      <app-subwearhouse-tree [subWearhouses]="wearhouse?.children ?? []"></app-subwearhouse-tree>
-    </ul>
-
-  </li>
-</ul> -->

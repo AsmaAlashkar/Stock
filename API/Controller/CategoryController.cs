@@ -43,6 +43,9 @@ namespace API.Controller
 
         }
 
+
+      
+
         [HttpGet("GetCategoryById/{id}")]
         public async Task<ActionResult<CategoriesHirarichy>> GetCategoryById(int id)
         {
