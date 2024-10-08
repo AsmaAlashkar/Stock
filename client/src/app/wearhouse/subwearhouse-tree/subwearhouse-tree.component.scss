@@ -28,7 +28,7 @@
         padding: 16px;
         border-radius: 12px; /* Softer rounded corners */
         transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        
+
         &:hover {
           transform: translateY(-5px); /* Slight hover effect */
           box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
