@@ -1,6 +1,6 @@
 <form [formGroup]="categoryForm" (ngSubmit)="save()">
     <div class="form-group">
-        <label for="catNameAr">Category Name Ar*</label>
+        <label for="catNameAr">Category Name Ar<span class="req">*</span></label>
         <input id="catNameAr" type="text" formControlName="catNameAr" class="form-control"
             [ngClass]="{'is-invalid': categoryForm.get('catNameAr')?.invalid && categoryForm.get('catNameAr')?.touched}">
         <div *ngIf="categoryForm.get('catNameAr')?.invalid && categoryForm.get('catNameAr')?.touched"
@@ -10,7 +10,7 @@
     </div>
 
     <div class="form-group">
-        <label for="catNameEn">Category Name En*</label>
+        <label for="catNameEn">Category Name En<span class="req">*</span></label>
         <input id="catNameEn" type="text" formControlName="catNameEn" class="form-control"
             [ngClass]="{'is-invalid': categoryForm.get('catNameEn')?.invalid && categoryForm.get('catNameEn')?.touched}">
         <div *ngIf="categoryForm.get('catNameEn')?.invalid && categoryForm.get('catNameEn')?.touched"

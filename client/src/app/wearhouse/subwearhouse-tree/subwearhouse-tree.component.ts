@@ -21,7 +21,7 @@ export class SubwearhouseTreeComponent implements OnInit{
 
   ngOnInit() {
     this.wearhouseService.getSubWearhouseByMainId(this.mainId).subscribe((subWearhouses) => {
-      this.subWearhousestree = this.buildTreeNodes(subWearHouses, this.mainId);
+      this.subWearhousestree = this.buildTreeNodes(subWearhouses, this.mainId);
     });
 
     this.cols = [
@@ -33,7 +33,7 @@ export class SubwearhouseTreeComponent implements OnInit{
     ];
   }
 
-  buildTreeNodes(items: ISubWearhouse[],mainId:number): TreeNode[] {
+  buildTreeNodes(items: IViewWearhouseItem[],mainId:number): TreeNode[] {
 
     const map: { [key: number]: TreeNode } = {};
     const roots: TreeNode[] = [];
