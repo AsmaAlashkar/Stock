@@ -61,11 +61,16 @@ export class DisplayCategoriesComponent implements OnInit {
 
   openCreateCategoryModal() {
     const catId = this.categories[0]?.catId;
-    this.dialogService.open(CreateCategoryComponent, {
+    const dialogRef = this.dialogService.open(CreateCategoryComponent, {
       data: { catId: catId },
       header: 'Create New Category',
       width: '70%',
       contentStyle: { 'max-height': '80vh', overflow: 'auto' }
+    });
+    dialogRef.onClose.subscribe((result) => {
+      if (result === 'confirmed') {
+        this.loadCategories();
+      }
     });
   }
 }

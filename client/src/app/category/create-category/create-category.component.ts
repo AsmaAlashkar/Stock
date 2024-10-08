@@ -12,11 +12,9 @@ import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class CreateCategoryComponent implements OnInit {
 
-
   categoryForm!: FormGroup;
   errors: string[] = [];
   Parentcategory: Category[] = [];
-
 
   constructor(
     private fb: FormBuilder,
@@ -32,28 +30,31 @@ export class CreateCategoryComponent implements OnInit {
   }
   getValidParentCategoriesCount() {
     return this.Parentcategory.filter(c=>c.catId).length;
-    }
+  }
+
   createCategoryForm() {
     this.categoryForm = this.fb.group({
       catId: [0],
-      parentCategoryId: [this.config.data.catId , Validators.required],
+      parentCategoryId: [null],
       catNameAr:  ['', Validators.required],
       catNameEn:  ['', Validators.required],
       catDesAr:  [null],
       catDesEn:  [null],
-      level: [null],
+      level: [0],
       showParentCategory: [false] 
     });
   }
+
   loadCategories() {
     this.categoryService.getCtegories().subscribe({
       next: (response) => {
-        console.log(response); // Log the response to check its structure
+        console.log(response); 
         this.Parentcategory = response;
       },
       error: (err) => console.error(err)
     });
   } 
+
   save(){
     if (this.categoryForm.invalid) {
       this.toastr.error('Please fill in all required fields.');
@@ -62,8 +63,8 @@ export class CreateCategoryComponent implements OnInit {
     this.categoryService.createCategory(this.categoryForm.value).subscribe({
       next: () => {
         this.toastr.success('Category created successfully');
-        this.categoryForm.reset(); // Clear the form after successful creation
-        this.ref.close(); // Close the modal after saving
+        this.categoryForm.reset(); 
+        this.ref.close('confirmed'); 
       },
       error: (error) => {
         console.error('Error details:', error);
@@ -71,4 +72,5 @@ export class CreateCategoryComponent implements OnInit {
       }
     });
   }
+
 }
