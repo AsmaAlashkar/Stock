@@ -9,3 +9,8 @@ export interface ISubWearhouse {
     subUpdatedat: string
     delet: boolean
   }
+
+export interface Column {
+  field: string;
+  header: string;
+}

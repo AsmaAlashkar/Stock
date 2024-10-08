@@ -1,6 +1,7 @@
 <div id="carouselExampleDark" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true"
+      aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
     <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
   </div>
@@ -36,25 +37,98 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
-
 <div class="container">
-  <div class="row">
-    <section class="col-lg-6 col-12 py-100 bg-white sec">
+  <div class="row my-5 py-5">
+    <div class="card flex justify-content-center col">
+      <p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '360px' }">
+        <ng-template pTemplate="header">
+          <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+        </ng-template>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam
+          deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
+          neque
+          quas!
+        </p>
+        <ng-template pTemplate="footer">
+          <div class="flex gap-3 mt-1">
+            <p-button label="Cancel" severity="secondary" class="w-full" styleClass="w-full" />
+            <p-button label="Save" class="w-full" styleClass="w-full" />
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
+    <div class="card flex justify-content-center col">
+      <p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '360px' }">
+        <ng-template pTemplate="header">
+          <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+        </ng-template>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam
+          deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
+          neque
+          quas!
+        </p>
+        <ng-template pTemplate="footer">
+          <div class="flex gap-3 mt-1">
+            <p-button label="Cancel" severity="secondary" class="w-full" styleClass="w-full" />
+            <p-button label="Save" class="w-full" styleClass="w-full" />
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
+    <div class="card flex justify-content-center col">
+      <p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '360px' }">
+        <ng-template pTemplate="header">
+          <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+        </ng-template>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam
+          deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
+          neque
+          quas!
+        </p>
+        <ng-template pTemplate="footer">
+          <div class="flex gap-3 mt-1">
+            <p-button label="Cancel" severity="secondary" class="w-full" styleClass="w-full" />
+            <p-button label="Save" class="w-full" styleClass="w-full" />
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row d-flex justify-content-evenly mb-5 pb-5">
+    <div class="col">
+      <h3>At <span class="text-primary">Warehouse</span>, we provide a unique solution for warehousing
+        space for
+        business and consumers</h3>
+      <p>At Warehouse, we offer tailored warehousing solutions that cater to both businesses and
+        individual consumers, ensuring your storage needs are met efficiently.</p>
+      <p>Whether you're a business looking to store inventory or a consumer needing extra space,
+        Warehouse has the perfect solution for you.</p>
+
+    </div>
+    <div class="col">
+      <img src="../../../assets/images/section1.jpg" alt="" class="w-100">
+    </div>
+  </div>
+</div>
+<!-- <section class="col-lg-6 col-12 py-100 bg-white sec">
       <div class="container">
         <div class="row">
           <div class="col-12 aos-init aos-animate" data-aos="fade-up">
             <div class="section-heading mb-30">
               <h1 class="heading fw-500">At <span class="text-primary">Warehouse</span>, we provide a unique solution for warehousing space for business and consumers</h1>
             </div>
-            <p class="fs-16 mb-4">At Warehouse, we offer tailored warehousing solutions that cater to both businesses and individual consumers, ensuring your storage needs are met efficiently.</p>
-            <p class="fs-16 mb-4">Whether you're a business looking to store inventory or a consumer needing extra space, Warehouse has the perfect solution for you.</p>
-
+            
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
-    <section class="col-lg-6 col-12 py-100 bg-white sec">
+<!-- <section class="col-lg-6 col-12 py-100 bg-white sec">
         <div class="container">
           <div class="row">
             <div class="col-12 aos-init aos-animate" data-aos="fade-up">
@@ -67,7 +141,4 @@
             </div>
           </div>
         </div>
-      </section>
-  </div>
-  </div>
-
+      </section> -->
