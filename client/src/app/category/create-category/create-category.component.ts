@@ -35,7 +35,7 @@ export class CreateCategoryComponent implements OnInit {
   createCategoryForm() {
     this.categoryForm = this.fb.group({
       catId: [0],
-      parentCategoryId: [this.config.data.catId , Validators.required],
+      parentCategoryId: [null],
       catNameAr:  ['', Validators.required],
       catNameEn:  ['', Validators.required],
       catDesAr:  [null],

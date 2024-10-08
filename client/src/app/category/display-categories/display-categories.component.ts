@@ -67,10 +67,10 @@ export class DisplayCategoriesComponent implements OnInit {
       width: '70%',
       contentStyle: { 'max-height': '80vh', overflow: 'auto' }
     });
-    // dialogRef.onClose().subscribe((category:string)=> {
-    //   if (category === 'confirmed') {
-    //     this.loadCategories();
-    //   }
-    // });
+    dialogRef.onClose.subscribe((result) => {
+      if (result === 'confirmed') {
+        this.loadCategories();
+      }
+    });
   }
 }
