@@ -13,12 +13,15 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { CreateCategoryComponent } from './create-category/create-category.component';
-
+import { CategoryDetailsComponent } from './category-details/category-details.component';
+import { AccordionModule } from 'primeng/accordion';
+import { TreeTableModule } from 'primeng/treetable';
 
 @NgModule({
   declarations: [
     DisplayCategoriesComponent,
-    CreateCategoryComponent
+    CreateCategoryComponent,
+    CategoryDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -39,7 +42,9 @@ import { CreateCategoryComponent } from './create-category/create-category.compo
     DialogModule,
     DynamicDialogModule,
     MatButtonModule,
-    ButtonModule
+    ButtonModule,
+    AccordionModule,
+    TreeTableModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

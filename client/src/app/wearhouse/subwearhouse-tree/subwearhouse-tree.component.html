@@ -1,3 +1,8 @@
+
+
+
+
+
 <ul class="wearhouse-tree">
   <li *ngFor="let wearhouse of subWearhouses">
     <div class="wearhouse-item card">
@@ -28,6 +33,6 @@
       <!-- Pass an empty array if wearhouse?.children is undefined -->
       <app-subwearhouse-tree [subWearhouses]="wearhouse?.children ?? []"></app-subwearhouse-tree>
     </ul>
-   
+
   </li>
 </ul>

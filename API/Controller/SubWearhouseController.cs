@@ -117,7 +117,6 @@ namespace API.Controller
                     return NotFound($"SubWearHouse with ID {id} not found");
                 }
               
-
                 // Update only the fields that are provided in the DTO
                 if (!string.IsNullOrEmpty(subWearHouseDTO.SubName))
                 {
