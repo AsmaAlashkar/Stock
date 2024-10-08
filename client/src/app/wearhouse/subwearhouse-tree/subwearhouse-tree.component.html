@@ -1,9 +1,41 @@
 
+<div class="card">
+  <p-treeTable [value]="subWearhouses" [columns]="cols" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+      <!-- <ng-template pTemplate="caption"> FileViewer </ng-template> -->
+      <ng-template pTemplate="header" let-columns>
+          <tr>
+              <th *ngFor="let col of columns">
+                  {{ col.header }}
+              </th>
+              <!-- <th style="width: 10rem">
+                  <p-button icon="pi pi-cog"></p-button>
+              </th> -->
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+          <tr [ttRow]="rowNode">
+              <td *ngFor="let col of columns; let i = index">
+                  <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                  {{ rowData[col.field] }}
+              </td>
+              <td>
+                  <p-button icon="pi pi-search" styleClass="p-button-success" [style]="{ 'margin-right': '.5em' }"></p-button>
+                  <p-button icon="pi pi-pencil" styleClass="p-button-warning"></p-button>
+              </td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+          <div style="text-align:left">
+              <p-button icon="pi pi-refresh" label="Reload"></p-button>
+          </div>
+      </ng-template>
+  </p-treeTable>
+</div>
 
 
 
 
-<ul class="wearhouse-tree">
+<!-- <ul class="wearhouse-tree">
   <li *ngFor="let wearhouse of subWearhouses">
     <div class="wearhouse-item card">
       <mat-card>
@@ -28,11 +60,9 @@
       </mat-card>
     </div>
 
-    <!-- Explicit check for children being defined -->
     <ul *ngIf="wearhouse && wearhouse.children && wearhouse.children.length > 0" class="children-list">
-      <!-- Pass an empty array if wearhouse?.children is undefined -->
       <app-subwearhouse-tree [subWearhouses]="wearhouse?.children ?? []"></app-subwearhouse-tree>
     </ul>
 
   </li>
-</ul>
+</ul> -->
