@@ -50,11 +50,11 @@
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                 {{ rowData[col.field] }}
                 <ng-container *ngIf="last">
-                  <button class="btn btn-outline-primary me-2" [routerLink]="['/category-details', rowData.catId]">
-                    <i class="fa fa-edit"></i>
-                  </button>
-                  <button class="btn btn-outline-info" [routerLink]="['/category-details', rowData.catId]">
+                  <button class="btn btn-outline-info me-2" [routerLink]="['/category-details', rowData.catId]">
                     <i class="fa fa-eye"></i>
+                  </button>
+                  <button class="btn btn-outline-primary" [routerLink]="['/category-details', rowData.catId]">
+                    <i class="fa fa-edit"></i>
                   </button>
                 </ng-container>
               </td>
