@@ -25,9 +25,11 @@ public partial class Item
 
     public virtual Category CatFkNavigation { get; set; } = null!;
 
+    public virtual ICollection<ItemPermission> ItemPermissions { get; set; } = new List<ItemPermission>();
+
     public virtual ICollection<ItemSupplier> ItemSuppliers { get; set; } = new List<ItemSupplier>();
 
-    public virtual ICollection<Stock> Stocks { get; set; } = new List<Stock>();
+    public virtual ICollection<Quantity> Quantities { get; set; } = new List<Quantity>();
 
     public virtual SubWearhouse? SubFkNavigation { get; set; }
 

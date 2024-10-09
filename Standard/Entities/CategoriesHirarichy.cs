@@ -5,7 +5,7 @@ namespace Standard.Entities;
 
 public partial class CategoriesHirarichy
 {
-    public int CatId { get; set; }
+    public int? CatId { get; set; }
 
     public int? ParentCategoryId { get; set; }
 

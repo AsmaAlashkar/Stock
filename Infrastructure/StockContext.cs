@@ -21,11 +21,17 @@ public partial class StockContext : DbContext
 
     public virtual DbSet<Item> Items { get; set; }
 
+    public virtual DbSet<ItemPermission> ItemPermissions { get; set; }
+
     public virtual DbSet<ItemSupplier> ItemSuppliers { get; set; }
 
     public virtual DbSet<MainWearhouse> MainWearhouses { get; set; }
 
-    public virtual DbSet<Stock> Stocks { get; set; }
+    public virtual DbSet<Permission> Permissions { get; set; }
+
+    public virtual DbSet<PermissionType> PermissionTypes { get; set; }
+
+    public virtual DbSet<Quantity> Quantities { get; set; }
 
     public virtual DbSet<SubWearhouse> SubWearhouses { get; set; }
 
@@ -114,6 +120,29 @@ public partial class StockContext : DbContext
                 .HasConstraintName("FK_Items_Unite");
         });
 
+        modelBuilder.Entity<ItemPermission>(entity =>
+        {
+            entity.HasKey(e => e.ItemPerId);
+
+            entity.ToTable("ItemPermission");
+
+            entity.Property(e => e.ItemPerId)
+                .ValueGeneratedNever()
+                .HasColumnName("ItemPer_ID");
+            entity.Property(e => e.ItemFk).HasColumnName("Item_FK");
+            entity.Property(e => e.PermFk).HasColumnName("Perm_FK");
+
+            entity.HasOne(d => d.ItemFkNavigation).WithMany(p => p.ItemPermissions)
+                .HasForeignKey(d => d.ItemFk)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ItemPermission_Items");
+
+            entity.HasOne(d => d.PermFkNavigation).WithMany(p => p.ItemPermissions)
+                .HasForeignKey(d => d.PermFk)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ItemPermission_Permission");
+        });
+
         modelBuilder.Entity<ItemSupplier>(entity =>
         {
             entity.HasKey(e => e.ItemSuppliersId);
@@ -153,20 +182,54 @@ public partial class StockContext : DbContext
                 .HasColumnName("Main_Updatedat");
         });
 
-        modelBuilder.Entity<Stock>(entity =>
+        modelBuilder.Entity<Permission>(entity =>
         {
-            entity.ToTable("Stock");
+            entity.HasKey(e => e.PermId);
+
+            entity.ToTable("Permission");
+
+            entity.Property(e => e.PermId)
+                .ValueGeneratedNever()
+                .HasColumnName("Perm_ID");
+            entity.Property(e => e.PermCreatedat)
+                .HasColumnType("datetime")
+                .HasColumnName("Perm_Createdat");
+        });
+
+        modelBuilder.Entity<PermissionType>(entity =>
+        {
+            entity.HasKey(e => e.PerId);
+
+            entity.ToTable("PermissionType");
+
+            entity.Property(e => e.PerId)
+                .ValueGeneratedNever()
+                .HasColumnName("Per_ID");
+            entity.Property(e => e.PerTypeValue).HasMaxLength(50);
+            entity.Property(e => e.PermissionFk).HasColumnName("Permission_FK");
+
+            entity.HasOne(d => d.PermissionFkNavigation).WithMany(p => p.PermissionTypes)
+                .HasForeignKey(d => d.PermissionFk)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PermissionType_Permission");
+        });
+
+        modelBuilder.Entity<Quantity>(entity =>
+        {
+            entity.HasKey(e => e.StockId).HasName("PK_Stock");
+
+            entity.ToTable("Quantity");
 
             entity.Property(e => e.StockId).HasColumnName("Stock_ID");
             entity.Property(e => e.ItemFk).HasColumnName("Item_FK");
-            entity.Property(e => e.StockCreatedat)
+            entity.Property(e => e.QuantityCreatedat)
                 .HasColumnType("datetime")
-                .HasColumnName("Stock_Createdat");
-            entity.Property(e => e.StockUpdatedat)
+                .HasColumnName("Quantity_Createdat");
+            entity.Property(e => e.QuantityUpdatedat)
                 .HasColumnType("datetime")
-                .HasColumnName("Stock_Updatedat");
+                .HasColumnName("Quantity_Updatedat");
 
-            entity.HasOne(d => d.ItemFkNavigation).WithMany(p => p.Stocks)
+            entity.HasOne(d => d.ItemFkNavigation).WithMany(p => p.Quantities)
                 .HasForeignKey(d => d.ItemFk)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Stock_Items");

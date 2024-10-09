@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Standard.DTOs
+{
+    public class ItemDetailsDto
+    {
+        public int ItemId { get; set; }
+        public string ItemName { get; set; }
+        public string UnitName { get; set; }
+        public string CategoryName { get; set; }
+        public int CurrentQuantity { get; set; }
+    }
+}

@@ -1,4 +1,5 @@
-﻿using Standard.Entities;
+﻿using Standard.DTOs;
+using Standard.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace Repository.ItemRepo
     {
         Task<List<Item>> GetItems();
         //Task<Item?> GetItemById(int id);
+        Task<List<ItemDetailsDto>> GetAllItemsWithDetailsAsync();
     }
 }
