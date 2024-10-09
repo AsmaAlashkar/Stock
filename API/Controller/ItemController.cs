@@ -65,5 +65,27 @@ namespace API.Controller
 
             return Ok(_mapper.Map<List<Item>>(item));
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAllItemsWithDetails()
+        {
+            try
+            {
+                // Fetch all items with their associated details
+                var items = await _item.GetAllItemsWithDetailsAsync();
+
+                // Check if the list is empty
+                if (items == null || !items.Any())
+                {
+                    return NotFound("No items found.");
+                }
+
+                return Ok(items);  // Return the list of items
+            }
+            catch (Exception ex)
+            {
+                // Handle any unexpected errors
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }
