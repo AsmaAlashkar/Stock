@@ -24,7 +24,7 @@ export class SubwearhouseTreeComponent implements OnInit {
       { field: 'subDescription', header: 'Description' },
       { field: 'subCreatedat', header: 'Created At' },
       { field: 'subUpdatedat', header: 'Updated At' },
-      { field: '', header: 'Actions' }
+      // { field: '', header: 'Actions' }
     ];
   }
 

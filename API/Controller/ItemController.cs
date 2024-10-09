@@ -27,11 +27,43 @@ namespace API.Controller
         [HttpGet("GetItems")]
         public async Task<ActionResult<List<ItemDto>>> GetItems()
         {
-            var item = await _item.GetItems();
+            var items = await _item.GetItems();
 
-            var itemDtos = _mapper.Map<List<Item>>(item);
+            return Ok(_mapper.Map<List<Item>>(items));
+        }
+        [HttpGet("GetItemById/{id}")]
+        public async Task<ActionResult<ItemDto>> GetItemById(int id)
+        {
+            var item = await _item.GetItemById(id);
 
-            return Ok(itemDtos);
+            if (item == null)
+            {
+                return NotFound("Item not found or has been deleted.");
+            }
+
+            return Ok(_mapper.Map<ItemDto>(item));
+        }
+        [HttpGet("GetItemsByCategoryId/{id}")]
+        public async Task<ActionResult<List<ItemDto>>> GetItemsByCategoryId(int id)
+        {
+            var item = await _item.GetItemsByCategoryId(id);
+
+            return Ok(_mapper.Map<List<Item>>(item));
+        }
+        [HttpGet("GetItemsBySubWHId/{id}")]
+        public async Task<ActionResult<List<ItemDto>>> GetItemsBySubWHId(int id)
+        {
+            var item = await _item.GetItemsBySubWHId(id);
+
+            return Ok(_mapper.Map<List<Item>>(item));
+        }
+        [HttpGet("GetItemsByUnitId/{id}")]
+        public async Task<ActionResult<List<ItemDto>>> GetItemsByUnitId(int id)
+        {
+            var item = await _item.GetItemsByUnitId(id);
+
+
+            return Ok(_mapper.Map<List<Item>>(item));
         }
         [HttpGet]
         public async Task<IActionResult> GetAllItemsWithDetails()
