@@ -13,19 +13,8 @@ namespace Standard.Mapping.ItemProf
     {
         public ItemProfile()
         {
-            CreateMap<Item, ItemDto>()
-                .ForMember(dest => dest.CatNameEn, opt => opt.MapFrom(src => src.CatFkNavigation.CatNameEn)) 
-                .ForMember(dest => dest.UnitName, opt => opt.MapFrom(src => src.UniteFkNavigation.UnitName)) 
-                .ForMember(dest => dest.SubName, opt => opt.MapFrom(src => src.SubFkNavigation.SubName))
-                .ReverseMap();
-
-            CreateMap<ItemDto, Item>()
-                .ForMember(dest => dest.CatFkNavigation, opt => opt.Ignore()) 
-                .ForMember(dest => dest.UniteFkNavigation, opt => opt.Ignore()) 
-                .ForMember(dest => dest.SubFkNavigation, opt => opt.Ignore())
-                .ReverseMap();
-            //CreateMap<Item, ItemDto>().ReverseMap();
-            //CreateMap<ItemDto, Item>().ReverseMap();
+            CreateMap<Item, ItemDto>().ReverseMap();
+            CreateMap<ItemDto, Item>().ReverseMap();
         }
     }
 }
