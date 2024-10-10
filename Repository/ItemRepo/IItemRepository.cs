@@ -15,9 +15,6 @@ namespace Repository.ItemRepo
         Task<List<Item>> GetItemsByCategoryId(int catId);
         Task<List<Item>> GetItemsBySubWHId(int subId);
         Task<List<Item>> GetItemsByUnitId(int unitId);
-
-
-        //Task<Item?> GetItemById(int id);
         Task<List<ItemDetailsDto>> GetAllItemsWithDetailsAsync();
     }
 }

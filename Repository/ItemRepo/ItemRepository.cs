@@ -25,9 +25,9 @@ namespace Repository.ItemRepo
                 .Include(i => i.SubFkNavigation)
                 .Include(i => i.ItemSuppliers)
                     .ThenInclude(i => i.SuppliersFkNavigation)
-                .OrderBy(i => i.ItemId) // Order by item ID or any other field
-                .Skip((paging.PageNumber - 1) * paging.PageSize) // Skip records for previous pages
-                .Take(paging.PageSize) // Take only the number of records for the current page
+                .OrderBy(i => i.ItemId) 
+                .Skip((paging.PageNumber - 1) * paging.PageSize) 
+                .Take(paging.PageSize) 
                 .ToListAsync();
 
             return items;
@@ -53,6 +53,7 @@ namespace Repository.ItemRepo
         {
             return await _context.Items.Where(u=>u.UniteFk == unitId).ToListAsync();
         }
+
         //public async Task<Item?> GetItemById(int id)
         //{
 
