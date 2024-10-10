@@ -112,9 +112,9 @@ namespace Repository.ItemRepo
                                     ItemId = item.ItemId,
                                     ItemName = item.ItemName,
                                     UnitName = unit.UnitName,
-                                    CategoryName = category.CatNameEn,  // Use the appropriate language field
-                                    CurrentQuantity = (int)quantity.CurrentQuantity.GetValueOrDefault()  // Safely handle nullable types
-                                }).ToListAsync();  // Get the list of all items with their details
+                                    CategoryName = category.CatNameEn,  
+                                    CurrentQuantity = (int)quantity.CurrentQuantity.GetValueOrDefault()  
+                                }).ToListAsync(); 
 
             return result;
         }
