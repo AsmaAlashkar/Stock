@@ -55,7 +55,7 @@ namespace API.Controller
                 return NotFound("Item not found or has been deleted.");
             }
 
-            return Ok(_mapper.Map<ItemDto>(item));
+            return Ok(item);
         }
 
 
@@ -99,18 +99,22 @@ namespace API.Controller
         }
 
 
-        [HttpGet("GetItemsByUnitId/{id}")]
-        public async Task<ActionResult<List<ItemDto>>> GetItemsByUnitId(int id)
+        [HttpGet("GetItemsByUnitId/{unitId}")]
+        public async Task<ActionResult<List<ItemDetailsDto>>> GetItemsByUnitId(int unitId,[FromQuery] DTOPaging paging)
         {
-            var item = await _item.GetItemsByUnitId(id);
+            if (paging.PageNumber <= 0 || paging.PageSize <= 0)
+            {
+                return BadRequest("PageNumber and PageSize must be greater than zero.");
+            }
 
+            var items = await _item.GetItemsByUnitId(unitId,paging);
+            if (!items.Any())
+            {
+                return NotFound("No items found for the given sub-warehouse.");
+            }
 
-            return Ok(_mapper.Map<List<Item>>(item));
+            return Ok(items);
         }
-
-
-
-
 
 
         [HttpGet]

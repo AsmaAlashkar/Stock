@@ -4,6 +4,7 @@ using Standard.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,10 +40,24 @@ namespace Repository.ItemRepo
             return result;
         }
 
-        public async Task<Item?> GetItemById(int id)
+        public async Task<ItemDetailsDto?> GetItemById(int id)
         {
             if (id <= 0) return null;
-            return await _context.Items.FirstOrDefaultAsync(i => i.ItemId == id);
+            var result = await (from item in _context.Items
+                                join unit in _context.Units on item.UniteFk equals unit.UnitId
+                                join category in _context.Categories on item.CatFk equals category.CatId
+                                join quantity in _context.Quantities on item.ItemId equals quantity.ItemFk
+                                where item.ItemId == id
+                                select new ItemDetailsDto
+                                {
+                                    ItemId = item.ItemId,
+                                    ItemName = item.ItemName,
+                                    UnitName = unit.UnitName,
+                                    CategoryName = category.CatNameEn,  
+                                    CurrentQuantity = (int)quantity.CurrentQuantity.GetValueOrDefault()  
+                                }).FirstOrDefaultAsync(); ;
+
+            return result;
         }
 
 
@@ -92,15 +107,28 @@ namespace Repository.ItemRepo
             return result;
         }
 
-        public async Task<List<Item>> GetItemsByUnitId(int unitId)
+        public async Task<List<ItemDetailsDto>> GetItemsByUnitId(int unitId, DTOPaging paging)
         {
-            return await _context.Items.Where(u=>u.UniteFk == unitId).ToListAsync();
+            var result = await (from item in _context.Items
+                                join unit in _context.Units on item.UniteFk equals unit.UnitId
+                                join category in _context.Categories on item.CatFk equals category.CatId
+                                join quantity in _context.Quantities on item.ItemId equals quantity.ItemFk
+                                where item.UniteFk == unitId
+                                select new ItemDetailsDto
+                                {
+                                    ItemId = item.ItemId,
+                                    ItemName = item.ItemName,
+                                    UnitName = unit.UnitName,
+                                    CategoryName = category.CatNameEn, 
+                                    CurrentQuantity = (int)quantity.CurrentQuantity.GetValueOrDefault()  
+                                })
+                               .OrderBy(i => i.ItemId)  
+                               .Skip((paging.PageNumber - 1) * paging.PageSize) 
+                               .Take(paging.PageSize)  
+                               .ToListAsync(); 
+
+            return result;
         }
-
-        //public async Task<Item?> GetItemById(int id)
-        //{
-
-        //}
 
         public async Task<List<ItemDetailsDto>> GetAllItemsWithDetailsAsync()
         {
@@ -119,5 +147,7 @@ namespace Repository.ItemRepo
 
             return result;
         }
+
+        //public async Task<ItemDto>
     }
 }
