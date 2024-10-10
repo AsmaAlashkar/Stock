@@ -10,7 +10,7 @@ namespace Repository.ItemRepo
 {
     public interface IItemRepository
     {
-        Task<List<Item>> GetItems();
+        Task<List<Item>> GetItems(DTOPaging paging);
         Task<Item?> GetItemById(int id);
         Task<List<Item>> GetItemsByCategoryId(int catId);
         Task<List<Item>> GetItemsBySubWHId(int subId);

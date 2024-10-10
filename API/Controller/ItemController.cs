@@ -25,11 +25,22 @@ namespace API.Controller
             _item = item;
         }
         [HttpGet("GetItems")]
-        public async Task<ActionResult<List<ItemDto>>> GetItems()
+        public async Task<ActionResult<List<ItemDto>>> GetItems([FromQuery] DTOPaging paging)
         {
-            var items = await _item.GetItems();
+            // Validate pagination inputs
+            if (paging.PageNumber <= 0 || paging.PageSize <= 0)
+            {
+                return BadRequest("PageNumber and PageSize must be greater than zero.");
+            }
 
-            return Ok(_mapper.Map<List<Item>>(items));
+            var items = await _item.GetItems(paging);
+
+            if (!items.Any())
+            {
+                return NotFound("No items found.");
+            }
+
+            return Ok(_mapper.Map<List<ItemDto>>(items));
         }
         [HttpGet("GetItemById/{id}")]
         public async Task<ActionResult<ItemDto>> GetItemById(int id)
