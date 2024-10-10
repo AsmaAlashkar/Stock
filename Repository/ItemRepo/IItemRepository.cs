@@ -10,10 +10,10 @@ namespace Repository.ItemRepo
 {
     public interface IItemRepository
     {
-        Task<List<Item>> GetItems(DTOPaging paging);
+        Task<List<ItemDetailsDto>> GetItems(DTOPaging paging);
         Task<Item?> GetItemById(int id);
-        Task<List<Item>> GetItemsByCategoryId(int catId);
-        Task<List<Item>> GetItemsBySubWHId(int subId);
+        Task<List<ItemDetailsDto>> GetItemsByCategoryId(int catId, DTOPaging paging);
+        Task<List<ItemDetailsDto>> GetItemsBySubWHId(int subId, DTOPaging paging);
         Task<List<Item>> GetItemsByUnitId(int unitId);
 
 
