@@ -19,15 +19,13 @@ namespace Repository.ItemRepo
 
         public async Task<List<Item>> GetItems()
         {
-            var items = await _context.Items
-            .Include(i => i.CatFkNavigation) 
-            .Include(i => i.UniteFkNavigation) 
-            .Include(i => i.SubFkNavigation) 
-            .Include(i => i.ItemSuppliers) 
-                .ThenInclude(i => i.SuppliersFkNavigation) 
-            .ToListAsync();
+            return await _context.Items
+                .AsNoTracking()
+                .Include(i => i.CatFkNavigation)
+                .Include(i => i.UniteFkNavigation)
+                .Include(i => i.SubFkNavigation)
+                .ToListAsync();
 
-            return items;
             //return await _context.Items.OrderBy(c => c.ItemId).ToListAsync();
         }
 
@@ -67,9 +65,9 @@ namespace Repository.ItemRepo
                                     ItemId = item.ItemId,
                                     ItemName = item.ItemName,
                                     UnitName = unit.UnitName,
-                                    CategoryName = category.CatNameEn,  // Use the appropriate language field
-                                    CurrentQuantity = (int)quantity.CurrentQuantity.GetValueOrDefault()  // Safely handle nullable types
-                                }).ToListAsync();  // Get the list of all items with their details
+                                    CategoryName = category.CatNameEn,  
+                                    CurrentQuantity = (int)quantity.CurrentQuantity.GetValueOrDefault()  
+                                }).ToListAsync(); 
 
             return result;
         }
