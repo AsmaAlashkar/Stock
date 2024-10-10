@@ -1,6 +1,5 @@
 <div class="card">
-  <p-treeTable [value]="subWearhousestree" [columns]="cols" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
-      <!-- <ng-template pTemplate="caption"> FileViewer </ng-template> -->
+  <p-treeTable [value]="subWearhousestree" [columns]="cols" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}"> 
       <ng-template pTemplate="header" let-columns>
           <tr>
               <th *ngFor="let col of columns">
@@ -15,7 +14,13 @@
           <tr [ttRow]="rowNode">
               <td *ngFor="let col of columns; let i = index">
                   <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
-                  {{ rowData[col.field] }}
+                  <!-- Check if the column is createdat or updatedat and format it -->
+                  <ng-container *ngIf="col.field === 'subCreatedat' || col.field === 'subUpdatedat'; else defaultData">
+                    {{ rowData[col.field] | date: 'yyyy-MM-dd' }}
+                  </ng-container>
+                  <ng-template #defaultData>
+                    {{ rowData[col.field] }}
+                  </ng-template>
               </td>
               <td>
                 <button class="btn btn-outline-info me-2" [routerLink]="['/category-details', rowData.subId]">
@@ -23,18 +28,9 @@
                 </button>
                 <button class="btn btn-outline-primary" [routerLink]="['/Subwearhouse-details', rowData.subId]">
                   <i class="fa fa-edit"></i>
-                </button>
-                <!-- <p-button icon="pi pi-check" [rounded]="true"></p-button>
-                <p-button icon="pi pi-search" [rounded]="true" styleClass="p-button-success" [style]="{ 'margin-right': '.5em' }"></p-button>
-                  <p-button icon="pi pi-pencil" styleClass="p-button-warning"></p-button> -->
+                </button>              
               </td>
           </tr>
-      </ng-template>
-      <!-- <ng-template pTemplate="summary">
-          <div style="text-align:left">
-              <p-button icon="pi pi-refresh" label="Reload"></p-button>
-          </div>
-      </ng-template> -->
+      </ng-template>   
   </p-treeTable>
 </div>
-<p-button icon="pi pi-check" [rounded]="true"></p-button>

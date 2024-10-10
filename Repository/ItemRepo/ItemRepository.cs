@@ -17,18 +17,20 @@ namespace Repository.ItemRepo
             _context = context;
         }
 
-        public async Task<List<Item>> GetItems()
+        public async Task<List<Item>> GetItems(DTOPaging paging)
         {
             var items = await _context.Items
-            .Include(i => i.CatFkNavigation) 
-            .Include(i => i.UniteFkNavigation) 
-            .Include(i => i.SubFkNavigation) 
-            .Include(i => i.ItemSuppliers) 
-                .ThenInclude(i => i.SuppliersFkNavigation) 
-            .ToListAsync();
+                .Include(i => i.CatFkNavigation)
+                .Include(i => i.UniteFkNavigation)
+                .Include(i => i.SubFkNavigation)
+                .Include(i => i.ItemSuppliers)
+                    .ThenInclude(i => i.SuppliersFkNavigation)
+                .OrderBy(i => i.ItemId) // Order by item ID or any other field
+                .Skip((paging.PageNumber - 1) * paging.PageSize) // Skip records for previous pages
+                .Take(paging.PageSize) // Take only the number of records for the current page
+                .ToListAsync();
 
             return items;
-            //return await _context.Items.OrderBy(c => c.ItemId).ToListAsync();
         }
 
         public async Task<Item?> GetItemById(int id)
