@@ -25,7 +25,7 @@ namespace API.Controller
             _item = item;
         }
         [HttpGet("GetItems")]
-        public async Task<ActionResult<List<ItemDto>>> GetItems([FromQuery] DTOPaging paging)
+        public async Task<ActionResult<List<ItemDetailsDto>>> GetItems([FromQuery] DTOPaging paging)
         {
             // Validate pagination inputs
             if (paging.PageNumber <= 0 || paging.PageSize <= 0)
@@ -40,8 +40,11 @@ namespace API.Controller
                 return NotFound("No items found.");
             }
 
-            return Ok(_mapper.Map<List<ItemDto>>(items));
+            // Return the mapped ItemDetailsDto list
+            return Ok(items);
         }
+
+
         [HttpGet("GetItemById/{id}")]
         public async Task<ActionResult<ItemDto>> GetItemById(int id)
         {
@@ -54,20 +57,48 @@ namespace API.Controller
 
             return Ok(_mapper.Map<ItemDto>(item));
         }
-        [HttpGet("GetItemsByCategoryId/{id}")]
-        public async Task<ActionResult<List<ItemDto>>> GetItemsByCategoryId(int id)
-        {
-            var item = await _item.GetItemsByCategoryId(id);
 
-            return Ok(_mapper.Map<List<Item>>(item));
-        }
-        [HttpGet("GetItemsBySubWHId/{id}")]
-        public async Task<ActionResult<List<ItemDto>>> GetItemsBySubWHId(int id)
-        {
-            var item = await _item.GetItemsBySubWHId(id);
 
-            return Ok(_mapper.Map<List<Item>>(item));
+        [HttpGet("GetItemsByCategoryId/{catId}")]
+        public async Task<ActionResult<List<ItemDetailsDto>>> GetItemsByCategoryId(int catId, [FromQuery] DTOPaging paging)
+        {
+            // Validate pagination inputs
+            if (paging.PageNumber <= 0 || paging.PageSize <= 0)
+            {
+                return BadRequest("PageNumber and PageSize must be greater than zero.");
+            }
+
+            var items = await _item.GetItemsByCategoryId(catId, paging);
+
+            if (!items.Any())
+            {
+                return NotFound("No items found for the given category.");
+            }
+
+            return Ok(items); // Directly return the result since it's already in ItemDetailsDto format
         }
+
+
+        [HttpGet("GetItemsBySubWHId/{subId}")]
+        public async Task<ActionResult<List<ItemDetailsDto>>> GetItemsBySubWHId(int subId, [FromQuery] DTOPaging paging)
+        {
+            // Validate pagination inputs
+            if (paging.PageNumber <= 0 || paging.PageSize <= 0)
+            {
+                return BadRequest("PageNumber and PageSize must be greater than zero.");
+            }
+
+            var items = await _item.GetItemsBySubWHId(subId, paging);
+
+            if (!items.Any())
+            {
+                return NotFound("No items found for the given sub-warehouse.");
+            }
+
+            return Ok(items); // Directly return the result since it's already in ItemDetailsDto format
+        }
+
+
         [HttpGet("GetItemsByUnitId/{id}")]
         public async Task<ActionResult<List<ItemDto>>> GetItemsByUnitId(int id)
         {
@@ -76,6 +107,12 @@ namespace API.Controller
 
             return Ok(_mapper.Map<List<Item>>(item));
         }
+
+
+
+
+
+
         [HttpGet]
         public async Task<IActionResult> GetAllItemsWithDetails()
         {
