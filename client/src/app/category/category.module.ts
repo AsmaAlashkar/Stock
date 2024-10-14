@@ -16,6 +16,7 @@ import { CreateCategoryComponent } from './create-category/create-category.compo
 import { CategoryDetailsComponent } from './category-details/category-details.component';
 import { AccordionModule } from 'primeng/accordion';
 import { TreeTableModule } from 'primeng/treetable';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -37,14 +38,15 @@ import { TreeTableModule } from 'primeng/treetable';
       timeOut: 3000, // Set the duration in milliseconds
       positionClass: 'toast-bottom-right', // Set the position
       preventDuplicates: false, // Prevent duplicate messages
-      
+
     }),
     DialogModule,
     DynamicDialogModule,
     MatButtonModule,
     ButtonModule,
     AccordionModule,
-    TreeTableModule
+    TreeTableModule,
+    TooltipModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

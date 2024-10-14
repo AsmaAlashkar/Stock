@@ -50,12 +50,22 @@
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                 {{ rowData[col.field] }}
                 <ng-container *ngIf="last">
-                  <button class="btn btn-outline-info me-2" [routerLink]="['/category-details', rowData.catId]">
+                  <button class="btn btn-outline-info me-2" pInputText [pTooltip]="tooltipView" [hideDelay]="500" tooltipPosition="top" [routerLink]="['/category-details', rowData.catId]">
                     <i class="fa fa-eye"></i>
                   </button>
-                  <button class="btn btn-outline-primary" [routerLink]="['/category-details', rowData.catId]">
+                  <ng-template #tooltipView>
+                    <div class="flex align-items-center">
+                        <span><b>View</b></span>
+                    </div>
+                  </ng-template>
+                  <button class="btn btn-outline-primary" pInputText [pTooltip]="tooltipEditView" [hideDelay]="500" tooltipPosition="top" [routerLink]="['/category-details', rowData.catId]">
                     <i class="fa fa-edit"></i>
                   </button>
+                  <ng-template #tooltipEditView>
+                    <div class="flex align-items-center">
+                        <span><b>EditView</b></span>
+                    </div>
+                  </ng-template>
                 </ng-container>
               </td>
             </tr>

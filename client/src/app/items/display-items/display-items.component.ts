@@ -12,7 +12,7 @@ import { LazyLoadEvent } from 'primeng/api';
 export class DisplayItemsComponent {
   ItemDetailsResult:ItemDetailsResult
   ItemsDetails: ItemDetailsDto[] = [];
-  pageSize: number = 9;
+  pageSize: number = 10;
   pageNumber: number = 1;
   totalRecords: number = 0;
   loading: boolean = true;
@@ -27,15 +27,11 @@ export class DisplayItemsComponent {
     const skip = event.first || 0;
     const currentPage = Math.floor(skip / this.pageSize) + 1;
 
-    this.itemsService.getItems(this.pageSize, currentPage, skip).subscribe(
-      {
+    this.itemsService.getItems(this.pageSize, currentPage, skip).subscribe({
       next: (data) => {
-        console.log(event);
         this.loading = false;
         this.ItemDetailsResult = data;
         this.ItemsDetails= this.ItemDetailsResult.itemsDetails;
-        console.log(this.ItemsDetails);
-        console.log(this.ItemDetailsResult);
 
       },
       error: (error) => {

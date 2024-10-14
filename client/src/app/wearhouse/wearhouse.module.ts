@@ -20,6 +20,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { TreeModule } from 'primeng/tree';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TreeTableModule } from 'primeng/treetable';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 
@@ -53,7 +54,8 @@ import { TreeTableModule } from 'primeng/treetable';
     AccordionModule,
     TreeModule,
     BrowserAnimationsModule,
-    TreeTableModule
+    TreeTableModule,
+    TooltipModule
   ],
   exports:[MainwearhouseComponent,SubwearhouseComponent,MainModalComponent,CreatesubModalComponent
     ,SubwearhouseComponent,SubwearhouseDetailsComponent]
