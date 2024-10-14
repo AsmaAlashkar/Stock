@@ -126,9 +126,7 @@ public partial class StockContext : DbContext
 
             entity.ToTable("ItemPermission");
 
-            entity.Property(e => e.ItemPerId)
-                .ValueGeneratedNever()
-                .HasColumnName("ItemPer_ID");
+            entity.Property(e => e.ItemPerId).HasColumnName("ItemPer_ID");
             entity.Property(e => e.ItemFk).HasColumnName("Item_FK");
             entity.Property(e => e.PermFk).HasColumnName("Perm_FK");
 
@@ -188,12 +186,15 @@ public partial class StockContext : DbContext
 
             entity.ToTable("Permission");
 
-            entity.Property(e => e.PermId)
-                .ValueGeneratedNever()
-                .HasColumnName("Perm_ID");
+            entity.Property(e => e.PermId).HasColumnName("Perm_ID");
             entity.Property(e => e.PermCreatedat)
                 .HasColumnType("datetime")
                 .HasColumnName("Perm_Createdat");
+            entity.Property(e => e.PermTypeFk).HasColumnName("PermType_FK");
+
+            entity.HasOne(d => d.PermTypeFkNavigation).WithMany(p => p.Permissions)
+                .HasForeignKey(d => d.PermTypeFk)
+                .HasConstraintName("FK_Permission_PermissionType");
         });
 
         modelBuilder.Entity<PermissionType>(entity =>
@@ -202,16 +203,8 @@ public partial class StockContext : DbContext
 
             entity.ToTable("PermissionType");
 
-            entity.Property(e => e.PerId)
-                .ValueGeneratedNever()
-                .HasColumnName("Per_ID");
+            entity.Property(e => e.PerId).HasColumnName("Per_ID");
             entity.Property(e => e.PerTypeValue).HasMaxLength(50);
-            entity.Property(e => e.PermissionFk).HasColumnName("Permission_FK");
-
-            entity.HasOne(d => d.PermissionFkNavigation).WithMany(p => p.PermissionTypes)
-                .HasForeignKey(d => d.PermissionFk)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_PermissionType_Permission");
         });
 
         modelBuilder.Entity<Quantity>(entity =>

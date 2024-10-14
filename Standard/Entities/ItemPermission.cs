@@ -14,4 +14,5 @@ public partial class ItemPermission
     public virtual Item ItemFkNavigation { get; set; } = null!;
 
     public virtual Permission PermFkNavigation { get; set; } = null!;
+    public int Quantity { get; set; }
 }
