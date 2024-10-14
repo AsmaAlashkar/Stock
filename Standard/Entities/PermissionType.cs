@@ -9,7 +9,5 @@ public partial class PermissionType
 
     public string PerTypeValue { get; set; } = null!;
 
-    public int PermissionFk { get; set; }
-
-    public virtual Permission PermissionFkNavigation { get; set; } = null!;
+    public virtual ICollection<Permission> Permissions { get; set; } = new List<Permission>();
 }
