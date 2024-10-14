@@ -12,7 +12,7 @@ import { MainModalComponent } from '../main-modal/main-modal.component';
 export class MainwearhouseComponent {
   mhouses: IMainWearhouse[] = [];
 
-  constructor(private mainwearService: WearhouseService, 
+  constructor(private mainwearService: WearhouseService,
               private dialogService: DialogService) {}
 
   ngOnInit(): void {
@@ -32,10 +32,15 @@ export class MainwearhouseComponent {
   }
 
   openCreateWarehouseModal() {
-    this.dialogService.open(MainModalComponent, {
+    let dialogRef = this.dialogService.open(MainModalComponent, {
       header: 'Create New Main Warehouse',
       width: '70%',
       contentStyle: { 'max-height': '80vh', overflow: 'auto' }
+    });
+    dialogRef.onClose.subscribe((created) => {
+      if (created) {
+        this.loadhouses();
+      }
     });
   }
 }

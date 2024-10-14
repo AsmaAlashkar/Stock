@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { WearhouseService } from '../wearhouse.service';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-main-modal',
@@ -14,9 +15,10 @@ export class MainModalComponent implements OnInit {
   errors: string[] = [];
 
   constructor(private fb: FormBuilder,
-              private router: Router, 
+              private router: Router,
               private toastr: ToastrService,
-              private mainwearService: WearhouseService) { }
+              private mainwearService: WearhouseService,
+              private ref: DynamicDialogRef) { }
 
   ngOnInit(): void {
     this.createMainWearForm();
@@ -30,7 +32,7 @@ export class MainModalComponent implements OnInit {
       mainCreatedat: [null],
       mainUpdatedat: [null],
       delet: [false]
-    }); 
+    });
   }
 
   save() {
@@ -44,6 +46,7 @@ export class MainModalComponent implements OnInit {
     this.mainwearService.createNewMainWearhouse(this.MainWearhouseForm.value).subscribe({
       next: () => {
         this.toastr.success('Warehouse created successfully');
+        this.ref.close("created")
         // this.router.navigateByUrl('/item');
       },
       error: (error) => {

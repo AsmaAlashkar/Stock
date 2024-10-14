@@ -25,7 +25,7 @@ namespace API.Controller
             _item = item;
         }
         [HttpGet("GetItems")]
-        public async Task<ActionResult<List<ItemDetailsDto>>> GetItems([FromQuery] DTOPaging paging)
+        public async Task<ActionResult<ItemDetailsResult>> GetItems([FromQuery] DTOPaging paging)
         {
             // Validate pagination inputs
             if (paging.PageNumber <= 0 || paging.PageSize <= 0)
@@ -33,15 +33,15 @@ namespace API.Controller
                 return BadRequest("PageNumber and PageSize must be greater than zero.");
             }
 
-            var items = await _item.GetItems(paging);
+            var itemsResult = await _item.GetItems(paging);
 
-            if (!items.Any())
+            if (!itemsResult.ItemsDetails.Any())
             {
                 return NotFound("No items found.");
             }
 
             // Return the mapped ItemDetailsDto list
-            return Ok(items);
+            return Ok(itemsResult);
         }
 
 
