@@ -11,6 +11,8 @@ namespace Repository.ItemRepo
 {
     public interface IItemRepository
     {
+        Task<ItemDetailsResult> GetItems(DTOPaging paging);
+        Task<Item?> GetItemById(int id);
         Task<List<ItemDetailsDto>> GetItems(DTOPaging paging);
         Task<ItemDetailsDto?> GetItemById(int id);
         Task<List<ItemDetailsDto>> GetItemsByCategoryId(int catId, DTOPaging paging);

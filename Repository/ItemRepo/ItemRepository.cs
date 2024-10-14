@@ -19,9 +19,11 @@ namespace Repository.ItemRepo
             _context = context;
         }
 
-        public async Task<List<ItemDetailsDto>> GetItems(DTOPaging paging)
+        public async Task<ItemDetailsResult> GetItems(DTOPaging paging)
         {
-            var result = await (from item in _context.Items
+            ItemDetailsResult itemDetailsResult=new ItemDetailsResult();
+            itemDetailsResult.Total= await _context.Items.CountAsync(); 
+             itemDetailsResult.ItemsDetails = await (from item in _context.Items
                                 join unit in _context.Units on item.UniteFk equals unit.UnitId
                                 join category in _context.Categories on item.CatFk equals category.CatId
                                 join quantity in _context.Quantities on item.ItemId equals quantity.ItemFk
@@ -38,7 +40,7 @@ namespace Repository.ItemRepo
                                 .Take(paging.PageSize)  
                                 .ToListAsync();
 
-            return result;
+            return itemDetailsResult;
         }
 
         public async Task<ItemDetailsDto?> GetItemById(int id)

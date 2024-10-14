@@ -12,9 +12,11 @@ export const environment = {
     getCtegories:'http://localhost:5050/api/Category/GetCategories',
     getCategoryById:'http://localhost:5050/api/Category/GetCategoryById/',
     createCtegory:'http://localhost:5050/api/Category/CreateCategory',
-    updateCategory:'http://localhost:5050/api/Category/UpdateCategory/'
+    updateCategory:'http://localhost:5050/api/Category/UpdateCategory/',
+
+    getItems:'http://localhost:5050/api/Item/GetItems',
   };
-  
+
   /*
    * For easier debugging in development mode, you can import the following file
    * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
@@ -23,4 +25,3 @@ export const environment = {
    * on performance if an error is thrown.
    */
   // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
-  

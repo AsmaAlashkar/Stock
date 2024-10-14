@@ -21,6 +21,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptors';
 import { AccountModule } from './account/account.module';
 import { CategoryModule } from './category/category.module';
+import { ItemsModule } from './items/items.module';
+import { PermissionModule } from './permission/permission.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { CategoryModule } from './category/category.module';
     WearhouseModule,
     CategoryModule,
     HomepageModule,
+    PermissionModule,
+    ItemsModule,
     MatInputModule,
     BsDropdownModule.forRoot(),
     MatCardModule,
@@ -51,7 +55,6 @@ import { CategoryModule } from './category/category.module';
     ButtonModule,  // Import ButtonModule if using PrimeNG buttons
     MatButtonModule,
     NgxSpinnerModule,
-
   ],
   providers: [DialogService,
     {provide:HTTP_INTERCEPTORS, useClass: LoadingInterceptor,multi:true}
