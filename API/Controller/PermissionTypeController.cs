@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
+using Repository.PermissionType;
+using Repository.SubWearHouse;
 using Standard.DTOs;
 using Standard.Entities;
 
@@ -11,22 +13,25 @@ namespace API.Controller
     [ApiController]
     public class PermissionTypeController : ControllerBase
     {
-        private readonly GenericRepository<PermissionType> _permt;
+       
+        private readonly IPermissionTypeRepository _pt;
         private readonly IMapper _mapper;
-        public PermissionTypeController(GenericRepository<PermissionType> permt, IMapper mapper)
+        public PermissionTypeController(IMapper mapper,
+             IPermissionTypeRepository pt)
         {
-            _permt = permt;
+            
             _mapper = mapper;
+            _pt = pt;
         }
 
         [HttpGet("GetAllPermissionTypes")]
-        public async Task<ActionResult<IEnumerable<PermissionTypeDto>>> GetAllPermissionTypes()
+        public async Task<ActionResult<IList<PermissionTypeDto>>> GetAllPermissionTypes()
         {
-            var permissionTypes = await _permt.GetAll();
+            var permissiontype = await _pt.GetPermissionsTypes();
 
-            var permissionTypeDtos = _mapper.Map<IEnumerable<PermissionTypeDto>>(permissionTypes);
+            var permissiontypeDtos = _mapper.Map<List<PermissionTypeDto>>(permissiontype);
 
-            return Ok(permissionTypeDtos);
+            return Ok(permissiontypeDtos);
         }
     }
 

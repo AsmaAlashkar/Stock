@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Standard.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Repository.PermissionType
 {
     public interface IPermissionTypeRepository
     {
-        
+        Task<List<Standard.Entities.PermissionType>> GetPermissionsTypes();
     }
 }
