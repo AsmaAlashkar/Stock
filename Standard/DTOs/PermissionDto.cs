@@ -11,7 +11,7 @@ namespace Standard.DTOs
     {
         public int PermId { get; set; }
 
-        public int? PermTypeFk { get; set; }
+        public int PermTypeFk { get; set; }
         public List<ItemDto> Items { get; set; }
 
         public DateTime? PermCreatedat { get; set; } = DateTime.Now;

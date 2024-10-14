@@ -38,15 +38,34 @@ namespace API.Controller
 
             try
             {
-                await _permission.AddPermissionAsync(permission);
-
-                return Ok(new { Message = "Permission added successfully." });
+                await _permission.AddPermission(permission);
+                return Ok(new { Message = "Permission processed successfully." });
             }
             catch (Exception ex)
             {
                 return BadRequest(new { Message = $"Error: {ex.Message}" });
             }
-
         }
+
+        //[HttpPost("CreatePermission")]
+        //public async Task<ActionResult> CreatePermission(PermissionDto permission)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    try
+        //    {
+        //        await _permission.AddPermissionAsync(permission);
+
+        //        return Ok(new { Message = "Permission added successfully." });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(new { Message = $"Error: {ex.Message}" });
+        //    }
+
+        //}
     }
 }

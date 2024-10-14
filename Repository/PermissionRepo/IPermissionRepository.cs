@@ -10,5 +10,10 @@ namespace Repository.PermissionRepo
     public interface IPermissionRepository
     {
         Task AddPermissionAsync(PermissionDto permissionDto);
+
+        Task AddPermission(PermissionDto permissionDto);
+        Task WithdrawPermission(PermissionDto permissionDto);
+
+        // Task AddPermissionAsync(PermissionDto permissionDto);
     }
 }
