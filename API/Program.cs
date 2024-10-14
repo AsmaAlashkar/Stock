@@ -9,6 +9,7 @@ using Repository.Identity;
 using Repository.ItemRepo;
 using Repository.MainWearHouse;
 using Repository.PermissionRepo;
+using Repository.PermissionType;
 using Repository.Service;
 using Repository.SubWearHouse;
 using Repository.VMainWearhouseItem;
@@ -19,6 +20,7 @@ using Standard.Mapping.CategoryDtoProf;
 using Standard.Mapping.ItemProf;
 using Standard.Mapping.mainwearhouseProf;
 using Standard.Mapping.PermissionProf;
+using Standard.Mapping.PermissionTypeProf;
 using Standard.Mapping.SubwearhouseProf;
 using Standard.Mapping.ViewWearHItemProf;
 using Standard.Mapping.ViewWearhouseWithSubHierarchyProf;
@@ -46,6 +48,7 @@ builder.Services.AddScoped<IVWHIWHRepository,VWHIWHRepository >();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
 builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
+builder.Services.AddScoped<IPermissionTypeRepository,PermissionTypeRepository >();
 
 
 
@@ -62,7 +65,8 @@ builder.Services.AddAutoMapper(
     typeof(AddressProf),
     typeof(CategoriesHirarichyProfile),
     typeof(ItemProfile),
-    typeof(PermissionProfile)
+    typeof(PermissionProfile),
+    typeof(PermissionTypeProfile)
 
     );
 

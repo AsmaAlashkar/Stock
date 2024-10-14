@@ -23,6 +23,7 @@ namespace Repository.MainWearHouse
                 .Where(mw => mw.Delet == false || mw.Delet == null)
                 .ToListAsync();
         }
+        
 
         public async Task<MainWearhouse?> GetMainWearHouseById(int id)
         {

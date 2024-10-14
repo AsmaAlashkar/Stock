@@ -20,9 +20,10 @@ public partial class Item
     public DateTime? ItemCreatedat { get; set; }
 
     public DateTime? ItemUpdatedat { get; set; }
-    public int Quantity { get; set; }
 
     public bool? Delet { get; set; }
+
+    public int Quantity { get; set; }
 
     public virtual Category CatFkNavigation { get; set; } = null!;
 

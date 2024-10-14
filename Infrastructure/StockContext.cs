@@ -209,7 +209,7 @@ public partial class StockContext : DbContext
 
         modelBuilder.Entity<Quantity>(entity =>
         {
-            entity.HasKey(e => e.StockId).HasName("PK_Stock");
+            entity.HasKey(e => e.StockId);
 
             entity.ToTable("Quantity");
 
