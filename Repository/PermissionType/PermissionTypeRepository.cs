@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Standard.DTOs;
 using Standard.Entities;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,12 @@ namespace Repository.PermissionType
             _context = context;
         }
 
+        public async Task<List<Standard.Entities.PermissionType>> GetPermissionsTypes()
+        {
+            // Fetch PermissionType entities and map them to DTOs
+            return await _context.PermissionTypes.ToListAsync();
+        }
 
-
-       
+        
     }
 }
