@@ -26,6 +26,7 @@ namespace Repository.PermissionRepo
                     await AddPermissionAsync(permissionDto);
                     break;
                 case 3:
+                case 4:
                     await WithdrawPermission(permissionDto);
                     break;
                 default:
@@ -73,7 +74,7 @@ namespace Repository.PermissionRepo
                             await _context.SaveChangesAsync();
                         }
 
-                        item.Quantity += itemDto.Quantity; // Increase quantity for addition
+                        item.Quantity += itemDto.Quantity; 
 
                         var itemPermission = new ItemPermission
                         {
@@ -117,7 +118,7 @@ namespace Repository.PermissionRepo
                             throw new Exception($"Insufficient quantity for item {itemDto.ItemName}. Available quantity: {item?.Quantity}, requested quantity: {itemDto.Quantity}.");
                         }
 
-                        item.Quantity -= itemDto.Quantity; // Reduce quantity for withdrawal
+                        item.Quantity -= itemDto.Quantity;
 
                         var itemPermission = new ItemPermission
                         {
