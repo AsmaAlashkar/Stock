@@ -67,7 +67,10 @@ namespace Repository.PermissionRepo
                                 Quantity = 0,
                                 CatFk = itemDto.CatFk,
                                 UniteFk = itemDto.UniteFk,
-                                ItemCreatedat = DateTime.Now
+                                SubFk = itemDto.SubFk,
+                                ItemCreatedat = itemDto.ItemCreatedat,
+                                ItemExperationdate = itemDto.ItemExperationdate,
+                                ItemUpdatedat = itemDto.ItemUpdatedat,
                             };
 
                             _context.Items.Add(item);
@@ -75,6 +78,7 @@ namespace Repository.PermissionRepo
                         }
 
                         item.Quantity += itemDto.Quantity; 
+                        item.ItemUpdatedat = DateTime.Now;
 
                         var itemPermission = new ItemPermission
                         {
@@ -109,21 +113,34 @@ namespace Repository.PermissionRepo
                     if (permissionType == null)
                         throw new Exception("Permission type not found");
 
+                    var newPermission = new Permission
+                    {
+                        PermTypeFk = permissionType.PerId,
+                        PermCreatedat = DateTime.Now
+                    };
+
+                    _context.Permissions.Add(newPermission);
+                    await _context.SaveChangesAsync();
+
                     foreach (var itemDto in permissionDto.Items)
                     {
                         var item = await _context.Items.FirstOrDefaultAsync(i => i.ItemId == itemDto.ItemId);
-
-                        if (item == null || item.Quantity < itemDto.Quantity)
+                        if (item == null)
+                        {
+                            throw new Exception("This Item is not found.");
+                        }
+                        if (item.Quantity < itemDto.Quantity)
                         {
                             throw new Exception($"Insufficient quantity for item {itemDto.ItemName}. Available quantity: {item?.Quantity}, requested quantity: {itemDto.Quantity}.");
                         }
 
                         item.Quantity -= itemDto.Quantity;
+                        item.ItemUpdatedat = DateTime.Now;
 
                         var itemPermission = new ItemPermission
                         {
                             ItemFk = item.ItemId,
-                            PermFk = permissionDto.PermTypeFk,
+                            PermFk = newPermission.PermId,
                             Quantity = itemDto.Quantity
                         };
 
