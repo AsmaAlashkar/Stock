@@ -1,12 +1,13 @@
 <div class="container-fluid mt-5 category-tree">
   <div class="row">
+    <!-- Sidebar with summary, filters, and actions -->
     <section class="col-12 col-md-3 mb-4">
       <div class="card mb-3">
         <div class="card-header">
           <strong>Summary</strong>
         </div>
         <div class="card-body">
-          <p>Total Items: <strong></strong></p>
+          <p>Total Permission Types: <strong>{{ permissionTypes.length }}</strong></p> <!-- Display total items -->
         </div>
       </div>
 
@@ -21,8 +22,9 @@
             type="text"
             class="form-control mb-3"
             placeholder="Enter name"
-          />
-          <button class="btn btn-primary w-100">Apply Filter</button>
+            [(ngModel)]="filterName"> <!-- Two-way data binding for filter input -->
+          
+          <button class="btn btn-primary w-100" (click)="applyFilter()">Apply Filter</button> <!-- Filter button -->
         </div>
       </div>
 
@@ -31,42 +33,46 @@
           <strong>Actions</strong>
         </div>
         <div class="card-body">
-          <!-- <button class="btn btn-success w-100 mb-2" >
-            <i class="fa fa-plus"></i> Add New Item
-          </button> -->
+          <button class="btn btn-success w-100 mb-2">
+            <i class="fa fa-plus"></i> Add New Permission Type
+          </button> <!-- Future action for adding a new permission type -->
         </div>
       </div>
     </section>
 
+    <!-- Main section to display filtered permission types -->
     <section class="col-12 col-md-9">
       <div class="container-fluid">
-      <div class="row justify-content-between">
-        <div class="card text-bg-success mb-3 ca-pr">
-          <div class="card-body">
-            <h5 class="card-title">Primary card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <div class="row justify-content-between">
+          
+          <div
+            *ngFor="let permissionType of filteredPermissionTypes; let i = index"
+            class="card mb-3 ca-pr col-12 col-md-5"
+            [ngClass]="{ 
+              'text-bg-success': i === 0,  
+              'text-bg-danger': i === 1,  
+              'text-bg-info': i === 2,
+              'text-bg-secondary': i === 3       
+            }"
+          >
+            <div class="card-body">
+              <h5 class="card-title">{{ permissionType.perTypeValue }}</h5>
+              <p class="card-text">ID: {{ permissionType.perId }}</p>
+            </div>
           </div>
         </div>
-        <div class="card text-bg-primary mb-3 ca-pr">
-          <div class="card-body">
-            <h5 class="card-title">Secondary card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-        <div class="card text-bg-secondary mb-3 ca-pr">
-          <div class="card-body">
-            <h5 class="card-title">Success card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-        </div>
-        <div class="card text-bg-danger mb-3 ca-pr">
-          <div class="card-body">
-            <h5 class="card-title">Danger card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
+    
+        <!-- Display message if no permission types match the filter -->
+        <div *ngIf="filteredPermissionTypes.length === 0">
+          <p>No permission types found.</p>
         </div>
       </div>
-    </div>
     </section>
+    
+    
+    
+
+
+
   </div>
 </div>
