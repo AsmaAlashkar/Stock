@@ -80,7 +80,7 @@ namespace Repository.PermissionRepo
                         {
                             ItemFk = item.ItemId,
                             PermFk = newPermission.PermId,
-                            Quantity = itemDto.Quantity
+                            //Quantity = itemDto.Quantity
                         };
 
                         _context.ItemPermissions.Add(itemPermission);
@@ -108,6 +108,15 @@ namespace Repository.PermissionRepo
 
                     if (permissionType == null)
                         throw new Exception("Permission type not found");
+
+                    var newPermission = new Permission
+                    {
+                        PermTypeFk = permissionType.PerId,
+                        PermCreatedat = DateTime.Now
+                    };
+
+                    _context.Permissions.Add(newPermission);
+                    await _context.SaveChangesAsync();
 
                     foreach (var itemDto in permissionDto.Items)
                     {
