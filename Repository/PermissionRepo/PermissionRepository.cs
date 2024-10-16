@@ -61,20 +61,20 @@ namespace Repository.PermissionRepo
 
                         if (item == null)
                         {
-                            item = new Item
-                            {
-                                ItemName = itemDto.ItemName,
-                                Quantity = 0,
-                                CatFk = itemDto.CatFk,
-                                UniteFk = itemDto.UniteFk,
-                                ItemCreatedat = DateTime.Now
-                            };
+                            //item = new Item
+                            //{
+                            //    ItemName = itemDto.ItemName,
+                            //    Quantity = 0,
+                            //    CatFk = itemDto.CatFk,
+                            //    UniteFk = itemDto.UniteFk,
+                            //    ItemCreatedat = DateTime.Now
+                            //};
 
                             _context.Items.Add(item);
                             await _context.SaveChangesAsync();
                         }
 
-                        item.Quantity += itemDto.Quantity; 
+                        //item.Quantity += itemDto.Quantity; 
 
                         var itemPermission = new ItemPermission
                         {
@@ -113,21 +113,21 @@ namespace Repository.PermissionRepo
                     {
                         var item = await _context.Items.FirstOrDefaultAsync(i => i.ItemId == itemDto.ItemId);
 
-                        if (item == null || item.Quantity < itemDto.Quantity)
-                        {
-                            throw new Exception($"Insufficient quantity for item {itemDto.ItemName}. Available quantity: {item?.Quantity}, requested quantity: {itemDto.Quantity}.");
-                        }
+                        //if (item == null || item.Quantity < itemDto.Quantity)
+                        //{
+                        //    throw new Exception($"Insufficient quantity for item {itemDto.ItemName}. Available quantity: {item?.Quantity}, requested quantity: {itemDto.Quantity}.");
+                        //}
 
-                        item.Quantity -= itemDto.Quantity;
+                        //item.Quantity -= itemDto.Quantity;
 
-                        var itemPermission = new ItemPermission
-                        {
-                            ItemFk = item.ItemId,
-                            PermFk = permissionDto.PermTypeFk,
-                            Quantity = itemDto.Quantity
-                        };
+                        //var itemPermission = new ItemPermission
+                        //{
+                        //    ItemFk = item.ItemId,
+                        //    PermFk = permissionDto.PermTypeFk,
+                        //    Quantity = itemDto.Quantity
+                        //};
 
-                        _context.ItemPermissions.Add(itemPermission);
+                        //_context.ItemPermissions.Add(itemPermission);
                         await _context.SaveChangesAsync();
                     }
 

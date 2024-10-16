@@ -1,0 +1,88 @@
+<!-- <form [formGroup]="permActForm" (ngSubmit)="save()">
+  <div class="form-group">
+      <label for="catNameAr">Category Name Ar<span class="req">*</span></label>
+      <input id="catNameAr" type="text" formControlName="catNameAr" class="form-control"
+          [ngClass]="{'is-invalid': categoryForm.get('catNameAr')?.invalid && categoryForm.get('catNameAr')?.touched}">
+      <div *ngIf="categoryForm.get('catNameAr')?.invalid && categoryForm.get('catNameAr')?.touched"
+          class="invalid-feedback">
+          Category Name Ar is required.
+      </div>
+  </div>
+
+  <div class="form-group">
+      <label for="catNameEn">Category Name En<span class="req">*</span></label>
+      <input id="catNameEn" type="text" formControlName="catNameEn" class="form-control"
+          [ngClass]="{'is-invalid': categoryForm.get('catNameEn')?.invalid && categoryForm.get('catNameEn')?.touched}">
+      <div *ngIf="categoryForm.get('catNameEn')?.invalid && categoryForm.get('catNameEn')?.touched"
+          class="invalid-feedback">
+          Category Name En is required.
+      </div>
+  </div>
+
+  <div class="form-group">
+      <label for="catDesAr">Category Description Ar</label>
+      <input id="catDesAr" type="text" formControlName="catDesAr" class="form-control">
+  </div>
+
+  <div class="form-group">
+      <label for="catDesEn">Category Description En</label>
+      <input id="catDesEn" type="text" formControlName="catDesEn" class="form-control">
+  </div>
+
+  <div class="form-group" hidden>
+      <label for="catId">Category ID</label>
+      <input id="catId" type="number" formControlName="catId" class="form-control">
+  </div>
+
+  <div class="form-group form-check my-3" *ngIf="getValidParentCategoriesCount() > 0">
+      <input type="checkbox" id="showParentCategory" class="form-check-input" formControlName="showParentCategory">
+      <label class="form-check-label" for="showParentCategory">Is Follow Parent</label>
+  </div>
+
+  <div class="form-group" *ngIf="categoryForm.get('showParentCategory')?.value">
+      <label for="parentCategoryId">Parent Category</label>
+      <select id="parentCategoryId" formControlName="parentCategoryId" class="form-control">
+          <option *ngFor="let category of Parentcategory" [value]="category.catId">
+              {{ category.catNameEn }}
+          </option>
+      </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary my-3" [disabled]="categoryForm.invalid">Save Category</button>
+</form>
+
+<div *ngIf="errors.length > 0" class="alert alert-danger">
+  <ul>
+      <li *ngFor="let error of errors">{{ error }}</li>
+  </ul>
+</div> -->
+<p-table
+          [value]=""
+          [paginator]="true"
+          [rows]="5"
+          [tableStyle]="{ 'min-width': '50rem' }"
+          [rowsPerPageOptions]="[5, 10, 20]"
+          [lazy]="true"
+          (onLazyLoad)=""
+          [totalRecords]=""
+          [loading]=""
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width: 25%">Item ID</th>
+              <th style="width: 25%">Item Name</th>
+              <th style="width: 25%">Item Unit</th>
+              <th style="width: 25%">Category Name</th>
+              <th style="width: 25%">Category Quantity</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-item>
+            <tr>
+              <td>{{ item.itemId }}</td>
+              <td>{{ item.itemName }}</td>
+              <td>{{ item.unitName }}</td>
+              <td>{{ item.categoryName }}</td>
+              <td>{{ item.currentQuantity }}</td>
+            </tr>
+          </ng-template>
+        </p-table>

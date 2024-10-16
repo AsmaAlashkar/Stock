@@ -23,7 +23,7 @@ public partial class Item
 
     public bool? Delet { get; set; }
 
-    public int Quantity { get; set; }
+    public string ItemCode { get; set; } = null!;
 
     public virtual Category CatFkNavigation { get; set; } = null!;
 
