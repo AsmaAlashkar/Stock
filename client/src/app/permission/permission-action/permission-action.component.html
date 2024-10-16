@@ -17,26 +17,28 @@
 <form [formGroup]="permActForm" (ngSubmit)="save()">
   <div class="form-group">
     <span class="p-float-label">
-      <p-inputNumber formControlName="permTypeFk" inputId="integeronly" ></p-inputNumber>
-      <label htmlFor="permTypeFk">PermTypeFk</label>
+      <p-inputNumber formControlName="permTypeFk" inputId="integeronly"></p-inputNumber>
+      <label htmlFor="permTypeFk">Permission ID</label>
     </span>
   </div>
 
+  <!-- Rest of your form -->
   <div class="form-group">
     <span class="p-float-label">
-      <p-inputNumber formControlName="items.itemId" inputId="integeronly" ></p-inputNumber>
+      <p-inputNumber formControlName="items.itemId" inputId="integeronly"></p-inputNumber>
       <label htmlFor="itemId">Item ID</label>
     </span>
   </div>
 
   <div class="form-group">
     <span class="p-float-label">
-      <p-inputNumber formControlName="items.quantity" inputId="integeronly" ></p-inputNumber>
+      <p-inputNumber formControlName="items.quantity" inputId="integeronly"></p-inputNumber>
       <label htmlFor="quantity">Quantity</label>
     </span>
   </div>
-  <button type="submit" class="btn btn-primary my-3" >Save Permission</button>
+
+  <button type="submit" class="btn btn-primary my-3">Save Permission</button>
 </form>
-button>
-</form>
+
+
 
