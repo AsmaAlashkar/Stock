@@ -63,6 +63,8 @@ export class PermissinTypeComponent implements OnDestroy{
         perId: selectedPermissionType.perId // Pass perId to the modal
       }
     });
+
+    
   
     this.ref.onMaximize.subscribe((value) => {
       this.messageService.add({ severity: 'info', summary: 'Maximized', detail: `maximized: ${value.maximized}` });
