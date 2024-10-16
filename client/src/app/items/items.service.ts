@@ -15,8 +15,8 @@ export class ItemsService {
     headers: new HttpHeaders({
       'content-type': 'application/json',
       'Accept': '*/*'
-
-    })};
+    })
+  };
 
     getItems(PageSize: number, PageNumber: number, skip: number): Observable <ItemDetailsResult> {
       return this.http.get<ItemDetailsResult>(`${environment.getItems}?PageNumber=${PageNumber}&PageSize=${PageSize}&skip=${skip}`, this.httpHeader);
