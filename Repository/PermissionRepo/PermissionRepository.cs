@@ -64,7 +64,7 @@ namespace Repository.PermissionRepo
                             item = new Item
                             {
                                 ItemName = itemDto.ItemName,
-                                Quantity = 0,
+                                //Quantity = 0,
                                 CatFk = itemDto.CatFk,
                                 UniteFk = itemDto.UniteFk,
                                 SubFk = itemDto.SubFk,
@@ -77,14 +77,14 @@ namespace Repository.PermissionRepo
                             await _context.SaveChangesAsync();
                         }
 
-                        item.Quantity += itemDto.Quantity; 
+                        //item.Quantity += itemDto.Quantity; 
                         item.ItemUpdatedat = DateTime.Now;
 
                         var itemPermission = new ItemPermission
                         {
                             ItemFk = item.ItemId,
                             PermFk = newPermission.PermId,
-                            Quantity = itemDto.Quantity
+                            //Quantity = itemDto.Quantity
                         };
 
                         _context.ItemPermissions.Add(itemPermission);
@@ -129,19 +129,19 @@ namespace Repository.PermissionRepo
                         {
                             throw new Exception("This Item is not found.");
                         }
-                        if (item.Quantity < itemDto.Quantity)
-                        {
-                            throw new Exception($"Insufficient quantity for item {itemDto.ItemName}. Available quantity: {item?.Quantity}, requested quantity: {itemDto.Quantity}.");
-                        }
+                        //if (item.Quantity < itemDto.Quantity)
+                        //{
+                        //    throw new Exception($"Insufficient quantity for item {itemDto.ItemName}. Available quantity: {item?.Quantity}, requested quantity: {itemDto.Quantity}.");
+                        //}
 
-                        item.Quantity -= itemDto.Quantity;
+                        //item.Quantity -= itemDto.Quantity;
                         item.ItemUpdatedat = DateTime.Now;
 
                         var itemPermission = new ItemPermission
                         {
                             ItemFk = item.ItemId,
                             PermFk = newPermission.PermId,
-                            Quantity = itemDto.Quantity
+                            //Quantity = itemDto.Quantity
                         };
 
                         _context.ItemPermissions.Add(itemPermission);

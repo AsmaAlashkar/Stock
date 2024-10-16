@@ -91,6 +91,9 @@ public partial class StockContext : DbContext
         {
             entity.Property(e => e.ItemId).HasColumnName("Item_ID");
             entity.Property(e => e.CatFk).HasColumnName("Cat_FK");
+            entity.Property(e => e.ItemCode)
+                .HasMaxLength(50)
+                .HasColumnName("Item_Code");
             entity.Property(e => e.ItemCreatedat)
                 .HasColumnType("datetime")
                 .HasColumnName("Item_Createdat");
@@ -209,11 +212,13 @@ public partial class StockContext : DbContext
 
         modelBuilder.Entity<Quantity>(entity =>
         {
-            entity.HasKey(e => e.StockId);
+            entity.HasKey(e => new { e.StockId, e.ItemFk });
 
             entity.ToTable("Quantity");
 
-            entity.Property(e => e.StockId).HasColumnName("Stock_ID");
+            entity.Property(e => e.StockId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("Stock_ID");
             entity.Property(e => e.ItemFk).HasColumnName("Item_FK");
             entity.Property(e => e.QuantityCreatedat)
                 .HasColumnType("datetime")

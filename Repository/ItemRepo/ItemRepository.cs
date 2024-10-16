@@ -31,8 +31,10 @@ namespace Repository.ItemRepo
                                 {
                                     ItemId = item.ItemId,
                                     ItemName = item.ItemName,
+                                    ItemCode = item.ItemCode,
                                     UnitName = unit.UnitName,
                                     CategoryName = category.CatNameEn,  
+                                    
                                     CurrentQuantity = (int)quantity.CurrentQuantity.GetValueOrDefault()  
                                 })
                                 .OrderBy(i => i.ItemId)  
