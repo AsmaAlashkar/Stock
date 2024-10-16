@@ -71,7 +71,7 @@ namespace Repository.PermissionRepo
 
                         if (itemQuantity != null)
                         {
-                            itemQuantity.CurrentQuantity += item.Quantity;
+                            //itemQuantity.CurrentQuantity += item.Quantity;
                             itemQuantity.QuantityUpdatedat = DateTime.Now;
                         }
                         else
@@ -79,7 +79,7 @@ namespace Repository.PermissionRepo
                             itemQuantity = new Quantity
                             {
                                 ItemFk = item.ItemId,
-                                CurrentQuantity = item.Quantity,
+                                //CurrentQuantity = item.Quantity,
                                 QuantityCreatedat = item.ItemCreatedat,
                                 QuantityUpdatedat = DateTime.Now
                             };
@@ -89,7 +89,7 @@ namespace Repository.PermissionRepo
                         {
                             ItemFk = item.ItemId,
                             PermFk = newPermission.PermId,
-                            Quantity = item.Quantity
+                            //Quantity = item.Quantity
                         };
                         _context.ItemPermissions.Add(itemPermission);
                     }
@@ -114,31 +114,34 @@ namespace Repository.PermissionRepo
                     foreach (var item in permissionDto.Items)
                     {
                         var itemExists = await _context.Items
-                        .AnyAsync(i => i.ItemId == item.ItemId);
+                            .AnyAsync(i => i.ItemId == item.ItemId);
 
                         if (!itemExists)
                             throw new Exception($"Item not found.");
 
                         var itemQuantity = await _context.Quantities
-                        .FirstOrDefaultAsync(q => q.ItemFk == item.ItemId);
-                
-                        if (itemQuantity != null && itemQuantity.CurrentQuantity >= item.Quantity)
-                        {
-                            itemQuantity.CurrentQuantity -= item.Quantity;
-                            itemQuantity.QuantityUpdatedat = DateTime.Now;
-                        }
-                        else
-                        {
-                            throw new Exception("Insufficient quantity for item.");
-                        }
+                            .FirstOrDefaultAsync(q => q.ItemFk == item.ItemId); // Added semicolon here
+
+                        //if (itemQuantity != null && itemQuantity.CurrentQuantity >= item.Quantity)
+                        //{
+                        //    itemQuantity.CurrentQuantity -= item.Quantity;
+                        //    itemQuantity.QuantityUpdatedat = DateTime.Now;
+                        //}
+                        //else
+                        //{
+                        //    throw new Exception("Insufficient quantity for item.");
+                        //}
+
                         var itemPermission = new ItemPermission
                         {
                             ItemFk = item.ItemId,
                             PermFk = newPermission.PermId,
-                            Quantity = item.Quantity
+                            //Quantity = item.Quantity
                         };
+
                         _context.ItemPermissions.Add(itemPermission);
                     }
+
                     await _context.SaveChangesAsync();
                     await transaction.CommitAsync();
                 }
@@ -149,6 +152,7 @@ namespace Repository.PermissionRepo
                 }
             }
         }
+
 
         //public async Task AddPermissionAsync(PermissionDto permissionDto)
         //{
