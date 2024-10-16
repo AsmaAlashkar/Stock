@@ -54,23 +54,21 @@ export class PermissinTypeComponent implements OnDestroy{
   show(selectedPermissionType: IPermissionType) {
     const headerValue = selectedPermissionType ? selectedPermissionType.perTypeValue : 'Default Header';
     this.ref = this.dialogService.open(PermissionActionComponent, {
-        header: headerValue,
-        width: '70%',
-        contentStyle: { overflow: 'auto' },
-        baseZIndex: 10000,
-        maximizable: true
+      header: headerValue,
+      width: '70%',
+      contentStyle: { overflow: 'auto' },
+      baseZIndex: 10000,
+      maximizable: true,
+      data: {
+        perId: selectedPermissionType.perId // Pass perId to the modal
+      }
     });
-
-    // this.ref.onClose.subscribe((product: Product) => {
-    //     if (product) {
-    //         this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: product.name });
-    //     }
-    // });
-
+  
     this.ref.onMaximize.subscribe((value) => {
-        this.messageService.add({ severity: 'info', summary: 'Maximized', detail: `maximized: ${value.maximized}` });
+      this.messageService.add({ severity: 'info', summary: 'Maximized', detail: `maximized: ${value.maximized}` });
     });
   }
+  
 
   ngOnDestroy() {
       if (this.ref) {

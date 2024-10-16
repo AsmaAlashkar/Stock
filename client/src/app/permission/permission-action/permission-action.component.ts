@@ -24,6 +24,16 @@ export class PermissionActionComponent implements OnInit{
 
   ngOnInit(): void {
     this.permActionForm();
+  
+    // Get the perId from config data
+    const perId = this.config.data.perId;
+  
+    // Set the perId in the form if it exists
+    if (perId) {
+      this.permActForm.patchValue({
+        permTypeFk: perId // Set perId in the form
+      });
+    }
   }
 
   permActionForm() {
