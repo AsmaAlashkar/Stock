@@ -50,6 +50,7 @@ export class PermissinTypeComponent implements OnDestroy{
     console.log('Card clicked:', permissionType.perId);
     this.show(permissionType);
   }
+
   show(selectedPermissionType: IPermissionType) {
     const headerValue = selectedPermissionType ? selectedPermissionType.perTypeValue : 'Default Header';
     this.ref = this.dialogService.open(PermissionActionComponent, {
@@ -68,26 +69,6 @@ export class PermissinTypeComponent implements OnDestroy{
     });
   }
   
-  // show(selectedPermissionType: IPermissionType) {
-  //   const headerValue = selectedPermissionType ? selectedPermissionType.perTypeValue : 'Default Header';
-  //   this.ref = this.dialogService.open(PermissionActionComponent, {
-  //       header: headerValue,
-  //       width: '70%',
-  //       contentStyle: { overflow: 'auto' },
-  //       baseZIndex: 10000,
-  //       maximizable: true
-  //   });
-
-  //   // this.ref.onClose.subscribe((product: Product) => {
-  //   //     if (product) {
-  //   //         this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: product.name });
-  //   //     }
-  //   // });
-
-  //   this.ref.onMaximize.subscribe((value) => {
-  //       this.messageService.add({ severity: 'info', summary: 'Maximized', detail: `maximized: ${value.maximized}` });
-  //   });
-  // }
 
   ngOnDestroy() {
       if (this.ref) {
