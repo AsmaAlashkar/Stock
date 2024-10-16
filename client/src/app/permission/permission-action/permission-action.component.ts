@@ -28,13 +28,14 @@ export class PermissionActionComponent implements OnInit{
 
   permActionForm() {
     this.permActForm = this.fb.group({
-      catId: [0],
-      catNameAr:  ['', Validators.required],
-      catNameEn:  ['', Validators.required],
-      catDesAr:  [null],
-      catDesEn:  [null],
-      level: [0],
-      showParentCategory: [false]
+      // permId: [null, Validators.required],
+      permTypeFk: [null, Validators.required],
+      items: this.fb.array([
+        this.fb.group({
+          itemId: [null, Validators.required],
+          quantity: [null, Validators.required]
+        })
+      ])
     });
   }
 
@@ -45,7 +46,7 @@ export class PermissionActionComponent implements OnInit{
     }
     this.permService.permissionAction(this.permActForm.value).subscribe({
       next: () => {
-        this.toastr.success('Category created successfully');
+        this.toastr.success('Permission created successfully');
         this.permActForm.reset();
         this.ref.close('confirmed');
       },
