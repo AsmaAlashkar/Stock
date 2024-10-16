@@ -142,7 +142,7 @@ namespace API.Controller
         }
 
         [HttpPost("CreateItem")]
-        public async Task<ActionResult> CreateItem(ItemDto Item)
+        public async Task<ActionResult> CreateItem(CreateItemDto Item)
         {
             var newItem = _mapper.Map<Item>(Item);
 
