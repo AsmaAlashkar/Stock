@@ -23,7 +23,7 @@
             class="form-control mb-3"
             placeholder="Enter name"
             [(ngModel)]="filterName"> <!-- Two-way data binding for filter input -->
-          
+
           <button class="btn btn-primary w-100" (click)="applyFilter()">Apply Filter</button> <!-- Filter button -->
         </div>
       </div>
@@ -44,16 +44,17 @@
     <section class="col-12 col-md-9">
       <div class="container-fluid">
         <div class="row justify-content-between">
-          
           <div
             *ngFor="let permissionType of filteredPermissionTypes; let i = index"
-            class="card mb-3 ca-pr col-12 col-md-5"
-            [ngClass]="{ 
-              'text-bg-success': i === 0,  
-              'text-bg-danger': i === 1,  
+            class="card mb-3 ca-pr col-12 col-md-5 cursor-pointer"
+            [ngClass]="{
+              'text-bg-success': i === 0,
+              'text-bg-secondary': i === 1,
               'text-bg-info': i === 2,
-              'text-bg-secondary': i === 3       
+              'text-bg-danger': i === 3
             }"
+            [ngStyle]="{ 'transition': 'transform 0.2s' }"
+            (click)="onCardClick(permissionType)"
           >
             <div class="card-body">
               <h5 class="card-title">{{ permissionType.perTypeValue }}</h5>
@@ -61,13 +62,12 @@
             </div>
           </div>
         </div>
-    
+
         <!-- Display message if no permission types match the filter -->
         <div *ngIf="filteredPermissionTypes.length === 0">
           <p>No permission types found.</p>
         </div>
       </div>
     </section>
-
   </div>
 </div>

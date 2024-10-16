@@ -12,6 +12,5 @@ namespace Repository.PermissionRepo
     {
         Task AddPermission(PermissionDto permissionDto);
 
-        // Task AddPermissionAsync(PermissionDto permissionDto);
     }
 }

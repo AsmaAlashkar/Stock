@@ -1,41 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { Category } from 'src/app/shared/models/category';
-import { CategoryService } from '../category.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { PermissionService } from '../permission.service';
 
 @Component({
-  selector: 'app-create-category',
-  templateUrl: './create-category.component.html',
-  styleUrls: ['./create-category.component.scss']
+  selector: 'app-permission-action',
+  templateUrl: './permission-action.component.html',
+  styleUrls: ['./permission-action.component.scss']
 })
-export class CreateCategoryComponent implements OnInit {
+export class PermissionActionComponent implements OnInit{
 
-  categoryForm!: FormGroup;
+  permActForm!: FormGroup;
   errors: string[] = [];
-  Parentcategory: Category[] = [];
 
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private categoryService: CategoryService,
+    private permService: PermissionService,
     public config: DynamicDialogConfig,
     public ref: DynamicDialogRef
   ) { }
 
   ngOnInit(): void {
-    this.createCategoryForm();
-    this.loadCategories();
-  }
-  getValidParentCategoriesCount() {
-    return this.Parentcategory.filter(c=>c.catId).length;
+    this.permActionForm();
   }
 
-  createCategoryForm() {
-    this.categoryForm = this.fb.group({
+  permActionForm() {
+    this.permActForm = this.fb.group({
       catId: [0],
-      parentCategoryId: [null],
       catNameAr:  ['', Validators.required],
       catNameEn:  ['', Validators.required],
       catDesAr:  [null],
@@ -45,24 +38,15 @@ export class CreateCategoryComponent implements OnInit {
     });
   }
 
-  loadCategories() {
-    this.categoryService.getCtegories().subscribe({
-      next: (response) => {
-        this.Parentcategory = response;
-      },
-      error: (err) => console.error(err)
-    });
-  }
-
-  save(){
-    if (this.categoryForm.invalid) {
+  save() {
+    if (this.permActForm.invalid) {
       this.toastr.error('Please fill in all required fields.');
       return;
     }
-    this.categoryService.createCategory(this.categoryForm.value).subscribe({
+    this.permService.permissionAction(this.permActForm.value).subscribe({
       next: () => {
         this.toastr.success('Category created successfully');
-        this.categoryForm.reset();
+        this.permActForm.reset();
         this.ref.close('confirmed');
       },
       error: (error) => {
@@ -71,5 +55,4 @@ export class CreateCategoryComponent implements OnInit {
       }
     });
   }
-
 }

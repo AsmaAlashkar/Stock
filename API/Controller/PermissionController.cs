@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Repository.MainWearHouse;
-using Repository.VMainWearhouseItem;
-using Repository.VWearhouseWithSubHierarchy;
 using Repository;
 using Standard.Entities;
 using Repository.PermissionRepo;
@@ -47,25 +44,5 @@ namespace API.Controller
             }
         }
 
-        //[HttpPost("CreatePermission")]
-        //public async Task<ActionResult> CreatePermission(PermissionDto permission)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    try
-        //    {
-        //        await _permission.AddPermissionAsync(permission);
-
-        //        return Ok(new { Message = "Permission added successfully." });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(new { Message = $"Error: {ex.Message}" });
-        //    }
-
-        //}
     }
 }

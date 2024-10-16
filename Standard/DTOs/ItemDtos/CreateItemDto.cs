@@ -8,11 +8,9 @@ namespace Standard.DTOs.ItemDtos
 {
     public class CreateItemDto
     {
-        public int ItemId { get; set; }
+        public string ItemCode { get; set; } = null!;
 
         public string ItemName { get; set; } = null!;
-
-        public int Quantity { get; set; }
 
         public int CatFk { get; set; }
 
