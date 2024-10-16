@@ -4,13 +4,6 @@ export interface Permissionaction {
   "items": [
     {
       "itemId": number,
-      "itemName": "string",
-      "catFk": number,
-      "uniteFk": number,
-      "subFk": number,
-      "itemExperationdate": "string",
-      "itemCreatedat": "string",
-      "itemUpdatedat": "string",
       "quantity": number
     }
   ],
