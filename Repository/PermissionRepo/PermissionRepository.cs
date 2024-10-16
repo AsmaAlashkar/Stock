@@ -27,136 +27,229 @@ namespace Repository.PermissionRepo
                     break;
                 case 3:
                 case 4:
-                    await WithdrawPermission(permissionDto);
+                    await HandleWithdrawOrDamagedPermissionAsync(permissionDto);
                     break;
                 default:
                     throw new Exception("Invalid permission type.");
             }
         }
+        private async Task<Permission> CreatePermissionAsync(int permissionTypeFk)
+        {
+            var permissionType = await _context.PermissionTypes
+                .FirstOrDefaultAsync(pt => pt.PerId == permissionTypeFk);
 
-        public async Task AddPermissionAsync(PermissionDto permissionDto)
+            if (permissionType == null)
+                throw new Exception("Permission type not found");
+
+            var newPermission = new Permission
+            {
+                PermTypeFk = permissionType.PerId,
+                PermCreatedat = DateTime.Now
+            };
+
+            _context.Permissions.Add(newPermission);
+            await _context.SaveChangesAsync();
+
+            return newPermission;
+        }
+
+        private async Task AddPermissionAsync(PermissionDto permissionDto)
         {
             using (var transaction = await _context.Database.BeginTransactionAsync())
             {
                 try
                 {
-                    var permissionType = await _context.PermissionTypes
-                        .FirstOrDefaultAsync(pt => pt.PerId == permissionDto.PermTypeFk);
-
-                    if (permissionType == null)
-                        throw new Exception("Permission type not found");
-
-                    var newPermission = new Permission
+                    var newPermission = await CreatePermissionAsync(permissionDto.PermTypeFk);
+                    foreach (var item in permissionDto.Items)
                     {
-                        PermTypeFk = permissionType.PerId,
-                        PermCreatedat = DateTime.Now
-                    };
+                        var itemExists = await _context.Items
+                        .AnyAsync(i => i.ItemId == item.ItemId);
+                        if (!itemExists)
+                            throw new Exception($"Item not found.");
+                        var itemQuantity = await _context.Quantities
+                        .FirstOrDefaultAsync(q => q.ItemFk == item.ItemId);
 
-                    _context.Permissions.Add(newPermission);
-                    await _context.SaveChangesAsync();
-
-                    foreach (var itemDto in permissionDto.Items)
-                    {
-                        var item = await _context.Items.FirstOrDefaultAsync(i => i.ItemId == itemDto.ItemId);
-
-                        if (item == null)
+                        if (itemQuantity != null)
                         {
-                            item = new Item
+                            itemQuantity.CurrentQuantity += item.Quantity;
+                            itemQuantity.QuantityUpdatedat = DateTime.Now;
+                        }
+                        else
+                        {
+                            itemQuantity = new Quantity
                             {
-                                ItemName = itemDto.ItemName,
-                                Quantity = 0,
-                                CatFk = itemDto.CatFk,
-                                UniteFk = itemDto.UniteFk,
-                                SubFk = itemDto.SubFk,
-                                ItemCreatedat = itemDto.ItemCreatedat,
-                                ItemExperationdate = itemDto.ItemExperationdate,
-                                ItemUpdatedat = itemDto.ItemUpdatedat,
+                                ItemFk = item.ItemId,
+                                CurrentQuantity = item.Quantity,
+                                QuantityCreatedat = item.ItemCreatedat,
+                                QuantityUpdatedat = DateTime.Now
                             };
-
-                            _context.Items.Add(item);
-                            await _context.SaveChangesAsync();
+                            _context.Quantities.Add(itemQuantity);
                         }
-
-                        item.Quantity += itemDto.Quantity; 
-                        item.ItemUpdatedat = DateTime.Now;
-
                         var itemPermission = new ItemPermission
                         {
                             ItemFk = item.ItemId,
                             PermFk = newPermission.PermId,
-                            Quantity = itemDto.Quantity
+                            Quantity = item.Quantity
                         };
-
                         _context.ItemPermissions.Add(itemPermission);
-                        await _context.SaveChangesAsync();
                     }
-
+                    await _context.SaveChangesAsync();
                     await transaction.CommitAsync();
                 }
                 catch (Exception ex)
                 {
                     await transaction.RollbackAsync();
-                    throw new Exception($"Transaction failed: {ex.Message}");
+                    throw new Exception($"Add operation failed: {ex.Message}");
                 }
             }
         }
 
-        public async Task WithdrawPermission(PermissionDto permissionDto)
+        private async Task HandleWithdrawOrDamagedPermissionAsync(PermissionDto permissionDto)
         {
             using (var transaction = await _context.Database.BeginTransactionAsync())
             {
                 try
                 {
-                    var permissionType = await _context.PermissionTypes
-                        .FirstOrDefaultAsync(pt => pt.PerId == permissionDto.PermTypeFk);
-
-                    if (permissionType == null)
-                        throw new Exception("Permission type not found");
-
-                    var newPermission = new Permission
+                    var newPermission = await CreatePermissionAsync(permissionDto.PermTypeFk);
+                    foreach (var item in permissionDto.Items)
                     {
-                        PermTypeFk = permissionType.PerId,
-                        PermCreatedat = DateTime.Now
-                    };
+                        var itemExists = await _context.Items
+                        .AnyAsync(i => i.ItemId == item.ItemId);
 
-                    _context.Permissions.Add(newPermission);
-                    await _context.SaveChangesAsync();
+                        if (!itemExists)
+                            throw new Exception($"Item not found.");
 
-                    foreach (var itemDto in permissionDto.Items)
-                    {
-                        var item = await _context.Items.FirstOrDefaultAsync(i => i.ItemId == itemDto.ItemId);
-                        if (item == null)
+                        var itemQuantity = await _context.Quantities
+                        .FirstOrDefaultAsync(q => q.ItemFk == item.ItemId);
+                
+                        if (itemQuantity != null && itemQuantity.CurrentQuantity >= item.Quantity)
                         {
-                            throw new Exception("This Item is not found.");
+                            itemQuantity.CurrentQuantity -= item.Quantity;
+                            itemQuantity.QuantityUpdatedat = DateTime.Now;
                         }
-                        if (item.Quantity < itemDto.Quantity)
+                        else
                         {
-                            throw new Exception($"Insufficient quantity for item {itemDto.ItemName}. Available quantity: {item?.Quantity}, requested quantity: {itemDto.Quantity}.");
+                            throw new Exception("Insufficient quantity for item.");
                         }
-
-                        item.Quantity -= itemDto.Quantity;
-                        item.ItemUpdatedat = DateTime.Now;
-
                         var itemPermission = new ItemPermission
                         {
                             ItemFk = item.ItemId,
                             PermFk = newPermission.PermId,
-                            Quantity = itemDto.Quantity
+                            Quantity = item.Quantity
                         };
-
                         _context.ItemPermissions.Add(itemPermission);
-                        await _context.SaveChangesAsync();
                     }
-
+                    await _context.SaveChangesAsync();
                     await transaction.CommitAsync();
                 }
                 catch (Exception ex)
                 {
                     await transaction.RollbackAsync();
-                    throw new Exception($"Transaction failed: {ex.Message}");
+                    throw new Exception($"{(permissionDto.PermTypeFk == 3 ? "Withdraw" : "Damaged")} operation failed: {ex.Message}");
                 }
             }
         }
+
+        //public async Task AddPermissionAsync(PermissionDto permissionDto)
+        //{
+        //    using (var transaction = await _context.Database.BeginTransactionAsync())
+        //    {
+        //        try
+        //        {
+        //            var permissionType = await _context.PermissionTypes
+        //                .FirstOrDefaultAsync(pt => pt.PerId == permissionDto.PermTypeFk);
+
+        //            if (permissionType == null)
+        //                throw new Exception("Permission type not found");
+
+        //            var newPermission = new Permission
+        //            {
+        //                PermTypeFk = permissionType.PerId,
+        //                PermCreatedat = DateTime.Now
+        //            };
+
+        //            _context.Permissions.Add(newPermission);
+        //            await _context.SaveChangesAsync();
+
+        //            foreach (var itemDto in permissionDto.Items)
+        //            {
+        //                var item = await _context.Items.FirstOrDefaultAsync(i => i.ItemId == itemDto.ItemId);
+
+        //                if (item == null)
+        //                {
+        //                    throw new Exception("This Item is not found.");
+        //                }
+
+        //                var itemPermission = new ItemPermission
+        //                {
+        //                    ItemFk = item.ItemId,
+        //                    PermFk = newPermission.PermId,
+        //                    Quantity = itemDto.Quantity
+        //                };
+
+        //                _context.ItemPermissions.Add(itemPermission);
+        //                await _context.SaveChangesAsync();
+        //            }
+
+        //            await transaction.CommitAsync();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            await transaction.RollbackAsync();
+        //            throw new Exception($"Transaction failed: {ex.Message}");
+        //        }
+        //    }
+        //}
+
+        //public async Task WithdrawPermission(PermissionDto permissionDto)
+        //{
+        //    using (var transaction = await _context.Database.BeginTransactionAsync())
+        //    {
+        //        try
+        //        {
+        //            var permissionType = await _context.PermissionTypes
+        //                .FirstOrDefaultAsync(pt => pt.PerId == permissionDto.PermTypeFk);
+
+        //            if (permissionType == null)
+        //                throw new Exception("Permission type not found");
+
+        //            var newPermission = new Permission
+        //            {
+        //                PermTypeFk = permissionType.PerId,
+        //                PermCreatedat = DateTime.Now
+        //            };
+
+        //            _context.Permissions.Add(newPermission);
+        //            await _context.SaveChangesAsync();
+
+        //            foreach (var itemDto in permissionDto.Items)
+        //            {
+        //                var item = await _context.Items.FirstOrDefaultAsync(i => i.ItemId == itemDto.ItemId);
+        //                if (item == null)
+        //                {
+        //                    throw new Exception("This Item is not found.");
+        //                }
+
+        //                var itemPermission = new ItemPermission
+        //                {
+        //                    ItemFk = item.ItemId,
+        //                    PermFk = newPermission.PermId,
+        //                    Quantity = itemDto.Quantity
+        //                };
+
+        //                _context.ItemPermissions.Add(itemPermission);
+        //                await _context.SaveChangesAsync();
+        //            }
+
+        //            await transaction.CommitAsync();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            await transaction.RollbackAsync();
+        //            throw new Exception($"Transaction failed: {ex.Message}");
+        //        }
+        //    }
+        //}
 
 
         //public async Task AddPermissionAsync(PermissionDto permissionDto)
