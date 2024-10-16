@@ -7,5 +7,5 @@ export interface Permissionaction {
       "quantity": number
     }
   ],
-  "permCreatedat": "string"
+  "permCreatedat": string
 }

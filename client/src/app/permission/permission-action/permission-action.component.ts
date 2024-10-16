@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PermissionService } from '../permission.service';
+import { Permissionaction } from 'src/app/shared/models/permissionaction';
 
 @Component({
   selector: 'app-permission-action',
@@ -11,9 +12,9 @@ import { PermissionService } from '../permission.service';
 })
 export class PermissionActionComponent implements OnInit{
 
-  permActForm!: FormGroup;
+  // permActForm!: FormGroup;
   errors: string[] = [];
-
+  permActForm!: Permissionaction;
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -23,33 +24,33 @@ export class PermissionActionComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.permActionForm();
-  
+    // this.permActionForm();
+
     // Get the perId from config data
     const perId = this.config.data.perId;
-  
+    this.permActForm={perId: perId, permTypeFk: permTypeFk, items}
     // Set the perId in the form if it exists
-    if (perId) {
-      this.permActForm.patchValue({
-        permTypeFk: perId // Set perId in the form
-      });
-    }
+    // if (perId) {
+    //   this.permActForm.patchValue({
+    //     permTypeFk: perId // Set perId in the form
+    //   });
+    // }
   }
 
   permActionForm() {
-    this.permActForm = this.fb.group({
-      // permId: [null, Validators.required],
-      permTypeFk: [null, Validators.required],
-      items: this.fb.array([
-        this.fb.group({
-          itemId: [null, Validators.required],
-          quantity: [null, Validators.required]
-        })
-      ])
-    });
+    // this.permActForm = this.fb.group({
+    //   // permId: [null, Validators.required],
+    //   permTypeFk: [null, Validators.required],
+    //   items: this.fb.array([
+    //     this.fb.group({
+    //       itemId: [null, Validators.required],
+    //       quantity: [null, Validators.required]
+    //     })
+    //   ])
+    // });
   }
 
-  save() {
+  /*save() {
     if (this.permActForm.invalid) {
       this.toastr.error('Please fill in all required fields.');
       return;
@@ -65,5 +66,25 @@ export class PermissionActionComponent implements OnInit{
         this.errors = (error.error && error.error.errors) || ['An unexpected error occurred'];
       }
     });
-  }
+  }*/
+
+
+    save() {
+      if (!this.permActForm.perId || !this.permActForm.permTypeFk || !this.permActForm.items[0].itemId || !this.permActForm.items[0].quantity) {
+        this.toastr.error('Please fill in all required fields.');
+        return;
+      }
+
+      this.permService.permissionAction(this.permActForm).subscribe({
+        next: () => {
+          this.toastr.success('Permission created successfully');
+          this.ref.close('confirmed');
+        },
+        error: (error) => {
+          console.error('Error details:', error);
+          this.errors = (error.error && error.error.errors) || ['An unexpected error occurred'];
+        }
+      });
+    }
+
 }

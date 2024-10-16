@@ -60,15 +60,20 @@ export class PermissinTypeComponent implements OnDestroy{
       baseZIndex: 10000,
       maximizable: true,
       data: {
-        perId: selectedPermissionType.perId // Pass perId to the modal
+        perId: selectedPermissionType.perId
       }
+      // this.ref.onClose.subscribe((product: Product) => {
+      //   if (product) {
+      //       this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: product.name });
+      //   }
+      // });
     });
-  
+
     this.ref.onMaximize.subscribe((value) => {
       this.messageService.add({ severity: 'info', summary: 'Maximized', detail: `maximized: ${value.maximized}` });
     });
   }
-  
+
 
   ngOnDestroy() {
       if (this.ref) {
