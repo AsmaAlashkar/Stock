@@ -13,8 +13,8 @@ namespace Standard.Mapping.ItemProf
     {
         public ItemProfile()
         {
-            CreateMap<Item, ItemDto>().ReverseMap();
-            CreateMap<ItemDto, Item>().ReverseMap();
+            CreateMap<Item, CreateItemDto>().ReverseMap();
+            CreateMap<CreateItemDto, Item>().ReverseMap();
         }
     }
 }
