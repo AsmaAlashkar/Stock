@@ -80,7 +80,6 @@ namespace Repository.PermissionRepo
                             {
                                 ItemFk = item.ItemId,
                                 CurrentQuantity = item.Quantity,
-                                QuantityCreatedat = item.ItemCreatedat,
                                 QuantityUpdatedat = DateTime.Now
                             };
                             _context.Quantities.Add(itemQuantity);
