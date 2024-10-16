@@ -1,9 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Repository.MainWearHouse;
-using Repository.VMainWearhouseItem;
-using Repository.VWearhouseWithSubHierarchy;
 using Repository;
 using Standard.Entities;
 using Repository.PermissionRepo;
