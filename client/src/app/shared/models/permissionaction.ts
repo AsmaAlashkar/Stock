@@ -5,6 +5,8 @@ export interface Permissionaction {
     {
       "itemId": number,
       "quantity": number
+
+      
     }
   ],
   "permCreatedat": string

@@ -15,5 +15,5 @@ public partial class SubItem
 
     public virtual Item ItemFkNavigation { get; set; } = null!;
 
-    public virtual SubWearhouse SubFkNavigation { get; set; } = null!;
+    public virtual SubWearhouse? SubFkNavigation { get; set; }
 }
