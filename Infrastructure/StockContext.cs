@@ -21,8 +21,6 @@ public partial class StockContext : DbContext
 
     public virtual DbSet<Item> Items { get; set; }
 
-    public virtual DbSet<ItemPermission> ItemPermissions { get; set; }
-
     public virtual DbSet<ItemSupplier> ItemSuppliers { get; set; }
 
     public virtual DbSet<MainWearhouse> MainWearhouses { get; set; }
@@ -33,13 +31,15 @@ public partial class StockContext : DbContext
 
     public virtual DbSet<Quantity> Quantities { get; set; }
 
+    public virtual DbSet<SubItem> SubItems { get; set; }
+
+    public virtual DbSet<SubItemPermission> SubItemPermissions { get; set; }
+
     public virtual DbSet<SubWearhouse> SubWearhouses { get; set; }
 
     public virtual DbSet<Supplier> Suppliers { get; set; }
 
     public virtual DbSet<Unit> Units { get; set; }
-
-    public virtual DbSet<ViewMainWearhouseWithSubWearhouseHierarchy> ViewMainWearhouseWithSubWearhouseHierarchies { get; set; }
 
     public virtual DbSet<ViewWearhouseItem> ViewWearhouseItems { get; set; }
 
@@ -106,7 +106,6 @@ public partial class StockContext : DbContext
             entity.Property(e => e.ItemUpdatedat)
                 .HasColumnType("datetime")
                 .HasColumnName("Item_Updatedat");
-            entity.Property(e => e.SubFk).HasColumnName("Sub_FK");
             entity.Property(e => e.UniteFk).HasColumnName("Unite_FK");
 
             entity.HasOne(d => d.CatFkNavigation).WithMany(p => p.Items)
@@ -114,34 +113,9 @@ public partial class StockContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Items_Category");
 
-            entity.HasOne(d => d.SubFkNavigation).WithMany(p => p.Items)
-                .HasForeignKey(d => d.SubFk)
-                .HasConstraintName("FK_Items_SubWearhouse");
-
             entity.HasOne(d => d.UniteFkNavigation).WithMany(p => p.Items)
                 .HasForeignKey(d => d.UniteFk)
                 .HasConstraintName("FK_Items_Unite");
-        });
-
-        modelBuilder.Entity<ItemPermission>(entity =>
-        {
-            entity.HasKey(e => e.ItemPerId);
-
-            entity.ToTable("ItemPermission");
-
-            entity.Property(e => e.ItemPerId).HasColumnName("ItemPer_ID");
-            entity.Property(e => e.ItemFk).HasColumnName("Item_FK");
-            entity.Property(e => e.PermFk).HasColumnName("Perm_FK");
-
-            entity.HasOne(d => d.ItemFkNavigation).WithMany(p => p.ItemPermissions)
-                .HasForeignKey(d => d.ItemFk)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ItemPermission_Items");
-
-            entity.HasOne(d => d.PermFkNavigation).WithMany(p => p.ItemPermissions)
-                .HasForeignKey(d => d.PermFk)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ItemPermission_Permission");
         });
 
         modelBuilder.Entity<ItemSupplier>(entity =>
@@ -212,13 +186,11 @@ public partial class StockContext : DbContext
 
         modelBuilder.Entity<Quantity>(entity =>
         {
-            entity.HasKey(e => new { e.StockId, e.ItemFk });
+            entity.HasKey(e => e.QuantityId).HasName("PK_Quantity_1");
 
             entity.ToTable("Quantity");
 
-            entity.Property(e => e.StockId)
-                .ValueGeneratedOnAdd()
-                .HasColumnName("Stock_ID");
+            entity.Property(e => e.QuantityId).HasColumnName("Quantity_ID");
             entity.Property(e => e.ItemFk).HasColumnName("Item_FK");
             entity.Property(e => e.QuantityCreatedat)
                 .HasColumnType("datetime")
@@ -231,6 +203,51 @@ public partial class StockContext : DbContext
                 .HasForeignKey(d => d.ItemFk)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Stock_Items");
+        });
+
+        modelBuilder.Entity<SubItem>(entity =>
+        {
+            entity.ToTable("SubItem");
+
+            entity.Property(e => e.ItemFk).HasColumnName("Item_FK");
+            entity.Property(e => e.SubFk).HasColumnName("Sub_FK");
+
+            entity.HasOne(d => d.ItemFkNavigation).WithMany(p => p.SubItems)
+                .HasForeignKey(d => d.ItemFk)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_SubItem_Items");
+
+            entity.HasOne(d => d.SubFkNavigation).WithMany(p => p.SubItems)
+                .HasForeignKey(d => d.SubFk)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_SubItem_SubWearhouse");
+        });
+
+        modelBuilder.Entity<SubItemPermission>(entity =>
+        {
+            entity.HasKey(e => e.ItemPerId).HasName("PK_ItemPermission");
+
+            entity.ToTable("SubItemPermission");
+
+            entity.Property(e => e.ItemPerId).HasColumnName("ItemPer_ID");
+            entity.Property(e => e.ItemFk).HasColumnName("Item_FK");
+            entity.Property(e => e.PermFk).HasColumnName("Perm_FK");
+            entity.Property(e => e.SubFk).HasColumnName("Sub_FK");
+
+            entity.HasOne(d => d.ItemFkNavigation).WithMany(p => p.SubItemPermissions)
+                .HasForeignKey(d => d.ItemFk)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ItemPermission_Items");
+
+            entity.HasOne(d => d.PermFkNavigation).WithMany(p => p.SubItemPermissions)
+                .HasForeignKey(d => d.PermFk)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ItemPermission_Permission");
+
+            entity.HasOne(d => d.SubFkNavigation).WithMany(p => p.SubItemPermissions)
+                .HasForeignKey(d => d.SubFk)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_SubItemPermission_SubWearhouse");
         });
 
         modelBuilder.Entity<SubWearhouse>(entity =>
@@ -304,50 +321,6 @@ public partial class StockContext : DbContext
                 .HasColumnName("Unit_UpdatedAt");
         });
 
-        modelBuilder.Entity<ViewMainWearhouseWithSubWearhouseHierarchy>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("View_MainWearhouseWithSubWearhouseHierarchy");
-
-            entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.ItemExperationdate)
-                .HasColumnType("datetime")
-                .HasColumnName("Item_Experationdate");
-            entity.Property(e => e.ItemId).HasColumnName("Item_ID");
-            entity.Property(e => e.ItemName)
-                .HasMaxLength(50)
-                .HasColumnName("Item_Name");
-            entity.Property(e => e.MainAdderess).HasColumnName("Main_Adderess");
-            entity.Property(e => e.MainCreatedat)
-                .HasColumnType("datetime")
-                .HasColumnName("Main_Createdat");
-            entity.Property(e => e.MainDescription)
-                .HasMaxLength(50)
-                .HasColumnName("Main_Description");
-            entity.Property(e => e.MainId).HasColumnName("Main_ID");
-            entity.Property(e => e.MainName)
-                .HasMaxLength(50)
-                .HasColumnName("Main_Name");
-            entity.Property(e => e.MainUpdatedat)
-                .HasColumnType("datetime")
-                .HasColumnName("Main_Updatedat");
-            entity.Property(e => e.Md).HasColumnName("MD");
-            entity.Property(e => e.Sd).HasColumnName("SD");
-            entity.Property(e => e.SubAddress).HasColumnName("Sub_Address");
-            entity.Property(e => e.SubCreatedat)
-                .HasColumnType("datetime")
-                .HasColumnName("Sub_Createdat");
-            entity.Property(e => e.SubDescription).HasColumnName("Sub_Description");
-            entity.Property(e => e.SubId).HasColumnName("Sub_ID");
-            entity.Property(e => e.SubName)
-                .HasMaxLength(50)
-                .HasColumnName("Sub_Name");
-            entity.Property(e => e.SubUpdatedat)
-                .HasColumnType("datetime")
-                .HasColumnName("Sub_Updatedat");
-        });
-
         modelBuilder.Entity<ViewWearhouseItem>(entity =>
         {
             entity
@@ -382,6 +355,7 @@ public partial class StockContext : DbContext
             entity.Property(e => e.SubCreatedat)
                 .HasColumnType("datetime")
                 .HasColumnName("Sub_Createdat");
+            entity.Property(e => e.SubFk).HasColumnName("Sub_FK");
             entity.Property(e => e.SubId).HasColumnName("Sub_ID");
             entity.Property(e => e.SubName)
                 .HasMaxLength(50)

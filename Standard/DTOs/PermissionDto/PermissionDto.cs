@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Standard.DTOs
+namespace Standard.DTOs.PermissionDto
 {
     public class PermissionDto
     {

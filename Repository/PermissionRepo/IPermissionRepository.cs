@@ -1,4 +1,4 @@
-﻿using Standard.DTOs;
+﻿using Standard.DTOs.PermissionDto;
 using Standard.Entities;
 using System;
 using System.Collections.Generic;

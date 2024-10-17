@@ -38,4 +38,8 @@ public partial class ViewWearhouseItem
     public bool? Sd { get; set; }
 
     public bool? Id { get; set; }
+
+    public int? Expr1 { get; set; }
+
+    public int? SubFk { get; set; }
 }
