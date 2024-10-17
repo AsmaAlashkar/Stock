@@ -23,47 +23,37 @@ export class PermissionActionComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.permActionForm();
-  }
-
-  permActionForm() {
-
-    // Get the perId from config data
-    const perId = this.config.data.perId;
-
-    // Set the perId in the form if it exists
-    if (perId) {
-      this.permActForm.patchValue({
-        permTypeFk: perId // Set perId in the form
-      });
-    }
-    this.permActForm = this.fb.group({
-      // permId: [null, Validators.required],
-      permTypeFk: [null, Validators.required],
-      items: this.fb.array([
-        this.fb.group({
-          itemId: [null, Validators.required],
-          quantity: [null, Validators.required]
-        })
-      ])
-    });
-  }
-
-  save() {
-    if (this.permActForm.invalid) {
-      this.toastr.error('Please fill in all required fields.');
-      return;
-    }
-    this.permService.permissionAction(this.permActForm.value).subscribe({
-      next: () => {
-        this.toastr.success('Permission created successfully');
-        this.permActForm.reset();
-        this.ref.close('confirmed');
-      },
-      error: (error) => {
-        console.error('Error details:', error);
-        this.errors = (error.error && error.error.errors) || ['An unexpected error occurred'];
+//     this.permActionForm();
+//  the form
       }
-    });
-  }
+
+//     this.permActForm = this.fb.group({
+//       permId: [null, Validators.required],
+//       permTypeFk: [null, Validators.required],
+//       items: this.fb.array([
+//         this.fb.group({
+//           itemId: [null, Validators.required],
+//           quantity: [null, Validators.required]
+//         })
+//       ])
+//     });
+
+
+//   save() {
+//     if (this.permActForm.invalid) {
+//       this.toastr.error('Please fill in all required fields.');
+//       return;
+//     }
+//     this.permService.permissionAction(this.permActForm.value).subscribe({
+//       next: () => {
+//         this.toastr.success('Category created successfully');
+//         this.permActForm.reset();
+//         this.ref.close('confirmed');
+//       },
+//       error: (error) => {
+//         console.error('Error details:', error);
+//         this.errors = (error.error && error.error.errors) || ['An unexpected error occurred'];
+//       }
+//     });
+//   }
 }
