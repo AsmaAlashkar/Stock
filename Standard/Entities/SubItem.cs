@@ -9,7 +9,7 @@ public partial class SubItem
 
     public int ItemFk { get; set; }
 
-    public int SubFk { get; set; }
+    public int? SubFk { get; set; }
 
     public double? Quantity { get; set; }
 

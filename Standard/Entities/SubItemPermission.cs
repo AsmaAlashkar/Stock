@@ -12,6 +12,7 @@ public partial class SubItemPermission
     public int ItemFk { get; set; }
 
     public int SubFk { get; set; }
+    public int? DestinationSubFk { get; set; }
 
     public double Quantity { get; set; }
 

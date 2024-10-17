@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Repository;
 using Standard.Entities;
 using Repository.PermissionRepo;
-using Standard.DTOs;
+using Standard.DTOs.PermissionDto;
 
 namespace API.Controller
 {
