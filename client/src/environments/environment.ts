@@ -17,7 +17,7 @@ export const environment = {
     getItems:'http://localhost:5050/api/Item/GetItems',
 
     getpermissiontype: 'http://localhost:5050/api/PermissionType/GetAllPermissionTypes',
-    permissionAction: 'http://localhost:5050/api/PermissionType/GetAllPermissionTypes'
+    permissionAction: 'http://localhost:5050/api/Permission/CreatePermission'
   };
 
   /*

@@ -23,20 +23,31 @@ export class PermissionActionComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.permActionForm();
+    this.permActionForm()
+
+    const perId = this.config.data.perId;
+    console.log(perId);
+    // Set the perId in the form if it exists
+    if (perId) {
+      this.permActForm.patchValue({
+        permTypeFk: perId // Set perId in the form
+      });
+    }
   }
+
 
   permActionForm() {
     this.permActForm = this.fb.group({
-      catId: [0],
-      catNameAr:  ['', Validators.required],
-      catNameEn:  ['', Validators.required],
-      catDesAr:  [null],
-      catDesEn:  [null],
-      level: [0],
-      showParentCategory: [false]
+      permTypeFk: [null, Validators.required], // This is where the perId is set
+      items: this.fb.array([ // Items array for additional data
+        this.fb.group({
+          itemId: [null, Validators.required],
+          quantity: [null, Validators.required]
+        })
+      ])
     });
   }
+
 
   save() {
     if (this.permActForm.invalid) {
@@ -45,7 +56,7 @@ export class PermissionActionComponent implements OnInit{
     }
     this.permService.permissionAction(this.permActForm.value).subscribe({
       next: () => {
-        this.toastr.success('Category created successfully');
+        this.toastr.success('Permission created successfully');
         this.permActForm.reset();
         this.ref.close('confirmed');
       },

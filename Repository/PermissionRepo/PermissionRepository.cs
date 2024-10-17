@@ -25,7 +25,7 @@ namespace Repository.PermissionRepo
             {
                 case 2:
                     await AddPermissionAsync(permissionDto);
-                    break;
+                    break;               
                 case 3:
                 case 4:
                     await HandleWithdrawOrDamagedPermissionAsync(permissionDto);
@@ -56,7 +56,26 @@ namespace Repository.PermissionRepo
 
             return newPermission;
         }
+        //private async Task<Permission> CreatePermissionAsync(int permissionTypeFk)
+        //{
+        //    var permissionType = await _context.PermissionTypes
+        //        .FirstOrDefaultAsync(pt => pt.PerId == permissionTypeFk);
 
+        //    if (permissionType == null)
+        //        throw new Exception("Permission type not found");
+
+        //    var newPermission = new Permission
+        //    {
+        //        PermTypeFk = permissionType.PerId,
+        //        PermCreatedat = DateTime.Now
+        //    };
+
+        //    _context.Permissions.Add(newPermission);
+        //    await _context.SaveChangesAsync();
+
+        //    return newPermission;
+        //}
+        //
         private async Task AddPermissionAsync(PermissionDto permissionDto)
         {
             using (var transaction = await _context.Database.BeginTransactionAsync())
@@ -144,7 +163,7 @@ namespace Repository.PermissionRepo
                     foreach (var item in permissionDto.Items)
                     {
                         var itemExists = await _context.Items
-                        .AnyAsync(i => i.ItemId == item.ItemId);
+                            .AnyAsync(i => i.ItemId == item.ItemId);
 
                         if (!itemExists)
                             throw new Exception($"Item not found.");
@@ -187,6 +206,7 @@ namespace Repository.PermissionRepo
                         _context.SubItemPermissions.Add(subItemPermission);
 
                     }
+
                     await _context.SaveChangesAsync();
                     await transaction.CommitAsync();
                 }

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PermissinTypeComponent } from './permission-type/permission-type.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PermissionActionComponent } from './permission-action/permission-action.component';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
 import { BrowserModule } from '@angular/platform-browser';
 import { TableModule } from 'primeng/table';
-
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,9 @@ import { TableModule } from 'primeng/table';
   imports: [
     CommonModule,
     FormsModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    InputNumberModule,
+    ReactiveFormsModule
   ],
   providers: [
     DialogService,
