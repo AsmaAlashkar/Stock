@@ -23,6 +23,8 @@ public partial class StockContext : DbContext
 
     public virtual DbSet<ItemPermission> ItemPermissions { get; set; }
 
+    public virtual DbSet<ItemSubWearhouse> ItemSubWearhouses { get; set; }
+
     public virtual DbSet<ItemSupplier> ItemSuppliers { get; set; }
 
     public virtual DbSet<MainWearhouse> MainWearhouses { get; set; }
@@ -114,10 +116,6 @@ public partial class StockContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Items_Category");
 
-            entity.HasOne(d => d.SubFkNavigation).WithMany(p => p.Items)
-                .HasForeignKey(d => d.SubFk)
-                .HasConstraintName("FK_Items_SubWearhouse");
-
             entity.HasOne(d => d.UniteFkNavigation).WithMany(p => p.Items)
                 .HasForeignKey(d => d.UniteFk)
                 .HasConstraintName("FK_Items_Unite");
@@ -142,6 +140,27 @@ public partial class StockContext : DbContext
                 .HasForeignKey(d => d.PermFk)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ItemPermission_Permission");
+        });
+
+        modelBuilder.Entity<ItemSubWearhouse>(entity =>
+        {
+            entity.HasKey(e => e.IswId);
+
+            entity.ToTable("ItemSubWearhouse");
+
+            entity.Property(e => e.IswId)
+                .ValueGeneratedNever()
+                .HasColumnName("ISW_ID");
+            entity.Property(e => e.ItemsFk).HasColumnName("Items_FK");
+            entity.Property(e => e.SubFk).HasColumnName("Sub_Fk");
+
+            entity.HasOne(d => d.ItemsFkNavigation).WithMany(p => p.ItemSubWearhouses)
+                .HasForeignKey(d => d.ItemsFk)
+                .HasConstraintName("FK_ItemSubWearhouse_Items");
+
+            entity.HasOne(d => d.SubFkNavigation).WithMany(p => p.ItemSubWearhouses)
+                .HasForeignKey(d => d.SubFk)
+                .HasConstraintName("FK_ItemSubWearhouse_SubWearhouse");
         });
 
         modelBuilder.Entity<ItemSupplier>(entity =>

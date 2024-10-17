@@ -25,7 +25,7 @@ public partial class SubWearhouse
 
     public virtual ICollection<SubWearhouse> InverseParentSubWearhouse { get; set; } = new List<SubWearhouse>();
 
-    public virtual ICollection<Item> Items { get; set; } = new List<Item>();
+    public virtual ICollection<ItemSubWearhouse> ItemSubWearhouses { get; set; } = new List<ItemSubWearhouse>();
 
     public virtual MainWearhouse MainFkNavigation { get; set; } = null!;
 
