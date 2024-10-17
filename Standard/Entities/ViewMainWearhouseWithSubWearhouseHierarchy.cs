@@ -23,13 +23,9 @@ public partial class ViewMainWearhouseWithSubWearhouseHierarchy
 
     public string? SubAddress { get; set; }
 
-    public string? SubDescription { get; set; }
-
     public DateTime? SubCreatedat { get; set; }
 
     public DateTime? SubUpdatedat { get; set; }
-
-    public int? ParentSubWearhouseId { get; set; }
 
     public int? Level { get; set; }
 

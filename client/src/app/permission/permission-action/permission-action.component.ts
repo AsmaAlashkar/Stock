@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PermissionService } from '../permission.service';
@@ -9,7 +9,7 @@ import { PermissionService } from '../permission.service';
   templateUrl: './permission-action.component.html',
   styleUrls: ['./permission-action.component.scss']
 })
-export class PermissionActionComponent implements OnInit{
+export class PermissionActionComponent implements OnInit {
 
   permActForm!: FormGroup;
   errors: string[] = [];
@@ -23,7 +23,7 @@ export class PermissionActionComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.permActionForm()
+    this.permActionForm();
 
     const perId = this.config.data.perId;
     console.log(perId);
@@ -34,7 +34,6 @@ export class PermissionActionComponent implements OnInit{
       });
     }
   }
-
 
   permActionForm() {
     this.permActForm = this.fb.group({
@@ -48,6 +47,10 @@ export class PermissionActionComponent implements OnInit{
     });
   }
 
+  // Getter method to access the FormArray
+  get items(): FormArray {
+    return this.permActForm.get('items') as FormArray;
+  }
 
   save() {
     if (this.permActForm.invalid) {

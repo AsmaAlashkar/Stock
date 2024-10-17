@@ -5,7 +5,7 @@ namespace Standard.Entities;
 
 public partial class Quantity
 {
-    public int StockId { get; set; }
+    public int QuantityId { get; set; }
 
     public int ItemFk { get; set; }
 
