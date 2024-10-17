@@ -1,44 +1,23 @@
-<!-- <form [formGroup]="">
-  <span class="p-float-label">
-    <p-inputNumber inputId="integeronly" class="ng-invalid ng-dirty" [(ngModel)]=""> </p-inputNumber>
-    <label htmlFor="number-input">PermTypeFk</label>
-  </span>
-  <span class="p-float-label">
-    <p-inputNumber inputId="integeronly" class="ng-invalid ng-dirty" [showButtons]="true" [(ngModel)]=""> </p-inputNumber>
-    <label htmlFor="number-input">Item ID</label>
-  </span>
-  <span class="p-float-label">
-    <p-inputNumber inputId="integeronly" class="ng-invalid ng-dirty" [showButtons]="true" [(ngModel)]=""> </p-inputNumber>
-    <label htmlFor="number-input">Quantity</label>
-  </span>
-  <button type="submit" class="btn btn-primary my-3" [disabled]=".invalid">Save Category</button>
-</form> -->
-
 <form [formGroup]="permActForm" (ngSubmit)="save()">
   <div class="form-group">
     <span class="p-float-label">
-      <p-inputNumber formControlName="permTypeFk" inputId="integeronly"></p-inputNumber>
-      <label htmlFor="permTypeFk">Permission ID</label>
+      <p-inputNumber formControlName="permTypeFk" inputId="integeronly" ></p-inputNumber>
+      <label htmlFor="permTypeFk">PermTypeFk</label>
     </span>
   </div>
 
-  <!-- Rest of your form -->
   <div class="form-group">
     <span class="p-float-label">
-      <p-inputNumber formControlName="items.itemId" inputId="integeronly"></p-inputNumber>
+      <p-inputNumber formControlName="itemId" inputId="integeronly" ></p-inputNumber>
       <label htmlFor="itemId">Item ID</label>
     </span>
   </div>
 
   <div class="form-group">
     <span class="p-float-label">
-      <p-inputNumber formControlName="items.quantity" inputId="integeronly"></p-inputNumber>
+      <p-inputNumber formControlName="quantity" inputId="integeronly" ></p-inputNumber>
       <label htmlFor="quantity">Quantity</label>
     </span>
   </div>
-
-  <button type="submit" class="btn btn-primary my-3">Save Permission</button>
+  <button type="submit" class="btn btn-primary my-3" >Save Permission</button>
 </form>
-
-
-
