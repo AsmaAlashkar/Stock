@@ -5,19 +5,22 @@ export interface IViewWearhouseItem {
   mainAdderess: string
   mainCreatedat: string
   mainUpdatedat: string
-  subId: any
-  subName: any
-  subAddress: any
-  subDescription: any
-  subCreatedat: any
-  subUpdatedat: any
-  parentSubWearhouseId: any
-  level: any
-  itemId: any
-  itemName: any
-  itemExperationdate: any
+  subId: number
+  subName: string
+  subAddress: string
+  subDescription: string
+  subCreatedat: string
+  subUpdatedat: string
+  parentSubWearhouseId: number
+  level: number
+  itemId: number
+  itemName: string
+  itemExperationdate: string
   md: boolean
-  sd: any
-  id: any
+  sd: boolean
+  id: boolean
   children?: IViewWearhouseItem[];  // Recursive structure for sub-warehouses
   }
+
+
+ 

@@ -4,7 +4,8 @@ export interface Permissionaction {
   "items": [
     {
       "itemId": number,
-      "quantity": number
+      "quantity": number,
+      
 
       
     }

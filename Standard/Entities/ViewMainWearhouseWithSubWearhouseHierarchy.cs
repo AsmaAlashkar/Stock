@@ -27,6 +27,10 @@ public partial class ViewMainWearhouseWithSubWearhouseHierarchy
 
     public DateTime? SubUpdatedat { get; set; }
 
+    public string? SubDescription { get; set; }
+
+    public int? ParentSubWearhouseId { get; set; }
+
     public int? Level { get; set; }
 
     public int? ItemId { get; set; }

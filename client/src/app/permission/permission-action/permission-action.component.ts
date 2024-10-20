@@ -41,7 +41,9 @@ export class PermissionActionComponent implements OnInit {
       items: this.fb.array([ // Items array for additional data
         this.fb.group({
           itemId: [null, Validators.required],
-          quantity: [null, Validators.required]
+          quantity: [null, Validators.required],
+          
+          
         })
       ])
     });

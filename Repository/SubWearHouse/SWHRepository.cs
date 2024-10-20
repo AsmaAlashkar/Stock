@@ -19,6 +19,8 @@ namespace Repository.SubWearHouse
         }
 
 
+
+
         public async Task<List<SubWearhouse>> GetAllSubWearHouse()
         {
             return await _context.SubWearhouses
