@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PermissionService } from '../permission.service';
@@ -23,23 +23,21 @@ export class PermissionActionComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.permActionForm()
+    this.permActionForm();
 
     const perId = this.config.data.perId;
-    console.log(perId);
-    // Set the perId in the form if it exists
+    // console.log(perId);
     if (perId) {
       this.permActForm.patchValue({
-        permTypeFk: perId // Set perId in the form
+        permTypeFk: perId
       });
     }
   }
 
-
   permActionForm() {
     this.permActForm = this.fb.group({
-      permTypeFk: [null, Validators.required], // This is where the perId is set
-      items: this.fb.array([ // Items array for additional data
+      permTypeFk: [null, Validators.required],
+      items: this.fb.array([
         this.fb.group({
           itemId: [null, Validators.required],
           quantity: [null, Validators.required]
@@ -47,7 +45,6 @@ export class PermissionActionComponent implements OnInit{
       ])
     });
   }
-
 
   save() {
     if (this.permActForm.invalid) {
@@ -66,4 +63,16 @@ export class PermissionActionComponent implements OnInit{
       }
     });
   }
+
+  get items(): FormArray {
+    return this.permActForm.get('items') as FormArray;
+  }
+
+  addItem() {
+    this.items.push(this.fb.group({
+      itemId: [null, Validators.required],
+      quantity: [null, Validators.required]
+    }));
+  }
+
 }

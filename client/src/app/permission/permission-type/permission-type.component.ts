@@ -47,7 +47,7 @@ export class PermissinTypeComponent implements OnDestroy{
   }
 
   onCardClick(permissionType: IPermissionType): void {
-    console.log('Card clicked:', permissionType.perId);
+    // console.log('Card clicked:', permissionType.perId);
     this.show(permissionType);
   }
 
