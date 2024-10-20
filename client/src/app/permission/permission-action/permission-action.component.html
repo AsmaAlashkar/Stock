@@ -1,23 +1,28 @@
 <form [formGroup]="permActForm" (ngSubmit)="save()">
   <div class="form-group">
     <span class="p-float-label">
-      <p-inputNumber formControlName="permTypeFk" inputId="integeronly" ></p-inputNumber>
+      <p-inputNumber formControlName="permTypeFk" inputId="integeronly" [min]="0"></p-inputNumber>
       <label htmlFor="permTypeFk">PermTypeFk</label>
     </span>
   </div>
 
-  <div class="form-group">
-    <span class="p-float-label">
-      <p-inputNumber formControlName="itemId" inputId="integeronly" ></p-inputNumber>
-      <label htmlFor="itemId">Item ID</label>
-    </span>
+  <div formArrayName="items">
+    <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+      <div class="form-group">
+        <span class="p-float-label">
+          <p-inputNumber formControlName="itemId" inputId="integeronly" [min]="0"></p-inputNumber>
+          <label htmlFor="itemId">Item ID</label>
+        </span>
+      </div>
+
+      <div class="form-group">
+        <span class="p-float-label">
+          <p-inputNumber formControlName="quantity" inputId="integeronly" [min]="0"></p-inputNumber>
+          <label htmlFor="quantity">Quantity</label>
+        </span>
+      </div>
+    </div>
   </div>
 
-  <div class="form-group">
-    <span class="p-float-label">
-      <p-inputNumber formControlName="quantity" inputId="integeronly" ></p-inputNumber>
-      <label htmlFor="quantity">Quantity</label>
-    </span>
-  </div>
-  <button type="submit" class="btn btn-primary my-3" >Save Permission</button>
+  <button type="submit" class="btn btn-primary my-3">Save Permission</button>
 </form>

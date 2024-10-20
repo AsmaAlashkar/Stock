@@ -41,6 +41,8 @@ public partial class StockContext : DbContext
 
     public virtual DbSet<Unit> Units { get; set; }
 
+    public virtual DbSet<ViewMainWearhouseWithSubWearhouseHierarchy> ViewMainWearhouseWithSubWearhouseHierarchies { get; set; }
+
     public virtual DbSet<ViewWearhouseItem> ViewWearhouseItems { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -219,13 +221,12 @@ public partial class StockContext : DbContext
 
             entity.HasOne(d => d.SubFkNavigation).WithMany(p => p.SubItems)
                 .HasForeignKey(d => d.SubFk)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_SubItem_SubWearhouse");
         });
 
         modelBuilder.Entity<SubItemPermission>(entity =>
         {
-            entity.HasKey(e => e.ItemPerId).HasName("PK_ItemPermission");
+            entity.HasKey(e => e.ItemPerId);
 
             entity.ToTable("SubItemPermission");
 
@@ -319,6 +320,50 @@ public partial class StockContext : DbContext
             entity.Property(e => e.UnitUpdatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("Unit_UpdatedAt");
+        });
+
+        modelBuilder.Entity<ViewMainWearhouseWithSubWearhouseHierarchy>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("View_MainWearhouseWithSubWearhouseHierarchy");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.ItemExperationdate)
+                .HasColumnType("datetime")
+                .HasColumnName("Item_Experationdate");
+            entity.Property(e => e.ItemId).HasColumnName("Item_ID");
+            entity.Property(e => e.ItemName)
+                .HasMaxLength(50)
+                .HasColumnName("Item_Name");
+            entity.Property(e => e.MainAdderess).HasColumnName("Main_Adderess");
+            entity.Property(e => e.MainCreatedat)
+                .HasColumnType("datetime")
+                .HasColumnName("Main_Createdat");
+            entity.Property(e => e.MainDescription)
+                .HasMaxLength(50)
+                .HasColumnName("Main_Description");
+            entity.Property(e => e.MainId).HasColumnName("Main_ID");
+            entity.Property(e => e.MainName)
+                .HasMaxLength(50)
+                .HasColumnName("Main_Name");
+            entity.Property(e => e.MainUpdatedat)
+                .HasColumnType("datetime")
+                .HasColumnName("Main_Updatedat");
+            entity.Property(e => e.Md).HasColumnName("MD");
+            entity.Property(e => e.Sd).HasColumnName("SD");
+            entity.Property(e => e.SubAddress).HasColumnName("Sub_Address");
+            entity.Property(e => e.SubCreatedat)
+                .HasColumnType("datetime")
+                .HasColumnName("Sub_Createdat");
+            entity.Property(e => e.SubDescription).HasColumnName("Sub_Description");
+            entity.Property(e => e.SubId).HasColumnName("Sub_ID");
+            entity.Property(e => e.SubName)
+                .HasMaxLength(50)
+                .HasColumnName("Sub_Name");
+            entity.Property(e => e.SubUpdatedat)
+                .HasColumnType("datetime")
+                .HasColumnName("Sub_Updatedat");
         });
 
         modelBuilder.Entity<ViewWearhouseItem>(entity =>
