@@ -16,8 +16,6 @@ namespace Standard.DTOs.ItemDtos
 
         public int? UniteFk { get; set; }
 
-        public int? SubFk { get; set; }
-
         public DateTime? ItemExperationdate { get; set; }
 
         public DateTime? ItemCreatedat { get; set; }

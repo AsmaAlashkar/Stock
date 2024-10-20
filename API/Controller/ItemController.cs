@@ -150,5 +150,51 @@ namespace API.Controller
             return Ok("Item Created Successfully");
 
         }
+
+        [HttpPut("UpdateItem/{id}")]
+        public async Task<ActionResult> UpdateItem(int id, [FromBody] CreateItemDto Item)
+        {
+            try
+            {
+                var existingItem = await _repo.GetById(id);
+
+                if (existingItem == null)
+                {
+                    return NotFound($"Item with ID {id} not found");
+                }
+
+                if (!string.IsNullOrEmpty(Item.ItemName))
+                {
+                    existingItem.ItemName = Item.ItemName;
+                }
+                if (!string.IsNullOrEmpty(Item.ItemCode))
+                {
+                    existingItem.ItemCode = Item.ItemCode;
+                }
+
+                if (Item.CatFk!=0)
+                {
+                    existingItem.CatFk = Item.CatFk;
+                }
+                if (Item.UniteFk != 0)
+                {
+                    existingItem.UniteFk = Item.UniteFk;
+                }
+                if (Item.ItemExperationdate.HasValue)
+                {
+                    existingItem.ItemExperationdate = Item.ItemExperationdate.Value;
+                }
+
+
+                await _repo.Update(existingItem);
+
+                return Ok("Item updated successfully");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error updating Item: {ex.Message}");
+            }
+        }
+
     }
 }
