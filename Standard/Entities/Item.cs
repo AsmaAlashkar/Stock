@@ -7,6 +7,8 @@ public partial class Item
 {
     public int ItemId { get; set; }
 
+    public string ItemCode { get; set; } = null!;
+
     public string ItemName { get; set; } = null!;
 
     public int CatFk { get; set; }
@@ -20,8 +22,6 @@ public partial class Item
     public DateTime? ItemUpdatedat { get; set; }
 
     public bool? Delet { get; set; }
-
-    public string ItemCode { get; set; } = null!;
 
     public virtual Category CatFkNavigation { get; set; } = null!;
 
