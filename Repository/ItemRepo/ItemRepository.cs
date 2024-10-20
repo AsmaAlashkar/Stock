@@ -57,6 +57,7 @@ namespace Repository.ItemRepo
                                 {
                                     ItemId = item.ItemId,
                                     ItemName = item.ItemName,
+                                    ItemCode = item.ItemCode,
                                     UnitName = unit.UnitName,
                                     CategoryName = category.CatNameEn,  
                                     CurrentQuantity = (int)quantity.CurrentQuantity.GetValueOrDefault()  
@@ -77,6 +78,7 @@ namespace Repository.ItemRepo
                                 {
                                     ItemId = item.ItemId,
                                     ItemName = item.ItemName,
+                                    ItemCode = item.ItemCode,
                                     UnitName = unit.UnitName,
                                     CategoryName = category.CatNameEn,  // Use the appropriate language field
                                     CurrentQuantity = (int)quantity.CurrentQuantity.GetValueOrDefault()  // Safely handle nullable types
@@ -99,6 +101,7 @@ namespace Repository.ItemRepo
                                 {
                                     ItemId = item.ItemId,
                                     ItemName = item.ItemName,
+                                    ItemCode = item.ItemCode,
                                     UnitName = unit.UnitName,
                                     CategoryName = category.CatNameEn,  // Use the appropriate language field
                                     CurrentQuantity = (int)quantity.CurrentQuantity.GetValueOrDefault()  // Safely handle nullable types
@@ -122,6 +125,7 @@ namespace Repository.ItemRepo
                                 {
                                     ItemId = item.ItemId,
                                     ItemName = item.ItemName,
+                                    ItemCode = item.ItemCode,
                                     UnitName = unit.UnitName,
                                     CategoryName = category.CatNameEn, 
                                     CurrentQuantity = (int)quantity.CurrentQuantity.GetValueOrDefault()  
@@ -144,6 +148,7 @@ namespace Repository.ItemRepo
                                 {
                                     ItemId = item.ItemId,
                                     ItemName = item.ItemName,
+                                    ItemCode = item.ItemCode,
                                     UnitName = unit.UnitName,
                                     CategoryName = category.CatNameEn,  
                                     CurrentQuantity = (int)quantity.CurrentQuantity.GetValueOrDefault()  
