@@ -101,6 +101,8 @@ namespace Repository.ItemRepo
                                 join unit in _context.Units on item.UniteFk equals unit.UnitId
                                 join category in _context.Categories on item.CatFk equals category.CatId
                                 join quantity in _context.Quantities on item.ItemId equals quantity.ItemFk
+                                join subItem in _context.SubItems on item.ItemId equals subItem.ItemFk
+                                where subItem.SubFk == subId  // Filter by subId from SubItem table
                                 select new ItemDetailsDto
                                 {
                                     ItemId = item.ItemId,

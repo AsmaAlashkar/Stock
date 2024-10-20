@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { DisplayItemsComponent } from './display-items/display-items.component';
 import { TableModule } from 'primeng/table';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -13,7 +14,8 @@ import { BrowserModule } from '@angular/platform-browser';
   imports: [
     CommonModule,
     BrowserModule,
-    TableModule
+    TableModule,
+    FormsModule
   ]
 })
 export class ItemsModule { }
