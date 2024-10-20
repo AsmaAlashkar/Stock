@@ -27,26 +27,15 @@
           <button class="btn btn-primary w-100" (click)="applyFilter()">Apply Filter</button> <!-- Filter button -->
         </div>
       </div>
-
-      <div class="card">
-        <div class="card-header">
-          <strong>Actions</strong>
-        </div>
-        <div class="card-body">
-          <button class="btn btn-success w-100 mb-2">
-            <i class="fa fa-plus"></i> Add New Permission Type
-          </button> <!-- Future action for adding a new permission type -->
-        </div>
-      </div>
     </section>
 
     <!-- Main section to display filtered permission types -->
     <section class="col-12 col-md-9">
       <div class="container-fluid">
-        <div class="row justify-content-between">
+        <!-- <div class="row justify-content-between"> -->
           <div
             *ngFor="let permissionType of filteredPermissionTypes; let i = index"
-            class="card mb-3 ca-pr col-12 col-md-5 cursor-pointer"
+            class="card mb-3 cursor-pointer card-shadow"
             [ngClass]="{
               'text-bg-success': i === 0,
               'text-bg-secondary': i === 1,
@@ -61,7 +50,7 @@
               <p class="card-text">ID: {{ permissionType.perId }}</p>
             </div>
           </div>
-        </div>
+        <!-- </div> -->
 
         <!-- Display message if no permission types match the filter -->
         <div *ngIf="filteredPermissionTypes.length === 0">
