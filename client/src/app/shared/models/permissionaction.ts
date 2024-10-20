@@ -5,9 +5,7 @@ export interface Permissionaction {
     {
       "itemId": number,
       "quantity": number,
-      // "": ,
-      // "":
-      "quantity": number,
+     
       
 
       
