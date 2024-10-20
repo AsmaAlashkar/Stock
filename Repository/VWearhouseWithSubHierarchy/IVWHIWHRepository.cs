@@ -10,10 +10,10 @@ namespace Repository.VWearhouseWithSubHierarchy
     public interface IVWHIWHRepository
     {
 
-        Task<List<ViewMainWearhouseWithSubWearhouseHierarchy>> GetAllMainWearHouse();
-        Task<List<ViewMainWearhouseWithSubWearhouseHierarchy>> GetMainWearHouseById(int mainId);
-        Task<List<ViewMainWearhouseWithSubWearhouseHierarchy>> GetAllSubWearHouse();
-        Task<ViewMainWearhouseWithSubWearhouseHierarchy?> GetSubWearHouseById(int id);
-        Task<List<ViewMainWearhouseWithSubWearhouseHierarchy>> GetAllSubByMainId(int mainId);
+        //Task<List<ViewMainWearhouseWithSubWearhouseHierarchy>> GetAllMainWearHouse();
+        //Task<List<ViewMainWearhouseWithSubWearhouseHierarchy>> GetMainWearHouseById(int mainId);
+        //Task<List<ViewMainWearhouseWithSubWearhouseHierarchy>> GetAllSubWearHouse();
+        //Task<ViewMainWearhouseWithSubWearhouseHierarchy?> GetSubWearHouseById(int id);
+        //Task<List<ViewMainWearhouseWithSubWearhouseHierarchy>> GetAllSubByMainId(int mainId);
     }
 }

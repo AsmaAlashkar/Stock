@@ -11,7 +11,7 @@ public partial class Permission
 
     public DateTime? PermCreatedat { get; set; }
 
-    public virtual ICollection<ItemPermission> ItemPermissions { get; set; } = new List<ItemPermission>();
-
     public virtual PermissionType? PermTypeFkNavigation { get; set; }
+
+    public virtual ICollection<SubItemPermission> SubItemPermissions { get; set; } = new List<SubItemPermission>();
 }

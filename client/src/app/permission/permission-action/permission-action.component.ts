@@ -9,7 +9,7 @@ import { PermissionService } from '../permission.service';
   templateUrl: './permission-action.component.html',
   styleUrls: ['./permission-action.component.scss']
 })
-export class PermissionActionComponent implements OnInit{
+export class PermissionActionComponent implements OnInit {
 
   permActForm!: FormGroup;
   errors: string[] = [];

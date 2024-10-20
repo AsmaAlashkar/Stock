@@ -80,24 +80,24 @@ namespace API.Controller
         }
 
 
-        [HttpGet("GetItemsBySubWHId/{subId}")]
-        public async Task<ActionResult<List<ItemDetailsDto>>> GetItemsBySubWHId(int subId, [FromQuery] DTOPaging paging)
-        {
-            // Validate pagination inputs
-            if (paging.PageNumber <= 0 || paging.PageSize <= 0)
-            {
-                return BadRequest("PageNumber and PageSize must be greater than zero.");
-            }
+        //[HttpGet("GetItemsBySubWHId/{subId}")]
+        //public async Task<ActionResult<List<ItemDetailsDto>>> GetItemsBySubWHId(int subId, [FromQuery] DTOPaging paging)
+        //{
+        //    // Validate pagination inputs
+        //    if (paging.PageNumber <= 0 || paging.PageSize <= 0)
+        //    {
+        //        return BadRequest("PageNumber and PageSize must be greater than zero.");
+        //    }
 
-            var items = await _item.GetItemsBySubWHId(subId, paging);
+        //    var items = await _item.GetItemsBySubWHId(subId, paging);
 
-            if (!items.Any())
-            {
-                return NotFound("No items found for the given sub-warehouse.");
-            }
+        //    if (!items.Any())
+        //    {
+        //        return NotFound("No items found for the given sub-warehouse.");
+        //    }
 
-            return Ok(items); // Directly return the result since it's already in ItemDetailsDto format
-        }
+        //    return Ok(items); // Directly return the result since it's already in ItemDetailsDto format
+        //}
 
 
         [HttpGet("GetItemsByUnitId/{unitId}")]
