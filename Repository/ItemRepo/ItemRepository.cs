@@ -78,7 +78,7 @@ namespace Repository.ItemRepo
                                 {
                                     ItemId = item.ItemId,
                                     ItemName = item.ItemName,
-                                    ItemCode = item.ItemCode,
+                                    ItemCode = item.ItemCode,   
                                     UnitName = unit.UnitName,
                                     CategoryName = category.CatNameEn,  // Use the appropriate language field
                                     CurrentQuantity = (int)quantity.CurrentQuantity.GetValueOrDefault()  // Safely handle nullable types
@@ -91,12 +91,37 @@ namespace Repository.ItemRepo
             return result;
         }
 
+        //public async Task<List<ItemDetailsDto>> GetItemsBySubWHId(int subId, DTOPaging paging)
+        //{
+        //    var result = await (from item in _context.Items
+        //                        join unit in _context.Units on item.UniteFk equals unit.UnitId
+        //                        join category in _context.Categories on item.CatFk equals category.CatId
+        //                        join quantity in _context.Quantities on item.ItemId equals quantity.ItemFk
+        //                        select new ItemDetailsDto
+        //                        {
+        //                            ItemId = item.ItemId,
+        //                            ItemName = item.ItemName,
+        //                            ItemCode = item.ItemCode,
+        //                            UnitName = unit.UnitName,
+        //                            CategoryName = category.CatNameEn,  // Use the appropriate language field
+        //                            CurrentQuantity = (int)quantity.CurrentQuantity.GetValueOrDefault()  // Safely handle nullable types
+        //                        })
+        //                        .OrderBy(i => i.ItemId)  // Order by item ID or any other field
+        //                        .Skip((paging.PageNumber - 1) * paging.PageSize)  // Skip records for previous pages
+        //                        .Take(paging.PageSize)  // Take only the number of records for the current page
+        //                        .ToListAsync();  // Get the list of items with their details
+
+        //    return result;
+        //}
+
         public async Task<List<ItemDetailsDto>> GetItemsBySubWHId(int subId, DTOPaging paging)
         {
             var result = await (from item in _context.Items
                                 join unit in _context.Units on item.UniteFk equals unit.UnitId
                                 join category in _context.Categories on item.CatFk equals category.CatId
                                 join quantity in _context.Quantities on item.ItemId equals quantity.ItemFk
+                                join subItem in _context.SubItems on item.ItemId equals subItem.ItemFk
+                                where subItem.SubFk == subId  // Filter by subId from SubItem table
                                 select new ItemDetailsDto
                                 {
                                     ItemId = item.ItemId,
