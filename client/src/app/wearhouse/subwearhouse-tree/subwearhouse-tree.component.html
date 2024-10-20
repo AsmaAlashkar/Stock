@@ -1,46 +1,48 @@
 <div class="card">
   <p-treeTable [value]="subWearhousestree" [columns]="cols" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
-      <ng-template pTemplate="header" let-columns>
-          <tr>
-              <th *ngFor="let col of columns">
-                  {{ col.header }}
-              </th>
-              <th style="width: auto">
-                Actions
-              </th>
-          </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-          <tr [ttRow]="rowNode">
-              <td *ngFor="let col of columns; let i = index">
-                  <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
-                  <!-- Check if the column is createdat or updatedat and format it -->
-                  <ng-container *ngIf="col.field === 'subCreatedat' || col.field === 'subUpdatedat'; else defaultData">
-                    {{ rowData[col.field] | date: 'yyyy-MM-dd' }}
-                  </ng-container>
-                  <ng-template #defaultData>
-                    {{ rowData[col.field] }}
-                  </ng-template>
-              </td>
-              <td>
-                <button class="btn btn-outline-info me-2" pInputText [pTooltip]="tooltipView" [hideDelay]="500" tooltipPosition="top" [routerLink]="['/Subwearhouse-details', rowData.subId]">
-                  <i class="fa fa-eye"></i>
-                </button>
-                  <ng-template #tooltipView>
-                    <div class="flex align-items-center">
-                        <span><b>View</b></span>
-                    </div>
-                  </ng-template>
-                <button class="btn btn-outline-primary" pInputText [pTooltip]="tooltipEditView" [hideDelay]="500" tooltipPosition="top" [routerLink]="['/category-details', rowData.subId]">
-                  <i class="fa fa-edit"></i>
-                </button>
-                <ng-template #tooltipEditView>
-                  <div class="flex align-items-center">
-                      <span><b>EditView</b></span>
-                  </div>
-                </ng-template>
-              </td>
-          </tr>
-      </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+        <th style="width: auto">
+          Actions
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+      <tr [ttRow]="rowNode">
+        <td *ngFor="let col of columns; let i = index">
+          <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+          <!-- Check if the column is createdat or updatedat and format it -->
+          <ng-container *ngIf="col.field === 'subCreatedat' || col.field === 'subUpdatedat'; else defaultData">
+            {{ rowData[col.field] | date: 'yyyy-MM-dd' }}
+          </ng-container>
+          <ng-template #defaultData>
+            {{ rowData[col.field] }}
+          </ng-template>
+        </td>
+        <td>
+          <button class="btn btn-outline-info me-2" pInputText [pTooltip]="tooltipView" [hideDelay]="500"
+            tooltipPosition="top" [routerLink]="['/viewSubItems', rowData.subId]">
+            <i class="fa fa-eye"></i>
+          </button>
+          <ng-template #tooltipView>
+            <div class="flex align-items-center">
+              <span><b>View Items</b></span>
+            </div>
+          </ng-template>
+          <button class="btn btn-outline-primary" pInputText [pTooltip]="tooltipEditView" [hideDelay]="500"
+            tooltipPosition="top" [routerLink]="['/category-details', rowData.subId]">
+            <i class="fa fa-edit"></i>
+          </button>
+          <ng-template #tooltipEditView>
+            <div class="flex align-items-center">
+              <span><b>EditView</b></span>
+            </div>
+          </ng-template>
+        </td>
+      </tr>
+    </ng-template>
   </p-treeTable>
 </div>

@@ -17,14 +17,19 @@ import { CategoryDetailsComponent } from './category-details/category-details.co
 import { AccordionModule } from 'primeng/accordion';
 import { TreeTableModule } from 'primeng/treetable';
 import { TooltipModule } from 'primeng/tooltip';
+import { CategoryItemsComponent } from './category-items/category-items.component';
+import { TableModule } from 'primeng/table';
+
 
 @NgModule({
   declarations: [
     DisplayCategoriesComponent,
     CreateCategoryComponent,
     CategoryDetailsComponent,
+    CategoryItemsComponent,
   ],
   imports: [
+    TableModule,
     CommonModule,
     TreeModule,
     CardModule,

@@ -21,4 +21,10 @@ export class ItemsService {
     getItems(PageSize: number, PageNumber: number, skip: number): Observable <ItemDetailsResult> {
       return this.http.get<ItemDetailsResult>(`${environment.getItems}?PageNumber=${PageNumber}&PageSize=${PageSize}&skip=${skip}`, this.httpHeader);
     }
+    getItemsByCategoryId(id:number,PageSize: number, PageNumber: number, skip: number): Observable <ItemDetailsResult> {
+      return this.http.get<ItemDetailsResult>(`${environment.getItemsByCategoryId}${id}?PageNumber=${PageNumber}&PageSize=${PageSize}&skip=${skip}`, this.httpHeader);
+    }
+    getItemsBySubId(id:number,PageSize: number, PageNumber: number, skip: number): Observable <ItemDetailsResult> {
+      return this.http.get<ItemDetailsResult>(`${environment.getItemsBySubId}${id}?PageNumber=${PageNumber}&PageSize=${PageSize}&skip=${skip}`, this.httpHeader);
+    }
 }

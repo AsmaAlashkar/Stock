@@ -15,7 +15,9 @@ export const environment = {
     updateCategory:'http://localhost:5050/api/Category/UpdateCategory/',
 
     getItems:'http://localhost:5050/api/Item/GetItems',
-
+    getItemsByCategoryId:'http://localhost:5050/api/Item/GetItemsByCategoryId/',
+    getItemsBySubId:'http://localhost:5050/api/Item/GetItemsBySubWHId/',
+    
     getpermissiontype: 'http://localhost:5050/api/PermissionType/GetAllPermissionTypes',
     permissionAction: 'http://localhost:5050/api/Permission/CreatePermission'
   };
