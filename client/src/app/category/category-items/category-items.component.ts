@@ -46,7 +46,6 @@ export class CategoryItemsComponent implements OnInit{
         this.ItemDetailsResult = data;
         this.ItemsDetails= this.ItemDetailsResult.itemsDetails;
         this.totalRecords = this.ItemDetailsResult.total;
-        console.log("data",this.ItemDetailsResult);       
       },
       error: (error) => {
         this.loading = false;
