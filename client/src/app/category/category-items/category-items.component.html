@@ -41,15 +41,17 @@
     <section class="col-12 col-md-9">
       <div class="card">
           <p-table
-            [value]="ItemsDetails"
-            [paginator]="true"
-            [rows]="5"
-            [tableStyle]="{ 'min-width': '50rem' }"
-            [lazy]="true"
-            (onLazyLoad)="getItems($event)"
-            [totalRecords]="totalRecords"
-            [loading]="loading"
-          >
+          [value]="ItemsDetails"
+          [paginator]="true"
+          [rows]="pageSize"
+          [tableStyle]="{ 'min-width': '50rem' }"
+          [rowsPerPageOptions]="[5, 10, 20]"
+          [lazy]="true"
+          (onLazyLoad)="getItems($event)"
+          [totalRecords]="totalRecords"
+          [loading]="loading"
+          (onPage)="onPageChange($event)"
+        >
             <ng-template pTemplate="header">
               <tr>
                 <th style="width: 25%">Item Name</th>

@@ -31,16 +31,18 @@ export class SubwearhouseComponent implements OnInit {
     if (mainID) {
       const numericItemID = +mainID;
       this.mainwearService.getSubWearhouseByMainId(numericItemID).subscribe(
-        products => {
-          if (Array.isArray(products)) {
-            this.subwearhouses = products;
-            this.structuredWearhouses = this.buildHierarchy(this.subwearhouses);
-          } else {
-            console.error('Unexpected API response:', products);
+        {
+          next: products => {
+            if (Array.isArray(products)) {
+              this.subwearhouses = products;
+              this.structuredWearhouses = this.buildHierarchy(this.subwearhouses);
+            } else {
+              console.error('Unexpected API response:', products);
+            }
+          },
+          error:error => {
+            console.error('API call error:', error);
           }
-        },
-        error => {
-          console.error('API call error:', error);
         }
       );
     }
