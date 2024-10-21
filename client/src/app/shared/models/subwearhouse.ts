@@ -14,3 +14,8 @@ export interface Column {
   field: string;
   header: string;
 }
+
+export interface subWearhouseVM {
+  subId: number;
+  subName: string;
+}

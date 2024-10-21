@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { IMainWearhouse } from '../shared/models/wearhouse';
 import { IViewWearhouseItem } from '../shared/models/IViewWearhouseItem';
 import { Observable } from 'rxjs';
-import { ISubWearhouse } from '../shared/models/subwearhouse';
+import { ISubWearhouse, subWearhouseVM } from '../shared/models/subwearhouse';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -18,6 +18,10 @@ export class WearhouseService {
   }
   getmainwearhousebyid(id: number) {
     return this.http.get<IViewWearhouseItem[]>(`${environment.getMainWearhouseById}${id}`);
+  }
+
+  getsubWearhouse(): Observable<subWearhouseVM[]> {
+    return this.http.get<subWearhouseVM[]>(`${environment.getSubwarehouse}`);
   }
 
   getSubWearhouseByMainId(mainId: number) {

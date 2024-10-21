@@ -4,11 +4,9 @@ export interface Permissionaction {
   "items": [
     {
       "itemId": number,
+      "subId": number,
+      "destinationSubId": number,
       "quantity": number,
-     
-      
-
-      
     }
   ],
   "permCreatedat": string

@@ -52,6 +52,8 @@ export class PermissinTypeComponent implements OnDestroy{
   }
 
   show(selectedPermissionType: IPermissionType) {
+    console.log("selectedPermissionType :",selectedPermissionType);
+
     const headerValue = selectedPermissionType ? selectedPermissionType.perTypeValue : 'Default Header';
     this.ref = this.dialogService.open(PermissionActionComponent, {
       header: headerValue,
@@ -60,7 +62,7 @@ export class PermissinTypeComponent implements OnDestroy{
       baseZIndex: 10000,
       maximizable: true,
       data: {
-        perId: selectedPermissionType.perId
+        headerValue: headerValue
       }
     });
 
@@ -68,7 +70,7 @@ export class PermissinTypeComponent implements OnDestroy{
         if (permissionTypes) {
             this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: permissionTypes.perTypeValue });
         }
-      });
+    });
 
     this.ref.onMaximize.subscribe((value) => {
       this.messageService.add({ severity: 'info', summary: 'Maximized', detail: `maximized: ${value.maximized}` });

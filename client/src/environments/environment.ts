@@ -8,6 +8,8 @@ export const environment = {
 
     getMainWearhouse: 'http://localhost:5050/api/MainWearhouse/GetMainWearhouse',
     getMainWearhouseById:'http://localhost:5050/api/MainWearhouse/GetMainWearhouseById/',
+    
+    getSubwarehouse: 'http://localhost:5050/api/SubWearhouse/GetSubWearhouse',
 
     getCtegories:'http://localhost:5050/api/Category/GetCategories',
     getCategoryById:'http://localhost:5050/api/Category/GetCategoryById/',

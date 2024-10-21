@@ -8,6 +8,8 @@ import { MessageService } from 'primeng/api';
 import { BrowserModule } from '@angular/platform-browser';
 import { TableModule } from 'primeng/table';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { DropdownModule } from 'primeng/dropdown';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
     DialogService,
     MessageService,
     BrowserModule,
-    TableModule
+    TableModule,
+    DropdownModule,
+    MultiSelectModule
   ]
 })
 export class PermissionModule { }
