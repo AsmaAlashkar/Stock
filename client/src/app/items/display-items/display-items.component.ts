@@ -37,7 +37,7 @@ export class DisplayItemsComponent {
         this.ItemDetailsResult = data;
         this.ItemsDetails= this.ItemDetailsResult.itemsDetails;
         console.log("data",data);
-                
+
       },
       error: (error) => {
         this.loading = false;

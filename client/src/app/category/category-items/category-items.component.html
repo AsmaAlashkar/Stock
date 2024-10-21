@@ -34,13 +34,12 @@
           <button class="btn btn-success w-100 mb-2">
             <i class="fa fa-plus"></i> Add New Item
           </button>
-        </div> 
+        </div>
       </div>
     </section>
 
     <section class="col-12 col-md-9">
       <div class="card">
-        <div *ngIf="hasItems(); else noItems">
           <p-table
           [value]="ItemsDetails"
           [paginator]="true"
@@ -86,7 +85,6 @@
             <strong>No Items available.</strong>
           </p>
         </ng-template>
-      </div>
     </section>
   </div>
 </div>

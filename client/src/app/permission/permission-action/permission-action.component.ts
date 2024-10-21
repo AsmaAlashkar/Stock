@@ -6,6 +6,9 @@ import { PermissionService } from '../permission.service';
 import { Permissionaction } from 'src/app/shared/models/permissionaction';
 import { WearhouseService } from 'src/app/wearhouse/wearhouse.service';
 import { subWearhouseVM } from 'src/app/shared/models/subwearhouse';
+import { skip } from 'rxjs';
+import { ItemsService } from 'src/app/items/items.service';
+import { ItemDetailsDtoVM } from 'src/app/shared/models/items';
 
 @Component({
   selector: 'app-permission-action',
@@ -16,9 +19,10 @@ export class PermissionActionComponent implements OnInit {
 
   permActForm!: FormGroup;
   errors: string[] = [];
-  headerValue:string='';
-  Permissionaction:Permissionaction;
-  subWearhous: subWearhouseVM[] = [];
+  headerValue:string = '';
+  Permissionaction: Permissionaction;
+  subWearhouse: subWearhouseVM[] = [];
+  ItemDetailsResultVM: ItemDetailsDtoVM[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -26,18 +30,20 @@ export class PermissionActionComponent implements OnInit {
     private permService: PermissionService,
     public config: DynamicDialogConfig,
     public ref: DynamicDialogRef,
-    private wearhouseService: WearhouseService
+    private wearhouseService: WearhouseService,
+    private itemsService: ItemsService
   )
   {
-    this.Permissionaction={
+    this.Permissionaction = {
       permId: 0, items: [{itemId: 0, destinationSubId: 0, quantity: 0, subId: 0}], permTypeFk: 0, permCreatedat: ""
     }
   }
 
   ngOnInit(): void {
 
+    this.getItems();
     this.getSubwearhouse();
-    this.permActionForm();
+    // this.permActionForm();
 
     this.headerValue = this.config.data.headerValue;
     // console.log(perId);
@@ -51,15 +57,25 @@ export class PermissionActionComponent implements OnInit {
 
   }
 
-  getSubwearhouse() {
+  getItems() {
+    this.itemsService.getItemsVM().subscribe({
+      next: (data) => {
+        this.ItemDetailsResultVM = data;
+        console.log("data",data);
+      },
+      error: (error) => {
+        console.error('Error fetching items', error);
+      }
+    });
+  }
 
+  getSubwearhouse() {
     this.wearhouseService.getsubWearhouse().subscribe({
       next: (data) => {
-        this.subWearhous=data.map(sub=>({
+        this.subWearhouse = data.map(sub=>({
           subId:sub.subId,subName:sub.subName
-        }))
-        console.log("res :", this.subWearhous);
-
+        }));
+        console.log("res :", this.subWearhouse);
       },
       error: (error) => {
         console.error('Error fetching items', error);
@@ -68,32 +84,32 @@ export class PermissionActionComponent implements OnInit {
     );
   }
 
-  permActionForm() {
-    this.permActForm = this.fb.group({
-      permTypeFk: [null, Validators.required],
-      items: this.fb.array([
-        this.fb.group({
-          itemId: [null, Validators.required],
-          subId: [null, Validators.required],
-          destinationSubId: [null],
-          quantity: [null, Validators.required]
-        })
-      ])
-    });
-  }
+  // permActionForm() {
+  //   this.permActForm = this.fb.group({
+  //     permTypeFk: [null, Validators.required],
+  //     items: this.fb.array([
+  //       this.fb.group({
+  //         itemId: [null, Validators.required],
+  //         subId: [null, Validators.required],
+  //         destinationSubId: [null],
+  //         quantity: [null, Validators.required]
+  //       })
+  //     ])
+  //   });
+  // }
 
-  get items(): FormArray {
-    return this.permActForm.get('items') as FormArray;
-  }
+  // get items(): FormArray {
+  //   return this.permActForm.get('items') as FormArray;
+  // }
 
-  addItem() {
-    this.items.push(this.fb.group({
-      itemId: [null, Validators.required],
-      subId: [null, Validators.required],
-      destinationSubId: [null],
-      quantity: [null, Validators.required]
-    }));
-  }
+  // addItem() {
+  //   this.items.push(this.fb.group({
+  //     itemId: [null, Validators.required],
+  //     subId: [null, Validators.required],
+  //     destinationSubId: [null],
+  //     quantity: [null, Validators.required]
+  //   }));
+  // }
 
   save() {
     console.log("this.permActForm :",this.permActForm.get("items"));

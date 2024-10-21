@@ -19,3 +19,8 @@ export interface Item{
   itemCreatedat:Date,
   itemUpdatedat:Date
 }
+
+export interface ItemDetailsDtoVM {
+  itemId: number,
+  itemName: string
+}
