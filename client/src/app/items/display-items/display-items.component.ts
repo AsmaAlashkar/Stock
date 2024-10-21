@@ -25,6 +25,7 @@ export class DisplayItemsComponent {
     const skip = event.first || 0; // Calculate the number of records to skip
     const currentPage = Math.floor(skip / this.pageSize) + 1; // Calculate the correct page number
 
+    
     // Fetch items from the backend using the calculated values
     this.itemsService.getItems(this.pageSize, currentPage, skip).subscribe({
       next: (data) => {
@@ -32,7 +33,7 @@ export class DisplayItemsComponent {
         this.ItemDetailsResult = data;
         this.ItemsDetails= this.ItemDetailsResult.itemsDetails;
         console.log("data",data);
-                
+
       },
       error: (error) => {
         this.loading = false;

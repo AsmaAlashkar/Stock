@@ -8,7 +8,7 @@ export const environment = {
 
     getMainWearhouse: 'http://localhost:5050/api/MainWearhouse/GetMainWearhouse',
     getMainWearhouseById:'http://localhost:5050/api/MainWearhouse/GetMainWearhouseById/',
-    
+
     getSubwarehouse: 'http://localhost:5050/api/SubWearhouse/GetSubWearhouse',
 
     getCtegories:'http://localhost:5050/api/Category/GetCategories',
@@ -17,9 +17,10 @@ export const environment = {
     updateCategory:'http://localhost:5050/api/Category/UpdateCategory/',
 
     getItems:'http://localhost:5050/api/Item/GetItems',
+    getItemsVM:'',
     getItemsByCategoryId:'http://localhost:5050/api/Item/GetItemsByCategoryId/',
     getItemsBySubId:'http://localhost:5050/api/Item/GetItemsBySubWHId/',
-    
+
     getpermissiontype: 'http://localhost:5050/api/PermissionType/GetAllPermissionTypes',
     permissionAction: 'http://localhost:5050/api/Permission/CreatePermission'
   };

@@ -28,23 +28,26 @@ export class CategoryItemsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log("gg",this.hasItems());
+
     this.route.paramMap.subscribe(params => {
       const catId = params.get('id');
       if (catId) {
         this.categoryId = +catId;
-        this.getItems({ first: 0 }); // Fetch items when the category ID is set
       }
     });
   }
 
   getItems(event: TableLazyLoadEvent) {
+    console.log("ddddddddddd");
+
     const skip = event.first || 0;
     const currentPage = Math.floor(skip / this.pageSize) + 1;
-
-    this.loading = true; // Start loading
     this.itemsService.getItemsByCategoryId(this.categoryId, this.pageSize, currentPage, skip).subscribe({
       next: (data) => {
-        this.loading = false;
+        console.log("data :",data);
+
+         this.loading = false;
         this.ItemDetailsResult = data;
         this.ItemsDetails = this.ItemDetailsResult.itemsDetails;
         this.totalRecords = this.ItemDetailsResult.total;

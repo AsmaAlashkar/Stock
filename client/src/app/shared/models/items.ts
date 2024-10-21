@@ -10,3 +10,8 @@ export interface ItemDetailsDto {
   categoryName: string,
   currentQuantity: number
 }
+
+export interface ItemDetailsDtoVM {
+  itemId: number,
+  itemName: string
+}

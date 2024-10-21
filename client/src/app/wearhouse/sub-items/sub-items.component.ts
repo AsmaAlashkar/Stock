@@ -40,7 +40,6 @@ export class SubItemsComponent implements OnInit {
     const skip = event.first || 0;
     const currentPage = Math.floor(skip / this.pageSize) + 1;
 
-    this.loading = true; // Start loading
     this.itemsService.getItemsBySubId(this.categoryId, this.pageSize, currentPage, skip).subscribe({
       next: (data) => {
         this.loading = false;

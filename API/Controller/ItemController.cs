@@ -68,10 +68,10 @@ namespace API.Controller
 
             var items = await _item.GetItemsByCategoryId(catId, paging);
 
-            if (!items.ItemsDetails.Any())
-            {
-                return NotFound("No items found for the given category.");
-            }
+            //if (!items.ItemsDetails.Any())
+            //{
+            //    return NotFound("No items found for the given category.");
+            //}
 
             return Ok(items); 
         }

@@ -71,7 +71,7 @@ namespace Repository.ItemRepo
 
         public async Task<ItemDetailsResult> GetItemsByCategoryId(int catId, DTOPaging paging)
         {
-            itemDetailsResult.Total = await _context.Items.CountAsync();
+            itemDetailsResult.Total = await _context.Items.Where(i=>i.CatFk==catId).CountAsync();
             itemDetailsResult.ItemsDetails = await (from item in _context.Items
                                 join unit in _context.Units on item.UniteFk equals unit.UnitId
                                 join category in _context.Categories on item.CatFk equals category.CatId
