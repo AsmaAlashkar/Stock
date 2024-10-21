@@ -21,6 +21,8 @@ import { TreeModule } from 'primeng/tree';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TreeTableModule } from 'primeng/treetable';
 import { TooltipModule } from 'primeng/tooltip';
+import { SubItemsComponent } from './sub-items/sub-items.component';
+import { TableModule } from 'primeng/table';
 
 
 
@@ -32,7 +34,8 @@ import { TooltipModule } from 'primeng/tooltip';
     MainModalComponent,
     SubwearhouseTreeComponent,
     SubwearhouseDetailsComponent,
-    CreatesubModalComponent
+    CreatesubModalComponent,
+    SubItemsComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +58,8 @@ import { TooltipModule } from 'primeng/tooltip';
     TreeModule,
     BrowserAnimationsModule,
     TreeTableModule,
-    TooltipModule
+    TooltipModule,
+    TableModule
   ],
   exports:[MainwearhouseComponent,SubwearhouseComponent,MainModalComponent,CreatesubModalComponent
     ,SubwearhouseComponent,SubwearhouseDetailsComponent]

@@ -66,43 +66,42 @@ namespace API.Controller
         {
             try
             {
-                var existingItem = await _repo.GetById(id);
+                var existingCategory = await _repo.GetById(id);
 
-                if (existingItem == null)
+                if (existingCategory == null)
                 {
                     return NotFound($"Category with ID {id} not found");
                 }
 
-                // Update only the fields that are provided in the DTO
                 if (!string.IsNullOrEmpty(category.CatNameAr))
                 {
-                    existingItem.CatNameAr = category.CatNameAr;
+                    existingCategory.CatNameAr = category.CatNameAr;
                 }
 
                 if (!string.IsNullOrEmpty(category.CatNameEn))
                 {
-                    existingItem.CatNameEn = category.CatNameEn;
+                    existingCategory.CatNameEn = category.CatNameEn;
                 }
 
                 if (!string.IsNullOrEmpty(category.CatDesAr))
                 {
-                    existingItem.CatDesAr = category.CatDesAr;
+                    existingCategory.CatDesAr = category.CatDesAr;
                 }
 
                 if (!string.IsNullOrEmpty(category.CatDesEn))
                 {
-                    existingItem.CatDesEn = category.CatDesEn;
+                    existingCategory.CatDesEn = category.CatDesEn;
                 }
 
-                await _repo.Update(existingItem);
+                await _repo.Update(existingCategory);
 
                 return Ok("Category updated successfully");
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it accordingly
                 return BadRequest($"Error updating Category: {ex.Message}");
             }
         }
+    
     }
 }

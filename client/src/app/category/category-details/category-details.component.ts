@@ -42,13 +42,15 @@ export class CategoryDetailsComponent implements OnInit{
     if (categoryId) {
       const numericCategoryId = +categoryId;
       this.categoryService.getCtegoryById(numericCategoryId).subscribe(
-        (data: Category) => {
-          this.category = data;
-          this.populateForm();
-        },
-        error => {
-          console.error('Error fetching category details:', error);
-          this.toastr.error('Error fetching category details', 'Error');
+        {
+          next: (data: Category) => {
+            this.category = data;
+            this.populateForm();
+          },
+          error: error => {
+            console.error('Error fetching category details:', error);
+            this.toastr.error('Error fetching category details', 'Error');
+          }
         }
       );
     }

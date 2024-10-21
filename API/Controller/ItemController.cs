@@ -28,7 +28,6 @@ namespace API.Controller
         [HttpGet("GetItems")]
         public async Task<ActionResult<ItemDetailsResult>> GetItems([FromQuery] DTOPaging paging)
         {
-            // Validate pagination inputs
             if (paging.PageNumber <= 0 || paging.PageSize <= 0)
             {
                 return BadRequest("PageNumber and PageSize must be greater than zero.");
@@ -41,7 +40,6 @@ namespace API.Controller
                 return NotFound("No items found.");
             }
 
-            // Return the mapped ItemDetailsDto list
             return Ok(itemsResult);
         }
 
@@ -61,9 +59,8 @@ namespace API.Controller
 
 
         [HttpGet("GetItemsByCategoryId/{catId}")]
-        public async Task<ActionResult<List<ItemDetailsDto>>> GetItemsByCategoryId(int catId, [FromQuery] DTOPaging paging)
+        public async Task<ActionResult<ItemDetailsResult>> GetItemsByCategoryId(int catId, [FromQuery] DTOPaging paging)
         {
-            // Validate pagination inputs
             if (paging.PageNumber <= 0 || paging.PageSize <= 0)
             {
                 return BadRequest("PageNumber and PageSize must be greater than zero.");
@@ -71,33 +68,32 @@ namespace API.Controller
 
             var items = await _item.GetItemsByCategoryId(catId, paging);
 
-            if (!items.Any())
+            if (!items.ItemsDetails.Any())
             {
                 return NotFound("No items found for the given category.");
             }
 
-            return Ok(items); // Directly return the result since it's already in ItemDetailsDto format
+            return Ok(items); 
         }
 
 
-        //[HttpGet("GetItemsBySubWHId/{subId}")]
-        //public async Task<ActionResult<List<ItemDetailsDto>>> GetItemsBySubWHId(int subId, [FromQuery] DTOPaging paging)
-        //{
-        //    // Validate pagination inputs
-        //    if (paging.PageNumber <= 0 || paging.PageSize <= 0)
-        //    {
-        //        return BadRequest("PageNumber and PageSize must be greater than zero.");
-        //    }
+        [HttpGet("GetItemsBySubWHId/{subId}")]
+        public async Task<ActionResult<List<ItemDetailsDto>>> GetItemsBySubWHId(int subId, [FromQuery] DTOPaging paging)
+        {
+            if (paging.PageNumber <= 0 || paging.PageSize <= 0)
+            {
+                return BadRequest("PageNumber and PageSize must be greater than zero.");
+            }
 
-        //    var items = await _item.GetItemsBySubWHId(subId, paging);
+            var items = await _item.GetItemsBySubWHId(subId, paging);
 
-        //    if (!items.Any())
-        //    {
-        //        return NotFound("No items found for the given sub-warehouse.");
-        //    }
+            if (!items.ItemsDetails.Any())
+            {
+                return NotFound("No items found for the given sub-warehouse.");
+            }
 
-        //    return Ok(items); // Directly return the result since it's already in ItemDetailsDto format
-        //}
+            return Ok(items); // Directly return the result since it's already in ItemDetailsDto format
+        }
 
 
         [HttpGet("GetItemsByUnitId/{unitId}")]
@@ -109,7 +105,7 @@ namespace API.Controller
             }
 
             var items = await _item.GetItemsByUnitId(unitId,paging);
-            if (!items.Any())
+            if (!items.ItemsDetails.Any())
             {
                 return NotFound("No items found for the given sub-warehouse.");
             }
@@ -123,20 +119,17 @@ namespace API.Controller
         {
             try
             {
-                // Fetch all items with their associated details
                 var items = await _item.GetAllItemsWithDetailsAsync();
 
-                // Check if the list is empty
                 if (items == null || !items.Any())
                 {
                     return NotFound("No items found.");
                 }
 
-                return Ok(items);  // Return the list of items
+                return Ok(items); 
             }
             catch (Exception ex)
             {
-                // Handle any unexpected errors
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
@@ -150,5 +143,50 @@ namespace API.Controller
             return Ok("Item Created Successfully");
 
         }
+
+        [HttpPut("UpdateItem/{id}")]
+        public async Task<ActionResult> UpdateItem(int id, [FromBody] CreateItemDto Item)
+        {
+            try
+            {
+                var existingItem = await _repo.GetById(id);
+
+                if (existingItem == null)
+                {
+                    return NotFound($"Item with ID {id} not found");
+                }
+
+                if (!string.IsNullOrEmpty(Item.ItemName))
+                {
+                    existingItem.ItemName = Item.ItemName;
+                }
+                if (!string.IsNullOrEmpty(Item.ItemCode))
+                {
+                    existingItem.ItemCode = Item.ItemCode;
+                }
+
+                if (Item.CatFk!=0)
+                {
+                    existingItem.CatFk = Item.CatFk;
+                }
+                if (Item.UniteFk != 0)
+                {
+                    existingItem.UniteFk = Item.UniteFk;
+                }
+                if (Item.ItemExperationdate.HasValue)
+                {
+                    existingItem.ItemExperationdate = Item.ItemExperationdate.Value;
+                }
+
+                await _repo.Update(existingItem);
+
+                return Ok("Item updated successfully");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Error updating Item: {ex.Message}");
+            }
+        }
+
     }
 }

@@ -14,6 +14,8 @@ import { authGuard } from './core/guards/auth.guard';
 import { CategoryDetailsComponent } from './category/category-details/category-details.component';
 import { DisplayItemsComponent } from './items/display-items/display-items.component';
 import { PermissinTypeComponent } from './permission/permission-type/permission-type.component';
+import { CategoryItemsComponent } from './category/category-items/category-items.component';
+import { SubItemsComponent } from './wearhouse/sub-items/sub-items.component';
 
 const routes: Routes = [
   {path:'', component:HomeComponent},
@@ -22,10 +24,14 @@ const routes: Routes = [
   {path:'Subwearhouse', component:SubwearhouseComponent},
   {path:'Subwearhouse/:id', component:SubwearhouseComponent},
   {path:'Subwearhouse-details/:id', component:SubwearhouseDetailsComponent},
+  {path:'viewSubItems/:id', component:SubItemsComponent},
+
 
   {path:'categories',component: DisplayCategoriesComponent},
-  {path:'category-details',component: CategoryDetailsComponent},
+  // {path:'category-details',component: CategoryDetailsComponent},
   {path:'category-details/:id',component: CategoryDetailsComponent},
+  {path:'viewCategoryItems/:id',component: CategoryItemsComponent},
+
 
   {path:'permission',component: PermissinTypeComponent},
   {path:'items',component: DisplayItemsComponent},

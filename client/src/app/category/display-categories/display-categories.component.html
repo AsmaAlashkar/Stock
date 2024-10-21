@@ -35,7 +35,8 @@
 
     <section class="col-12 col-md-9">
       <div class="card">
-        <p-treeTable [value]="categoryTree" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <p-treeTable [value]="categoryTree" [columns]="cols" [scrollable]="true"
+          [tableStyle]="{ 'min-width': '50rem' }">
           <ng-template pTemplate="header" let-columns>
             <tr>
               <th *ngFor="let col of columns">
@@ -50,20 +51,22 @@
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                 {{ rowData[col.field] }}
                 <ng-container *ngIf="last">
-                  <button class="btn btn-outline-info me-2" pInputText [pTooltip]="tooltipView" [hideDelay]="500" tooltipPosition="top" [routerLink]="['/category-details', rowData.catId]">
+                  <button class="btn btn-outline-info me-2" pInputText [pTooltip]="tooltipView" [hideDelay]="500"
+                    tooltipPosition="top" [routerLink]="['/viewCategoryItems', rowData.catId]">
                     <i class="fa fa-eye"></i>
                   </button>
                   <ng-template #tooltipView>
                     <div class="flex align-items-center">
-                        <span><b>View</b></span>
+                      <span><b>View Items</b></span>
                     </div>
                   </ng-template>
-                  <button class="btn btn-outline-primary" pInputText [pTooltip]="tooltipEditView" [hideDelay]="500" tooltipPosition="top" [routerLink]="['/category-details', rowData.catId]">
+                  <button class="btn btn-outline-primary" pInputText [pTooltip]="tooltipEditView" [hideDelay]="500"
+                    tooltipPosition="top" [routerLink]="['/category-details', rowData.catId]">
                     <i class="fa fa-edit"></i>
                   </button>
                   <ng-template #tooltipEditView>
                     <div class="flex align-items-center">
-                        <span><b>EditView</b></span>
+                      <span><b>EditView</b></span>
                     </div>
                   </ng-template>
                 </ng-container>
@@ -75,4 +78,3 @@
     </section>
   </div>
 </div>
-
