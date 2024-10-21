@@ -80,7 +80,8 @@ namespace Repository.ItemRepo
                                                     .CountAsync();
 
             // Fetch paginated item details for the specified category
-            itemDetailsResult.ItemsDetails = await (from item in _context.Items
+            itemDetailsResult.ItemsDetails = await (
+                                                    from item in _context.Items
                                                     join unit in _context.Units on item.UniteFk equals unit.UnitId
                                                     join category in _context.Categories on item.CatFk equals category.CatId
                                                     join quantity in _context.Quantities on item.ItemId equals quantity.ItemFk
