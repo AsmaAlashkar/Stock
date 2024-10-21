@@ -46,7 +46,18 @@ namespace Repository.ItemRepo
 
             return itemDetailsResult;
         }
+        public async Task<List<ItemsNamesDto>> GetItemsNames()
+        {
+            var items = await _context.Items
+                             .Select(item => new ItemsNamesDto
+                             {
+                                 ItemId = item.ItemId,
+                                 ItemName = item.ItemName
+                             })
+                             .ToListAsync();
 
+            return items;
+        }
         public async Task<ItemDetailsDto?> GetItemById(int id)
         {
             if (id <= 0) return null;
@@ -80,30 +91,31 @@ namespace Repository.ItemRepo
                                                     .CountAsync();
 
             // Fetch paginated item details for the specified category
-            itemDetailsResult.ItemsDetails = await (
-                                                    from item in _context.Items
-                                                    join unit in _context.Units on item.UniteFk equals unit.UnitId into unitGroup
-                                                    from unit in unitGroup.DefaultIfEmpty()
-                                                    join category in _context.Categories on item.CatFk equals category.CatId
-                                                    join quantity in _context.Quantities on item.ItemId equals quantity.ItemFk into quantityGroup
-                                                    from quantity in quantityGroup.DefaultIfEmpty() // This allows for nulls in quantities
-                                                    where item.CatFk == catId
-                                                    select new ItemDetailsDto
-                                                    {
-                                                        ItemId = item.ItemId,
-                                                        ItemName = item.ItemName,
-                                                        ItemCode = item.ItemCode,
-                                                        UnitName = unit.UnitName,
-                                                        CategoryName = category.CatNameEn,
-                                                        // Explicitly cast CurrentQuantity to int
-                                                        CurrentQuantity = quantity != null && quantity.CurrentQuantity.HasValue
-                                                            ? (int)quantity.CurrentQuantity.Value // Cast to int
-                                                            : 0 // Default to 0 if quantity is null
-                                                    })
-                                                    .OrderBy(i => i.ItemId)  // Sort by ItemId or any desired field
-                                                    .Skip((paging.PageNumber - 1) * paging.PageSize)  // Skip records for previous pages
-                                                    .Take(paging.PageSize)  // Fetch the required page size
-                                                    .ToListAsync();
+            
+            //itemDetailsResult.ItemsDetails = await (
+            //                                        from item in _context.Items
+            //                                        join unit in _context.Units on item.UniteFk equals unit.UnitId into unitGroup
+            //                                        from unit in unitGroup.DefaultIfEmpty()
+            //                                        join category in _context.Categories on item.CatFk equals category.CatId
+            //                                        join quantity in _context.Quantities on item.ItemId equals quantity.ItemFk into quantityGroup
+            //                                        from quantity in quantityGroup.DefaultIfEmpty() // This allows for nulls in quantities
+            //                                        where item.CatFk == catId
+            //                                        select new ItemDetailsDto
+            //                                        {
+            //                                            ItemId = item.ItemId,
+            //                                            ItemName = item.ItemName,
+            //                                            ItemCode = item.ItemCode,
+            //                                            UnitName = unit.UnitName,
+            //                                            CategoryName = category.CatNameEn,
+            //                                            // Explicitly cast CurrentQuantity to int
+            //                                            CurrentQuantity = quantity != null && quantity.CurrentQuantity.HasValue
+            //                                                ? (int)quantity.CurrentQuantity.Value // Cast to int
+            //                                                : 0 // Default to 0 if quantity is null
+            //                                        })
+            //                                        .OrderBy(i => i.ItemId)  // Sort by ItemId or any desired field
+            //                                        .Skip((paging.PageNumber - 1) * paging.PageSize)  // Skip records for previous pages
+            //                                        .Take(paging.PageSize)  // Fetch the required page size
+            //                                        .ToListAsync();
 
             return itemDetailsResult;  // Return the result with paginated item details and total records
         }

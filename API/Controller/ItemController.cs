@@ -42,9 +42,20 @@ namespace API.Controller
 
             return Ok(itemsResult);
         }
+        [HttpGet("GetItemNames")]
+        public async Task<ActionResult<List<ItemsNamesDto>>> GetItemsNames()
+        {
+                var itemNames = await _item.GetItemsNames();
 
+                if (itemNames == null || itemNames.Count == 0)
+                {
+                    return NotFound("No items found.");
+                }
 
-        [HttpGet("GetItemById/{id}")]
+                return Ok(itemNames);
+        }
+
+            [HttpGet("GetItemById/{id}")]
         public async Task<ActionResult<ItemDto>> GetItemById(int id)
         {
             var item = await _item.GetItemById(id);
