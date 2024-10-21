@@ -42,16 +42,17 @@
       <div class="card">
         <div *ngIf="hasItems(); else noItems">
           <p-table
-            [value]="ItemsDetails"
-            [paginator]="true"
-            [rows]="pageSize"
-            [tableStyle]="{ 'min-width': '50rem' }"
-            [rowsPerPageOptions]="[5, 10, 20]"
-            [lazy]="true"
-            (onLazyLoad)="getItems($event)"
-            [totalRecords]="totalRecords"
-            [loading]="loading"
-          >
+          [value]="ItemsDetails"
+          [paginator]="true"
+          [rows]="pageSize"
+          [tableStyle]="{ 'min-width': '50rem' }"
+          [rowsPerPageOptions]="[5, 10, 20]"
+          [lazy]="true"
+          (onLazyLoad)="getItems($event)"
+          [totalRecords]="totalRecords"
+          [loading]="loading"
+          (onPage)="onPageChange($event)"
+        >
             <ng-template pTemplate="header">
               <tr>
                 <th style="width: 25%">Item Name</th>

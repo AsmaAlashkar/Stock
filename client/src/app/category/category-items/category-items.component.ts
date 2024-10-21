@@ -32,7 +32,7 @@ export class CategoryItemsComponent implements OnInit {
       const catId = params.get('id');
       if (catId) {
         this.categoryId = +catId;
-        this.getItems({ first: 0 }); // Fetch items when the category ID is set
+        this.getItems({ first: 0 }); // Fetch items for the given category
       }
     });
   }
@@ -40,8 +40,7 @@ export class CategoryItemsComponent implements OnInit {
   getItems(event: TableLazyLoadEvent) {
     const skip = event.first || 0;
     const currentPage = Math.floor(skip / this.pageSize) + 1;
-
-    this.loading = true; // Start loading
+  
     this.itemsService.getItemsByCategoryId(this.categoryId, this.pageSize, currentPage, skip).subscribe({
       next: (data) => {
         this.loading = false;
@@ -55,7 +54,16 @@ export class CategoryItemsComponent implements OnInit {
       }
     });
   }
-
+  onPageChange(event: any) {
+    // Update pageSize based on user selection
+    this.pageSize = event.rows;
+  
+    // Call getItems with the updated page size and reset the current page number
+    const skip = event.first || 0;
+    const currentPage = Math.floor(skip / this.pageSize) + 1;
+  
+    this.getItems({ first: skip, rows: this.pageSize });
+  }
   // Helper method to check if there are items
   hasItems(): boolean {
     return this.ItemsDetails && this.ItemsDetails.length > 0;
