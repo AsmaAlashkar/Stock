@@ -12,6 +12,7 @@ using Repository.PermissionRepo;
 using Repository.PermissionType;
 using Repository.Service;
 using Repository.SubWearHouse;
+using Repository.UnitRepo;
 using Repository.VMainWearhouseItem;
 using Repository.VWearhouseWithSubHierarchy;
 using Standard.Entities;
@@ -49,8 +50,7 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
 builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
 builder.Services.AddScoped<IPermissionTypeRepository,PermissionTypeRepository >();
-
-
+builder.Services.AddScoped<IUnitRepository, UnitRepository>();
 
 
 

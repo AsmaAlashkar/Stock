@@ -19,7 +19,10 @@ export const environment = {
     getItems:'http://localhost:5050/api/Item/GetItems',
     getItemsByCategoryId:'http://localhost:5050/api/Item/GetItemsByCategoryId/',
     getItemsBySubId:'http://localhost:5050/api/Item/GetItemsBySubWHId/',
+    createItem:'http://localhost:5050/api/Item/CreateItem',
     
+    getUnitsNames:'http://localhost:5050/api/Unit/GetUnitsNames',
+
     getpermissiontype: 'http://localhost:5050/api/PermissionType/GetAllPermissionTypes',
     permissionAction: 'http://localhost:5050/api/Permission/CreatePermission'
   };

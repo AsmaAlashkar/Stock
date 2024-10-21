@@ -1,0 +1,69 @@
+<form [formGroup]="ItemForm" (ngSubmit)="save()">
+
+    <div class="form-group">
+        <label for="itemCode">Item Code<span class="req">*</span></label>
+        <input id="itemCode" type="text" formControlName="itemCode" class="form-control"
+            [ngClass]="{'is-invalid': ItemForm.get('itemCode')?.invalid && ItemForm.get('itemCode')?.touched}">
+        <div *ngIf="ItemForm.get('itemCode')?.invalid && ItemForm.get('itemCode')?.touched"
+            class="invalid-feedback">
+            Item Code is required.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="itemName">Item Name<span class="req">*</span></label>
+        <input id="itemName" type="text" formControlName="itemName" class="form-control"
+            [ngClass]="{'is-invalid': ItemForm.get('itemName')?.invalid && ItemForm.get('itemName')?.touched}">
+        <div *ngIf="ItemForm.get('itemName')?.invalid && ItemForm.get('itemName')?.touched"
+            class="invalid-feedback">
+            Item Name is required.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="catFk">Category<span class="req">*</span></label>
+        <select id="catFk" formControlName="catFk" class="form-control"
+            [ngClass]="{'is-invalid': ItemForm.get('catFk')?.invalid && ItemForm.get('catFk')?.touched}">
+            <!-- <option value="0">Select Category</option> -->
+            <option *ngFor="let category of categories" [value]="category.catId">
+                {{ category.catNameEn }}
+            </option>
+        </select>
+        <div *ngIf="ItemForm.get('catFk')?.invalid && ItemForm.get('catFk')?.touched" class="invalid-feedback">
+            Category is required.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="uniteFk">Unit<span class="req">*</span></label>
+        <select id="uniteFk" formControlName="uniteFk" class="form-control"
+            [ngClass]="{'is-invalid': ItemForm.get('uniteFk')?.invalid && ItemForm.get('uniteFk')?.touched}">
+            <!-- <option value="0">Select Unit</option> -->
+            <option *ngFor="let unit of units" [value]="unit.unitId">
+                {{ unit.unitName }}
+            </option>
+        </select>
+        <div *ngIf="ItemForm.get('uniteFk')?.invalid && ItemForm.get('uniteFk')?.touched" class="invalid-feedback">
+            Unit is required.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="itemExperationdate">Item Expiration Date</label>
+        <input id="itemExperationdate" type="date" formControlName="itemExperationdate" class="form-control">
+      </div>
+      
+
+    <div class="form-group" hidden>
+        <label for="itemId">Item ID</label>
+        <input id="itemId" type="number" formControlName="itemId" class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-primary my-3" [disabled]="ItemForm.invalid">Save Item</button>
+</form>
+
+<div *ngIf="errors.length > 0" class="alert alert-danger">
+    <ul>
+        <li *ngFor="let error of errors">{{ error }}</li>
+    </ul>
+</div>
