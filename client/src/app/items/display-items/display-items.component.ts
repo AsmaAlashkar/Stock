@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ItemDetailsDto, ItemDetailsResult } from 'src/app/shared/models/items';
 import { ItemsService } from '../items.service';
 import { TableLazyLoadEvent } from 'primeng/table';
+import { CreateItemComponent } from '../create-item/create-item.component';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-display-items',
@@ -9,24 +11,26 @@ import { TableLazyLoadEvent } from 'primeng/table';
   styleUrls: ['./display-items.component.scss']
 })
 export class DisplayItemsComponent {
+
   ItemDetailsResult: ItemDetailsResult;
   ItemsDetails: ItemDetailsDto[] = [];
-  pageSize: number = 10; // Default page size
+  pageSize: number = 10; 
   totalRecords: number = 0;
   loading: boolean = true;
-  currentPage: number = 1; // Keep track of current page
-  rowsPerPageOptions = [ 10, 20]; // Dropdown options for page size
+  currentPage: number = 1; 
+  rowsPerPageOptions = [ 10, 20]; 
 
-  constructor(private itemsService: ItemsService) {
+  constructor(private itemsService: ItemsService,
+    private dialogService: DialogService
+
+  ) {
     this.ItemDetailsResult = { itemsDetails: [], total: 0 };
   }
 
   getItems(event: TableLazyLoadEvent) {
-    const skip = event.first || 0; // Calculate the number of records to skip
-    const currentPage = Math.floor(skip / this.pageSize) + 1; // Calculate the correct page number
+    const skip = event.first || 0; 
+    const currentPage = Math.floor(skip / this.pageSize) + 1; 
 
-    
-    // Fetch items from the backend using the calculated values
     this.itemsService.getItems(this.pageSize, currentPage, skip).subscribe({
       next: (data) => {
         this.loading = false;
@@ -42,6 +46,20 @@ export class DisplayItemsComponent {
     });
   }
 
+  openCreateItemModal() {
+    const catId = this.ItemsDetails[0]?.itemId;
+    const dialogRef = this.dialogService.open(CreateItemComponent, {
+      data: { catId: catId },
+      header: 'Create New Item',
+      width: '70%',
+      contentStyle: { 'max-height': '80vh', overflow: 'auto' }
+    });
+    dialogRef.onClose.subscribe((result) => {
+      if (result === 'confirmed') {
+        // this.getItems($event);
+      }
+    });
+  }
   onPageSizeChange(event: any) {
     const newSize = event.target.value; // Extract the selected value from the event
     this.pageSize = Number(newSize); // Convert it to a number and set the page size

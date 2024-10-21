@@ -34,7 +34,7 @@
           <strong>Actions</strong>
         </div>
         <div class="card-body">
-          <button class="btn btn-success w-100 mb-2">
+          <button class="btn btn-success w-100 mb-2" (click)="openCreateItemModal()">
             <i class="fa fa-plus"></i> Add New Item
           </button>
 
@@ -66,7 +66,7 @@
               <th style="width: 25%">Item Name</th>
               <th style="width: 25%">Item Unit</th>
               <th style="width: 25%">Category Name</th>
-              <th style="width: 25%">Category Quantity</th>
+              <th style="width: 25%">Current Quantity</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-item>

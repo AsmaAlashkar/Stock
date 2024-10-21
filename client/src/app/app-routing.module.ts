@@ -16,6 +16,7 @@ import { DisplayItemsComponent } from './items/display-items/display-items.compo
 import { PermissinTypeComponent } from './permission/permission-type/permission-type.component';
 import { CategoryItemsComponent } from './category/category-items/category-items.component';
 import { SubItemsComponent } from './wearhouse/sub-items/sub-items.component';
+import { CreateItemComponent } from './items/create-item/create-item.component';
 
 const routes: Routes = [
   {path:'', component:HomeComponent},
@@ -35,6 +36,7 @@ const routes: Routes = [
 
   {path:'permission',component: PermissinTypeComponent},
   {path:'items',component: DisplayItemsComponent},
+  // {path:'createItem',component:CreateItemComponent},
 
   {path:'login', component:LoginComponent},
   {path:'register', component:RegisterComponent},
