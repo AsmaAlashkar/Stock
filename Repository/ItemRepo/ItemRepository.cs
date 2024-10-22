@@ -62,7 +62,8 @@ namespace Repository.ItemRepo
                              .Select(item => new ItemsNamesDto
                              {
                                  ItemId = item.ItemId,
-                                 ItemName = item.ItemName
+                                 ItemName = item.ItemName,
+                                ItemCode = item.ItemCode
                              })
                              .ToListAsync();
 
