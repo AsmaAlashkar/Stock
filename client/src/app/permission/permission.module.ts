@@ -10,6 +10,7 @@ import { TableModule } from 'primeng/table';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,15 +22,16 @@ import { MultiSelectModule } from 'primeng/multiselect';
     FormsModule,
     DynamicDialogModule,
     InputNumberModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DropdownModule,
+    MultiSelectModule,
+    BrowserAnimationsModule
   ],
   providers: [
     DialogService,
     MessageService,
     BrowserModule,
-    TableModule,
-    DropdownModule,
-    MultiSelectModule
+    TableModule
   ]
 })
 export class PermissionModule { }

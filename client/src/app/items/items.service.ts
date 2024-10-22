@@ -23,13 +23,13 @@ export class ItemsService {
     }
 
     getItemsVM(): Observable <ItemDetailsDtoVM[]> {
-      return this.http.get<ItemDetailsDtoVM[]>(`${environment.getItems}`, this.httpHeader);
+      return this.http.get<ItemDetailsDtoVM[]>(`${environment.getItemsVM}`, this.httpHeader);
     }
 
     getItemsByCategoryId(id:number,PageSize: number, PageNumber: number, skip: number): Observable <ItemDetailsResult> {
       return this.http.get<ItemDetailsResult>(`${environment.getItemsByCategoryId}${id}?PageNumber=${PageNumber}&PageSize=${PageSize}`, this.httpHeader);
     }
-    
+
     getItemsBySubId(id:number,PageSize: number, PageNumber: number, skip: number): Observable <ItemDetailsResult> {
       return this.http.get<ItemDetailsResult>(`${environment.getItemsBySubId}${id}?PageNumber=${PageNumber}&PageSize=${PageSize}&skip=${skip}`, this.httpHeader);
     }

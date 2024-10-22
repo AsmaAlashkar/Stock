@@ -17,7 +17,7 @@ export const environment = {
     updateCategory:'http://localhost:5050/api/Category/UpdateCategory/',
 
     getItems:'http://localhost:5050/api/Item/GetItems',
-    getItemsVM:'',
+    getItemsVM:'http://localhost:5050/api/Item/GetItemNames',
     getItemsByCategoryId:'http://localhost:5050/api/Item/GetItemsByCategoryId/',
     getItemsBySubId:'http://localhost:5050/api/Item/GetItemsBySubWHId/',
     createItem:'http://localhost:5050/api/Item/CreateItem',

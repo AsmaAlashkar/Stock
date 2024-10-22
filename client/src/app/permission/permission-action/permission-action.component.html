@@ -1,55 +1,108 @@
-<form [formGroup]="permActForm" (ngSubmit)="save()">
-  <!-- <div class="form-group">
+<!-- <form [formGroup]="permActForm" (ngSubmit)="save()"> -->
+<!-- <div class="form-group">
     <span class="p-float-label">
       <p-inputNumber [(ngModel)]="Permissionaction.permTypeFk" inputId="integeronly" [min]="0"></p-inputNumber>
       <label htmlFor="permTypeFk">PermTypeFk</label>
     </span>
   </div> -->
+  <!-- <form [formGroup]="permActForm" (ngSubmit)="save()"> -->
+  <br />
 
-      <!-- mutiple select -->
-      <div class="form-group">
-        <span class="p-float-label">
-          <p-inputNumber [(ngModel)]="Permissionaction.items" inputId="integeronly" [min]="0"></p-inputNumber>
-          <label htmlFor="itemId">Item ID</label>
-        </span>
+<!-- mutiple select -->
+<div class="form-group">
+  <span class="p-float-label">
+    <p-multiSelect
+      inputId="float-label"
+      [options]="ItemDetailsResultVM"
+      [(ngModel)]="selectedItems"
+      class="ng-dirty ng-invalid"
+      optionLabel="itemName"
+      appendTo="body"
+      display="chip"
+      [showClear]="true"
+      placeholder="Select Items"
+    ></p-multiSelect>
+    <label for="float-label">Select Items</label>
+</span>
+</div>
+
+<br />
+
+<!-- drowpdown selecte -->
+<div class="form-group" *ngIf="headerValue !== 'نقل'">
+  <!-- <div class="card flex justify-content-center"> -->
+  <span class="p-float-label">
+  <p-dropdown
+    [options]="subWearhouses"
+    [(ngModel)]="selectedSubWearhouse"
+    optionLabel="subName"
+    [filter]="true"
+    filterBy="subName"
+    [showClear]="true"
+    appendTo="body"
+    placeholder="Select SubWarehouse"
+    [editable]="true"
+  >
+    <ng-template pTemplate="selectedItem">
+      <div class="flex align-items-center gap-2" *ngIf="selectedSubWearhouse">
+        <div>
+          {{ selectedSubWearhouse.subName }} - {{ selectedSubWearhouse.subId }}</div>
       </div>
-
-      <!-- drowpdown selecte -->
-      <div class="form-group">
-        <span class="p-float-label">
-          <p-inputNumber [(ngModel)]="Permissionaction.items" inputId="integeronly" [min]="0"></p-inputNumber>
-          <label htmlFor="itemId">SubWearHouse ID</label>
-        </span>
+    </ng-template>
+    <ng-template let-item pTemplate="item">
+      <div class="flex align-items-center gap-2">
+        <div>{{ item.subName }}</div>
       </div>
+    </ng-template>
+  </p-dropdown>
+  <label for="float-label">Select SubWearhouse</label>
+</span>
+</div>
+<!-- </div> -->
 
-      <!-- <div class="card flex justify-content-center">
-        <p-dropdown [options]="subWearhous" [(ngModel)]="selectedItem.sub" optionLabel="subName" [filter]="true" filterBy="subName" [showClear]="true" placeholder="Select a Country">
-            <ng-template pTemplate="selectedItem">
-                <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
-                    <div>{{ selectedCountry.name }}</div>
-                </div>
-            </ng-template>
-            <ng-template let-country pTemplate="item">
-                <div class="flex align-items-center gap-2">
-                    <div>{{ country.name }}</div>
-                </div>
-            </ng-template>
-        </p-dropdown>
-    </div> -->
+<br />
 
-      <div class="form-group" *ngIf="headerValue=='نقل'">
-        <span class="p-float-label">
-          <p-inputNumber [(ngModel)]="Permissionaction.items" inputId="integeronly" [min]="0"></p-inputNumber>
-          <label htmlFor="itemId">Destination SubWearHouse ID</label>
-        </span>
-      </div>
+<div class="form-group" *ngIf="headerValue == 'نقل'">
+  <span class="p-float-label">
+    <p-dropdown
+      [options]="subWearhouses"
+      [(ngModel)]="selectedSubWearhouse"
+      optionLabel="subName"
+      [filter]="true"
+      filterBy="subName"
+      [showClear]="true"
+      appendTo="body"
+      placeholder="Select Destination SubWarehouse"
+      [editable]="true"
+    >
+      <ng-template pTemplate="selectedItem">
+        <div class="flex align-items-center gap-2" *ngIf="selectedSubWearhouse">
+          <div>
+            {{ selectedSubWearhouse.subName }} - {{ selectedSubWearhouse.subId }}</div>
+        </div>
+      </ng-template>
+      <ng-template let-item pTemplate="item">
+        <div class="flex align-items-center gap-2">
+          <div>{{ item.subName }}</div>
+        </div>
+      </ng-template>
+    </p-dropdown>
+    <label for="float-label">Select Destination SubWearHouse</label>
+  </span>
+</div>
 
-      <div class="form-group">
-        <span class="p-float-label">
-          <p-inputNumber [(ngModel)]="Permissionaction.items" inputId="integeronly" [min]="0"></p-inputNumber>
-          <label htmlFor="quantity">Quantity</label>
-        </span>
-      </div>
+<br />
 
-  <button type="submit" class="btn btn-primary my-3">Save Permission</button>
-</form>
+<div class="form-group">
+  <span class="p-float-label">
+    <p-inputNumber
+      [(ngModel)]="Permissionaction.items"
+      inputId="integeronly"
+      [min]="0"
+    ></p-inputNumber>
+    <label htmlFor="quantity">Quantity</label>
+  </span>
+</div>
+
+<button type="submit" class="btn btn-primary my-3">Save Permission</button>
+<!-- </form> -->

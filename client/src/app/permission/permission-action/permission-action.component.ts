@@ -21,8 +21,10 @@ export class PermissionActionComponent implements OnInit {
   errors: string[] = [];
   headerValue:string = '';
   Permissionaction: Permissionaction;
-  subWearhouse: subWearhouseVM[] = [];
   ItemDetailsResultVM: ItemDetailsDtoVM[] = [];
+  selectedItems!: ItemDetailsDtoVM[];
+  subWearhouses: subWearhouseVM[] = [];
+  selectedSubWearhouse!: subWearhouseVM;
 
   constructor(
     private fb: FormBuilder,
@@ -41,27 +43,18 @@ export class PermissionActionComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getItems();
+    this.getItemsName();
     this.getSubwearhouse();
-    // this.permActionForm();
 
     this.headerValue = this.config.data.headerValue;
     // console.log(perId);
-    // if (perValue) {
-      console.log("value :",this.headerValue);
-
-      // this.permActForm.patchValue({
-      //   permTypeFk: perValue
-      // });
-    //}
-
   }
 
-  getItems() {
+  getItemsName() {
     this.itemsService.getItemsVM().subscribe({
       next: (data) => {
         this.ItemDetailsResultVM = data;
-        console.log("data",data);
+
       },
       error: (error) => {
         console.error('Error fetching items', error);
@@ -72,10 +65,11 @@ export class PermissionActionComponent implements OnInit {
   getSubwearhouse() {
     this.wearhouseService.getsubWearhouse().subscribe({
       next: (data) => {
-        this.subWearhouse = data.map(sub=>({
-          subId:sub.subId,subName:sub.subName
-        }));
-        console.log("res :", this.subWearhouse);
+        this.subWearhouses = data;
+        // this.subWearhouses = data.map(sub=>({
+        //   subId:sub.subId,subName:sub.subName
+        // }));
+        console.log("subWearhouses :", this.subWearhouses);
       },
       error: (error) => {
         console.error('Error fetching items', error);
@@ -83,57 +77,5 @@ export class PermissionActionComponent implements OnInit {
     }
     );
   }
-
-  // permActionForm() {
-  //   this.permActForm = this.fb.group({
-  //     permTypeFk: [null, Validators.required],
-  //     items: this.fb.array([
-  //       this.fb.group({
-  //         itemId: [null, Validators.required],
-  //         subId: [null, Validators.required],
-  //         destinationSubId: [null],
-  //         quantity: [null, Validators.required]
-  //       })
-  //     ])
-  //   });
-  // }
-
-  // get items(): FormArray {
-  //   return this.permActForm.get('items') as FormArray;
-  // }
-
-  // addItem() {
-  //   this.items.push(this.fb.group({
-  //     itemId: [null, Validators.required],
-  //     subId: [null, Validators.required],
-  //     destinationSubId: [null],
-  //     quantity: [null, Validators.required]
-  //   }));
-  // }
-
-  save() {
-    console.log("this.permActForm :",this.permActForm.get("items"));
-
-    if (this.permActForm.invalid) {
-      this.toastr.error('Please fill in all required fields.');
-      return;
-    }
-    this.permService.permissionAction(this.permActForm.value).subscribe({
-      next: () => {
-        this.toastr.success('Permission created successfully');
-        this.permActForm.reset();
-        this.ref.close('confirmed');
-      },
-      error: (error) => {
-        console.error('Error details:', error);
-        this.errors = (error.error && error.error.errors) || ['An unexpected error occurred'];
-      }
-    });
-  }
-
-  // isDestinationSubIdVisible(): boolean {
-  //   const permTypeFk = this.permActForm.get('permTypeFk')?.value;
-  //   return permTypeFk !== perId;
-  // }
 
 }
