@@ -55,7 +55,7 @@ namespace API.Controller
                 return Ok(itemNames);
         }
 
-            [HttpGet("GetItemById/{id}")]
+        [HttpGet("GetItemById/{id}")]
         public async Task<ActionResult<ItemDto>> GetItemById(int id)
         {
             var item = await _item.GetItemById(id);
@@ -67,7 +67,19 @@ namespace API.Controller
 
             return Ok(item);
         }
+        
+        [HttpGet("GetItemDetailsBySubAsync/{itemId}/{subId}")]
+        public async Task<ActionResult<ItemDto>> GetItemDetailsBySubAsync(int itemId, int subId)
+        {
+            var itemDetails = await _item.GetItemDetailsBySubAsync(itemId, subId);
 
+            if (itemDetails == null)
+            {
+                return NotFound("Either the Item or SubWearhouse was not found.");
+            }
+
+            return Ok(itemDetails);
+        }
 
         [HttpGet("GetItemsByCategoryId/{catId}")]
         public async Task<ActionResult<ItemDetailsResult>> GetItemsByCategoryId(int catId, [FromQuery] DTOPaging paging)

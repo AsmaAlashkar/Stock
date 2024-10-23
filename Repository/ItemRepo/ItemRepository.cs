@@ -90,7 +90,46 @@ namespace Repository.ItemRepo
             return result;
         }
 
+        public async Task<ItemDetailsDto?> GetItemDetailsBySubAsync(int itemId, int subId)
+        {
+            var itemExists = await _context.Items
+        .AsNoTracking()
+        .AnyAsync(i => i.ItemId == itemId);
 
+            if (!itemExists)
+            {
+                return null; 
+            }
+
+            var subExists = await _context.SubWearhouses
+                .AsNoTracking()
+                .AnyAsync(sw => sw.SubId == subId);
+
+            if (!subExists)
+            {
+                return null; 
+            }
+            var itemDto = await _context.Items
+                .AsNoTracking()
+                .Include(i => i.UniteFkNavigation)   
+                .Include(i => i.CatFkNavigation)     
+                .Include(i => i.SubItems)             
+                .Where(i => i.ItemId == itemId)      
+                .Select(i => new ItemDetailsDto
+                {
+                    ItemId = i.ItemId,
+                    ItemName = i.ItemName,
+                    ItemCode = i.ItemCode,
+                    UnitName = i.UniteFkNavigation != null ? i.UniteFkNavigation.UnitName : "N/A",  
+                    CategoryName = i.CatFkNavigation.CatNameEn,
+                    CurrentQuantity = i.SubItems
+                                      .Where(si => si.SubFk == subId)
+                                      .Sum(si => si.Quantity.HasValue ? (int)si.Quantity.Value : 0)  
+                })
+                .FirstOrDefaultAsync();
+
+            return itemDto;
+        }
         public async Task<ItemDetailsResult> GetItemsByCategoryId(int catId, DTOPaging paging)
         {
             // Initialize result object to store item details and total record count
