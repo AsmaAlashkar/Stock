@@ -16,6 +16,7 @@ export class WearhouseService {
   getmainwearhouse() {
     return this.http.get<IMainWearhouse[]>(`${environment.getMainWearhouse}`);
   }
+
   getmainwearhousebyid(id: number) {
     return this.http.get<IViewWearhouseItem[]>(`${environment.getMainWearhouseById}${id}`);
   }
@@ -27,9 +28,11 @@ export class WearhouseService {
   getSubWearhouseByMainId(mainId: number) {
     return this.http.get<IViewWearhouseItem[]>(`${environment.apiUrl}SubWearhouse/GetSubWearhouseByMainId/${mainId}`);
   }
+
   getSubWearhouseById(id: number): Observable<IViewWearhouseItem> {
     return this.http.get<IViewWearhouseItem>(`${environment.apiUrl}SubWearhouse/GetSubWearhouseById/${id}`);
   }
+  
   // Create a new main warehouse
   createNewMainWearhouse(mainwearhouse: IMainWearhouse): Observable<any> {
     return this.http.post(`${environment.apiUrl}MainWearhouse/CreateNewMainWearhouse`, mainwearhouse, { responseType: 'text' });

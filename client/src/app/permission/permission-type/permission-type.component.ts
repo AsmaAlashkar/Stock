@@ -53,8 +53,8 @@ export class PermissinTypeComponent implements OnDestroy{
 
   show(selectedPermissionType: IPermissionType) {
     console.log("selectedPermissionType :",selectedPermissionType);
-
     const headerValue = selectedPermissionType ? selectedPermissionType.perTypeValue : 'Default Header';
+
     this.ref = this.dialogService.open(PermissionActionComponent, {
       header: headerValue,
       width: '70%',

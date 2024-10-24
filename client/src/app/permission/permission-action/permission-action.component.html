@@ -5,68 +5,48 @@
       <label htmlFor="permTypeFk">PermTypeFk</label>
     </span>
   </div> -->
-  <form [formGroup]="permActForm" (ngSubmit)="save()">
-  <br />
+  <!-- <form [formGroup]="permActForm" (ngSubmit)="save()"> -->
+  <!-- <form #permActForm="ngForm" (ngSubmit)="save(permActForm)"> -->
 
-<!-- mutiple select -->
-<div class="form-group">
-  <span class="p-float-label">
-    <p-multiSelect
-      inputId="float-label"
-      [options]="ItemDetailsResultVM"
-      [(ngModel)]="selectedItems"
-      class="ng-dirty ng-invalid"
-      optionLabel="itemName"
-      appendTo="body"
-      display="chip"
-      [showClear]="true"
-      placeholder="Select Items"
-    ></p-multiSelect>
-    <label for="float-label">Select Items</label>
-</span>
-</div>
+    <br />
 
-<br />
-
-<!-- drowpdown selecte -->
-<div class="form-group" *ngIf="headerValue !== 'نقل'">
-  <!-- <div class="card flex justify-content-center"> -->
-  <span class="p-float-label">
-  <p-dropdown
-    [options]="subWearhouses"
-    [(ngModel)]="selectedSubWearhouse"
-    optionLabel="subName"
-    [filter]="true"
-    filterBy="subName"
-    [showClear]="true"
-    appendTo="body"
-    placeholder="Select SubWarehouse"
-    [editable]="true"
-  >
-    <ng-template pTemplate="selectedItem">
-      <div class="flex align-items-center gap-2" *ngIf="selectedSubWearhouse">
-        <div>
-          {{ selectedSubWearhouse.subName }} - {{ selectedSubWearhouse.subId }}</div>
-      </div>
-    </ng-template>
-    <ng-template let-item pTemplate="item">
-      <div class="flex align-items-center gap-2">
-        <div>{{ item.subName }}</div>
-      </div>
-    </ng-template>
-  </p-dropdown>
-  <label for="float-label">Select SubWearhouse</label>
-</span>
-</div>
-<!-- </div> -->
-
-<br />
-
-<div class="form-group" *ngIf="headerValue == 'نقل'">
-  <span class="p-float-label">
+  <!-- drowpdown selecte From (From subWearhouse) (getsubWearhouse()) -->
+  <span class="p-float-label" *ngIf="headerValue != 'نقل'">
     <p-dropdown
       [options]="subWearhouses"
       [(ngModel)]="selectedSubWearhouse"
+      (ngModelChange)="onSubWearhouseChange()"
+      optionLabel="subName"
+      [filter]="true"
+      filterBy="subName"
+      [showClear]="true"
+      appendTo="body"
+      placeholder="Select SubWarehouse"
+      [editable]="true"
+    >
+      <ng-template pTemplate="selectedItem">
+        <div class="flex align-items-center gap-2" *ngIf="selectedSubWearhouse">
+          <div>
+            {{ selectedSubWearhouse.subName }} - {{ selectedSubWearhouse.subId }}</div>
+        </div>
+      </ng-template>
+      <ng-template let-item pTemplate="item">
+        <div class="flex align-items-center gap-2">
+          <div>{{ item.subName }}</div>
+        </div>
+      </ng-template>
+    </p-dropdown>
+    <label for="float-label">Select SubWearhouse</label>
+  </span>
+
+  <br />
+
+  <!-- drowpdown selecte To (Destination subWherehouse) (getsubWearhouse()) -->
+  <span class="p-float-label" *ngIf="headerValue == 'نقل'">
+    <p-dropdown
+      [options]="subWearhouses"
+      [(ngModel)]="selectedSubWearhouse"
+      (ngModelChange)="onSubWearhouseChange()"
       optionLabel="subName"
       [filter]="true"
       filterBy="subName"
@@ -89,20 +69,89 @@
     </p-dropdown>
     <label for="float-label">Select Destination SubWearHouse</label>
   </span>
-</div>
 
-<br />
+  <br />
 
-<div class="form-group">
-  <span class="p-float-label">
-    <p-inputNumber
-      [(ngModel)]="Permissionaction.items"
-      inputId="integeronly"
-      [min]="0"
-    ></p-inputNumber>
-    <label htmlFor="quantity">Quantity</label>
+  <!-- mutiple select get all items (getItemsVM())-->
+  <span class="p-float-label" *ngIf="headerValue == 'اضافة' || headerValue == 'إضافة' || headerValue == 'أضافة'">
+    <p-multiSelect
+      inputId="float-label"
+      [options]="ItemDetailsResultVM"
+      [(ngModel)]="selectedItems"
+      class="ng-dirty ng-invalid"
+      optionLabel="itemName"
+      appendTo="body"
+      display="chip"
+      [showClear]="true"
+      placeholder="Select Items"
+    ></p-multiSelect>
+    <label for="float-label">Select Items</label>
   </span>
-</div>
 
-<button type="submit" class="btn btn-primary my-3">Save Permission</button>
-</form>
+  <!-- mutiple select get items by subwearhouseBy ID(getItemsVM())-->
+  <span class="p-float-label" *ngIf="headerValue == 'نقل' || headerValue == 'تالف' || headerValue == 'صرف'">
+    <p-multiSelect
+      inputId="float-label"
+      [options]="filteredItems"
+      [(ngModel)]="selectedItems"
+      class="ng-dirty ng-invalid"
+      optionLabel="itemName"
+      appendTo="body"
+      display="chip"
+      [showClear]="true"
+      placeholder="Select Items"
+    ></p-multiSelect>
+    <label for="float-label">Select Items By Sub</label>
+  </span>
+
+    <!-- <div class="card">
+      <p-table [value]="items" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
+          <ng-template pTemplate="header">
+              <tr>
+                  <th style="width: 4rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                  </th>
+                  <th style="width:25%">Code</th>
+                  <th style="width:25%">Name</th>
+                  <th style="width:25%">Quantity</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product let-editing="editing">
+              <tr>
+                  <td>
+                    <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                  </td>
+                  <td >
+                    {{ item.code }}
+                  </td>
+                  <td>
+                    {{ item.name }}
+                  </td>
+                  <td [pEditableColumn]="item.quantity" pEditableColumnField="inventoryStatus">
+                      <p-cellEditor>
+                          <ng-template pTemplate="input">
+                              <input pInputText [(ngModel)]="item.quantity" inputId="integeronly" [min]="0"/>
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                              {{ item.quantity }}
+                          </ng-template>
+                      </p-cellEditor>
+                  </td>
+              </tr>
+          </ng-template>
+      </p-table>
+    </div> -->
+
+    <br>
+
+      <!-- <span class="p-float-label">
+        <p-inputNumber
+          [(ngModel)]="Permissionaction.items"
+          inputId="integeronly"
+          [min]="0"
+        ></p-inputNumber>
+        <label htmlFor="quantity">Quantity</label>
+      </span> -->
+
+    <button type="submit" class="btn btn-primary my-3">Save Permission</button>
+  <!-- </form> -->

@@ -22,5 +22,6 @@ export interface Item{
 
 export interface ItemDetailsDtoVM {
   itemId: number,
-  itemName: string
+  itemName: string,
+  subWearId?: number
 }

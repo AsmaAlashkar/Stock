@@ -33,8 +33,12 @@ export class ItemsService {
     getItemsBySubId(id:number,PageSize: number, PageNumber: number, skip: number): Observable <ItemDetailsResult> {
       return this.http.get<ItemDetailsResult>(`${environment.getItemsBySubId}${id}?PageNumber=${PageNumber}&PageSize=${PageSize}&skip=${skip}`, this.httpHeader);
     }
+
+    getItemsBySubIdVM(id: number): Observable <ItemDetailsDtoVM[]> {
+      return this.http.get<ItemDetailsDtoVM[]>(`${environment.getItemsBySubIdVM}${id}`, this.httpHeader);
+    }
     createItem(item: Item) :Observable<Item>{
-        return this.http.post<Item>(`${environment.createItem}`, item, 
+        return this.http.post<Item>(`${environment.createItem}`, item,
           {headers:this.httpHeader.headers, responseType: 'text' as 'json'});
     // return this.http.post(`${environment.createItem}`, this.httpHeader);
     }

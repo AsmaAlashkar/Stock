@@ -13,6 +13,7 @@ namespace Repository.ItemRepo
     {
         Task<ItemDetailsResult> GetItems(DTOPaging paging);
         Task<List<ItemsNamesDto>> GetItemsNames();
+        Task<List<ItemsNamesDto>> GetItemsNamesBySubId(int subId);
         Task<ItemDetailsDto?> GetItemById(int id);
         Task<ItemDetailsResult> GetItemsByCategoryId(int catId, DTOPaging paging);
         Task<ItemDetailsResult> GetItemsBySubWHId(int subId, DTOPaging paging);

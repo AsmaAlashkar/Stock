@@ -25,13 +25,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     DropdownModule,
     MultiSelectModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    TableModule
   ],
   providers: [
     DialogService,
     MessageService,
-    BrowserModule,
-    TableModule
+    BrowserModule
   ]
 })
 export class PermissionModule { }

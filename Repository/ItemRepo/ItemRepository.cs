@@ -58,6 +58,19 @@ namespace Repository.ItemRepo
 
             return items;
         }
+        public async Task<List<ItemsNamesDto>> GetItemsNamesBySubId(int subId)
+        {
+            var items = await _context.Items
+                .Where(item => item.SubItems.Any(sub => sub.SubFk == subId))
+                             .Select(item => new ItemsNamesDto
+                             {
+                                 ItemId = item.ItemId,
+                                 ItemName = item.ItemName
+                             })
+                             .ToListAsync();
+
+            return items;
+        }
         public async Task<ItemDetailsDto?> GetItemById(int id)
         {
             if (id <= 0) return null;

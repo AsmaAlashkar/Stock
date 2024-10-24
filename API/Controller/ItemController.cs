@@ -55,7 +55,20 @@ namespace API.Controller
                 return Ok(itemNames);
         }
 
-            [HttpGet("GetItemById/{id}")]
+        [HttpGet("GetItemsNamesBySubId/{subId}")]
+        public async Task<ActionResult<List<ItemsNamesDto>>> GetItemsNamesBySubId(int subId)
+        {
+            var itemNames = await _item.GetItemsNamesBySubId(subId);
+
+            if (itemNames == null || itemNames.Count == 0)
+            {
+                return NotFound("No items found.");
+            }
+
+            return Ok(itemNames);
+        }
+
+        [HttpGet("GetItemById/{id}")]
         public async Task<ActionResult<ItemDto>> GetItemById(int id)
         {
             var item = await _item.GetItemById(id);
