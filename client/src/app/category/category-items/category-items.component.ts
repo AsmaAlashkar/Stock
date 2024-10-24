@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DialogService } from 'primeng/dynamicdialog';
 import { TableLazyLoadEvent } from 'primeng/table';
+import { CreateItemComponent } from 'src/app/items/create-item/create-item.component';
 import { ItemsService } from 'src/app/items/items.service';
 import { ItemDetailsDto, ItemDetailsResult } from 'src/app/shared/models/items';
 
@@ -21,7 +23,9 @@ export class CategoryItemsComponent implements OnInit {
 
   constructor(
     private itemsService: ItemsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialogService: DialogService
+
   ) {
     this.ItemDetailsResult = { itemsDetails: [], total: 0 };
     this.categoryId = 0;
@@ -40,15 +44,12 @@ export class CategoryItemsComponent implements OnInit {
   }
 
   getItems(event: TableLazyLoadEvent) {
-    console.log("ddddddddddd");
 
     const skip = event.first || 0;
     const currentPage = Math.floor(skip / this.pageSize) + 1;
   
     this.itemsService.getItemsByCategoryId(this.categoryId, this.pageSize, currentPage, skip).subscribe({
       next: (data) => {
-        console.log("data :",data);
-
          this.loading = false;
         this.ItemDetailsResult = data;
         this.ItemsDetails = this.ItemDetailsResult.itemsDetails;
@@ -57,6 +58,20 @@ export class CategoryItemsComponent implements OnInit {
       error: (error) => {
         this.loading = false;
         console.error('Error fetching items', error);
+      }
+    });
+  }
+  openCreateItemModal(categoryId: number) {
+    const catId = this.ItemsDetails[0]?.itemId;
+    const dialogRef = this.dialogService.open(CreateItemComponent, {
+      data: { categoryId },
+      header: 'Create New Item',
+      width: '70%',
+      contentStyle: { 'max-height': '80vh', overflow: 'auto' }
+    });
+    dialogRef.onClose.subscribe((result) => {
+      if (result === 'confirmed') {
+        // this.getItems($event);
       }
     });
   }

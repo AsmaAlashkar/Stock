@@ -25,11 +25,11 @@ public partial class Item
 
     public virtual Category CatFkNavigation { get; set; } = null!;
 
+    public virtual ICollection<ItemPermission> ItemPermissions { get; set; } = new List<ItemPermission>();
+
     public virtual ICollection<ItemSupplier> ItemSuppliers { get; set; } = new List<ItemSupplier>();
 
     public virtual ICollection<Quantity> Quantities { get; set; } = new List<Quantity>();
-
-    public virtual ICollection<SubItemPermission> SubItemPermissions { get; set; } = new List<SubItemPermission>();
 
     public virtual ICollection<SubItem> SubItems { get; set; } = new List<SubItem>();
 

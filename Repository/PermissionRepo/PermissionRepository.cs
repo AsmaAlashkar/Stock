@@ -25,7 +25,7 @@ namespace Repository.PermissionRepo
             {
                 case 2:
                     await AddPermissionAsync(permissionDto);
-                    break;               
+                    break;
                 case 3:
                 case 4:
                     await HandleWithdrawOrDamagedPermissionAsync(permissionDto);
@@ -37,16 +37,18 @@ namespace Repository.PermissionRepo
                     throw new Exception("Invalid permission type.");
             }
         }
-        private async Task<Permission> CreatePermissionAsync(int permissionTypeFk)
+        private async Task<Permission> CreatePermissionAsync(PermissionDto permissionDto)
         {
             var permissionType = await _context.PermissionTypes
-                .FirstOrDefaultAsync(pt => pt.PerId == permissionTypeFk);
+                .FirstOrDefaultAsync(pt => pt.PerId == permissionDto.PermTypeFk);
 
             if (permissionType == null)
                 throw new Exception("Permission type not found");
 
             var newPermission = new Permission
             {
+                SubFk = permissionDto.SubId,
+                DestinationSubFk = permissionDto.DestinationSubId,
                 PermTypeFk = permissionType.PerId,
                 PermCreatedat = DateTime.Now
             };
@@ -56,33 +58,14 @@ namespace Repository.PermissionRepo
 
             return newPermission;
         }
-        //private async Task<Permission> CreatePermissionAsync(int permissionTypeFk)
-        //{
-        //    var permissionType = await _context.PermissionTypes
-        //        .FirstOrDefaultAsync(pt => pt.PerId == permissionTypeFk);
 
-        //    if (permissionType == null)
-        //        throw new Exception("Permission type not found");
-
-        //    var newPermission = new Permission
-        //    {
-        //        PermTypeFk = permissionType.PerId,
-        //        PermCreatedat = DateTime.Now
-        //    };
-
-        //    _context.Permissions.Add(newPermission);
-        //    await _context.SaveChangesAsync();
-
-        //    return newPermission;
-        //}
-        //
         private async Task AddPermissionAsync(PermissionDto permissionDto)
         {
             using (var transaction = await _context.Database.BeginTransactionAsync())
             {
                 try
                 {
-                    var newPermission = await CreatePermissionAsync(permissionDto.PermTypeFk);
+                    var newPermission = await CreatePermissionAsync(permissionDto);
                     foreach (var item in permissionDto.Items)
                     {
                         var itemExists = await _context.Items
@@ -90,12 +73,6 @@ namespace Repository.PermissionRepo
 
                         if (!itemExists)
                             throw new Exception($"Item not found.");
-
-                        var subExisted = await _context.SubWearhouses
-                            .AnyAsync(s => s.SubId == item.SubId);
-
-                        if (!subExisted)
-                            throw new Exception($"Subwarehouse not found.");
 
                         var itemQuantity = await _context.Quantities
                         .FirstOrDefaultAsync(q => q.ItemFk == item.ItemId);
@@ -111,21 +88,23 @@ namespace Repository.PermissionRepo
                             {
                                 ItemFk = item.ItemId,
                                 CurrentQuantity = item.Quantity,
-                                QuantityUpdatedat = DateTime.Now
+                                QuantityUpdatedat = DateTime.Now,
+                                QuantityCreatedat = DateTime.Now
                             };
+
                             _context.Quantities.Add(itemQuantity);
                         }
-                        var subItemPermission = new SubItemPermission
+                        var ItemPermission = new ItemPermission
                         {
                             ItemFk = item.ItemId,
                             PermFk = newPermission.PermId,
-                            SubFk = item.SubId,
                             Quantity = item.Quantity
                         };
-                        _context.SubItemPermissions.Add(subItemPermission);
+
+                        _context.ItemPermissions.Add(ItemPermission);
 
                         var subItem = await _context.SubItems
-                        .FirstOrDefaultAsync(si => si.ItemFk == item.ItemId && si.SubFk == item.SubId);
+                        .FirstOrDefaultAsync(si => si.ItemFk == item.ItemId && si.SubFk == permissionDto.SubId);
 
                         if (subItem != null)
                         {
@@ -136,7 +115,7 @@ namespace Repository.PermissionRepo
                             subItem = new SubItem
                             {
                                 ItemFk = item.ItemId,
-                                SubFk = item.SubId,
+                                SubFk = permissionDto.SubId,
                                 Quantity = item.Quantity
                             };
                             _context.SubItems.Add(subItem);
@@ -151,6 +130,7 @@ namespace Repository.PermissionRepo
                     throw new Exception($"Add operation failed: {ex.Message}");
                 }
             }
+
         }
 
         private async Task HandleWithdrawOrDamagedPermissionAsync(PermissionDto permissionDto)
@@ -159,7 +139,7 @@ namespace Repository.PermissionRepo
             {
                 try
                 {
-                    var newPermission = await CreatePermissionAsync(permissionDto.PermTypeFk);
+                    var newPermission = await CreatePermissionAsync(permissionDto);
                     foreach (var item in permissionDto.Items)
                     {
                         var itemExists = await _context.Items
@@ -169,13 +149,13 @@ namespace Repository.PermissionRepo
                             throw new Exception($"Item not found.");
 
                         var subExisted = await _context.SubWearhouses
-                            .AnyAsync(s => s.SubId == item.SubId);
+                            .AnyAsync(s => s.SubId == permissionDto.SubId);
 
                         if (!subExisted)
                             throw new Exception($"Subwarehouse not found.");
 
                         var subItem = await _context.SubItems
-                        .FirstOrDefaultAsync(si => si.ItemFk == item.ItemId && si.SubFk == item.SubId);
+                        .FirstOrDefaultAsync(si => si.ItemFk == item.ItemId && si.SubFk == permissionDto.SubId);
 
                         if (subItem == null || subItem.Quantity < item.Quantity)
                         {
@@ -196,14 +176,13 @@ namespace Repository.PermissionRepo
                         {
                             throw new Exception("Insufficient quantity for item.");
                         }
-                        var subItemPermission = new SubItemPermission
+                        var ItemPermission = new ItemPermission
                         {
                             ItemFk = item.ItemId,
                             PermFk = newPermission.PermId,
-                            SubFk = item.SubId,
                             Quantity = item.Quantity
                         };
-                        _context.SubItemPermissions.Add(subItemPermission);
+                        _context.ItemPermissions.Add(ItemPermission);
 
                     }
 
@@ -216,6 +195,7 @@ namespace Repository.PermissionRepo
                     throw new Exception($"{(permissionDto.PermTypeFk == 3 ? "Withdraw" : "Damaged")} operation failed: {ex.Message}");
                 }
             }
+
         }
 
         private async Task HandleTransferPermissionAsync(PermissionDto permissionDto)
@@ -224,7 +204,7 @@ namespace Repository.PermissionRepo
             {
                 try
                 {
-                    var newPermission = await CreatePermissionAsync(permissionDto.PermTypeFk);
+                    var newPermission = await CreatePermissionAsync(permissionDto);
 
                     foreach (var item in permissionDto.Items)
                     {
@@ -235,19 +215,19 @@ namespace Repository.PermissionRepo
                             throw new Exception($"Item not found.");
 
                         var sourceSubExists = await _context.SubWearhouses
-                            .AnyAsync(s => s.SubId == item.SubId); 
+                            .AnyAsync(s => s.SubId == permissionDto.SubId);
 
                         if (!sourceSubExists)
                             throw new Exception($"Source sub-warehouse not found.");
 
                         var destinationSubExists = await _context.SubWearhouses
-                            .AnyAsync(s => s.SubId == item.DestinationSubId); 
+                            .AnyAsync(s => s.SubId == permissionDto.DestinationSubId);
 
                         if (!destinationSubExists)
                             throw new Exception($"Destination sub-warehouse not found.");
 
                         var sourceSubItem = await _context.SubItems
-                            .FirstOrDefaultAsync(si => si.ItemFk == item.ItemId && si.SubFk == item.SubId);
+                            .FirstOrDefaultAsync(si => si.ItemFk == item.ItemId && si.SubFk == permissionDto.SubId);
 
                         if (sourceSubItem == null || sourceSubItem.Quantity < item.Quantity)
                         {
@@ -257,7 +237,7 @@ namespace Repository.PermissionRepo
                         sourceSubItem.Quantity -= item.Quantity;
 
                         var destinationSubItem = await _context.SubItems
-                            .FirstOrDefaultAsync(si => si.ItemFk == item.ItemId && si.SubFk == item.DestinationSubId);
+                            .FirstOrDefaultAsync(si => si.ItemFk == item.ItemId && si.SubFk == permissionDto.DestinationSubId);
 
                         if (destinationSubItem != null)
                         {
@@ -268,21 +248,19 @@ namespace Repository.PermissionRepo
                             destinationSubItem = new SubItem
                             {
                                 ItemFk = item.ItemId,
-                                SubFk = item.DestinationSubId,
+                                SubFk = permissionDto.DestinationSubId,
                                 Quantity = item.Quantity
                             };
                             _context.SubItems.Add(destinationSubItem);
                         }
 
-                        var subItemPermission = new SubItemPermission
+                        var ItemPermission = new ItemPermission
                         {
                             ItemFk = item.ItemId,
                             PermFk = newPermission.PermId,
-                            SubFk = item.SubId, 
-                            DestinationSubFk = item.DestinationSubId, 
                             Quantity = item.Quantity
                         };
-                        _context.SubItemPermissions.Add(subItemPermission);
+                        _context.ItemPermissions.Add(ItemPermission);
                     }
 
                     await _context.SaveChangesAsync();
@@ -294,6 +272,7 @@ namespace Repository.PermissionRepo
                     throw new Exception($"Transfer operation failed: {ex.Message}");
                 }
             }
+
         }
 
     }

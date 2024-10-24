@@ -21,6 +21,8 @@ public partial class StockContext : DbContext
 
     public virtual DbSet<Item> Items { get; set; }
 
+    public virtual DbSet<ItemPermission> ItemPermissions { get; set; }
+
     public virtual DbSet<ItemSupplier> ItemSuppliers { get; set; }
 
     public virtual DbSet<MainWearhouse> MainWearhouses { get; set; }
@@ -32,8 +34,6 @@ public partial class StockContext : DbContext
     public virtual DbSet<Quantity> Quantities { get; set; }
 
     public virtual DbSet<SubItem> SubItems { get; set; }
-
-    public virtual DbSet<SubItemPermission> SubItemPermissions { get; set; }
 
     public virtual DbSet<SubWearhouse> SubWearhouses { get; set; }
 
@@ -120,6 +120,27 @@ public partial class StockContext : DbContext
                 .HasConstraintName("FK_Items_Unite");
         });
 
+        modelBuilder.Entity<ItemPermission>(entity =>
+        {
+            entity.HasKey(e => e.ItemPerId).HasName("PK_SubItemPermission");
+
+            entity.ToTable("ItemPermission");
+
+            entity.Property(e => e.ItemPerId).HasColumnName("ItemPer_ID");
+            entity.Property(e => e.ItemFk).HasColumnName("Item_FK");
+            entity.Property(e => e.PermFk).HasColumnName("Perm_FK");
+
+            entity.HasOne(d => d.ItemFkNavigation).WithMany(p => p.ItemPermissions)
+                .HasForeignKey(d => d.ItemFk)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ItemPermission_Items");
+
+            entity.HasOne(d => d.PermFkNavigation).WithMany(p => p.ItemPermissions)
+                .HasForeignKey(d => d.PermFk)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_ItemPermission_Permission");
+        });
+
         modelBuilder.Entity<ItemSupplier>(entity =>
         {
             entity.HasKey(e => e.ItemSuppliersId);
@@ -170,10 +191,20 @@ public partial class StockContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("Perm_Createdat");
             entity.Property(e => e.PermTypeFk).HasColumnName("PermType_FK");
+            entity.Property(e => e.SubFk).HasColumnName("Sub_FK");
+
+            entity.HasOne(d => d.DestinationSubFkNavigation).WithMany(p => p.PermissionDestinationSubFkNavigations)
+                .HasForeignKey(d => d.DestinationSubFk)
+                .HasConstraintName("FK_Permission_SubWearhouse");
 
             entity.HasOne(d => d.PermTypeFkNavigation).WithMany(p => p.Permissions)
                 .HasForeignKey(d => d.PermTypeFk)
                 .HasConstraintName("FK_Permission_PermissionType");
+
+            entity.HasOne(d => d.SubFkNavigation).WithMany(p => p.PermissionSubFkNavigations)
+                .HasForeignKey(d => d.SubFk)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Permission_SubWearhouse1");
         });
 
         modelBuilder.Entity<PermissionType>(entity =>
@@ -222,33 +253,6 @@ public partial class StockContext : DbContext
             entity.HasOne(d => d.SubFkNavigation).WithMany(p => p.SubItems)
                 .HasForeignKey(d => d.SubFk)
                 .HasConstraintName("FK_SubItem_SubWearhouse");
-        });
-
-        modelBuilder.Entity<SubItemPermission>(entity =>
-        {
-            entity.HasKey(e => e.ItemPerId);
-
-            entity.ToTable("SubItemPermission");
-
-            entity.Property(e => e.ItemPerId).HasColumnName("ItemPer_ID");
-            entity.Property(e => e.ItemFk).HasColumnName("Item_FK");
-            entity.Property(e => e.PermFk).HasColumnName("Perm_FK");
-            entity.Property(e => e.SubFk).HasColumnName("Sub_FK");
-
-            entity.HasOne(d => d.ItemFkNavigation).WithMany(p => p.SubItemPermissions)
-                .HasForeignKey(d => d.ItemFk)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ItemPermission_Items");
-
-            entity.HasOne(d => d.PermFkNavigation).WithMany(p => p.SubItemPermissions)
-                .HasForeignKey(d => d.PermFk)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_ItemPermission_Permission");
-
-            entity.HasOne(d => d.SubFkNavigation).WithMany(p => p.SubItemPermissions)
-                .HasForeignKey(d => d.SubFk)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_SubItemPermission_SubWearhouse");
         });
 
         modelBuilder.Entity<SubWearhouse>(entity =>

@@ -37,7 +37,6 @@ export class DisplayItemsComponent {
         this.ItemDetailsResult = data;
         this.ItemsDetails= this.ItemDetailsResult.itemsDetails;
         console.log("data",data);
-
       },
       error: (error) => {
         this.loading = false;
@@ -56,10 +55,11 @@ export class DisplayItemsComponent {
     });
     dialogRef.onClose.subscribe((result) => {
       if (result === 'confirmed') {
-        // this.getItems($event);
+         this.getItems({ first: 0 });
       }
     });
   }
+
   onPageSizeChange(event: any) {
     const newSize = event.target.value; // Extract the selected value from the event
     this.pageSize = Number(newSize); // Convert it to a number and set the page size

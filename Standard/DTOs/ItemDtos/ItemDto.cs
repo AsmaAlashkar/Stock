@@ -9,8 +9,6 @@ namespace Standard.DTOs.ItemDtos
     public class ItemDto
     {
         public int ItemId { get; set; }
-        public int SubId { get; set; }
-        public int? DestinationSubId { get; set; }
         public int Quantity { get; set; }
     }
 }

@@ -23,36 +23,47 @@ namespace Repository.ItemRepo
 
         public async Task<ItemDetailsResult> GetItems(DTOPaging paging)
         {
-            ItemDetailsResult itemDetailsResult=new ItemDetailsResult();
-            itemDetailsResult.Total= await _context.Items.CountAsync(); 
-             itemDetailsResult.ItemsDetails = await (from item in _context.Items
-                                join unit in _context.Units on item.UniteFk equals unit.UnitId
-                                join category in _context.Categories on item.CatFk equals category.CatId
-                                join quantity in _context.Quantities on item.ItemId equals quantity.ItemFk
-                                select new ItemDetailsDto
-                                {
-                                    ItemId = item.ItemId,
-                                    ItemName = item.ItemName,
-                                    ItemCode = item.ItemCode,
-                                    UnitName = unit.UnitName,
-                                    CategoryName = category.CatNameEn,  
-                                    
-                                    CurrentQuantity = (int)quantity.CurrentQuantity.GetValueOrDefault()  
-                                })
-                                .OrderBy(i => i.ItemId)  
-                                .Skip((paging.PageNumber - 1) * paging.PageSize) 
-                                .Take(paging.PageSize)  
-                                .ToListAsync();
+            ItemDetailsResult itemDetailsResult = new ItemDetailsResult();
 
-            return itemDetailsResult;
+            // Fetch total item count
+            itemDetailsResult.Total = await _context.Items.CountAsync();
+
+            // Fetch paginated item details
+            itemDetailsResult.ItemsDetails = await (
+                                                    from item in _context.Items
+                                                    join unit in _context.Units on item.UniteFk equals unit.UnitId into unitGroup
+                                                    from unit in unitGroup.DefaultIfEmpty() // Handle null for units
+                                                    join category in _context.Categories on item.CatFk equals category.CatId
+                                                    join quantity in _context.Quantities on item.ItemId equals quantity.ItemFk into quantityGroup
+                                                    from quantity in quantityGroup.DefaultIfEmpty() // Handle null for quantities
+                                                    select new ItemDetailsDto
+                                                    {
+                                                        ItemId = item.ItemId,
+                                                        ItemName = item.ItemName,
+                                                        ItemCode = item.ItemCode,
+                                                        UnitName = unit != null ? unit.UnitName : "N/A", // Handle null unit
+                                                        CategoryName = category.CatNameEn,
+                                                        // Explicitly cast CurrentQuantity to int and handle null quantities
+                                                        CurrentQuantity = quantity != null && quantity.CurrentQuantity.HasValue
+                                                                          ? (int)quantity.CurrentQuantity.Value // Cast to int
+                                                                          : 0 // Default to 0 if quantity is null
+                                                    })
+                                                    .OrderBy(i => i.ItemId)  // Sort by ItemId or any desired field
+                                                    .Skip((paging.PageNumber - 1) * paging.PageSize)  // Skip records for previous pages
+                                                    .Take(paging.PageSize)  // Fetch the required page size
+                                                    .ToListAsync();
+
+            return itemDetailsResult; // Return the result with paginated item details and total records
         }
+
         public async Task<List<ItemsNamesDto>> GetItemsNames()
         {
             var items = await _context.Items
                              .Select(item => new ItemsNamesDto
                              {
                                  ItemId = item.ItemId,
-                                 ItemName = item.ItemName
+                                 ItemName = item.ItemName,
+                                ItemCode = item.ItemCode
                              })
                              .ToListAsync();
 
@@ -92,7 +103,46 @@ namespace Repository.ItemRepo
             return result;
         }
 
+        public async Task<ItemDetailsDto?> GetItemDetailsBySubAsync(int itemId, int subId)
+        {
+            var itemExists = await _context.Items
+        .AsNoTracking()
+        .AnyAsync(i => i.ItemId == itemId);
 
+            if (!itemExists)
+            {
+                return null; 
+            }
+
+            var subExists = await _context.SubWearhouses
+                .AsNoTracking()
+                .AnyAsync(sw => sw.SubId == subId);
+
+            if (!subExists)
+            {
+                return null; 
+            }
+            var itemDto = await _context.Items
+                .AsNoTracking()
+                .Include(i => i.UniteFkNavigation)   
+                .Include(i => i.CatFkNavigation)     
+                .Include(i => i.SubItems)             
+                .Where(i => i.ItemId == itemId)      
+                .Select(i => new ItemDetailsDto
+                {
+                    ItemId = i.ItemId,
+                    ItemName = i.ItemName,
+                    ItemCode = i.ItemCode,
+                    UnitName = i.UniteFkNavigation != null ? i.UniteFkNavigation.UnitName : "N/A",  
+                    CategoryName = i.CatFkNavigation.CatNameEn,
+                    CurrentQuantity = i.SubItems
+                                      .Where(si => si.SubFk == subId)
+                                      .Sum(si => si.Quantity.HasValue ? (int)si.Quantity.Value : 0)  
+                })
+                .FirstOrDefaultAsync();
+
+            return itemDto;
+        }
         public async Task<ItemDetailsResult> GetItemsByCategoryId(int catId, DTOPaging paging)
         {
             // Initialize result object to store item details and total record count

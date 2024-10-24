@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ItemsService } from '../items.service';
@@ -18,6 +18,8 @@ export class CreateItemComponent implements OnInit{
   errors: string[] = [];
   categories: Category[] = [];
   units: Unit[] = []; 
+  selectedCategoryId: number | null = null;
+
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -29,6 +31,7 @@ export class CreateItemComponent implements OnInit{
   ) { }
   
   ngOnInit(): void {
+    this.selectedCategoryId = this.config.data?.categoryId || null;
     this.createItemForm();
     this.loadCategories();
     this.loadUnits();
@@ -39,7 +42,7 @@ export class CreateItemComponent implements OnInit{
       itemId: [0],
       itemCode: ['', Validators.required],
       itemName:  ['', Validators.required],
-      catFk:[0, Validators.required],
+      catFk:[this.selectedCategoryId || 0, Validators.required],
       uniteFk:[0, Validators.required],
       itemExperationdate:[null],
       itemCreatedat:[null],
@@ -50,6 +53,9 @@ export class CreateItemComponent implements OnInit{
     this.categoryService.getCtegories().subscribe({
       next: (response) => {
         this.categories = response;
+        if (this.selectedCategoryId) {
+          this.ItemForm.patchValue({ catFk: this.selectedCategoryId });
+        }
       },
       error: (err) => console.error(err)
     });

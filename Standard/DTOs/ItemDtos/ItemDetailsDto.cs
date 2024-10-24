@@ -10,8 +10,6 @@ namespace Standard.DTOs.ItemDtos
     {
         public int ItemId { get; set; }
         public string ItemName { get; set; }
-     
-
         public string ItemCode { get; set; } = null!;
         public string UnitName { get; set; }
         public string CategoryName { get; set; }
