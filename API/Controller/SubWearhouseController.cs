@@ -8,6 +8,9 @@ using Repository.SubWearHouse;
 using Standard.DTOs;
 using Repository.VMainWearhouseItem;
 using Repository.VWearhouseWithSubHierarchy;
+using Standard.DTOs.ItemDtos;
+using System.Security.Policy;
+using Standard.DTOs.SubDto;
 
 namespace API.Controller
 {
@@ -42,6 +45,18 @@ namespace API.Controller
 
             // Return the list of DTOs
             return Ok(vmhiDtos);
+        }
+        [HttpGet("GetSubNames")]
+        public async Task<ActionResult<List<SubNamesDto>>> GetSubsNames()
+        {
+            var subNames = await _swh.GetSubsNames();
+
+            if (subNames == null || subNames.Count == 0)
+            {
+                return NotFound("No Subs found.");
+            }
+
+            return Ok(subNames);
         }
 
         [HttpGet("{id}")]

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { ItemDetailsDtoVM, ItemDetailsResult, Item } from '../shared/models/items';
+import { ItemDetailsDtoVM, ItemDetailsResult, Item, ItemDetailsPerTab } from '../shared/models/items';
 import { Observable, skip } from 'rxjs';
 
 @Injectable({
@@ -37,6 +37,13 @@ export class ItemsService {
     getItemsBySubIdVM(id: number): Observable <ItemDetailsDtoVM[]> {
       return this.http.get<ItemDetailsDtoVM[]>(`${environment.getItemsBySubIdVM}${id}`, this.httpHeader);
     }
+
+    getItemsBySubIdItemId(subId: number, itemId: number[]): Observable <ItemDetailsPerTab> {
+      // console.log(`${environment.getItemsBySubIdVM}${subId}/${itemId}`)
+      return this.http.get<ItemDetailsPerTab>(`${environment.getItemsBySubIdItemId}${subId}/${itemId}`, this.httpHeader);
+
+    }
+
     createItem(item: Item) :Observable<Item>{
         return this.http.post<Item>(`${environment.createItem}`, item,
           {headers:this.httpHeader.headers, responseType: 'text' as 'json'});

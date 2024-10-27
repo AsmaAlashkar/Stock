@@ -25,3 +25,12 @@ export interface ItemDetailsDtoVM {
   itemName: string,
   subWearId?: number
 }
+
+export interface ItemDetailsPerTab {
+  itemId: number
+  itemName: string
+  itemCode: string
+  unitName: string
+  categoryName: string
+  currentQuantity: number
+}

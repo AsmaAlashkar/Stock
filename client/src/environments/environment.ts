@@ -10,6 +10,7 @@ export const environment = {
     getMainWearhouseById:'http://localhost:5050/api/MainWearhouse/GetMainWearhouseById/',
 
     getSubwarehouse: 'http://localhost:5050/api/SubWearhouse/GetSubWearhouse',
+    getSubwarehouseVM: 'http://localhost:5050/api/SubWearhouse/GetSubsNames/GetSubNames',
 
     getCtegories:'http://localhost:5050/api/Category/GetCategories',
     getCategoryById:'http://localhost:5050/api/Category/GetCategoryById/',
@@ -19,6 +20,7 @@ export const environment = {
     getItems:'http://localhost:5050/api/Item/GetItems',
     getItemsVM:'http://localhost:5050/api/Item/GetItemNames',
     getItemsBySubIdVM: 'http://localhost:5050/api/Item/GetItemsNamesBySubId/',
+    getItemsBySubIdItemId: 'http://localhost:5050/api/Item/GetItemDetailsBySubAsync/',
     getItemsByCategoryId:'http://localhost:5050/api/Item/GetItemsByCategoryId/',
     getItemsBySubId:'http://localhost:5050/api/Item/GetItemsBySubWHId/',
     createItem:'http://localhost:5050/api/Item/CreateItem',
