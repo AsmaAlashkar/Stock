@@ -10,7 +10,7 @@ namespace Repository.MainWearHouse
 {
     public interface IMWHRepository
     {
-        Task<List<MainWearhouse>> GetAllMainWearHouse();
-        Task<MainWearhouse?> GetMainWearHouseById(int id);
+        Task<List<ViewMainWearhouseWithSubWearhouseHierarchy>> GetAllMainWearHouse();
+        Task<ViewMainWearhouseWithSubWearhouseHierarchy?> GetMainWearHouseById(int id);
     }
 }
