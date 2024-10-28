@@ -78,7 +78,7 @@
       inputId="float-label"
       [options]="ItemDetailsResultVM"
       [(ngModel)]="selectedItems"
-      (ngModelChange)="getItemsBySubIdItemId($event)"
+      (ngModelChange)="onMultiSelectChange($event)"
       class="ng-dirty ng-invalid"
       optionLabel="itemName"
       appendTo="body"

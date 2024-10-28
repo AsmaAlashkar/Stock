@@ -1,12 +1,12 @@
 export interface Permissionaction {
   "permId": number,
   "permTypeFk": number,
+  "subId": number,
+  "destinationSubId": number,
   "items": [
     {
       "itemId": number,
-      "subId": number,
-      "destinationSubId": number,
-      "quantity": number,
+      "quantity": number
     }
   ],
   "permCreatedat": string

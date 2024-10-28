@@ -41,8 +41,10 @@ export class PermissionActionComponent implements OnInit {
   {
     this.Permissionaction = {
       permId: 0,
-      items: [{itemId: 0, destinationSubId: 0, quantity: 0, subId: 0}],
       permTypeFk: 0,
+      subId: 0,
+      destinationSubId: 0,
+      items: [{itemId: 0, quantity: 0}],
       permCreatedat: ""
     }
   }
@@ -143,6 +145,12 @@ export class PermissionActionComponent implements OnInit {
       let subId = this.selectedSubWearFrom.subId;
       console.log("subId From getItemsBySubIdItemId",subId);
 
+      console.log("event", $event);
+      console.log("this.ItemDetailsResultVM.length", this.ItemDetailsResultVM.length);
+      if ($event.length == this.ItemDetailsResultVM.length) {
+
+
+      }
       let index = $event.length - 1;
       console.log('Selected item ID:', $event[index].itemId);
       let itemId = $event[index].itemId;
@@ -160,7 +168,7 @@ export class PermissionActionComponent implements OnInit {
         }
       });
     } else {
-      console.log('No items selected.');
+      console.log('No SubWearHouse or items selected.');
     }
   }
 
@@ -169,35 +177,55 @@ export class PermissionActionComponent implements OnInit {
     console.log("Item removed:", item);
   }
 
-  // onMultiSelectChange(event: any) {
-  //   if (!this.selectedItems) {
-  //     this.selectedItems = [];
-  //   }
-  //   const removedItems = this.selectedItems.filter(item =>
-  //     !this.itemDetailsPerTab || !this.itemDetailsPerTab.some(i => i.itemId === item.itemId)
-  //   );
-
-  //   removedItems.forEach(item => this.onItemUncheck(item));
-
-  //   this.getItemsBySubIdItemId(this.selectedItems);
-  // }
-
   onMultiSelectChange(event: any) {
-    // Ensure selectedItems is an array
     if (!this.selectedItems) {
       this.selectedItems = [];
     }
 
-    // Find removed items
+    if (event.length === this.filteredItems.length) {
+      // console.log("hmada");
+      this.selectedItems.forEach(item => {
+        console.log("Selected Item ID: ", item.itemId);
+        // this.itemsService.getItemsBySubIdItemId(subId, itemId).subscribe({
+        //   next: (data) => {
+        //     const exists = this.itemDetailsPerTab.some(item => item.itemId === data.itemId);
+        //     if (!exists) {
+        //       this.itemDetailsPerTab.push(data)
+        //       console.log("ItemDetailsPerTab", data);
+        //     }
+        //   },
+        //   error: (error) => {
+        //     console.error('Error fetching items', error);
+        //   }
+        // });
+      });
+      // this.itemDetailsPerTab = [...this.filteredItems];
+    } else {
+      const removedItems = this.itemDetailsPerTab.filter(item =>
+        !this.selectedItems.some(selected => selected.itemId === item.itemId)
+      );
+
+      removedItems.forEach(item => this.onItemUncheck(item));
+
+      this.getItemsBySubIdItemId(this.selectedItems);
+    }
+  }
+
+  /*onMultiSelectChange(event: any) {
+    console.log("event :",event);
+
+    if (!this.selectedItems) {
+      this.selectedItems = [];
+    }
     const removedItems = this.itemDetailsPerTab.filter(item =>
       !this.selectedItems.some(selected => selected.itemId === item.itemId)
     );
+    console.log("removedItems :",removedItems);
 
-    // Remove unchecked items from itemDetailsPerTab
     removedItems.forEach(item => this.onItemUncheck(item));
-
-    // Handle newly selected items
     this.getItemsBySubIdItemId(this.selectedItems);
-  }
+  }*/
+
+
 
 }
