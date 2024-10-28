@@ -9,7 +9,7 @@
   <!-- <form #permActForm="ngForm" (ngSubmit)="save(permActForm)"> -->
 
     <br />
-
+<form #permForm="ngForm" (ngSubmit)="save(permForm)">
   <!-- drowpdown selecte From (From subWearhouse) (getsubWearhouse()) -->
   <span class="p-float-label">
     <p-dropdown
@@ -23,6 +23,7 @@
       appendTo="body"
       placeholder="Select SubWarehouse"
       [editable]="true"
+      name="SubWearFrom"
     >
       <ng-template pTemplate="selectedItem">
         <div class="flex align-items-center gap-2" *ngIf="selectedSubWearFrom">
@@ -54,6 +55,7 @@
       appendTo="body"
       placeholder="Select Destination SubWarehouse"
       [editable]="true"
+      name="SubWearTo"
     >
       <ng-template pTemplate="selectedItem">
         <div class="flex align-items-center gap-2" *ngIf="selectedSubWearTo">
@@ -85,6 +87,7 @@
       display="chip"
       [showClear]="true"
       placeholder="Select Items"
+      name="all item"
     ></p-multiSelect>
     <label for="float-label">Select Items</label>
   </span>
@@ -103,6 +106,7 @@
       display="chip"
       [showClear]="true"
       placeholder="Select Items"
+      name="itembysub"
     ></p-multiSelect>
     <label for="float-label">Select Items By Sub</label>
   </span>
@@ -120,7 +124,7 @@
               <th style="width:25%">Current Quantity</th>
           </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-itemDetailsPerTab let-editing="editing">
+      <ng-template pTemplate="body" let-itemDetailsPerTab let-editing="editing" let-index="index">
           <tr>
               <!-- <td>
                 <p-tableCheckbox [value]="product"></p-tableCheckbox>
@@ -140,7 +144,16 @@
               <td [pEditableColumn]="itemDetailsPerTab.currentQuantity" pEditableColumnField="inventoryStatus">
                   <p-cellEditor>
                       <ng-template pTemplate="input">
-                          <input pInputText [(ngModel)]="itemDetailsPerTab.currentQuantity" inputId="integeronly" [min]="0"/>
+                          <!-- <input pInputText [(ngModel)]="itemDetailsPerTab.currentQuantity" inputId="integeronly" [min]="0"/> -->
+                          <span class="p-float-label">
+                            <p-inputNumber
+                              [(ngModel)]="Permissionaction.items"
+                              inputId="integeronly"
+                              [min]="0"
+                              name="quantity"
+                            ></p-inputNumber>
+                            <label htmlFor="quantity">Quantity</label>
+                          </span>
                       </ng-template>
                       <ng-template pTemplate="output">
                           {{ itemDetailsPerTab.currentQuantity }}
@@ -168,4 +181,4 @@
       </span> -->
 
     <button type="submit" class="btn btn-primary my-3">Save Permission</button>
-  <!-- </form> -->
+  </form>

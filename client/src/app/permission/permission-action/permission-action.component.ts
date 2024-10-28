@@ -1,5 +1,5 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PermissionService } from '../permission.service';
@@ -183,23 +183,21 @@ export class PermissionActionComponent implements OnInit {
     }
 
     if (event.length === this.filteredItems.length) {
-      // console.log("hmada");
       this.selectedItems.forEach(item => {
         console.log("Selected Item ID: ", item.itemId);
-        // this.itemsService.getItemsBySubIdItemId(subId, itemId).subscribe({
-        //   next: (data) => {
-        //     const exists = this.itemDetailsPerTab.some(item => item.itemId === data.itemId);
-        //     if (!exists) {
-        //       this.itemDetailsPerTab.push(data)
-        //       console.log("ItemDetailsPerTab", data);
-        //     }
-        //   },
-        //   error: (error) => {
-        //     console.error('Error fetching items', error);
-        //   }
-        // });
+        this.itemsService.getItemsBySubIdItemId(this.selectedSubWearFrom.subId, item.itemId).subscribe({
+          next: (data) => {
+            const exists = this.itemDetailsPerTab.some(item => item.itemId === data.itemId);
+            if (!exists) {
+              this.itemDetailsPerTab.push(data)
+              console.log("ItemDetailsPerTab", data);
+            }
+          },
+          error: (error) => {
+            console.error('Error fetching items', error);
+          }
+        });
       });
-      // this.itemDetailsPerTab = [...this.filteredItems];
     } else {
       const removedItems = this.itemDetailsPerTab.filter(item =>
         !this.selectedItems.some(selected => selected.itemId === item.itemId)
@@ -226,6 +224,29 @@ export class PermissionActionComponent implements OnInit {
     this.getItemsBySubIdItemId(this.selectedItems);
   }*/
 
+  save(form: NgForm) {
+    this.Permissionaction.permTypeFk = this.headerValue === 'نقل' ? 1 : 0;
+    console.log(this.Permissionaction.permTypeFk);
 
+    this.Permissionaction.subId = this.selectedSubWearFrom?.subId || 0;
+    this.Permissionaction.destinationSubId = this.selectedSubWearTo?.subId || 0;
+    this.Permissionaction.permCreatedat = new Date().toISOString();
+
+    this.Permissionaction.items = this.selectedItems.map(item => ({
+      itemId: item.itemId,
+      quantity: item.quantity as number
+    }));
+
+    this.permService.permissionAction(this.Permissionaction).subscribe({
+      next: data => {
+        this.toastr.success('Permission saved successfully');
+        form.reset();
+      },
+      error: error => {
+        this.toastr.error('Error saving permission');
+        console.error(error);
+      }
+    });
+  }
 
 }

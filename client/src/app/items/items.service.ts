@@ -38,7 +38,7 @@ export class ItemsService {
       return this.http.get<ItemDetailsDtoVM[]>(`${environment.getItemsBySubIdVM}${id}`, this.httpHeader);
     }
 
-    getItemsBySubIdItemId(subId: number, itemId: number[]): Observable <ItemDetailsPerTab> {
+    getItemsBySubIdItemId(subId: number, itemId: number): Observable <ItemDetailsPerTab> {
       // console.log(`${environment.getItemsBySubIdVM}${subId}/${itemId}`)
       return this.http.get<ItemDetailsPerTab>(`${environment.getItemsBySubIdItemId}${subId}/${itemId}`, this.httpHeader);
 
