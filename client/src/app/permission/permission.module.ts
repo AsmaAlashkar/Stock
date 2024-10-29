@@ -26,7 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DropdownModule,
     MultiSelectModule,
     BrowserAnimationsModule,
-    TableModule
+    TableModule,
   ],
   providers: [
     DialogService,

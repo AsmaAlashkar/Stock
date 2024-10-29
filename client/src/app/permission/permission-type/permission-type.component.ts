@@ -52,32 +52,39 @@ export class PermissinTypeComponent implements OnDestroy{
   }
 
   show(selectedPermissionType: IPermissionType) {
-    console.log("selectedPermissionType :",selectedPermissionType);
+    console.log("selectedPermissionType :", selectedPermissionType);
     const headerValue = selectedPermissionType ? selectedPermissionType.perTypeValue : 'Default Header';
-    const headerValuePremId = selectedPermissionType ? selectedPermissionType.perId : 'Default Header';
 
     this.ref = this.dialogService.open(PermissionActionComponent, {
-      header: headerValue,
-      width: '70%',
-      contentStyle: { overflow: 'auto' },
-      baseZIndex: 10000,
-      maximizable: true,
-      data: {
-        headerValue: headerValue,
-        header: headerValuePremId
-      }
+        header: headerValue,
+        width: '70%',
+        contentStyle: { overflow: 'auto' },
+        baseZIndex: 10000,
+        maximizable: true,
+        data: {
+            headerValue: headerValue,
+            perId: selectedPermissionType.perId  // Pass perId here
+        }
     });
 
     this.ref.onClose.subscribe((permissionTypes: IPermissionType) => {
         if (permissionTypes) {
-            this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: permissionTypes.perTypeValue });
+            this.messageService.add({
+                severity: 'info',
+                summary: 'Product Selected',
+                detail: permissionTypes.perTypeValue
+            });
         }
     });
 
     this.ref.onMaximize.subscribe((value) => {
-      this.messageService.add({ severity: 'info', summary: 'Maximized', detail: `maximized: ${value.maximized}` });
+        this.messageService.add({
+            severity: 'info',
+            summary: 'Maximized',
+            detail: `maximized: ${value.maximized}`
+        });
     });
-  }
+}
 
   ngOnDestroy() {
       if (this.ref) {
