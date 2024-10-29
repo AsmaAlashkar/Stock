@@ -16,6 +16,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./permission-action.component.scss']
 })
 export class PermissionActionComponent implements OnInit {
+  showWarning: boolean = false;
   perId!: number;
   permActForm!: FormGroup;
   errors: string[] = [];
@@ -114,6 +115,7 @@ export class PermissionActionComponent implements OnInit {
       this.selectedItems = [];
     }
     this.getItemsBySubIdItemId(event);
+    this.showWarning = !this.selectedSubWearFrom || !this.selectedSubWearTo;
   }
 
   displayItemsBySubId(subId: number) {
@@ -220,6 +222,8 @@ export class PermissionActionComponent implements OnInit {
 
 
     save(form: NgForm) {
+ 
+      // Continue with the save process
       this.Permissionaction.permTypeFk = this.perId;
       this.Permissionaction.subId = this.selectedSubWearFrom?.subId || 0;
       this.Permissionaction.destinationSubId = this.selectedSubWearTo?.subId || null;
@@ -234,15 +238,18 @@ export class PermissionActionComponent implements OnInit {
       // Log to verify that each item has a correct quantity value
       console.log('PermissionAction data:', this.Permissionaction);
     
+     
       // Call the service
       this.permService.permissionAction(this.Permissionaction).subscribe({
-          next: (response) => {
-              console.log('Permission created:', response);
-          },
-          error: (error) => {
-              console.error('Error creating permission:', error);
-              this.toastr.error('Error creating permission');
-          }
+      next: (response) => {
+      console.log('Order created:', response);
+      this.toastr.success('Order created successfully!', 'Success'); // Show success toast
+      this.ref.close(); // Optionally close the dialog if applicable
+    },
+    error: (error) => {
+      console.error('Error creating permission:', error);
+      this.toastr.error('Error creating permission', 'Error'); // Show error toast
+    }
       });
   }
     

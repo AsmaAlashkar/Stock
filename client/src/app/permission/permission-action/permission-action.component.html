@@ -1,16 +1,6 @@
-<!-- <form [formGroup]="permActForm" (ngSubmit)="save()"> -->
-<!-- <div class="form-group">
-    <span class="p-float-label">
-      <p-inputNumber [(ngModel)]="Permissionaction.permTypeFk" inputId="integeronly" [min]="0"></p-inputNumber>
-      <label htmlFor="permTypeFk">PermTypeFk</label>
-    </span>
-  </div> -->
-  <!-- <form [formGroup]="permActForm" (ngSubmit)="save()"> -->
-  <!-- <form #permActForm="ngForm" (ngSubmit)="save(permActForm)"> -->
 
-    <br />
 <form #permForm="ngForm" (ngSubmit)="save(permForm)">
-  <!-- drowpdown selecte From (From subWearhouse) (getsubWearhouse()) -->
+
   <span class="p-float-label">
     <p-dropdown
       [options]="subWearhouses"
