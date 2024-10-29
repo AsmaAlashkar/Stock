@@ -2,7 +2,7 @@ export interface Permissionaction {
   permId: number,
   permTypeFk: number,
   subId: number,
-  destinationSubId: number,
+  destinationSubId?: number | null,
   // items: [
   //   {
   //     "itemId": number,

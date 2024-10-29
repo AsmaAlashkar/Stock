@@ -20,6 +20,7 @@ export class PermissionActionComponent implements OnInit {
   permActForm!: FormGroup;
   errors: string[] = [];
   headerValue:string = '';
+  header:number = 0;
   Permissionaction: Permissionaction;
   ItemDetailsResultVM: ItemDetailsDtoVM[] = [];
   selectedItems!: ItemDetailsDtoVM[];
@@ -43,7 +44,7 @@ export class PermissionActionComponent implements OnInit {
       permId: 0,
       permTypeFk: 0,
       subId: 0,
-      destinationSubId: 0,
+      destinationSubId: null,
       items: [{itemId: 0, quantity: 0}],
       permCreatedat: ""
     }
@@ -53,6 +54,7 @@ export class PermissionActionComponent implements OnInit {
     this.getSubwearhouse();
 
     this.headerValue = this.config.data.headerValue;
+    this.header = this.config.data.permId;
     console.log(this.headerValue);
   }
 
@@ -225,7 +227,7 @@ export class PermissionActionComponent implements OnInit {
   }*/
 
   save(form: NgForm) {
-    this.Permissionaction.permTypeFk = this.headerValue === 'نقل' ? 1 : 0;
+    this.Permissionaction.permId = this.headerValue === 'نقل' ? 1 : 0;
     console.log(this.Permissionaction.permTypeFk);
 
     this.Permissionaction.subId = this.selectedSubWearFrom?.subId || 0;
