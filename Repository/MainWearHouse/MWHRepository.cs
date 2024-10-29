@@ -17,18 +17,18 @@ namespace Repository.MainWearHouse
             _context = context;
         }
 
-        public async Task<List<MainWearhouse>> GetAllMainWearHouse()
+        public async Task<List<ViewMainWearhouseWithSubWearhouseHierarchy>> GetAllMainWearHouse()
         {
-            return await _context.MainWearhouses
-                .Where(mw => mw.Delet == false || mw.Delet == null)
+            return await _context.ViewMainWearhouseWithSubWearhouseHierarchies
+                .Where(mw => mw.Md == false || mw.Md == null)
                 .ToListAsync();
         }
         
 
-        public async Task<MainWearhouse?> GetMainWearHouseById(int id)
+        public async Task<ViewMainWearhouseWithSubWearhouseHierarchy?> GetMainWearHouseById(int id)
         {
-            return await _context.MainWearhouses
-                .Where(mw => mw.Delet == false || mw.Delet == null)
+            return await _context.ViewMainWearhouseWithSubWearhouseHierarchies
+                .Where(mw => mw.Md == false || mw.Md == null)
                 .FirstOrDefaultAsync(mw => mw.MainId == id);
         }
 

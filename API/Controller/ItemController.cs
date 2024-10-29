@@ -81,7 +81,7 @@ namespace API.Controller
             return Ok(item);
         }
         
-        [HttpGet("GetItemDetailsBySubAsync/{itemId}/{subId}")]
+        [HttpGet("GetItemDetailsBySubAsync/{subId}/{itemId}")]
         public async Task<ActionResult<ItemDto>> GetItemDetailsBySubAsync(int itemId, int subId)
         {
             var itemDetails = await _item.GetItemDetailsBySubAsync(itemId, subId);

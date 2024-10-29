@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.MainWearHouse;
 using Standard.DTOs;
+using Standard.DTOs.SubDto;
 using Standard.Entities;
 using System;
 using System.Collections.Generic;
@@ -47,8 +48,18 @@ namespace Repository.SubWearHouse
                 .ToListAsync(); 
         }
 
+        public async Task<List<SubNamesDto>> GetSubsNames()
+        {
+            var subs = await _context.SubWearhouses
+                            .Select(sub => new SubNamesDto
+                            {
+                                SubId = sub.SubId,
+                                SubName = sub.SubName,
+                            })
+                            .ToListAsync();
 
-
+            return subs;
+        }
     }
 }
    

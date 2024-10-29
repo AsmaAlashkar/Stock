@@ -54,6 +54,7 @@ export class PermissinTypeComponent implements OnDestroy{
   show(selectedPermissionType: IPermissionType) {
     console.log("selectedPermissionType :",selectedPermissionType);
     const headerValue = selectedPermissionType ? selectedPermissionType.perTypeValue : 'Default Header';
+    const headerValuePremId = selectedPermissionType ? selectedPermissionType.perId : 'Default Header';
 
     this.ref = this.dialogService.open(PermissionActionComponent, {
       header: headerValue,
@@ -62,7 +63,8 @@ export class PermissinTypeComponent implements OnDestroy{
       baseZIndex: 10000,
       maximizable: true,
       data: {
-        headerValue: headerValue
+        headerValue: headerValue,
+        header: headerValuePremId
       }
     });
 

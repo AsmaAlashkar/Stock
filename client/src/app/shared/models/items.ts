@@ -23,5 +23,15 @@ export interface Item{
 export interface ItemDetailsDtoVM {
   itemId: number,
   itemName: string,
-  subWearId?: number
+  subWearId?: number,
+  quantity?: number; 
+}
+
+export interface ItemDetailsPerTab {
+  itemId: number
+  itemName: string
+  itemCode: string
+  unitName: string
+  categoryName: string
+  currentQuantity: number
 }
