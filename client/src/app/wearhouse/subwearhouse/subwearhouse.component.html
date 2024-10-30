@@ -13,7 +13,7 @@
   </nav>
 
   <div class="row" *ngIf="subwearhouses.length">
-    <section class="col-12 col-md-3 mb-4">
+    <section class="col-12 col-md-3 mb-4 mt-2">
       <!-- Summary of Sub-Warehouses -->
       <div class="card mb-3" *ngIf="subwearhouses[0]">
         <div class="card-header">
@@ -23,18 +23,6 @@
           <p>Total Sub-Warehouses: <strong>{{ getValidSubwearhouseCount() }}</strong></p>
 
           <p>Main Warehouse: <strong>{{ subwearhouses[0].mainName }}</strong></p>
-        </div>
-      </div>
-
-      <!-- Filters -->
-      <div class="card mb-3">
-        <div class="card-header">
-          <strong>Filters</strong>
-        </div>
-        <div class="card-body">
-          <label for="filterByName">Filter by Name:</label>
-          <input id="filterByName" type="text" class="form-control mb-3" placeholder="Enter name">
-          <button class="btn btn-primary w-100">Apply Filter</button>
         </div>
       </div>
 
@@ -52,10 +40,10 @@
 
     <section class="col-12 col-md-9">
       <div class="d-flex justify-content-between align-items-center pb-2 flex-wrap">
-        <header>
+        <!-- <header>
           <span>Showing<strong> {{ getValidSubwearhouseCount() }}</strong> Results</span>
-        </header>
-        <div class="form-inline mt-2 d-flex w-100 w-md-auto">
+        </header> -->
+        <div class="form-inline d-flex w-100 w-md-auto">
           <input class="form-control my-2 me-3 w-100" style="flex: 2;" placeholder="search" type="text">
           <button class="btn btn-outline-primary my-2 me-3" style="flex: 0.5;">Search</button>
           <button class="btn btn-outline-success my-2" style="flex: 0.5;">Reset</button>
@@ -65,11 +53,9 @@
       <!-- Check if there are sub-warehouses to display -->
       <div *ngIf="getValidSubwearhouseCount() > 0; else noSubwearhouses">
         <!-- Render hierarchical structure -->
-        <div class="cards-container">
-          <ul>
+
             <app-subwearhouse-tree [subWearhouses]="structuredWearhouses"></app-subwearhouse-tree>
-          </ul>
-        </div>
+
       </div>
 
       <!-- Fallback message for when there are no valid sub-warehouses -->

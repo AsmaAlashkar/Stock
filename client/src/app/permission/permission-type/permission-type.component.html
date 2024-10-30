@@ -10,23 +10,6 @@
           <p>Total Permission Types: <strong>{{ permissionTypes.length }}</strong></p> <!-- Display total items -->
         </div>
       </div>
-
-      <div class="card mb-3">
-        <div class="card-header">
-          <strong>Filters</strong>
-        </div>
-        <div class="card-body">
-          <label for="filterByName">Filter by Name:</label>
-          <input
-            id="filterByName"
-            type="text"
-            class="form-control mb-3"
-            placeholder="Enter name"
-            [(ngModel)]="filterName"> <!-- Two-way data binding for filter input -->
-
-          <button class="btn btn-primary w-100" (click)="applyFilter()">Apply Filter</button> <!-- Filter button -->
-        </div>
-      </div>
     </section>
 
     <!-- Main section to display filtered permission types -->
