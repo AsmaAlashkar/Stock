@@ -16,11 +16,11 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./permission-action.component.scss']
 })
 export class PermissionActionComponent implements OnInit {
-
+  showWarning: boolean = false;
+  perId!: number;
   permActForm!: FormGroup;
   errors: string[] = [];
   headerValue:string = '';
-  header:number = 0;
   Permissionaction: Permissionaction;
   ItemDetailsResultVM: ItemDetailsDtoVM[] = [];
   selectedItems!: ItemDetailsDtoVM[];
@@ -30,7 +30,7 @@ export class PermissionActionComponent implements OnInit {
   selectedSubWearTo!: subWearhouseVM;
   filteredItems: ItemDetailsDtoVM[] = [];
 
-  constructor(
+  constructor (
     private toastr: ToastrService,
     private permService: PermissionService,
     public config: DynamicDialogConfig,
@@ -47,17 +47,22 @@ export class PermissionActionComponent implements OnInit {
       destinationSubId: null,
       items: [{itemId: 0, quantity: 0}],
       permCreatedat: ""
-    }
+    },
+    this.perId = this.config.data?.perId;
   }
 
   ngOnInit(): void {
     this.getSubwearhouse();
 
     this.headerValue = this.config.data.headerValue;
-    this.header = this.config.data.permId;
     console.log(this.headerValue);
-  }
 
+    console.log('Permission Type ID:', this.perId);
+  }
+  onQuantityChange(item: ItemDetailsPerTab) {
+    console.log('Current Quantity Updated:', item.currentQuantity);
+    console.log('ItemDetailsPerTab:', this.itemDetailsPerTab);
+}
   getSubwearhouse() {
     this.wearhouseService.getsubWearhouseVM().subscribe({
       next: (data) => {
@@ -110,6 +115,7 @@ export class PermissionActionComponent implements OnInit {
       this.selectedItems = [];
     }
     this.getItemsBySubIdItemId(event);
+    this.showWarning = !this.selectedSubWearFrom || !this.selectedSubWearTo;
   }
 
   displayItemsBySubId(subId: number) {
@@ -211,44 +217,41 @@ export class PermissionActionComponent implements OnInit {
     }
   }
 
-  /*onMultiSelectChange(event: any) {
-    console.log("event :",event);
+ 
 
-    if (!this.selectedItems) {
-      this.selectedItems = [];
+
+
+    save(form: NgForm) {
+ 
+      // Continue with the save process
+      this.Permissionaction.permTypeFk = this.perId;
+      this.Permissionaction.subId = this.selectedSubWearFrom?.subId || 0;
+      this.Permissionaction.destinationSubId = this.selectedSubWearTo?.subId || null;
+      this.Permissionaction.permCreatedat = new Date().toISOString();
+      
+      // Use itemDetailsPerTab to get the correct quantities
+      this.Permissionaction.items = this.itemDetailsPerTab.map(item => ({
+          itemId: item.itemId,
+          quantity: item.currentQuantity || 0 // Ensure it defaults to 0 if not set
+      }));
+      
+      // Log to verify that each item has a correct quantity value
+      console.log('PermissionAction data:', this.Permissionaction);
+    
+     
+      // Call the service
+      this.permService.permissionAction(this.Permissionaction).subscribe({
+      next: (response) => {
+      console.log('Order created:', response);
+      this.toastr.success('Order created successfully!', 'Success'); // Show success toast
+      this.ref.close(); // Optionally close the dialog if applicable
+    },
+    error: (error) => {
+      console.error('Error creating permission:', error);
+      this.toastr.error('Error creating permission', 'Error'); // Show error toast
     }
-    const removedItems = this.itemDetailsPerTab.filter(item =>
-      !this.selectedItems.some(selected => selected.itemId === item.itemId)
-    );
-    console.log("removedItems :",removedItems);
-
-    removedItems.forEach(item => this.onItemUncheck(item));
-    this.getItemsBySubIdItemId(this.selectedItems);
-  }*/
-
-  save(form: NgForm) {
-    this.Permissionaction.permId = this.headerValue === 'نقل' ? 1 : 0;
-    console.log(this.Permissionaction.permTypeFk);
-
-    this.Permissionaction.subId = this.selectedSubWearFrom?.subId || 0;
-    this.Permissionaction.destinationSubId = this.selectedSubWearTo?.subId || 0;
-    this.Permissionaction.permCreatedat = new Date().toISOString();
-
-    this.Permissionaction.items = this.selectedItems.map(item => ({
-      itemId: item.itemId,
-      quantity: item.quantity as number
-    }));
-
-    this.permService.permissionAction(this.Permissionaction).subscribe({
-      next: data => {
-        this.toastr.success('Permission saved successfully');
-        form.reset();
-      },
-      error: error => {
-        this.toastr.error('Error saving permission');
-        console.error(error);
-      }
-    });
+      });
   }
+    
 
 }

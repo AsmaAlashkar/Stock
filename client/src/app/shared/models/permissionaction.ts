@@ -9,6 +9,6 @@ export interface Permissionaction {
   //     "quantity": number
   //   }
   // ],
-  items: Array<{ itemId: number; quantity: number }>,
+  items: { itemId: number; quantity: number }[];
   permCreatedat: string
 }

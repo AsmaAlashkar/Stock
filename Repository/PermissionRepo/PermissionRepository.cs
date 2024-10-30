@@ -18,7 +18,6 @@ namespace Repository.PermissionRepo
         {
             _context = context;
         }
-
         public async Task AddPermission(PermissionDto permissionDto)
         {
             switch (permissionDto.PermTypeFk)
@@ -58,7 +57,6 @@ namespace Repository.PermissionRepo
 
             return newPermission;
         }
-
         private async Task AddPermissionAsync(PermissionDto permissionDto)
         {
             using (var transaction = await _context.Database.BeginTransactionAsync())
@@ -132,7 +130,6 @@ namespace Repository.PermissionRepo
             }
 
         }
-
         private async Task HandleWithdrawOrDamagedPermissionAsync(PermissionDto permissionDto)
         {
             using (var transaction = await _context.Database.BeginTransactionAsync())
@@ -197,7 +194,6 @@ namespace Repository.PermissionRepo
             }
 
         }
-
         private async Task HandleTransferPermissionAsync(PermissionDto permissionDto)
         {
             using (var transaction = await _context.Database.BeginTransactionAsync())
@@ -253,7 +249,6 @@ namespace Repository.PermissionRepo
                             };
                             _context.SubItems.Add(destinationSubItem);
                         }
-
                         var ItemPermission = new ItemPermission
                         {
                             ItemFk = item.ItemId,

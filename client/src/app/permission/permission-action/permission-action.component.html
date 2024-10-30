@@ -1,16 +1,6 @@
-<!-- <form [formGroup]="permActForm" (ngSubmit)="save()"> -->
-<!-- <div class="form-group">
-    <span class="p-float-label">
-      <p-inputNumber [(ngModel)]="Permissionaction.permTypeFk" inputId="integeronly" [min]="0"></p-inputNumber>
-      <label htmlFor="permTypeFk">PermTypeFk</label>
-    </span>
-  </div> -->
-  <!-- <form [formGroup]="permActForm" (ngSubmit)="save()"> -->
-  <!-- <form #permActForm="ngForm" (ngSubmit)="save(permActForm)"> -->
 
-    <br />
 <form #permForm="ngForm" (ngSubmit)="save(permForm)">
-  <!-- drowpdown selecte From (From subWearhouse) (getsubWearhouse()) -->
+
   <span class="p-float-label">
     <p-dropdown
       [options]="subWearhouses"
@@ -112,73 +102,56 @@
   </span>
 
   <p-table [value]="itemDetailsPerTab" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
-      <ng-template pTemplate="header">
-          <tr>
-              <!-- <th style="width: 4rem">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-              </th> -->
-              <th style="width:25%">Code</th>
-              <th style="width:25%">Name</th>
-              <th style="width:25%">Unit</th>
-              <th style="width:25%">Category</th>
-              <th style="width:25%">Current Quantity</th>
-          </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-itemDetailsPerTab let-editing="editing" let-index="index">
-          <tr>
-              <!-- <td>
-                <p-tableCheckbox [value]="product"></p-tableCheckbox>
-              </td> -->
-              <td >
-                {{ itemDetailsPerTab.itemCode }}
-              </td>
-              <td>
-                {{ itemDetailsPerTab.itemName }}
-              </td>
-              <td>
-                {{ itemDetailsPerTab.unitName }}
-              </td>
-              <td>
-                {{ itemDetailsPerTab.categoryName }}
-              </td>
-              <td [pEditableColumn]="itemDetailsPerTab.currentQuantity" pEditableColumnField="inventoryStatus">
-                  <p-cellEditor>
-                      <ng-template pTemplate="input">
-                          <!-- <input pInputText [(ngModel)]="itemDetailsPerTab.currentQuantity" inputId="integeronly" [min]="0"/> -->
-                          <span class="p-float-label">
-                            <p-inputNumber
-                              [(ngModel)]="Permissionaction.items"
-                              inputId="integeronly"
-                              [min]="0"
-                              name="quantity"
-                            ></p-inputNumber>
-                            <label htmlFor="quantity">Quantity</label>
-                          </span>
-                      </ng-template>
-                      <ng-template pTemplate="output">
-                          {{ itemDetailsPerTab.currentQuantity }}
-                      </ng-template>
-                  </p-cellEditor>
-              </td>
-          </tr>
-      </ng-template>
-      <ng-template pTemplate="emptymessage">
+    <ng-template pTemplate="header">
         <tr>
-            <td colspan="5" style="text-align: center;"><h5>No Data Available</h5></td>
+            <th style="width:25%">Code</th>
+            <th style="width:25%">Name</th>
+            <th style="width:25%">Unit</th>
+            <th style="width:25%">Category</th>
+            <th style="width:25%">Current Quantity/Quantity</th>
         </tr>
     </ng-template>
-  </p-table>
+    <ng-template pTemplate="body" let-itemDetailsPerTab let-editing="editing" let-index="index">
+        <tr>
+            <td>{{ itemDetailsPerTab.itemCode }}</td>
+            <td>{{ itemDetailsPerTab.itemName }}</td>
+            <td>{{ itemDetailsPerTab.unitName }}</td>
+            <td>{{ itemDetailsPerTab.categoryName }}</td>
+            <td pEditableColumn="currentQuantity" pEditableColumnField="currentQuantity">
+              <p-cellEditor>
+                  <ng-template pTemplate="input">
+                      <span class="p-float-label">
+                          <p-inputNumber
+                              [(ngModel)]="itemDetailsPerTab.currentQuantity"
+                              inputId="integeronly"
+                              [min]="0"
+                              name="quantity">
+                          </p-inputNumber>
+                          <label htmlFor="integeronly">Quantity</label>
+                      </span>
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                      {{ itemDetailsPerTab.currentQuantity }}
+                  </ng-template>
+              </p-cellEditor>
+          </td>
+          
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="5" style="text-align: center;">
+                <h5>No Data Available</h5>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+
 
     <br>
 
-      <!-- <span class="p-float-label">
-        <p-inputNumber
-          [(ngModel)]="Permissionaction.items"
-          inputId="integeronly"
-          [min]="0"
-        ></p-inputNumber>
-        <label htmlFor="quantity">Quantity</label>
-      </span> -->
+
 
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button type="submit" class="btn btn-primary me-md-2">Save Permission</button>
