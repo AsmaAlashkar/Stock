@@ -13,6 +13,21 @@
   border: 1px solid #ddd; /* Initial thin border */
   transition: border 0.3s ease; /* Smooth transition */
 }
+#whyChoseUs{
+  background-image: url(../../../assets/images/Stock-whyChoseUs.jpg);
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+}
+.overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(40, 44 ,58 , 0.37);
+}
+
 // .sec:hover {
 //   border: 1px solid #000; /* Border changes to black on hover */
 // }
