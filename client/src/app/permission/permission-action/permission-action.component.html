@@ -1,9 +1,9 @@
-
+<br>
 <form #permForm="ngForm" (ngSubmit)="save(permForm)">
-
+  <!-- drowpdown selecte From (From subWearhouse) (getsubWearhouse()) -->
   <span class="p-float-label">
     <p-dropdown
-      [options]="subWearhouses"
+      [options]="getFilteredSubWearhousesForTo()"
       [(ngModel)]="selectedSubWearFrom"
       (ngModelChange)="onSubWearhouseChange()"
       optionLabel="subName"
@@ -35,7 +35,7 @@
   <!-- drowpdown selecte To (Destination subWherehouse) (getsubWearhouse()) -->
   <span class="p-float-label" *ngIf="headerValue == 'نقل'">
     <p-dropdown
-      [options]="subWearhouses"
+      [options]="getFilteredSubWearhousesForFrom()"
       [(ngModel)]="selectedSubWearTo"
       (ngModelChange)="onSubWearhouseChange()"
       optionLabel="subName"
@@ -135,25 +135,18 @@
                   </ng-template>
               </p-cellEditor>
           </td>
-          
         </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">
-        <tr>
-            <td colspan="5" style="text-align: center;">
-                <h5>No Data Available</h5>
-            </td>
-        </tr>
-    </ng-template>
-</p-table>
+      <tr>
+          <td colspan="5" style="text-align: center;"><h5>No Data Available</h5></td>
+      </tr>
+  </ng-template>
+  </p-table>
 
+  <br>
 
-
-    <br>
-
-
-
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button type="submit" class="btn btn-primary me-md-2">Save Permission</button>
-      </div>
-  </form>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button type="submit" class="btn btn-primary me-md-2">Save Permission</button>
+  </div>
+</form>

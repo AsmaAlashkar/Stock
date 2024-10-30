@@ -59,10 +59,12 @@ export class PermissionActionComponent implements OnInit {
 
     console.log('Permission Type ID:', this.perId);
   }
+
   onQuantityChange(item: ItemDetailsPerTab) {
     console.log('Current Quantity Updated:', item.currentQuantity);
     console.log('ItemDetailsPerTab:', this.itemDetailsPerTab);
-}
+  }
+
   getSubwearhouse() {
     this.wearhouseService.getsubWearhouseVM().subscribe({
       next: (data) => {
@@ -118,6 +120,18 @@ export class PermissionActionComponent implements OnInit {
     this.showWarning = !this.selectedSubWearFrom || !this.selectedSubWearTo;
   }
 
+  getFilteredSubWearhousesForTo() {
+    return this.subWearhouses.filter(sub =>
+      sub.subId !== this.selectedSubWearTo?.subId
+    );
+  }
+
+  getFilteredSubWearhousesForFrom() {
+    return this.subWearhouses.filter(sub =>
+      sub.subId !== this.selectedSubWearFrom?.subId
+    );
+  }
+
   displayItemsBySubId(subId: number) {
     console.log("subId:",subId);
     if (this.headerValue === "اضافة" || this.headerValue === "إضافة" || this.headerValue === "أضافة") {
@@ -155,10 +169,10 @@ export class PermissionActionComponent implements OnInit {
 
       console.log("event", $event);
       console.log("this.ItemDetailsResultVM.length", this.ItemDetailsResultVM.length);
-      if ($event.length == this.ItemDetailsResultVM.length) {
+      // if ($event.length == this.ItemDetailsResultVM.length) {
 
 
-      }
+      // }
       let index = $event.length - 1;
       console.log('Selected item ID:', $event[index].itemId);
       let itemId = $event[index].itemId;
@@ -217,31 +231,26 @@ export class PermissionActionComponent implements OnInit {
     }
   }
 
- 
+  save(form: NgForm) {
+    // Continue with the save process
+    this.Permissionaction.permTypeFk = this.perId;
+    this.Permissionaction.subId = this.selectedSubWearFrom?.subId || 0;
+    this.Permissionaction.destinationSubId = this.selectedSubWearTo?.subId || null;
+    this.Permissionaction.permCreatedat = new Date().toISOString();
+
+    // Use itemDetailsPerTab to get the correct quantities
+    this.Permissionaction.items = this.itemDetailsPerTab.map(item => ({
+        itemId: item.itemId,
+        quantity: item.currentQuantity || 0 // Ensure it defaults to 0 if not set
+    }));
+
+    // Log to verify that each item has a correct quantity value
+    console.log('PermissionAction data:', this.Permissionaction);
 
 
-
-    save(form: NgForm) {
- 
-      // Continue with the save process
-      this.Permissionaction.permTypeFk = this.perId;
-      this.Permissionaction.subId = this.selectedSubWearFrom?.subId || 0;
-      this.Permissionaction.destinationSubId = this.selectedSubWearTo?.subId || null;
-      this.Permissionaction.permCreatedat = new Date().toISOString();
-      
-      // Use itemDetailsPerTab to get the correct quantities
-      this.Permissionaction.items = this.itemDetailsPerTab.map(item => ({
-          itemId: item.itemId,
-          quantity: item.currentQuantity || 0 // Ensure it defaults to 0 if not set
-      }));
-      
-      // Log to verify that each item has a correct quantity value
-      console.log('PermissionAction data:', this.Permissionaction);
-    
-     
-      // Call the service
-      this.permService.permissionAction(this.Permissionaction).subscribe({
-      next: (response) => {
+    // Call the service
+    this.permService.permissionAction(this.Permissionaction).subscribe({
+    next: (response) => {
       console.log('Order created:', response);
       this.toastr.success('Order created successfully!', 'Success'); // Show success toast
       this.ref.close(); // Optionally close the dialog if applicable
@@ -250,8 +259,7 @@ export class PermissionActionComponent implements OnInit {
       console.error('Error creating permission:', error);
       this.toastr.error('Error creating permission', 'Error'); // Show error toast
     }
-      });
+    });
   }
-    
 
 }
