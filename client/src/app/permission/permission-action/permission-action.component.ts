@@ -29,7 +29,8 @@ export class PermissionActionComponent implements OnInit {
   selectedSubWearFrom!: subWearhouseVM;
   selectedSubWearTo!: subWearhouseVM;
   filteredItems: ItemDetailsDtoVM[] = [];
-
+  errorMessage: string | null = null; 
+  
   constructor (
     private toastr: ToastrService,
     private permService: PermissionService,
@@ -201,65 +202,78 @@ export class PermissionActionComponent implements OnInit {
 
   onMultiSelectChange(event: any) {
     if (!this.selectedItems) {
-      this.selectedItems = [];
+        this.selectedItems = [];
     }
 
-    if (event.length === this.filteredItems.length) {
-      this.selectedItems.forEach(item => {
-        console.log("Selected Item ID: ", item.itemId);
-        this.itemsService.getItemsBySubIdItemId(this.selectedSubWearFrom.subId, item.itemId).subscribe({
-          next: (data) => {
-            const exists = this.itemDetailsPerTab.some(item => item.itemId === data.itemId);
-            if (!exists) {
-              this.itemDetailsPerTab.push(data)
-              console.log("ItemDetailsPerTab", data);
-            }
-          },
-          error: (error) => {
-            console.error('Error fetching items', error);
+    if (event && Array.isArray(event)) {
+      if (event.length === this.filteredItems.length) {
+          this.selectedItems.forEach(item => {
+              console.log("Selected Item ID: ", item.itemId);
+              this.itemsService.getItemsBySubIdItemId(this.selectedSubWearFrom.subId, item.itemId).subscribe({
+                  next: (data) => {
+                      const exists = this.itemDetailsPerTab.some(existingItem => existingItem.itemId === data.itemId);
+                      if (!exists) {
+                          this.itemDetailsPerTab.push(data);
+                          console.log("ItemDetailsPerTab", data);
+                      }
+                  },
+                  error: (error) => {
+                      console.error('Error fetching items', error);
+                  }
+              });
+          });
+      } else {
+          if (event.length === 0) {
+              this.itemDetailsPerTab = [];
+          } else {
+              const removedItems = this.itemDetailsPerTab.filter(item =>
+                  !this.selectedItems.some(selected => selected.itemId === item.itemId)
+              );
+
+              removedItems.forEach(item => this.onItemUncheck(item));
+              this.getItemsBySubIdItemId(this.selectedItems);
           }
-        });
-      });
+        }
     } else {
-      const removedItems = this.itemDetailsPerTab.filter(item =>
-        !this.selectedItems.some(selected => selected.itemId === item.itemId)
-      );
-
-      removedItems.forEach(item => this.onItemUncheck(item));
-
-      this.getItemsBySubIdItemId(this.selectedItems);
+        this.itemDetailsPerTab = [];
     }
   }
 
   save(form: NgForm) {
-    // Continue with the save process
+    this.errorMessage = null; // Reset the error message on each save attempt
     this.Permissionaction.permTypeFk = this.perId;
     this.Permissionaction.subId = this.selectedSubWearFrom?.subId || 0;
     this.Permissionaction.destinationSubId = this.selectedSubWearTo?.subId || null;
     this.Permissionaction.permCreatedat = new Date().toISOString();
 
+    // Validate that all quantities are greater than 0
+    const hasValidQuantities = this.itemDetailsPerTab.every(item => {
+        return item.quantity !== undefined && item.quantity > 0;
+    });
+
+    if (!hasValidQuantities) {
+        this.errorMessage = 'All quantities must be greater than 0'; // Set the error message
+        return; // Exit the method if validation fails
+    }
+
     // Use itemDetailsPerTab to get the correct quantities
     this.Permissionaction.items = this.itemDetailsPerTab.map(item => ({
         itemId: item.itemId,
-        quantity: item.currentQuantity || 0 // Ensure it defaults to 0 if not set
+        quantity: item.quantity || 0 // This should be safe now
     }));
-
-    // Log to verify that each item has a correct quantity value
-    console.log('PermissionAction data:', this.Permissionaction);
-
 
     // Call the service
     this.permService.permissionAction(this.Permissionaction).subscribe({
-    next: (response) => {
-      console.log('Order created:', response);
-      this.toastr.success('Order created successfully!', 'Success'); // Show success toast
-      this.ref.close(); // Optionally close the dialog if applicable
-    },
-    error: (error) => {
-      console.error('Error creating permission:', error);
-      this.toastr.error('Error creating permission', 'Error'); // Show error toast
-    }
+        next: (response) => {
+            console.log('Order created:', response);
+            this.toastr.success('Order created successfully!', 'Success');
+            this.ref.close(); // Optionally close the dialog
+        },
+        error: (error) => {
+            console.error('Error creating permission:', error);
+            this.toastr.error('Error creating permission', 'Error');
+        }
     });
-  }
+}
 
 }

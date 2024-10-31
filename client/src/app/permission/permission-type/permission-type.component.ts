@@ -4,6 +4,7 @@ import { IPermissionType } from 'src/app/shared/models/permissiontype';
 import { MessageService } from 'primeng/api';
 import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { PermissionActionComponent } from '../permission-action/permission-action.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-permissin-type',
@@ -18,7 +19,10 @@ export class PermissinTypeComponent implements OnDestroy{
 
   ref: DynamicDialogRef | undefined;
 
-  constructor(private permissionservice: PermissionService, private dialogService: DialogService, private messageService: MessageService) {}
+  constructor(private permissionservice: PermissionService,
+    private dialogService: DialogService,
+    private messageService: MessageService,
+    private router: Router) {}
 
   ngOnInit(): void {
     this.loadPermissionTypes();
@@ -90,5 +94,10 @@ export class PermissinTypeComponent implements OnDestroy{
       if (this.ref) {
           this.ref.close();
       }
+  }
+
+  openAllPermissions()
+  {
+    this.router.navigate(['/allPermissions']);
   }
 }

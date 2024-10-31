@@ -34,4 +34,5 @@ export interface ItemDetailsPerTab {
   unitName: string
   categoryName: string
   currentQuantity: number
+  quantity?: number; // Add this line to include quantity as an optional property
 }

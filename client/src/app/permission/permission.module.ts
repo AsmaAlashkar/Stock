@@ -11,14 +11,18 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DisplayAllPermissionsComponent } from './display-all-permissions/display-all-permissions.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     PermissinTypeComponent,
-    PermissionActionComponent
+    PermissionActionComponent,
+    DisplayAllPermissionsComponent
   ],
   imports: [
     CommonModule,
+    RouterModule ,
     FormsModule,
     DynamicDialogModule,
     InputNumberModule,
