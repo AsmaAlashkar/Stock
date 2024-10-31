@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using Standard.DTOs.ItemDtos;
 using Standard.DTOs.PermissionDto;
 using Standard.Entities;
 using System;
@@ -18,6 +19,70 @@ namespace Repository.PermissionRepo
         {
             _context = context;
         }
+        public async Task<List<PermissionDto>> GetAllPermissions()
+        {
+            var permissions =await _context.Permissions
+                .Select(permission => new PermissionDto 
+                {
+                    PermId = permission.PermId,
+                    PermTypeFk = permission.PermTypeFk,
+                    SubId = permission.SubFk,
+                    DestinationSubId = permission.DestinationSubFk,
+                    PermCreatedat = permission.PermCreatedat,
+                    ItemCount = permission.ItemPermissions.Count(),
+                })
+                .ToListAsync();
+            return permissions;
+        }
+        public async Task<List<PermissionDto>> GetPermissionsByDate(DateTime date)
+        {
+            var permissions = await _context.Permissions
+                .Where(p => p.PermCreatedat.HasValue && p.PermCreatedat.Value.Date == date.Date)
+                .Select(permission => new PermissionDto
+                {
+                    PermId = permission.PermId,
+                    PermTypeFk = permission.PermTypeFk,
+                    SubId = permission.SubFk,
+                    DestinationSubId = permission.DestinationSubFk,
+                    PermCreatedat = permission.PermCreatedat,
+                    ItemCount = permission.ItemPermissions.Count(),
+                })
+                .ToListAsync();
+            return permissions;
+        }
+        public async Task<List<PermissionDto>> GetPermissionByTypeId(int typeId)
+        {
+            var permissions = await _context.Permissions
+                .Where(p => p.PermTypeFk == typeId)
+                .Select(permission => new PermissionDto
+                {
+                    PermId = permission.PermId,
+                    PermTypeFk = permission.PermTypeFk,
+                    SubId = permission.SubFk,
+                    DestinationSubId = permission.DestinationSubFk,
+                    PermCreatedat = permission.PermCreatedat,
+                    ItemCount = permission.ItemPermissions.Count(),
+                })
+                .ToListAsync();
+            return permissions;
+        }
+        public async Task<PermissionDto> GetPermissionById(int id)
+        {
+            var permission = await _context.Permissions
+                .Where(p => p.PermId == id)
+                .Select(permission => new PermissionDto
+                {
+                    PermId = permission.PermId,
+                    PermTypeFk = permission.PermTypeFk,
+                    SubId = permission.SubFk,
+                    DestinationSubId = permission.DestinationSubFk,
+                    PermCreatedat = permission.PermCreatedat,
+                    ItemCount = permission.ItemPermissions.Count(),
+                })
+                .FirstOrDefaultAsync();
+            return permission;
+        }
+        
         public async Task AddPermission(PermissionDto permissionDto)
         {
             switch (permissionDto.PermTypeFk)
@@ -270,5 +335,6 @@ namespace Repository.PermissionRepo
 
         }
 
+        
     }
 }
