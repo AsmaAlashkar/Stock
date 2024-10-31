@@ -112,39 +112,32 @@
             <th style="width:25%">Quantity</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-itemDetailsPerTab  let-Permissionaction let-editing="editing" let-index="index">
+    <ng-template pTemplate="body" let-itemDetailsPerTab let-index="index">
         <tr>
             <td>{{ itemDetailsPerTab.itemCode }}</td>
             <td>{{ itemDetailsPerTab.itemName }}</td>
             <td>{{ itemDetailsPerTab.unitName }}</td>
             <td>{{ itemDetailsPerTab.categoryName }}</td>
             <td>{{ itemDetailsPerTab.currentQuantity }}</td>
-            <!-- <td pEditableColumn="currentQuantity" pEditableColumnField="currentQuantity"> -->
-              <!-- <p-cellEditor>
-                  <ng-template pTemplate="input"> -->
-                      <span class="p-float-label">
-                          <p-inputNumber
-                              [(ngModel)]="Permissionaction.quantity"
-                              inputId="integeronly"
-                              [min]="0"
-                              name="quantity">
-                          </p-inputNumber>
-                          <label htmlFor="integeronly">Quantity</label>
-                      </span>
-                  <!-- </ng-template>
-                  <ng-template pTemplate="output">
-                      {{ itemDetailsPerTab.currentQuantity }}
-                  </ng-template>
-              </p-cellEditor> -->
-          <!-- </td> -->
+            <td>
+                <span class="p-float-label">
+                    <p-inputNumber
+                        [(ngModel)]="itemDetailsPerTab.quantity" 
+                        inputId="integeronly-{{index}}"
+                        [min]="0"
+                        name="quantity{{index}}"> <!-- Unique name for each input -->
+                    </p-inputNumber>
+                    <label htmlFor="integeronly-{{index}}">Quantity</label>
+                </span>
+            </td>
         </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">
-      <tr>
-          <td colspan="5" style="text-align: center;"><h5>No Data Available</h5></td>
-      </tr>
-  </ng-template>
-  </p-table>
+        <tr>
+            <td colspan="6" style="text-align: center;"><h5>No Data Available</h5></td>
+        </tr>
+    </ng-template>
+</p-table>
 
   <br>
 

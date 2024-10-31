@@ -239,7 +239,7 @@ export class PermissionActionComponent implements OnInit {
   }
 
   save(form: NgForm) {
-    // Continue with the save process
+    // Prepare the Permissionaction data
     this.Permissionaction.permTypeFk = this.perId;
     this.Permissionaction.subId = this.selectedSubWearFrom?.subId || 0;
     this.Permissionaction.destinationSubId = this.selectedSubWearTo?.subId || null;
@@ -248,25 +248,23 @@ export class PermissionActionComponent implements OnInit {
     // Use itemDetailsPerTab to get the correct quantities
     this.Permissionaction.items = this.itemDetailsPerTab.map(item => ({
         itemId: item.itemId,
-        quantity: item.currentQuantity || 0 // Ensure it defaults to 0 if not set
+        quantity: item.quantity || 0 // Use the dynamic quantity input
     }));
 
     // Log to verify that each item has a correct quantity value
     console.log('PermissionAction data:', this.Permissionaction);
 
-
     // Call the service
     this.permService.permissionAction(this.Permissionaction).subscribe({
-    next: (response) => {
-      console.log('Order created:', response);
-      this.toastr.success('Order created successfully!', 'Success'); // Show success toast
-      this.ref.close(); // Optionally close the dialog if applicable
-    },
-    error: (error) => {
-      console.error('Error creating permission:', error);
-      this.toastr.error('Error creating permission', 'Error'); // Show error toast
-    }
+        next: (response) => {
+            console.log('Order created:', response);
+            this.toastr.success('Order created successfully!', 'Success');
+            this.ref.close(); // Optionally close the dialog
+        },
+        error: (error) => {
+            console.error('Error creating permission:', error);
+            this.toastr.error('Error creating permission', 'Error');
+        }
     });
-  }
-
+}
 }
