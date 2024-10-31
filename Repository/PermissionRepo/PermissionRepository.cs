@@ -22,10 +22,11 @@ namespace Repository.PermissionRepo
         public async Task<List<PermissionDto>> GetAllPermissions()
         {
             var permissions =await _context.Permissions
+                .Include(p=>p.PermTypeFkNavigation)
                 .Select(permission => new PermissionDto 
                 {
                     PermId = permission.PermId,
-                    PermTypeFk = permission.PermTypeFk,
+                    PerTypeValue = permission.PermTypeFkNavigation.PerTypeValue,
                     SubId = permission.SubFk,
                     DestinationSubId = permission.DestinationSubFk,
                     PermCreatedat = permission.PermCreatedat,
@@ -37,11 +38,13 @@ namespace Repository.PermissionRepo
         public async Task<List<PermissionDto>> GetPermissionsByDate(DateTime date)
         {
             var permissions = await _context.Permissions
+                                .Include(p => p.PermTypeFkNavigation)
+
                 .Where(p => p.PermCreatedat.HasValue && p.PermCreatedat.Value.Date == date.Date)
                 .Select(permission => new PermissionDto
                 {
                     PermId = permission.PermId,
-                    PermTypeFk = permission.PermTypeFk,
+                    PerTypeValue = permission.PermTypeFkNavigation.PerTypeValue,
                     SubId = permission.SubFk,
                     DestinationSubId = permission.DestinationSubFk,
                     PermCreatedat = permission.PermCreatedat,
@@ -53,11 +56,12 @@ namespace Repository.PermissionRepo
         public async Task<List<PermissionDto>> GetPermissionByTypeId(int typeId)
         {
             var permissions = await _context.Permissions
+                                .Include(p => p.PermTypeFkNavigation)
                 .Where(p => p.PermTypeFk == typeId)
                 .Select(permission => new PermissionDto
                 {
                     PermId = permission.PermId,
-                    PermTypeFk = permission.PermTypeFk,
+                    PerTypeValue = permission.PermTypeFkNavigation.PerTypeValue,
                     SubId = permission.SubFk,
                     DestinationSubId = permission.DestinationSubFk,
                     PermCreatedat = permission.PermCreatedat,
@@ -69,11 +73,12 @@ namespace Repository.PermissionRepo
         public async Task<PermissionDto> GetPermissionById(int id)
         {
             var permission = await _context.Permissions
+                .Include(p => p.PermTypeFkNavigation)
                 .Where(p => p.PermId == id)
                 .Select(permission => new PermissionDto
                 {
                     PermId = permission.PermId,
-                    PermTypeFk = permission.PermTypeFk,
+                    PerTypeValue = permission.PermTypeFkNavigation.PerTypeValue,
                     SubId = permission.SubFk,
                     DestinationSubId = permission.DestinationSubFk,
                     PermCreatedat = permission.PermCreatedat,
