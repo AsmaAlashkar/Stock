@@ -239,20 +239,26 @@ export class PermissionActionComponent implements OnInit {
   }
 
   save(form: NgForm) {
-    // Prepare the Permissionaction data
     this.Permissionaction.permTypeFk = this.perId;
     this.Permissionaction.subId = this.selectedSubWearFrom?.subId || 0;
     this.Permissionaction.destinationSubId = this.selectedSubWearTo?.subId || null;
     this.Permissionaction.permCreatedat = new Date().toISOString();
 
+    // Validate that all quantities are greater than 0
+    const hasValidQuantities = this.itemDetailsPerTab.every(item => {
+        return item.quantity !== undefined && item.quantity > 0; // Ensure item.quantity is defined
+    });
+
+    if (!hasValidQuantities) {
+        this.toastr.error('All quantities must be greater than 0', 'Validation Error');
+        return; // Exit the method if validation fails
+    }
+
     // Use itemDetailsPerTab to get the correct quantities
     this.Permissionaction.items = this.itemDetailsPerTab.map(item => ({
         itemId: item.itemId,
-        quantity: item.quantity || 0 // Use the dynamic quantity input
+        quantity: item.quantity || 0 // This should be safe now
     }));
-
-    // Log to verify that each item has a correct quantity value
-    console.log('PermissionAction data:', this.Permissionaction);
 
     // Call the service
     this.permService.permissionAction(this.Permissionaction).subscribe({
@@ -267,4 +273,5 @@ export class PermissionActionComponent implements OnInit {
         }
     });
 }
+
 }
