@@ -1,5 +1,8 @@
 <br>
 <form #permForm="ngForm" (ngSubmit)="save(permForm)">
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+    {{ errorMessage }}
+</div>
   <!-- drowpdown selecte From (From subWearhouse) (getsubWearhouse()) -->
   <span class="p-float-label">
     <p-dropdown
