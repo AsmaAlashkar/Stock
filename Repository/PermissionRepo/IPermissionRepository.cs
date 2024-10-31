@@ -11,6 +11,10 @@ namespace Repository.PermissionRepo
     public interface IPermissionRepository
     {
         Task AddPermission(PermissionDto permissionDto);
+        Task<List<PermissionDto>> GetAllPermissions();
+        Task<List<PermissionDto>> GetPermissionsByDate(DateTime date);
+        Task<PermissionDto> GetPermissionById(int id);
+        Task<List<PermissionDto>> GetPermissionByTypeId(int typeId);
 
     }
 }

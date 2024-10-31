@@ -5,6 +5,7 @@ using Repository;
 using Standard.Entities;
 using Repository.PermissionRepo;
 using Standard.DTOs.PermissionDto;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace API.Controller
 {
@@ -25,6 +26,51 @@ namespace API.Controller
             _permission = permission;
             _mapper = mapper;
         }
+        [HttpGet("GetAllPermissions")]
+        public async Task<ActionResult<List<PermissionDto>>> GetAllPermissions()
+        {
+            var permissions = await _permission.GetAllPermissions();
+            if (permissions == null || permissions.Count == 0)
+            {
+                return NotFound("No Permissions Found!");
+            }
+            return Ok(permissions);
+        }
+
+        [HttpGet("GetPermissionsByDate/{date}")]
+        public async Task<ActionResult<List<PermissionDto>>> GetPermissionsByDate(DateTime date)
+        {
+            var permissions = await _permission.GetPermissionsByDate(date);
+            if (permissions == null || permissions.Count == 0)
+            {
+                return NotFound("No Permissions Found!");
+            }
+            return Ok(permissions);
+        }
+
+        [HttpGet("GetPermissionByTypeId/{typeId}")]
+        public async Task<ActionResult<List<PermissionDto>>> GetPermissionByTypeId(int typeId)
+        {
+            var permissions = await _permission.GetPermissionByTypeId(typeId);
+            if (permissions == null || permissions.Count == 0)
+            {
+                return NotFound("No Permissions Found!");
+            }
+            return Ok(permissions);
+        }
+
+        [HttpGet("GetPermissionById/{id}")]
+        public async Task<ActionResult<PermissionDto>> GetPermissionById(int id)
+        {
+            var permission = await _permission.GetPermissionById(id);
+            if (permission == null)
+            {
+                return NotFound("No Permission with this id Found!");
+            }
+            return Ok(permission);
+        }
+       
+
         [HttpPost("CreatePermission")]
         public async Task<ActionResult> CreatePermission(PermissionDto permission)
         {

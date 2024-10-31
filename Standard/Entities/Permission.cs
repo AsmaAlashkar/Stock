@@ -7,7 +7,7 @@ public partial class Permission
 {
     public int PermId { get; set; }
 
-    public int? PermTypeFk { get; set; }
+    public int PermTypeFk { get; set; }
 
     public DateTime? PermCreatedat { get; set; }
 

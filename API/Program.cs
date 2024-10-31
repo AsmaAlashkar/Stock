@@ -10,6 +10,7 @@ using Repository.ItemRepo;
 using Repository.MainWearHouse;
 using Repository.PermissionRepo;
 using Repository.PermissionType;
+using Repository.ReportRepo;
 using Repository.Service;
 using Repository.SubWearHouse;
 using Repository.UnitRepo;
@@ -51,6 +52,8 @@ builder.Services.AddScoped<IItemRepository, ItemRepository>();
 builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
 builder.Services.AddScoped<IPermissionTypeRepository,PermissionTypeRepository >();
 builder.Services.AddScoped<IUnitRepository, UnitRepository>();
+builder.Services.AddScoped<IReportRepository, ReportRepository>();
+
 
 
 
