@@ -12,3 +12,4 @@ export interface Permissionaction {
   items: { itemId: number; quantity: number }[];
   permCreatedat: string
 }
+

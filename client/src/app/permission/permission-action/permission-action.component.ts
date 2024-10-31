@@ -201,33 +201,40 @@ export class PermissionActionComponent implements OnInit {
 
   onMultiSelectChange(event: any) {
     if (!this.selectedItems) {
-      this.selectedItems = [];
+        this.selectedItems = [];
     }
 
-    if (event.length === this.filteredItems.length) {
-      this.selectedItems.forEach(item => {
-        console.log("Selected Item ID: ", item.itemId);
-        this.itemsService.getItemsBySubIdItemId(this.selectedSubWearFrom.subId, item.itemId).subscribe({
-          next: (data) => {
-            const exists = this.itemDetailsPerTab.some(item => item.itemId === data.itemId);
-            if (!exists) {
-              this.itemDetailsPerTab.push(data)
-              console.log("ItemDetailsPerTab", data);
-            }
-          },
-          error: (error) => {
-            console.error('Error fetching items', error);
+    if (event && Array.isArray(event)) {
+      if (event.length === this.filteredItems.length) {
+          this.selectedItems.forEach(item => {
+              console.log("Selected Item ID: ", item.itemId);
+              this.itemsService.getItemsBySubIdItemId(this.selectedSubWearFrom.subId, item.itemId).subscribe({
+                  next: (data) => {
+                      const exists = this.itemDetailsPerTab.some(existingItem => existingItem.itemId === data.itemId);
+                      if (!exists) {
+                          this.itemDetailsPerTab.push(data);
+                          console.log("ItemDetailsPerTab", data);
+                      }
+                  },
+                  error: (error) => {
+                      console.error('Error fetching items', error);
+                  }
+              });
+          });
+      } else {
+          if (event.length === 0) {
+              this.itemDetailsPerTab = [];
+          } else {
+              const removedItems = this.itemDetailsPerTab.filter(item =>
+                  !this.selectedItems.some(selected => selected.itemId === item.itemId)
+              );
+
+              removedItems.forEach(item => this.onItemUncheck(item));
+              this.getItemsBySubIdItemId(this.selectedItems);
           }
-        });
-      });
+        }
     } else {
-      const removedItems = this.itemDetailsPerTab.filter(item =>
-        !this.selectedItems.some(selected => selected.itemId === item.itemId)
-      );
-
-      removedItems.forEach(item => this.onItemUncheck(item));
-
-      this.getItemsBySubIdItemId(this.selectedItems);
+        this.itemDetailsPerTab = [];
     }
   }
 

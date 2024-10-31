@@ -108,33 +108,35 @@
             <th style="width:25%">Name</th>
             <th style="width:25%">Unit</th>
             <th style="width:25%">Category</th>
-            <th style="width:25%">Current Quantity/Quantity</th>
+            <th style="width:25%">Current Quantity</th>
+            <th style="width:25%">Quantity</th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-itemDetailsPerTab let-editing="editing" let-index="index">
+    <ng-template pTemplate="body" let-itemDetailsPerTab  let-Permissionaction let-editing="editing" let-index="index">
         <tr>
             <td>{{ itemDetailsPerTab.itemCode }}</td>
             <td>{{ itemDetailsPerTab.itemName }}</td>
             <td>{{ itemDetailsPerTab.unitName }}</td>
             <td>{{ itemDetailsPerTab.categoryName }}</td>
-            <td pEditableColumn="currentQuantity" pEditableColumnField="currentQuantity">
-              <p-cellEditor>
-                  <ng-template pTemplate="input">
+            <td>{{ itemDetailsPerTab.currentQuantity }}</td>
+            <!-- <td pEditableColumn="currentQuantity" pEditableColumnField="currentQuantity"> -->
+              <!-- <p-cellEditor>
+                  <ng-template pTemplate="input"> -->
                       <span class="p-float-label">
                           <p-inputNumber
-                              [(ngModel)]="itemDetailsPerTab.currentQuantity"
+                              [(ngModel)]="Permissionaction.quantity"
                               inputId="integeronly"
                               [min]="0"
                               name="quantity">
                           </p-inputNumber>
                           <label htmlFor="integeronly">Quantity</label>
                       </span>
-                  </ng-template>
+                  <!-- </ng-template>
                   <ng-template pTemplate="output">
                       {{ itemDetailsPerTab.currentQuantity }}
                   </ng-template>
-              </p-cellEditor>
-          </td>
+              </p-cellEditor> -->
+          <!-- </td> -->
         </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">
