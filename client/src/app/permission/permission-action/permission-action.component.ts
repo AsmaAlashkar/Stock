@@ -29,7 +29,8 @@ export class PermissionActionComponent implements OnInit {
   selectedSubWearFrom!: subWearhouseVM;
   selectedSubWearTo!: subWearhouseVM;
   filteredItems: ItemDetailsDtoVM[] = [];
-
+  errorMessage: string | null = null; 
+  
   constructor (
     private toastr: ToastrService,
     private permService: PermissionService,
@@ -239,6 +240,7 @@ export class PermissionActionComponent implements OnInit {
   }
 
   save(form: NgForm) {
+    this.errorMessage = null; // Reset the error message on each save attempt
     this.Permissionaction.permTypeFk = this.perId;
     this.Permissionaction.subId = this.selectedSubWearFrom?.subId || 0;
     this.Permissionaction.destinationSubId = this.selectedSubWearTo?.subId || null;
@@ -246,11 +248,11 @@ export class PermissionActionComponent implements OnInit {
 
     // Validate that all quantities are greater than 0
     const hasValidQuantities = this.itemDetailsPerTab.every(item => {
-        return item.quantity !== undefined && item.quantity > 0; // Ensure item.quantity is defined
+        return item.quantity !== undefined && item.quantity > 0;
     });
 
     if (!hasValidQuantities) {
-        this.toastr.error('All quantities must be greater than 0', 'Validation Error');
+        this.errorMessage = 'All quantities must be greater than 0'; // Set the error message
         return; // Exit the method if validation fails
     }
 
