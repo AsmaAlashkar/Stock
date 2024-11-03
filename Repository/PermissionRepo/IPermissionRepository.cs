@@ -1,4 +1,5 @@
-﻿using Standard.DTOs.PermissionDto;
+﻿using Repository.Pagination;
+using Standard.DTOs.PermissionDto;
 using Standard.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,11 @@ namespace Repository.PermissionRepo
     public interface IPermissionRepository
     {
         Task AddPermission(PermissionDto permissionDto);
-        Task<List<PermissionDto>> GetAllPermissions();
-        Task<List<PermissionDto>> GetPermissionsByDate(DateTime date);
-        Task<PermissionDto> GetPermissionById(int id);
-        Task<List<PermissionDto>> GetPermissionByTypeId(int typeId);
+        Task<List<DisplayPermissionsDto>> GetAllPermissions();
+        Task<PaginatedResult<DisplayPermissionsDto>> GetAllPermissionsWithPagination(int pageNumber, int pageSize);
+        Task<List<DisplayPermissionsDto>> GetPermissionsByDate(DateTime date);
+        Task<DisplayPermissionsDto> GetPermissionById(int id);
+        Task<List<DisplayPermissionsDto>> GetPermissionByTypeId(int typeId);
 
     }
 }

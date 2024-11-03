@@ -16,12 +16,14 @@ import { RouterModule } from '@angular/router';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
+import { CreatePermissionComponent } from './create-permission/create-permission.component';
 
 @NgModule({
   declarations: [
     PermissinTypeComponent,
     PermissionActionComponent,
-    DisplayAllPermissionsComponent
+    DisplayAllPermissionsComponent,
+    CreatePermissionComponent
   ],
   imports: [
     CommonModule,

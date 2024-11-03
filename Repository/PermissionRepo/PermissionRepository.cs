@@ -1,6 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using Standard.DTOs.ItemDtos;
+using Repository.Pagination;
 using Standard.DTOs.PermissionDto;
 using Standard.Entities;
 using System;
@@ -19,13 +19,14 @@ namespace Repository.PermissionRepo
         {
             _context = context;
         }
-        public async Task<List<PermissionDto>> GetAllPermissions()
+        public async Task<List<DisplayPermissionsDto>> GetAllPermissions()
         {
             var permissions =await _context.Permissions
                 .Include(p=>p.PermTypeFkNavigation)
-                .Select(permission => new PermissionDto 
+                .Select(permission => new DisplayPermissionsDto
                 {
                     PermId = permission.PermId,
+                    PermCode = permission.PermCode,
                     PerTypeValue = permission.PermTypeFkNavigation.PerTypeValue,
                     SubId = permission.SubFk,
                     DestinationSubId = permission.DestinationSubFk,
@@ -35,15 +36,35 @@ namespace Repository.PermissionRepo
                 .ToListAsync();
             return permissions;
         }
-        public async Task<List<PermissionDto>> GetPermissionsByDate(DateTime date)
+
+        public async Task<PaginatedResult<DisplayPermissionsDto>> GetAllPermissionsWithPagination(int pageNumber, int pageSize)
+        {
+            var permissionsQuery = _context.Permissions
+                .Include(p => p.PermTypeFkNavigation)
+                .Select(permission => new DisplayPermissionsDto
+                {
+                    PermId = permission.PermId,
+                    PermCode = permission.PermCode,
+                    PerTypeValue = permission.PermTypeFkNavigation.PerTypeValue,
+                    SubId = permission.SubFk,
+                    DestinationSubId = permission.DestinationSubFk,
+                    PermCreatedat = permission.PermCreatedat,
+                    ItemCount = permission.ItemPermissions.Count(),
+                });
+
+            return await permissionsQuery.PaginateAsync(pageNumber, pageSize);
+        }
+
+        public async Task<List<DisplayPermissionsDto>> GetPermissionsByDate(DateTime date)
         {
             var permissions = await _context.Permissions
                                 .Include(p => p.PermTypeFkNavigation)
 
                 .Where(p => p.PermCreatedat.HasValue && p.PermCreatedat.Value.Date == date.Date)
-                .Select(permission => new PermissionDto
+                .Select(permission => new DisplayPermissionsDto
                 {
                     PermId = permission.PermId,
+                    PermCode = permission.PermCode,
                     PerTypeValue = permission.PermTypeFkNavigation.PerTypeValue,
                     SubId = permission.SubFk,
                     DestinationSubId = permission.DestinationSubFk,
@@ -53,14 +74,15 @@ namespace Repository.PermissionRepo
                 .ToListAsync();
             return permissions;
         }
-        public async Task<List<PermissionDto>> GetPermissionByTypeId(int typeId)
+        public async Task<List<DisplayPermissionsDto>> GetPermissionByTypeId(int typeId)
         {
             var permissions = await _context.Permissions
                                 .Include(p => p.PermTypeFkNavigation)
                 .Where(p => p.PermTypeFk == typeId)
-                .Select(permission => new PermissionDto
+                .Select(permission => new DisplayPermissionsDto
                 {
                     PermId = permission.PermId,
+                    PermCode = permission.PermCode,
                     PerTypeValue = permission.PermTypeFkNavigation.PerTypeValue,
                     SubId = permission.SubFk,
                     DestinationSubId = permission.DestinationSubFk,
@@ -70,14 +92,15 @@ namespace Repository.PermissionRepo
                 .ToListAsync();
             return permissions;
         }
-        public async Task<PermissionDto> GetPermissionById(int id)
+        public async Task<DisplayPermissionsDto> GetPermissionById(int id)
         {
             var permission = await _context.Permissions
                 .Include(p => p.PermTypeFkNavigation)
                 .Where(p => p.PermId == id)
-                .Select(permission => new PermissionDto
+                .Select(permission => new DisplayPermissionsDto
                 {
                     PermId = permission.PermId,
+                    PermCode = permission.PermCode,
                     PerTypeValue = permission.PermTypeFkNavigation.PerTypeValue,
                     SubId = permission.SubFk,
                     DestinationSubId = permission.DestinationSubFk,
@@ -116,6 +139,7 @@ namespace Repository.PermissionRepo
 
             var newPermission = new Permission
             {
+                PermCode = permissionDto.PermCode,
                 SubFk = permissionDto.SubId,
                 DestinationSubFk = permissionDto.DestinationSubId,
                 PermTypeFk = permissionType.PerId,
@@ -339,7 +363,6 @@ namespace Repository.PermissionRepo
             }
 
         }
-
         
     }
 }

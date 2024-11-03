@@ -186,7 +186,10 @@ public partial class StockContext : DbContext
 
             entity.ToTable("Permission");
 
+            entity.HasIndex(e => e.PermCode, "UQ_PermCode").IsUnique();
+
             entity.Property(e => e.PermId).HasColumnName("Perm_ID");
+            entity.Property(e => e.PermCode).HasMaxLength(10);
             entity.Property(e => e.PermCreatedat)
                 .HasColumnType("datetime")
                 .HasColumnName("Perm_Createdat");

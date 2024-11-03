@@ -36,6 +36,13 @@ namespace API.Controller
             }
             return Ok(permissions);
         }
+        [HttpGet("GetAllPermissionsWithPagination")]
+        public async Task<IActionResult> GetAllPermissionsWithPagination(int pageNumber = 1, int pageSize = 10)
+        {
+            var paginatedPermissions = await _permission.GetAllPermissionsWithPagination(pageNumber, pageSize);
+
+            return Ok(paginatedPermissions);
+        }
 
         [HttpGet("GetPermissionsByDate/{date}")]
         public async Task<ActionResult<List<PermissionDto>>> GetPermissionsByDate(DateTime date)
