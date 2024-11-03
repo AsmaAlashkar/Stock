@@ -1,6 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using Standard.DTOs.ItemDtos;
+using Repository.Pagination;
 using Standard.DTOs.PermissionDto;
 using Standard.Entities;
 using System;
@@ -35,6 +35,25 @@ namespace Repository.PermissionRepo
                 .ToListAsync();
             return permissions;
         }
+
+        public async Task<PaginatedResult<PermissionDto>> GetAllPermissionsWithPagination(int pageNumber, int pageSize)
+        {
+            var permissionsQuery = _context.Permissions
+                .Include(p => p.PermTypeFkNavigation)
+                .Select(permission => new PermissionDto
+                {
+                    PermId = permission.PermId,
+                    PerTypeValue = permission.PermTypeFkNavigation.PerTypeValue,
+                    SubId = permission.SubFk,
+                    DestinationSubId = permission.DestinationSubFk,
+                    PermCreatedat = permission.PermCreatedat,
+                    ItemCount = permission.ItemPermissions.Count(),
+                });
+
+            return await permissionsQuery.PaginateAsync(pageNumber, pageSize);
+        }
+
+
         public async Task<List<PermissionDto>> GetPermissionsByDate(DateTime date)
         {
             var permissions = await _context.Permissions
