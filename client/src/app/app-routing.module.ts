@@ -18,6 +18,7 @@ import { CategoryItemsComponent } from './category/category-items/category-items
 import { SubItemsComponent } from './wearhouse/sub-items/sub-items.component';
 import { CreateItemComponent } from './items/create-item/create-item.component';
 import { DisplayAllPermissionsComponent } from './permission/display-all-permissions/display-all-permissions.component';
+import { CreatePermissionComponent } from './permission/create-permission/create-permission.component';
 
 const routes: Routes = [
   {path:'', component:HomeComponent},
@@ -37,6 +38,8 @@ const routes: Routes = [
 
   {path:'permission',component: PermissinTypeComponent},
   {path:'allPermissions',component: DisplayAllPermissionsComponent},
+  {path:'CreatePermission',component: CreatePermissionComponent},
+
   {path:'items',component: DisplayItemsComponent},
   // {path:'createItem',component:CreateItemComponent},
 

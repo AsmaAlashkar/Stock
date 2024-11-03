@@ -13,12 +13,14 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DisplayAllPermissionsComponent } from './display-all-permissions/display-all-permissions.component';
 import { RouterModule } from '@angular/router';
+import { CreatePermissionComponent } from './create-permission/create-permission.component';
 
 @NgModule({
   declarations: [
     PermissinTypeComponent,
     PermissionActionComponent,
-    DisplayAllPermissionsComponent
+    DisplayAllPermissionsComponent,
+    CreatePermissionComponent
   ],
   imports: [
     CommonModule,
