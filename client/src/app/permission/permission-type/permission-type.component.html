@@ -10,19 +10,20 @@
           <p>Total Permission Types: <strong>{{ permissionTypes.length }}</strong></p> <!-- Display total items -->
         </div>
       </div>
-      <div class="card">
+      <!-- <div class="card">
         <div class="card-header">
           <strong>Actions</strong>
         </div>
         <div class="card-body">
           <a name="" id="" class="btn btn-success w-100 mb-2" [routerLink]="['/allPermissions']" role="button">View All Permissions</a>
         </div>
-      </div>
+      </div> -->
     </section>
 
     <!-- Main section to display filtered permission types -->
     <section class="col-12 col-md-9">
       <div class="container-fluid">
+        <app-display-all-permissions></app-display-all-permissions>
         <!-- <div class="row justify-content-between"> -->
           <div
             *ngFor="let permissionType of filteredPermissionTypes; let i = index"

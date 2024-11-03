@@ -28,7 +28,10 @@ export const environment = {
     getUnitsNames:'http://localhost:5050/api/Unit/GetUnitsNames',
 
     getpermissiontype: 'http://localhost:5050/api/PermissionType/GetAllPermissionTypes',
-    permissionAction: 'http://localhost:5050/api/Permission/CreatePermission'
+    getAllPermissions: 'http://localhost:5050/api/Permission/GetAllPermissions',
+    permissionAction: 'http://localhost:5050/api/Permission/CreatePermission',
+    getPermissionsByDate: 'http://localhost:5050/api/Permission/GetPermissionsByDate/',
+    getPermissionsByTypeId: 'http://localhost:5050/api/Permission/GetPermissionByTypeId/'
   };
 
   /*

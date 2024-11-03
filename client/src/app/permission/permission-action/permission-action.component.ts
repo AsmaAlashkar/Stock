@@ -9,6 +9,7 @@ import { subWearhouseVM } from 'src/app/shared/models/subwearhouse';
 import { ItemsService } from 'src/app/items/items.service';
 import { ItemDetailsDtoVM, ItemDetailsPerTab } from 'src/app/shared/models/items';
 import { ActivatedRoute } from '@angular/router';
+import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
 
 @Component({
   selector: 'app-permission-action',
@@ -29,8 +30,8 @@ export class PermissionActionComponent implements OnInit {
   selectedSubWearFrom!: subWearhouseVM;
   selectedSubWearTo!: subWearhouseVM;
   filteredItems: ItemDetailsDtoVM[] = [];
-  errorMessage: string | null = null; 
-  
+  errorMessage: string | null = null;
+
   constructor (
     private toastr: ToastrService,
     private permService: PermissionService,
@@ -38,7 +39,9 @@ export class PermissionActionComponent implements OnInit {
     public ref: DynamicDialogRef,
     private activeRoute: ActivatedRoute,
     private wearhouseService: WearhouseService,
-    private itemsService: ItemsService
+    private itemsService: ItemsService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   )
   {
     this.Permissionaction = {
@@ -239,7 +242,7 @@ export class PermissionActionComponent implements OnInit {
     }
   }
 
-  save(form: NgForm) {
+  /*save(form: NgForm) {
     this.errorMessage = null; // Reset the error message on each save attempt
     this.Permissionaction.permTypeFk = this.perId;
     this.Permissionaction.subId = this.selectedSubWearFrom?.subId || 0;
@@ -274,6 +277,144 @@ export class PermissionActionComponent implements OnInit {
             this.toastr.error('Error creating permission', 'Error');
         }
     });
-}
+  }*/
+
+  // confirm() {
+  //   this.confirmationService.confirm({
+  //       message: 'Are you sure that you want to proceed?',
+  //       header: 'Confirmation',
+  //       icon: 'pi pi-exclamation-triangle',
+  //       accept: () => {
+  //           this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
+  //       },
+  //       reject: (type: ConfirmEventType) => {
+  //           switch (type) {
+  //               case ConfirmEventType.REJECT:
+  //                   this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+  //                   break;
+  //               case ConfirmEventType.CANCEL:
+  //                   this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
+  //                   break;
+  //           }
+  //       }
+  //   });
+  // }
+
+  /*save(form: NgForm) {
+    this.errorMessage = null;
+
+    if (form.invalid) {
+        this.errorMessage = 'Please fill in all required fields.';
+        return;
+    }
+
+    this.confirm(() => {
+        this.Permissionaction.permTypeFk = this.perId;
+        this.Permissionaction.subId = this.selectedSubWearFrom?.subId || 0;
+        this.Permissionaction.destinationSubId = this.selectedSubWearTo?.subId || null;
+        this.Permissionaction.permCreatedat = new Date().toISOString();
+
+        const hasValidQuantities = this.itemDetailsPerTab.every(item => {
+            return item.quantity !== undefined && item.quantity > 0;
+        });
+
+        if (!hasValidQuantities) {
+            this.errorMessage = 'All quantities must be greater than 0';
+            return;
+        }
+
+        this.Permissionaction.items = this.itemDetailsPerTab.map(item => ({
+            itemId: item.itemId,
+            quantity: item.quantity || 0
+        }));
+
+        this.permService.permissionAction(this.Permissionaction).subscribe({
+            next: (response) => {
+                console.log('Order created:', response);
+                this.toastr.success('Order created successfully!', 'Success');
+                this.ref.close();
+            },
+            error: (error) => {
+                console.error('Error creating permission:', error);
+                this.toastr.error('Error creating permission', 'Error');
+                // this.errorMessage = error.error.errors.PerTypeValue?.join(', ') || 'Unknown error';
+            }
+        });
+    });
+  }
+
+  confirm(callback: () => void) {
+    this.confirmationService.confirm({
+        message: 'Are you sure that you want to proceed?',
+        header: 'Confirmation',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Permission saved successfully' });
+            callback();
+        },
+        reject: (type: ConfirmEventType) => {
+            switch (type) {
+                case ConfirmEventType.REJECT:
+                    this.messageService.add({ severity: 'error', summary: 'Cancelled', detail: 'Permission Canseled' });
+                    break;
+                case ConfirmEventType.CANCEL:
+                    this.messageService.add({ severity: 'error', summary: 'Cancelled', detail: 'Permission Canseled' });
+                    break;
+            }
+        }
+    });
+  }*/
+
+    save(form: NgForm) {
+      this.errorMessage = null; // Reset the error message on each save attempt
+
+      // Use ConfirmationService to show the dialog
+      this.confirmationService.confirm({
+          message: 'Are you sure you want to save these changes?',
+          header: 'Confirmation',
+          icon: 'pi pi-exclamation-triangle',
+          accept: () => {
+              // This block executes if the user confirms
+              this.Permissionaction.permTypeFk = this.perId;
+              this.Permissionaction.subId = this.selectedSubWearFrom?.subId || 0;
+              this.Permissionaction.destinationSubId = this.selectedSubWearTo?.subId || null;
+              this.Permissionaction.permCreatedat = new Date().toISOString();
+
+              // Validate that all quantities are greater than 0
+              const hasValidQuantities = this.itemDetailsPerTab.every(item => {
+                  return item.quantity !== undefined && item.quantity > 0;
+              });
+
+              if (!hasValidQuantities) {
+                  this.errorMessage = 'All quantities must be greater than 0'; // Set the error message
+                  return; // Exit the method if validation fails
+              }
+
+              // Use itemDetailsPerTab to get the correct quantities
+              this.Permissionaction.items = this.itemDetailsPerTab.map(item => ({
+                  itemId: item.itemId,
+                  quantity: item.quantity || 0 // This should be safe now
+              }));
+
+              // Call the service
+              this.permService.permissionAction(this.Permissionaction).subscribe({
+                  next: (response) => {
+                      console.log('Order created:', response);
+                      this.toastr.success('Order created successfully!', 'Success');
+                      this.ref.close(); // Optionally close the dialog
+                  },
+                  error: (error) => {
+                      console.error('Error creating permission:', error);
+                      this.toastr.error('Error creating permission', 'Error');
+                  }
+              });
+          },
+          reject: () => {
+              // This block executes if the user rejects
+              this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'Operation cancelled' });
+          }
+      });
+  }
+
 
 }
