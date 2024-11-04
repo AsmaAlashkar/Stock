@@ -36,6 +36,7 @@ namespace API.Controller
             }
             return Ok(permissions);
         }
+        
         [HttpGet("GetAllPermissionsWithPagination")]
         public async Task<IActionResult> GetAllPermissionsWithPagination(int pageNumber = 1, int pageSize = 10)
         {
