@@ -4,7 +4,7 @@ import { PermissinTypeComponent } from './permission-type/permission-type.compon
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PermissionActionComponent } from './permission-action/permission-action.component';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { BrowserModule } from '@angular/platform-browser';
 import { TableModule } from 'primeng/table';
 import { InputNumberModule } from 'primeng/inputnumber';
@@ -13,7 +13,11 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DisplayAllPermissionsComponent } from './display-all-permissions/display-all-permissions.component';
 import { RouterModule } from '@angular/router';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MessagesModule } from 'primeng/messages';
+import { ToastModule } from 'primeng/toast';
 import { CreatePermissionComponent } from './create-permission/create-permission.component';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 @NgModule({
   declarations: [
@@ -33,11 +37,16 @@ import { CreatePermissionComponent } from './create-permission/create-permission
     MultiSelectModule,
     BrowserAnimationsModule,
     TableModule,
+    ConfirmDialogModule,
+    MessagesModule,
+    ToastModule,
+    SplitButtonModule
   ],
   providers: [
     DialogService,
     MessageService,
-    BrowserModule
+    BrowserModule,
+    ConfirmationService
   ]
 })
 export class PermissionModule { }

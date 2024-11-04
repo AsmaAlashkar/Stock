@@ -13,3 +13,16 @@ export interface Permissionaction {
   permCreatedat: string
 }
 
+export interface DisplayAllPermission {
+  permId: number
+  permTypeFk: number
+  perTypeValue: string
+  subId: number
+  destinationSubId: number
+  items: [
+    itemId: number,
+    quantity: number
+  ]
+  itemCount: number
+  permCreatedat: string
+}

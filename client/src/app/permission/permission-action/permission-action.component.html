@@ -127,8 +127,8 @@
                     <p-inputNumber
                         [(ngModel)]="itemDetailsPerTab.quantity"
                         inputId="integeronly-{{index}}"
-                        [min]="0"
-                        name="quantity{{index}}"> <!-- Unique name for each input -->
+                        [min]="1"
+                        name="quantity{{index}}">
                     </p-inputNumber>
                     <label htmlFor="integeronly-{{index}}">Quantity</label>
                 </span>
@@ -147,4 +147,6 @@
   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
     <button type="submit" class="btn btn-primary me-md-2">Save Permission</button>
   </div>
+  <p-toast></p-toast>
+  <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
 </form>

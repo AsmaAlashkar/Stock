@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class PermissinTypeComponent implements OnDestroy{
 
   permissionTypes: IPermissionType[] = [];
+  selectedPerm!: IPermissionType;
   filteredPermissionTypes: IPermissionType[] = [];
   filterName: string = '';
 
@@ -95,6 +96,13 @@ export class PermissinTypeComponent implements OnDestroy{
           this.ref.close();
       }
   }
+
+  onDropdownChange(selectedPermission: IPermissionType): void {
+    if (selectedPermission) {
+        this.onCardClick(selectedPermission);
+    }
+  }
+
 
   openAllPermissions()
   {

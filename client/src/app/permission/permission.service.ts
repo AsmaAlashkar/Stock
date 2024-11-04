@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { IPermissionType } from '../shared/models/permissiontype';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { Permissionaction } from '../shared/models/permissionaction';
+import { DisplayAllPermission, Permissionaction } from '../shared/models/permissionaction';
 
 @Injectable({
   providedIn: 'root'
@@ -27,4 +27,16 @@ export class PermissionService {
     return this.http.post<Permissionaction>(`${environment.permissionAction}`, permAction,
       {headers:this.httpHeader.headers, responseType: 'text' as 'json'});
   }
+
+  getAllPermissions(): Observable <DisplayAllPermission[]> {
+    return this.http.get<DisplayAllPermission[]>(`${environment.getAllPermissions}`, this.httpHeader);
+  }
+
+  // getPermissionsByDate(): Observable <[]> {
+  //   return this.http.get<DisplayAllPermission[]>(`${environment.getPermissionsByDate}`, this.httpHeader);
+  // }
+
+  // getPermissionsByTypeId(typeId: number): Observable <[]> {
+  //   return this.http.get<DisplayAllPermission[]>(`${environment.getPermissionsByTypeId}/${typeId}`, this.httpHeader);
+  // }
 }
