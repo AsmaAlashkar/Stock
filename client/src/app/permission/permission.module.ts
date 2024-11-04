@@ -17,6 +17,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
 import { CreatePermissionComponent } from './create-permission/create-permission.component';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { CreatePermissionComponent } from './create-permission/create-permission
     TableModule,
     ConfirmDialogModule,
     MessagesModule,
-    ToastModule
+    ToastModule,
+    SplitButtonModule
   ],
   providers: [
     DialogService,
