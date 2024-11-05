@@ -19,7 +19,7 @@ import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/a
 export class PermissionActionComponent implements OnInit {
   showWarning: boolean = false;
   perId!: number;
-  permActForm!: FormGroup;
+  // permActForm!: FormGroup;
   errors: string[] = [];
   headerValue:string = '';
   Permissionaction: Permissionaction;
@@ -46,22 +46,37 @@ export class PermissionActionComponent implements OnInit {
   {
     this.Permissionaction = {
       permId: 0,
+      permCode:"",
       permTypeFk: 0,
       subId: 0,
       destinationSubId: null,
       items: [{itemId: 0, quantity: 0}],
-      permCreatedat: ""
+      permCreatedat: new Date().toDateString()
     },
     this.perId = this.config.data?.perId;
   }
 
   ngOnInit(): void {
     this.getSubwearhouse();
-
+    this.loadNextPermissionCode();
     this.headerValue = this.config.data.headerValue;
     console.log(this.headerValue);
 
     console.log('Permission Type ID:', this.perId);
+  }
+  loadNextPermissionCode() {
+    this.permService.GenerateNextPermissionCode().subscribe({
+      next: (code: string) => {
+        this.Permissionaction.permCode = code;
+        console.log("code", code);
+        console.log("this.Permissionaction.permCode", this.Permissionaction.permCode);
+        
+        
+      },
+      error: (err) => {
+        console.error('Failed to load next permission code', err);
+      }
+    });
   }
 
   onQuantityChange(item: ItemDetailsPerTab) {

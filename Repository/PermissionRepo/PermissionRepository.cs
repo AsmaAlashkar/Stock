@@ -115,7 +115,39 @@ namespace Repository.PermissionRepo
                 })
                 .FirstOrDefaultAsync();
             return permission;
-        }        
+        }
+        public async Task<string> GenerateNextPermissionCode()
+        {
+            var activeFormat = await _context.CodeFormats
+                .FirstOrDefaultAsync(cf => cf.IsActive);
+
+            if (activeFormat == null)
+            {
+                return null; 
+            }
+
+            string prefix = activeFormat.Format;
+
+            var existingCodes = await _context.Permissions
+                .Where(p => p.PermCode.StartsWith(prefix))
+                .Select(p => p.PermCode)
+                .ToListAsync();
+
+            int highestNumber = 0;
+            foreach (var code in existingCodes)
+            {
+                var numberPart = code.Substring(prefix.Length);
+                if (int.TryParse(numberPart, out int number))
+                {
+                    highestNumber = Math.Max(highestNumber, number);
+                }
+            }
+
+            int newNumber = highestNumber + 1;
+            string newPermCode = $"{prefix}{newNumber:000}"; 
+
+            return newPermCode;
+        }
         public async Task AddPermission(PermissionDto permissionDto)
         {
             switch (permissionDto.PermTypeFk)
@@ -142,9 +174,27 @@ namespace Repository.PermissionRepo
             if (permissionType == null)
                 throw new Exception("Permission type not found");
 
+            string newPermCode;
+
+            if (!string.IsNullOrWhiteSpace(permissionDto.PermCode))
+            {
+                var codeExists = await _context.Permissions
+                    .AnyAsync(p => p.PermCode == permissionDto.PermCode);
+
+                if (codeExists)
+                {
+                    throw new Exception("The provided permission code already exists.");
+                }
+                newPermCode = permissionDto.PermCode;
+            }
+            else
+            {
+                newPermCode = await GenerateNextPermissionCode();
+            }
+
             var newPermission = new Permission
             {
-                PermCode = permissionDto.PermCode,
+                PermCode = newPermCode,
                 SubFk = permissionDto.SubId,
                 DestinationSubFk = permissionDto.DestinationSubId,
                 PermTypeFk = permissionType.PerId,

@@ -77,7 +77,13 @@ namespace API.Controller
             }
             return Ok(permission);
         }
-       
+
+        [HttpGet("GenerateNextPermissionCode")]
+        public async Task<ActionResult<string>> GetNextPermissionCode()
+        {
+            var nextCode = await _permission.GenerateNextPermissionCode();
+            return Ok(nextCode);
+        }
 
         [HttpPost("CreatePermission")]
         public async Task<ActionResult> CreatePermission(PermissionDto permission)
