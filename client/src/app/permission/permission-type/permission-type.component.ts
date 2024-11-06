@@ -67,8 +67,8 @@ export class PermissinTypeComponent implements OnDestroy{
         baseZIndex: 10000,
         maximizable: true,
         data: {
-            headerValue: headerValue,
-            perId: selectedPermissionType.perId  // Pass perId here
+          headerValue: headerValue,
+          perId: selectedPermissionType.perId
         }
     });
 

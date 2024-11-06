@@ -29,8 +29,8 @@ export const environment = {
 
     getpermissiontype: 'http://localhost:5050/api/PermissionType/GetAllPermissionTypes',
     getAllPermissions: 'http://localhost:5050/api/Permission/GetAllPermissionsWithPagination',
-    permissionAction: 'http://localhost:5050/api/Permission/CreatePermission',
-    getAllPermissions: 'http://localhost:5050/api/Permission/GetAllPermissions',
+    // permissionAction: 'http://localhost:5050/api/Permission/CreatePermission',
+    // getAllPermissions: 'http://localhost:5050/api/Permission/GetAllPermissions',
     generateNextPermissionCode:'http://localhost:5050/api/Permission/GenerateNextPermissionCode',
     createPermission: 'http://localhost:5050/api/Permission/CreatePermission',
     getPermissionsByDate: 'http://localhost:5050/api/Permission/GetPermissionsByDate/',

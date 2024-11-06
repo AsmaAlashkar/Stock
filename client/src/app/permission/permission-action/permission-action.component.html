@@ -40,7 +40,7 @@
         <!-- <label for="float-label">Select SubWearhouse</label> -->
         <!-- </span> -->
       </div>
-      <div class="col-sm-12 col-md-6" *ngIf="headerValue == 'نقل'">
+      <div class="col-sm-12 col-md-6" *ngIf="perId == 5">
         <!-- drowpdown selecte To (Destination subWherehouse) (getsubWearhouse()) -->
         <!-- <span *ngIf="headerValue == 'نقل'"> -->
         <label for="SubWearTo">To</label>
@@ -69,14 +69,14 @@
         <div class="flex">
           <!-- mutiple select get all items (getItemsVM())-->
           <span class="p-float-label"
-            *ngIf="headerValue == 'اضافة' || headerValue == 'إضافة' || headerValue == 'أضافة'">
+            *ngIf="perId == 2">
             <p-multiSelect inputId="float-label" [options]="ItemDetailsResultVM" [(ngModel)]="selectedItems"
               (ngModelChange)="onMultiSelectChange($event)" optionLabel="itemName" appendTo="body" display="chip"
               [showClear]="true" placeholder="Select Items" name="all item"></p-multiSelect>
             <label for="float-label">Select Items</label>
           </span>
           <!-- mutiple select get items by subwearhouseBy ID(getItemsVM())-->
-          <span class="p-float-label" *ngIf="headerValue == 'نقل' || headerValue == 'تالف' || headerValue == 'صرف'">
+          <span class="p-float-label" *ngIf="perId == 5 || perId == 4 || perId == 3">
             <p-multiSelect inputId="float-label" [options]="filteredItems" [(ngModel)]="selectedItems"
               (ngModelChange)="onMultiSelectChange($event)" onChange="handleChange(event)" optionLabel="itemName"
               appendTo="body" display="chip" [showClear]="true" placeholder="Select Items"

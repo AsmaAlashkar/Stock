@@ -59,8 +59,8 @@ export class PermissionActionComponent implements OnInit {
   ngOnInit(): void {
     this.getSubwearhouse();
     this.loadNextPermissionCode();
-    this.headerValue = this.config.data.headerValue;
-    console.log(this.headerValue);
+    this.perId = this.config.data.perId;
+    console.log(this.perId);
 
     console.log('Permission Type ID:', this.perId);
   }
@@ -70,8 +70,8 @@ export class PermissionActionComponent implements OnInit {
         this.Permissionaction.permCode = code;
         console.log("code", code);
         console.log("this.Permissionaction.permCode", this.Permissionaction.permCode);
-        
-        
+
+
       },
       error: (err) => {
         console.error('Failed to load next permission code', err);
@@ -153,7 +153,7 @@ export class PermissionActionComponent implements OnInit {
 
   displayItemsBySubId(subId: number) {
     console.log("subId:",subId);
-    if (this.headerValue === "اضافة" || this.headerValue === "إضافة" || this.headerValue === "أضافة") {
+    if (this.perId === 2) {
       if (this.selectedSubWearFrom) {
       this.itemsService.getItemsVM().subscribe({
         next: (data) => {
