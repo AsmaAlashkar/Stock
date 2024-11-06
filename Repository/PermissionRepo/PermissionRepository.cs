@@ -58,6 +58,13 @@ namespace Repository.PermissionRepo
         }
         public async Task<List<DisplayPermissionsDto>> GetPermissionsByDate(DateTime date)
         {
+            bool existsDate = await _context.Permissions
+                            .AnyAsync(p => p.PermCreatedat.HasValue && p.PermCreatedat.Value.Date == date.Date);
+
+            if (!existsDate)
+            {
+                return new List<DisplayPermissionsDto>();
+            }
             var permissions = await _context.Permissions
                                 .Include(p => p.PermTypeFkNavigation)
                                 .Include(p => p.SubFkNavigation)
@@ -78,6 +85,11 @@ namespace Repository.PermissionRepo
         }
         public async Task<List<DisplayPermissionsDto>> GetPermissionByTypeId(int typeId)
         {
+            bool existsType = await _context.Permissions.AnyAsync(p=>p.PermTypeFk == typeId);
+            if (!existsType)
+            {
+                return new List<DisplayPermissionsDto>();
+            }
             var permissions = await _context.Permissions
                                 .Include(p => p.PermTypeFkNavigation)
                                 .Include(p => p.SubFkNavigation)
@@ -102,6 +114,7 @@ namespace Repository.PermissionRepo
                 .Include(p => p.PermTypeFkNavigation)
                 .Include(p => p.SubFkNavigation)
                 .Include(p => p.DestinationSubFkNavigation)
+                .Include(p=>p.ItemPermissions)
                 .Where(p => p.PermId == id)
                 .Select(permission => new DisplayPermissionsDto
                 {
@@ -112,10 +125,52 @@ namespace Repository.PermissionRepo
                     DestinationSubName = permission.DestinationSubFkNavigation.SubName,
                     PermCreatedat = permission.PermCreatedat,
                     ItemCount = permission.ItemPermissions.Count(),
+                    Items = permission.ItemPermissions
+                    .Select(permItem=> new PermissionItemDto 
+                    { 
+                        ItemId= permItem.ItemFk,
+                        ItemCode = permItem.ItemFkNavigation.ItemCode,
+                        ItemName = permItem.ItemFkNavigation.ItemName,
+                        CatNameEn = permItem.ItemFkNavigation.CatFkNavigation.CatNameEn,
+                        UnitName = permItem.ItemFkNavigation.UniteFkNavigation.UnitName,
+                        Quantity = permItem.Quantity
+                    }).ToList()
                 })
                 .FirstOrDefaultAsync();
             return permission;
-        }        
+        }
+        public async Task<string> GenerateNextPermissionCode()
+        {
+            var activeFormat = await _context.CodeFormats
+                .FirstOrDefaultAsync(cf => cf.IsActive);
+
+            if (activeFormat == null)
+            {
+                return null; 
+            }
+
+            string prefix = activeFormat.Format;
+
+            var existingCodes = await _context.Permissions
+                .Where(p => p.PermCode.StartsWith(prefix))
+                .Select(p => p.PermCode)
+                .ToListAsync();
+
+            int highestNumber = 0;
+            foreach (var code in existingCodes)
+            {
+                var numberPart = code.Substring(prefix.Length);
+                if (int.TryParse(numberPart, out int number))
+                {
+                    highestNumber = Math.Max(highestNumber, number);
+                }
+            }
+
+            int newNumber = highestNumber + 1;
+            string newPermCode = $"{prefix}{newNumber:000}"; 
+
+            return newPermCode;
+        }
         public async Task AddPermission(PermissionDto permissionDto)
         {
             switch (permissionDto.PermTypeFk)
@@ -142,9 +197,27 @@ namespace Repository.PermissionRepo
             if (permissionType == null)
                 throw new Exception("Permission type not found");
 
+            string newPermCode;
+
+            if (!string.IsNullOrWhiteSpace(permissionDto.PermCode))
+            {
+                var codeExists = await _context.Permissions
+                    .AnyAsync(p => p.PermCode == permissionDto.PermCode);
+
+                if (codeExists)
+                {
+                    throw new Exception("The provided permission code already exists.");
+                }
+                newPermCode = permissionDto.PermCode;
+            }
+            else
+            {
+                newPermCode = await GenerateNextPermissionCode();
+            }
+
             var newPermission = new Permission
             {
-                PermCode = permissionDto.PermCode,
+                PermCode = newPermCode,
                 SubFk = permissionDto.SubId,
                 DestinationSubFk = permissionDto.DestinationSubId,
                 PermTypeFk = permissionType.PerId,

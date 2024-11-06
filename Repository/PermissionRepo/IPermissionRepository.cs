@@ -11,6 +11,7 @@ namespace Repository.PermissionRepo
 {
     public interface IPermissionRepository
     {
+        Task<string> GenerateNextPermissionCode();
         Task AddPermission(PermissionDto permissionDto);
         Task<List<DisplayPermissionsDto>> GetAllPermissions();
         Task<PaginatedResult<DisplayPermissionsDto>> GetAllPermissionsWithPagination(int pageNumber, int pageSize);

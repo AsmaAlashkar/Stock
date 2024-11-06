@@ -19,6 +19,8 @@ public partial class StockContext : DbContext
 
     public virtual DbSet<Category> Categories { get; set; }
 
+    public virtual DbSet<CodeFormat> CodeFormats { get; set; }
+
     public virtual DbSet<Item> Items { get; set; }
 
     public virtual DbSet<ItemPermission> ItemPermissions { get; set; }
@@ -87,6 +89,16 @@ public partial class StockContext : DbContext
             entity.HasOne(d => d.ParentCategory).WithMany(p => p.InverseParentCategory)
                 .HasForeignKey(d => d.ParentCategoryId)
                 .HasConstraintName("FK_Category_Category");
+        });
+
+        modelBuilder.Entity<CodeFormat>(entity =>
+        {
+            entity.ToTable("CodeFormat");
+
+            entity.HasIndex(e => e.Format, "UQ_CodeFormats_Format").IsUnique();
+
+            entity.Property(e => e.CreatedDate).HasColumnType("datetime");
+            entity.Property(e => e.Format).HasMaxLength(6);
         });
 
         modelBuilder.Entity<Item>(entity =>

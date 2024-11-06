@@ -1,5 +1,6 @@
 export interface Permissionaction {
   permId: number,
+  permCode :string,
   permTypeFk: number,
   subId: number,
   destinationSubId?: number | null,

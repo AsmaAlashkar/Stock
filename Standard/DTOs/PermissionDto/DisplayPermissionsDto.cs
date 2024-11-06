@@ -17,8 +17,7 @@ namespace Standard.DTOs.PermissionDto
         public string SubName { get; set; } = null!;
         //public int? DestinationSubId { get; set; }
         public string? DestinationSubName { get; set; }
-
-        //public List<ItemDto> Items { get; set; }
+        public List<PermissionItemDto> Items { get; set; }
         public int ItemCount { get; set; }
         public DateTime? PermCreatedat { get; set; } = DateTime.Now;
     }

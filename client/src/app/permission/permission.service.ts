@@ -23,8 +23,14 @@ export class PermissionService {
     return this.http.get<IPermissionType[]>(`${environment.getpermissiontype}`, this.httpHeader);
   }
 
+  GenerateNextPermissionCode():Observable<string>{
+    return this.http.get<string>(`${environment.generateNextPermissionCode}`, 
+      {headers:this.httpHeader.headers, responseType: 'text' as 'json'}
+    );
+  }
+
   permissionAction(permAction: Permissionaction): Observable <Permissionaction> {
-    return this.http.post<Permissionaction>(`${environment.permissionAction}`, permAction,
+    return this.http.post<Permissionaction>(`${environment.createPermission}`, permAction,
       {headers:this.httpHeader.headers, responseType: 'text' as 'json'});
   }
 

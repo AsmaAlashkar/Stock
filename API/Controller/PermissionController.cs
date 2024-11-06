@@ -5,7 +5,6 @@ using Repository;
 using Standard.Entities;
 using Repository.PermissionRepo;
 using Standard.DTOs.PermissionDto;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace API.Controller
 {
@@ -77,7 +76,13 @@ namespace API.Controller
             }
             return Ok(permission);
         }
-       
+
+        [HttpGet("GenerateNextPermissionCode")]
+        public async Task<ActionResult<string>> GetNextPermissionCode()
+        {
+            var nextCode = await _permission.GenerateNextPermissionCode();
+            return Ok(nextCode);
+        }
 
         [HttpPost("CreatePermission")]
         public async Task<ActionResult> CreatePermission(PermissionDto permission)
