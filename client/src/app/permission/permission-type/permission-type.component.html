@@ -10,33 +10,33 @@
           <p>Total Permission Types: <strong>{{ permissionTypes.length }}</strong></p> <!-- Display total items -->
         </div>
       </div>
-      <!-- <div class="card">
+      <div class="card">
         <div class="card-header">
           <strong>Actions</strong>
         </div>
         <div class="card-body">
-          <a name="" id="" class="btn btn-success w-100 mb-2" [routerLink]="['/allPermissions']" role="button">View All Permissions</a>
+        <!-- <p-splitButton label="Create Permission" [model]="permissionTypes" styleClass="p-button-rounded mr-2 mb-2"></p-splitButton> -->
+          <span class="p-float-label mt-2">
+            <p-dropdown [options]="permissionTypes"
+            [(ngModel)]="selectedPerm"
+            placeholder="Select Permission"
+            optionLabel="perTypeValue"
+            inputId="float-label"
+            (onChange)="onDropdownChange($event.value)"
+            ></p-dropdown>
+            <label for="float-label">Create Permission</label>
+        </span>
+          <!-- <a name="" id="" class="btn btn-success w-100 mb-2" [routerLink]="['/allPermissions']" role="button">View All Permissions</a> -->
         </div>
-      </div> -->
+      </div>
     </section>
 
     <!-- Main section to display filtered permission types -->
     <section class="col-12 col-md-9">
       <div class="container-fluid">
-        <!-- <p-splitButton label="Primary" [model]="this.permissionTypes" styleClass="p-button-rounded mr-2 mb-2"></p-splitButton> -->
-        <span class="p-float-label mb-2">
-          <p-dropdown [options]="permissionTypes"
-          [(ngModel)]="selectedPerm"
-          placeholder="Select Permission"
-          optionLabel="perTypeValue"
-          inputId="float-label"
-          (onChange)="onDropdownChange($event.value)"
-          ></p-dropdown>
-          <label for="float-label">Create Permission</label>
-      </span>
         <app-display-all-permissions></app-display-all-permissions>
         <!-- <div class="row justify-content-between"> -->
-          <div
+          <!-- <div
             *ngFor="let permissionType of filteredPermissionTypes; let i = index"
             class="card mb-3 cursor-pointer card-shadow"
             [ngClass]="{
@@ -50,15 +50,15 @@
           >
             <div class="card-body">
               <h5 class="card-title">{{ permissionType.perTypeValue }}</h5>
-              <!-- <p class="card-text">ID: {{ permissionType.perId }}</p> -->
+              <p class="card-text">ID: {{ permissionType.perId }}</p>
             </div>
-          </div>
+          </div> -->
         <!-- </div> -->
 
         <!-- Display message if no permission types match the filter -->
-        <div *ngIf="filteredPermissionTypes.length === 0">
+        <!-- <div *ngIf="filteredPermissionTypes.length === 0">
           <p>No permission types found.</p>
-        </div>
+        </div> -->
       </div>
     </section>
   </div>

@@ -24,7 +24,7 @@ export interface ItemDetailsDtoVM {
   itemId: number,
   itemName: string,
   subWearId?: number,
-  quantity?: number; 
+  quantity?: number;
 }
 
 export interface ItemDetailsPerTab {
@@ -34,5 +34,5 @@ export interface ItemDetailsPerTab {
   unitName: string
   categoryName: string
   currentQuantity: number
-  quantity?: number; // Add this line to include quantity as an optional property
+  quantity?: number;
 }

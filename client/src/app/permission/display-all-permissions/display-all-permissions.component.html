@@ -1,151 +1,123 @@
-
-<!-- <div class="container-fluid mt-5 category-tree"> -->
-  <!-- <div class="row"> -->
-
-    <!-- <section class="col-12 col-md-9"> -->
-      <!-- <div class="card"> -->
-        <!-- <p-table
-            #dt1
-            [value]="displayAllPermission"
-            dataKey="id"
-            [rows]="10"
-            [showCurrentPageReport]="true"
-            [rowsPerPageOptions]="[10, 25, 50]"
-            [loading]="loading"
-            [paginator]="true"
-            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-            [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
-            >
-            <ng-template pTemplate="caption">
-                <div class="flex">
-                    <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
-                    <span class="p-input-icon-left ml-auto">
-                        <i class="pi pi-search"></i>
-                        <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
-                    </span>
+<p-table
+    #dt1
+    [value]="displayAllPermVM"
+    dataKey="id"
+    [rows]="pageSize"
+    [lazy]="true"
+    (onLazyLoad)="getAllPermissions($event)"
+    [totalRecords]="totalRecords"
+    [paginator]="true"
+    [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+    appendTo="body"
+    >
+    <!-- [scrollable]="true"
+    scrollHeight="120vh" -->
+    <ng-template pTemplate="caption">
+        <div class="flex">
+          <!-- <h2>All Permissions</h2> -->
+            <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+            <!-- <span class="p-input-icon-left ml-auto">
+                <i class="pi pi-search"></i>
+                <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Search keyword" />
+            </span> -->
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th>
+                <div class="flex align-items-center">
+                    Code
                 </div>
-            </ng-template>
-            <ng-template pTemplate="header">
-                <tr>
-                    <th style="min-width:15rem">
-                        <div class="flex align-items-center">
-                            Name
-                            <p-columnFilter type="text" field="name" display="menu"></p-columnFilter>
-                        </div>
-                    </th>
-                    <th style="min-width:15rem">
-                        <div class="flex align-items-center">
-                            Country
-                            <p-columnFilter type="text" field="country.name" display="menu"></p-columnFilter>
-                        </div>
-                    </th>
-                    <th style="min-width:15rem">
-                        <div class="flex align-items-center">
-                            Agent
-                            <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-                                <ng-template pTemplate="header">
-                                    <div class="px-3 pt-3 pb-0">
-                                        <span class="font-bold">Agent Picker</span>
-                                    </div>
-                                </ng-template>
-                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
-                                        <ng-template let-option pTemplate="item">
-                                            <div class="inline-block vertical-align-middle">
-                                                <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
-                                                <span class="ml-1 mt-1">{{ option.name }}</span>
-                                            </div>
-                                        </ng-template>
-                                    </p-multiSelect>
-                                </ng-template>
-                            </p-columnFilter>
-                        </div>
-                    </th>
-                    <th style="min-width:10rem">
-                        <div class="flex align-items-center">
-                            Date
-                            <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
-                        </div>
-                    </th>
-                    <th style="min-width:10rem">
-                        <div class="flex align-items-center">
-                            Balance
-                            <p-columnFilter type="numeric" field="balance" display="menu" currency="USD"></p-columnFilter>
-                        </div>
-                    </th>
-                    <th style="min-width:10rem">
-                        <div class="flex align-items-center">
-                            Status
-                            <p-columnFilter field="status" matchMode="equals" display="menu">
-                                <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                    <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
-                                        <ng-template let-option pTemplate="item">
-                                            <p-tag [value]="option.value" [severity]="getSeverity(option.label)"></p-tag>
-                                        </ng-template>
-                                    </p-dropdown>
-                                </ng-template>
-                            </p-columnFilter>
-                        </div>
-                    </th>
-                    <th style="min-width:10rem">
-                        <div class="flex align-items-center">
-                            Activity
-                            <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-                                <ng-template pTemplate="filter" let-filter="filterCallback">
-                                    <p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3"></p-slider>
-                                    <div class="flex align-items-center px-2">
-                                        <span>{{ activityValues[0] }}</span>
-                                        <span>{{ activityValues[1] }}</span>
-                                    </div>
-                                </ng-template>
-                            </p-columnFilter>
-                        </div>
-                    </th>
-                    <th style="width: 3rem">
-                        <div class="flex align-items-center">
-                            Verified
-                            <p-columnFilter type="boolean" field="verified" display="menu"></p-columnFilter>
-                        </div>
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-customer>
-                <tr>
-                    <td>
-                        {{ customer.name }}
-                    </td>
-                    <td>
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                        <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
-                    </td>
-                    <td>
-                        <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                        <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
-                    </td>
-                    <td>
-                        {{ customer.date | date: 'MM/dd/yyyy' }}
-                    </td>
-                    <td>
-                        {{ customer.balance | currency: 'USD':'symbol' }}
-                    </td>
-                    <td>
-                        <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
-                    </td>
-                    <td>
-                        <p-progressBar [value]="customer.activity" [showValue]="false"></p-progressBar>
-                    </td>
-                    <td class="text-center">
-                        <i class="pi" [ngClass]="{ 'text-green-500 pi-check-circle': customer.verified, 'text-red-500 pi-times-circle': !customer.verified }"></i>
-                    </td>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="emptymessage">
-                <tr>
-                    <td colspan="7">No customers found.</td>
-                </tr>
-            </ng-template>
-        </p-table> -->
-      <!-- </div>
-    </section>
-  </div>
-</div> -->
+            </th>
+            <th>
+                <div class="flex align-items-center">
+                    Order Type Name
+                </div>
+            </th>
+            <th>
+                <div class="flex align-items-center">
+                    SubWearhouse
+                </div>
+            </th>
+            <th>
+                <div class="flex align-items-center">
+                    SubWearhouse Destination
+                </div>
+            </th>
+            <th>
+                <div class="flex align-items-center">
+                    Number of Items
+                </div>
+            </th>
+            <th>
+              <div class="flex align-items-center">
+                  Date
+              </div>
+          </th>
+        </tr>
+        <tr>
+          <th></th>
+          <th>
+            <span class="p-float-label">
+              <p-dropdown [options]="permissionTypes"
+              [(ngModel)]="selectedPerm"
+              placeholder="Select Permission Type"
+              optionLabel="perTypeValue"
+              inputId="float-label"
+              (onChange)="onDropdownChange($event.value)"
+              ></p-dropdown>
+              <label for="float-label">Search By Permission Type</label>
+          </span>
+          </th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th>
+            <p-calendar [(ngModel)]="selectedDate"
+              [showIcon]="true"
+              (onSelect)="onDateChange($event)"
+              dateFormat="mm/dd/yy"
+              appendTo="body"
+              placeholder="Select Date"
+              [touchUI]="true" [readonlyInput]="true"
+              >
+            </p-calendar>
+          </th>
+      </tr>
+      <!-- <tr>
+        <th pSortableColumn="permCode" style="width:20%">Code <p-sortIcon field="permCode"></p-sortIcon></th>
+        <th pSortableColumn="perTypeValue" style="width:20%">Order Type Name <p-sortIcon field="perTypeValue"></p-sortIcon></th>
+        <th pSortableColumn="subName" style="width:20%">SubWearhouse <p-sortIcon field="subName"></p-sortIcon></th>
+        <th pSortableColumn="destinationSubNameantity" style="width:20%">SubWearhouse Destination <p-sortIcon field="destinationSubNametity"></p-sortIcon></th>
+        <th pSortableColumn="itemCount" style="width:20%">Number of Items <p-sortIcon field="itemCount"></p-sortIcon></th>
+        <th pSortableColumn="permCreatedat" style="width:20%">Date <p-sortIcon field="permCreatedat"></p-sortIcon></th>
+      </tr> -->
+    </ng-template>
+    <ng-template pTemplate="body" let-perm>
+        <tr>
+            <td>
+              {{ perm.permCode }}
+            </td>
+            <td>
+              {{ perm.perTypeValue }}
+            </td>
+            <td>
+              {{ perm.subName }}
+            </td>
+            <td>
+              {{ perm.destinationSubName }}
+            </td>
+            <td>
+              {{ perm.itemCount }}
+            </td>
+            <td>
+              {{ perm.permCreatedat | date: 'MM/dd/yyyy' }}
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="7">No Orders found.</td>
+        </tr>
+    </ng-template>
+</p-table>

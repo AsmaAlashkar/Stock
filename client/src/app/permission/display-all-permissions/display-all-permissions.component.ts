@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Table } from 'primeng/table';
-import { DisplayAllPermission } from 'src/app/shared/models/permissionaction';
+import { Table, TableLazyLoadEvent } from 'primeng/table';
+import { DisplayAllPermission, DisplayAllPermissionVM } from 'src/app/shared/models/permissionaction';
 import { PermissionService } from '../permission.service';
+import { IPermissionType } from 'src/app/shared/models/permissiontype';
 
 @Component({
   selector: 'app-display-all-permissions',
@@ -10,47 +11,129 @@ import { PermissionService } from '../permission.service';
 })
 export class DisplayAllPermissionsComponent {
 
-  displayAllPermission: DisplayAllPermission[] = [];
-  //   representatives!: Representative[];
+  displayAllPermVM: DisplayAllPermissionVM[] = [];
+  displayAllPerm!: DisplayAllPermission;
+  pageNumber: number = 1;
+  pageSize: number = 10;
+  totalRecords: number = 0;
+  rowsPerPageOptions = [ 10, 20];
+  loading: boolean = true;
 
-  //   statuses!: any[];
+  permissionTypes: IPermissionType[] = [];
+  selectedPerm!: IPermissionType;
+  selectedDate: Date | null = null;
 
-    loading: boolean = true;
+  constructor(private permissionService: PermissionService, private permissionservice: PermissionService) {
+    this.displayAllPerm = { values: [], totalRecords: 0, totalPages: 0, pageNumber: 1, pageSize: 10 };
+  }
 
-  //   activityValues: number[] = [0, 100];
+  ngOnInit() {
+    this.loadPermissionTypes();
+  }
 
-    constructor(private permissionService: PermissionService) {}
+  getAllPermissions($event: TableLazyLoadEvent) {
+    const totalRecords = $event.first || 0;
+    const pageNumber = Math.floor(totalRecords / this.pageSize) + 1;
 
-    // ngOnInit() {
-    //     this.permissionService.getAllPermissions().then((displayAllPermission) => {
-    //         this.displayAllPermission = displayAllPermission;
-    //         this.loading = false;
+    this.permissionService.getAllPermissions(pageNumber, this.pageSize).subscribe({
+      next: (data) => {
+        this.loading = false;
+        this.displayAllPermVM = data.values;
+        this.totalRecords = data.totalRecords;
+      },
+      error: (error) => {
+        this.loading = false;
+        console.error('Error fetching items', error);
+      }
+    });
+  }
 
-    //         this.displayAllPermission.forEach((displayAllPermission) => (displayAllPermission.date = new Date(<Date>displayAllPermission.date)));
-    //     });
-    // }
+  loadPermissionTypes(): void {
+    this.permissionservice.getPermissionTypes().subscribe({
+      next: (data) => {
+        this.permissionTypes = data;
+      },
+      error: (error) => {
+        console.error('Error fetching permission types', error);
+      }
+    });
+  }
 
-    clear(table: Table) {
-        table.clear();
+  onDropdownChange(selectedType: IPermissionType): void {
+    if (selectedType && selectedType.perId) {
+      this.getPermissionsByType(selectedType.perId);
     }
+  }
 
-  //   getSeverity(status: string) {
-  //       switch (status.toLowerCase()) {
-  //           case 'unqualified':
-  //               return 'danger';
+  getPermissionsByType(typeId: number) {
+    this.permissionService.getPermissionsByTypeId(typeId).subscribe({
+      next: (data) => {
+        this.loading = false;
+        this.displayAllPermVM = data;
+        this.totalRecords = data.length;
+      },
+      error: (error) => {
+        this.loading = false;
+        console.error('Error fetching permissions by type', error);
+      }
+    });
+  }
 
-  //           case 'qualified':
-  //               return 'success';
+  getPermissionsByDate(date: string) {
+    console.log("Fetching permissions for date:", date);
+    this.permissionService.getPermissionsByDate(date).subscribe({
+      next: (data) => {
+        console.log("Permissions Data:", data);
+        this.loading = false;
+        this.displayAllPermVM = data;
+        this.totalRecords = data.length;
+      },
+      error: (error) => {
+        this.loading = false;
+        console.error('Error fetching permissions by date', error);
+      }
+    });
+  }
 
-  //           case 'new':
-  //               return 'info';
+  onDateChange(event: any): void {
+    if (event) {
+      const selectedDate = this.formatDate(event);
+      console.log("Selected Date: ", selectedDate);
 
-  //           case 'negotiation':
-  //               return 'warning';
+      this.permissionService.getPermissionsByDate(selectedDate).subscribe({
+        next: (data) => {
+          console.log("Permissions Data:", data);
+          this.loading = false;
+          this.displayAllPermVM = data;
+          this.totalRecords = data.length;
+        },
+        error: (error) => {
+          this.loading = false;
+          console.error('Error fetching permissions by date', error);
+        }
+      });
+    }
+  }
 
-  //           case 'renewal':
-  //               return null;
-  //       }
-  //   }
+  /*onDateChange(event: any): void {
+    console.log("Date selected:", event);
+    if (event) {
+      const selectedDate = this.formatDate(event);
+      console.log("Formatted Date:", selectedDate);
+
+      this.getPermissionsByDate(selectedDate);
+    }
+  }*/
+
+  formatDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  clear(table: Table) {
+      table.clear();
+  }
 
 }

@@ -30,15 +30,15 @@ export class PermissinTypeComponent implements OnDestroy{
   }
 
   loadPermissionTypes(): void {
-    this.permissionservice.getPermissionTypes().subscribe(
-      (data: IPermissionType[]) => {
+    this.permissionservice.getPermissionTypes().subscribe({
+      next: (data: IPermissionType[]) => {
         this.permissionTypes = data;
         this.filteredPermissionTypes = data;
       },
-      (error) => {
+      error: (error) => {
         console.error('Error fetching permission types', error);
       }
-    );
+    });
   }
 
   applyFilter(): void {
@@ -89,7 +89,7 @@ export class PermissinTypeComponent implements OnDestroy{
             detail: `maximized: ${value.maximized}`
         });
     });
-}
+  }
 
   ngOnDestroy() {
       if (this.ref) {

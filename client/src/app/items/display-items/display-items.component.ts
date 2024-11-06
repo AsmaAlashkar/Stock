@@ -14,10 +14,10 @@ export class DisplayItemsComponent {
 
   ItemDetailsResult: ItemDetailsResult;
   ItemsDetails: ItemDetailsDto[] = [];
-  pageSize: number = 10; 
+  pageSize: number = 10;
   totalRecords: number = 0;
   loading: boolean = true;
-  currentPage: number = 1; 
+  currentPage: number = 1;
   rowsPerPageOptions = [ 10, 20]; 
 
   constructor(private itemsService: ItemsService,
@@ -28,8 +28,8 @@ export class DisplayItemsComponent {
   }
 
   getItems(event: TableLazyLoadEvent) {
-    const skip = event.first || 0; 
-    const currentPage = Math.floor(skip / this.pageSize) + 1; 
+    const skip = event.first || 0;
+    const currentPage = Math.floor(skip / this.pageSize) + 1;
 
     this.itemsService.getItems(this.pageSize, currentPage, skip).subscribe({
       next: (data) => {

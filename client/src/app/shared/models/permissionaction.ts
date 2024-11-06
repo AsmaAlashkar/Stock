@@ -14,15 +14,19 @@ export interface Permissionaction {
 }
 
 export interface DisplayAllPermission {
-  permId: number
-  permTypeFk: number
-  perTypeValue: string
-  subId: number
-  destinationSubId: number
-  items: [
-    itemId: number,
-    quantity: number
-  ]
-  itemCount: number
+  values: DisplayAllPermissionVM[]
+  totalRecords: number
+  totalPages: number
+  pageNumber: number
+  pageSize: number
+}
+export interface DisplayAllPermissionVM {
+  permId: number,
+  permCode: string,
+  permTypeFk: number,
+  perTypeValue: string,
+  subName: string,
+  destinationSubName: string | null,
+  itemCount: number,
   permCreatedat: string
 }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { IPermissionType } from '../shared/models/permissiontype';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { DisplayAllPermission, Permissionaction } from '../shared/models/permissionaction';
+import { DisplayAllPermission, DisplayAllPermissionVM, Permissionaction } from '../shared/models/permissionaction';
 
 @Injectable({
   providedIn: 'root'
@@ -28,15 +28,15 @@ export class PermissionService {
       {headers:this.httpHeader.headers, responseType: 'text' as 'json'});
   }
 
-  getAllPermissions(): Observable <DisplayAllPermission[]> {
-    return this.http.get<DisplayAllPermission[]>(`${environment.getAllPermissions}`, this.httpHeader);
+  getAllPermissions(pageNumber: number, pageSize: number): Observable <DisplayAllPermission> {
+    return this.http.get<DisplayAllPermission>(`${environment.getAllPermissions}?pageNumber=${pageNumber}&pageSize=${pageSize}`, this.httpHeader);
   }
 
-  // getPermissionsByDate(): Observable <[]> {
-  //   return this.http.get<DisplayAllPermission[]>(`${environment.getPermissionsByDate}`, this.httpHeader);
-  // }
+  getPermissionsByTypeId(typeId: number): Observable <DisplayAllPermissionVM[]> {
+    return this.http.get<DisplayAllPermissionVM[]>(`${environment.getPermissionsByTypeId}${typeId}`, this.httpHeader);
+  }
 
-  // getPermissionsByTypeId(typeId: number): Observable <[]> {
-  //   return this.http.get<DisplayAllPermission[]>(`${environment.getPermissionsByTypeId}/${typeId}`, this.httpHeader);
-  // }
+  getPermissionsByDate(date: string): Observable <DisplayAllPermissionVM[]> {
+    return this.http.get<DisplayAllPermissionVM[]>(`${environment.getPermissionsByDate}${date}`, this.httpHeader);
+  }
 }
