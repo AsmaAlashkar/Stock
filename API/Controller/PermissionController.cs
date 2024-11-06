@@ -5,7 +5,6 @@ using Repository;
 using Standard.Entities;
 using Repository.PermissionRepo;
 using Standard.DTOs.PermissionDto;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace API.Controller
 {

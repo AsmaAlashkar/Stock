@@ -102,6 +102,7 @@ namespace Repository.PermissionRepo
                 .Include(p => p.PermTypeFkNavigation)
                 .Include(p => p.SubFkNavigation)
                 .Include(p => p.DestinationSubFkNavigation)
+                .Include(p=>p.ItemPermissions)
                 .Where(p => p.PermId == id)
                 .Select(permission => new DisplayPermissionsDto
                 {
@@ -112,6 +113,16 @@ namespace Repository.PermissionRepo
                     DestinationSubName = permission.DestinationSubFkNavigation.SubName,
                     PermCreatedat = permission.PermCreatedat,
                     ItemCount = permission.ItemPermissions.Count(),
+                    Items = permission.ItemPermissions
+                    .Select(permItem=> new PermissionItemDto 
+                    { 
+                        ItemId= permItem.ItemFk,
+                        ItemCode = permItem.ItemFkNavigation.ItemCode,
+                        ItemName = permItem.ItemFkNavigation.ItemName,
+                        CatNameEn = permItem.ItemFkNavigation.CatFkNavigation.CatNameEn,
+                        UnitName = permItem.ItemFkNavigation.UniteFkNavigation.UnitName,
+                        Quantity = permItem.Quantity
+                    }).ToList()
                 })
                 .FirstOrDefaultAsync();
             return permission;
