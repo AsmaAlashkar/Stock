@@ -58,6 +58,13 @@ namespace Repository.PermissionRepo
         }
         public async Task<List<DisplayPermissionsDto>> GetPermissionsByDate(DateTime date)
         {
+            bool existsDate = await _context.Permissions
+                            .AnyAsync(p => p.PermCreatedat.HasValue && p.PermCreatedat.Value.Date == date.Date);
+
+            if (!existsDate)
+            {
+                return new List<DisplayPermissionsDto>();
+            }
             var permissions = await _context.Permissions
                                 .Include(p => p.PermTypeFkNavigation)
                                 .Include(p => p.SubFkNavigation)
@@ -78,6 +85,11 @@ namespace Repository.PermissionRepo
         }
         public async Task<List<DisplayPermissionsDto>> GetPermissionByTypeId(int typeId)
         {
+            bool existsType = await _context.Permissions.AnyAsync(p=>p.PermTypeFk == typeId);
+            if (!existsType)
+            {
+                return new List<DisplayPermissionsDto>();
+            }
             var permissions = await _context.Permissions
                                 .Include(p => p.PermTypeFkNavigation)
                                 .Include(p => p.SubFkNavigation)
