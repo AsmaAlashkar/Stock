@@ -1,20 +1,26 @@
 export interface IViewWearhouseItem {
   mainId: number
-  mainName: string
-  mainDescription: string
+  mainNameEn: string
+  mainNameAr: string
+  mainDescriptionEn: string
+  mainDescriptionAr: string
   mainAdderess: string
   mainCreatedat: string
   mainUpdatedat: string
   subId: number
-  subName: string
-  subAddress: string
-  subDescription: string
+  subNameEn: string
+  subNameAr: string
+  subAddressEn: string
+  subAddressAr: string
   subCreatedat: string
   subUpdatedat: string
+  subDescriptionEn: string
+  subDescriptionAr: string
   parentSubWearhouseId: number
   level: number
   itemId: number
-  itemName: string
+  itemNameEn: string
+  itemNameAr: string
   itemExperationdate: string
   md: boolean
   sd: boolean

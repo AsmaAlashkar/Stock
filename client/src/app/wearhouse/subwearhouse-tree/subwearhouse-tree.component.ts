@@ -46,9 +46,9 @@ export class SubwearhouseTreeComponent implements OnInit {
     data.forEach(item => {
       const node: TreeNode = {
         data: {
-          subName: item.subName,
-          subAddress: item.subAddress,
-          subDescription: item.subDescription,
+          subName: item.subNameEn,
+          subAddress: item.subAddressEn,
+          subDescription: item.subDescriptionEn,
           subCreatedat: item.subCreatedat,
           subUpdatedat: item.subUpdatedat,
           subId: item.subId

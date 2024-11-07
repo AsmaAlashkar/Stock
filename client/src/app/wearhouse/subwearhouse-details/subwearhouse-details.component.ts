@@ -57,9 +57,9 @@ export class SubwearhouseDetailsComponent implements OnInit {
   populateForm() {
     if (this.subwearhouse) {
       this.wearhouseForm.patchValue({
-        subName: this.subwearhouse.subName,
-        subDescription: this.subwearhouse.subDescription,
-        subAddress: this.subwearhouse.subAddress
+        subName: this.subwearhouse.subNameEn,
+        subDescription: this.subwearhouse.subDescriptionEn,
+        subAddress: this.subwearhouse.subAddressEn
       });
     }
   }
