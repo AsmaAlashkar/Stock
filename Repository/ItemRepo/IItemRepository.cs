@@ -21,6 +21,7 @@ namespace Repository.ItemRepo
         Task<ItemDetailsResult> GetItemsBySubWHId(int subId, DTOPaging paging);
         Task<ItemDetailsResult> GetItemsByUnitId(int unitId, DTOPaging paging);
         Task<List<ItemDetailsDto>> GetAllItemsWithDetailsAsync();
+        Task<List<ItemDetailsDto>> GetItemsByKeywordForChatbotAsync(string keyword);
 
     }
 }

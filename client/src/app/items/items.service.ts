@@ -49,4 +49,8 @@ export class ItemsService {
           {headers:this.httpHeader.headers, responseType: 'text' as 'json'});
     // return this.http.post(`${environment.createItem}`, this.httpHeader);
     }
+
+    getItemsByKeyword(keyword: string): Observable<ItemDetailsResult> {
+      return this.http.get<ItemDetailsResult>(`${environment.getItemsByKeyword}?keyword=${encodeURIComponent(keyword)}`, this.httpHeader);
+    }
 }

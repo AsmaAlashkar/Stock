@@ -73,7 +73,7 @@ builder.Services.AddAutoMapper(
 
     );
 
-
+builder.Services.AddHttpClient();
 builder.Services.AddEndpointsApiExplorer();
 // Add controller services
 builder.Services.AddControllers();
