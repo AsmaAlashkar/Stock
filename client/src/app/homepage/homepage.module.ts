@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { ButtonModule } from 'primeng/button';
   imports: [
     CommonModule,
     CardModule,
-    ButtonModule
+    ButtonModule,
+    SharedModule
   ],exports:[
     HomeComponent
   ]

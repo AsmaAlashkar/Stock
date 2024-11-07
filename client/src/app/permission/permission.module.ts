@@ -20,6 +20,7 @@ import { CreatePermissionComponent } from './create-permission/create-permission
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
+import { SharedModule } from '../shared/shared.module';
 @NgModule({
   declarations: [
     PermissinTypeComponent,
@@ -43,7 +44,8 @@ import { CalendarModule } from 'primeng/calendar';
     ToastModule,
     SplitButtonModule,
     InputTextModule,
-    CalendarModule
+    CalendarModule,
+    SharedModule
   ],
   providers: [
     DialogService,
