@@ -57,8 +57,8 @@ export class MainwearhouseDetalisComponent {
     if (this.mainwearhouse && this.mainwearhouse.length > 0) {
       const data = this.mainwearhouse[0];  
       this.wearhouseForm.patchValue({
-        mainName: data.mainName,
-        mainDescription: data.mainDescription,
+        mainName: data.mainNameEn,
+        mainDescription: data.mainDescriptionEn,
         mainAdderess: data.mainAdderess,
         mainCreatedat: data.mainCreatedat,
         mainUpdatedat: data.mainUpdatedat,

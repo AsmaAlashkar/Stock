@@ -32,33 +32,33 @@ namespace API.Controller
             _vwhw = vwhw;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<List<ViewWearhouseWithSubHierarchyDTO>>> GetMainWearhouse()
-        //{
+        [HttpGet]
+        public async Task<ActionResult<List<ViewWearhouseWithSubHierarchyDTO>>> GetMainWearhouse()
+        {
 
-        //    var vwhi = await _vwhw.GetAllMainWearHouse();
+            var vwhi = await _vwhw.GetAllMainWearHouse();
 
-        //    var vmhiDtos = _mapper.Map<List<ViewWearhouseWithSubHierarchyDTO>>(vwhi);
+            var vmhiDtos = _mapper.Map<List<ViewWearhouseWithSubHierarchyDTO>>(vwhi);
 
-        //    // Return the list of DTOs
-        //    return Ok(vmhiDtos);
-        //}
+            // Return the list of DTOs
+            return Ok(vmhiDtos);
+        }
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<ViewWearhouseWithSubHierarchyDTO?>> GetMainWearhouseById(int id)
-        //{
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ViewWearhouseWithSubHierarchyDTO?>> GetMainWearhouseById(int id)
+        {
 
-        //    var mainwearhouse = await _vwhw.GetMainWearHouseById(id);
+            var mainwearhouse = await _vwhw.GetMainWearHouseById(id);
 
 
-        //    if (mainwearhouse == null)
-        //    {
-        //        return NotFound("MainWearhouse not found or has been deleted.");
-        //    }
+            if (mainwearhouse == null)
+            {
+                return NotFound("MainWearhouse not found or has been deleted.");
+            }
 
-        //    // Map the entity to a DTO and return it
-        //    return Ok(_mapper.Map<List<ViewWearhouseWithSubHierarchyDTO>>(mainwearhouse));
-        //}
+            // Map the entity to a DTO and return it
+            return Ok(_mapper.Map<List<ViewWearhouseWithSubHierarchyDTO>>(mainwearhouse));
+        }
 
         [HttpPost]
         public async Task<ActionResult> CreateNewMainWearhouse(MainWearhouseDTO mainwearhouse)
@@ -92,14 +92,22 @@ namespace API.Controller
                 }
 
                 // Update only the fields that are provided in the DTO
-                if (!string.IsNullOrEmpty(mainWearhouseDTO.MainName))
+                if (!string.IsNullOrEmpty(mainWearhouseDTO.MainNameEn))
                 {
-                    existingItem.MainNameEn = mainWearhouseDTO.MainName;
+                    existingItem.MainNameEn = mainWearhouseDTO.MainNameEn;
+                }
+                if (!string.IsNullOrEmpty(mainWearhouseDTO.MainNameAr))
+                {
+                    existingItem.MainNameEn = mainWearhouseDTO.MainNameAr;
                 }
 
-                if (!string.IsNullOrEmpty(mainWearhouseDTO.MainDescription))
+                if (!string.IsNullOrEmpty(mainWearhouseDTO.MainDescriptionEn))
                 {
-                    existingItem.MainDescriptionEn = mainWearhouseDTO.MainDescription;
+                    existingItem.MainDescriptionEn = mainWearhouseDTO.MainDescriptionEn;
+                }
+                if (!string.IsNullOrEmpty(mainWearhouseDTO.MainDescriptionAr))
+                {
+                    existingItem.MainDescriptionEn = mainWearhouseDTO.MainDescriptionAr;
                 }
 
                 if (!string.IsNullOrEmpty(mainWearhouseDTO.MainAdderess))

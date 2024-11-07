@@ -7,9 +7,13 @@ public partial class ViewMainWearhouseWithSubWearhouseHierarchy
 {
     public int MainId { get; set; }
 
-    public string MainName { get; set; } = null!;
+    public string MainNameEn { get; set; } = null!;
 
-    public string? MainDescription { get; set; }
+    public string MainNameAr { get; set; } = null!;
+
+    public string? MainDescriptionEn { get; set; }
+
+    public string? MainDescriptionAr { get; set; }
 
     public string? MainAdderess { get; set; }
 
@@ -19,15 +23,21 @@ public partial class ViewMainWearhouseWithSubWearhouseHierarchy
 
     public int? SubId { get; set; }
 
-    public string? SubName { get; set; }
+    public string? SubNameEn { get; set; }
 
-    public string? SubAddress { get; set; }
+    public string? SubNameAr { get; set; }
+
+    public string? SubAddressEn { get; set; }
+
+    public string? SubAddressAr { get; set; }
 
     public DateTime? SubCreatedat { get; set; }
 
     public DateTime? SubUpdatedat { get; set; }
 
-    public string? SubDescription { get; set; }
+    public string? SubDescriptionEn { get; set; }
+
+    public string? SubDescriptionAr { get; set; }
 
     public int? ParentSubWearhouseId { get; set; }
 
@@ -35,7 +45,9 @@ public partial class ViewMainWearhouseWithSubWearhouseHierarchy
 
     public int? ItemId { get; set; }
 
-    public string? ItemName { get; set; }
+    public string? ItemNameEn { get; set; }
+
+    public string? ItemNameAr { get; set; }
 
     public DateTime? ItemExperationdate { get; set; }
 

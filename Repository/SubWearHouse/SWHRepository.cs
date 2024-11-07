@@ -42,7 +42,8 @@ namespace Repository.SubWearHouse
                 .Where(sw => sw.MainFk == mainFk && (sw.Delet == false || sw.Delet == null) && sw.ParentSubWearhouseId != null)
                 .Select(sw => new SubWearHouseDTO
                 {
-                    SubName = sw.SubNameEn,
+                    SubNameEn = sw.SubNameEn,
+                    SubNameAr = sw.SubNameAr,
                     ParentSubWearhouseId = sw.ParentSubWearhouseId
                 })
                 .ToListAsync(); 

@@ -8,7 +8,7 @@ namespace Standard.DTOs
 {
     public class CategoriesHirarichyDto
     {
-        public int CatId { get; set; }
+        public int? CatId { get; set; }
 
         public int? ParentCategoryId { get; set; }
 
