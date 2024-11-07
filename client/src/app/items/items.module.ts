@@ -5,6 +5,7 @@ import { TableModule } from 'primeng/table';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateItemComponent } from './create-item/create-item.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -18,7 +19,8 @@ import { CreateItemComponent } from './create-item/create-item.component';
     BrowserModule,
     TableModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ]
 })
 export class ItemsModule { }
