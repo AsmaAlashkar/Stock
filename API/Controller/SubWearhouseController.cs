@@ -35,17 +35,17 @@ namespace API.Controller
             _mapper = mapper;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<List<ViewWearhouseWithSubHierarchyDTO>>> GetSubWearhouse()
-        //{
+        [HttpGet]
+        public async Task<ActionResult<List<ViewWearhouseWithSubHierarchyDTO>>> GetSubWearhouse()
+        {
 
-        //    var subwearhouse = await _vwhw.GetAllSubWearHouse();
+            var subwearhouse = await _vwhw.GetAllSubWearHouse();
 
-        //    var vmhiDtos = _mapper.Map<List<ViewWearhouseWithSubHierarchyDTO>>(subwearhouse);
+            var vmhiDtos = _mapper.Map<List<ViewWearhouseWithSubHierarchyDTO>>(subwearhouse);
 
-        //    // Return the list of DTOs
-        //    return Ok(vmhiDtos);
-        //}
+            // Return the list of DTOs
+            return Ok(vmhiDtos);
+        }
         [HttpGet("GetSubNames")]
         public async Task<ActionResult<List<SubNamesDto>>> GetSubsNames()
         {
@@ -59,38 +59,38 @@ namespace API.Controller
             return Ok(subNames);
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<ViewWearhouseWithSubHierarchyDTO?>> GetSubWearhouseById(int id)
-        //{
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ViewWearhouseWithSubHierarchyDTO?>> GetSubWearhouseById(int id)
+        {
 
-        //    var subwearhouse = await _vwhw.GetSubWearHouseById(id);
-
-
-        //    if (subwearhouse == null)
-        //    {
-        //        return NotFound("SubWearhouse not found or has been deleted.");
-        //    }
-
-        //    // Map the entity to a DTO and return it
-        //    return Ok(_mapper.Map<ViewWearhouseWithSubHierarchyDTO>(subwearhouse));
-
-        //}
-
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<ViewWearhouseWithSubHierarchyDTO?>> GetSubWearhouseByMainId(int id)
-        //{
-
-        //    var subwearhouse = await _vwhw.GetAllSubByMainId(id);
+            var subwearhouse = await _vwhw.GetSubWearHouseById(id);
 
 
-        //    if (subwearhouse == null)
-        //    {
-        //        return NotFound("SubWearhouse not found or has been deleted.");
-        //    }
+            if (subwearhouse == null)
+            {
+                return NotFound("SubWearhouse not found or has been deleted.");
+            }
 
-        //    // Map the entity to a DTO and return it
-        //    return Ok(_mapper.Map<List<ViewWearhouseWithSubHierarchyDTO>>(subwearhouse));
-        //}
+            // Map the entity to a DTO and return it
+            return Ok(_mapper.Map<ViewWearhouseWithSubHierarchyDTO>(subwearhouse));
+
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ViewWearhouseWithSubHierarchyDTO?>> GetSubWearhouseByMainId(int id)
+        {
+
+            var subwearhouse = await _vwhw.GetAllSubByMainId(id);
+
+
+            if (subwearhouse == null)
+            {
+                return NotFound("SubWearhouse not found or has been deleted.");
+            }
+
+            // Map the entity to a DTO and return it
+            return Ok(_mapper.Map<List<ViewWearhouseWithSubHierarchyDTO>>(subwearhouse));
+        }
 
         [HttpPost]
         public async Task<ActionResult> CreateNewSubWearhouse(SubWearHouseDTO subwearhouse)
@@ -133,19 +133,31 @@ namespace API.Controller
                 }
               
                 // Update only the fields that are provided in the DTO
-                if (!string.IsNullOrEmpty(subWearHouseDTO.SubName))
+                if (!string.IsNullOrEmpty(subWearHouseDTO.SubNameEn))
                 {
-                    existingItem.SubNameEn = subWearHouseDTO.SubName;
+                    existingItem.SubNameEn = subWearHouseDTO.SubNameEn;
+                }
+                if (!string.IsNullOrEmpty(subWearHouseDTO.SubNameAr))
+                {
+                    existingItem.SubNameEn = subWearHouseDTO.SubNameAr;
                 }
 
-                if (!string.IsNullOrEmpty(subWearHouseDTO.SubDescription))
+                if (!string.IsNullOrEmpty(subWearHouseDTO.SubDescriptionEn))
                 {
-                    existingItem.SubDescriptionEn = subWearHouseDTO.SubDescription;
+                    existingItem.SubDescriptionEn = subWearHouseDTO.SubDescriptionEn;
+                }
+                if (!string.IsNullOrEmpty(subWearHouseDTO.SubDescriptionAr))
+                {
+                    existingItem.SubDescriptionEn = subWearHouseDTO.SubDescriptionAr;
                 }
 
-                if (!string.IsNullOrEmpty(subWearHouseDTO.SubAddress))
+                if (!string.IsNullOrEmpty(subWearHouseDTO.SubAddressEn))
                 {
-                    existingItem.SubAddressEn = subWearHouseDTO.SubAddress;
+                    existingItem.SubAddressEn = subWearHouseDTO.SubAddressEn;
+                }
+                if (!string.IsNullOrEmpty(subWearHouseDTO.SubAddressAr))
+                {
+                    existingItem.SubAddressEn = subWearHouseDTO.SubAddressAr;
                 }
 
                 if (subWearHouseDTO.Delet.HasValue)

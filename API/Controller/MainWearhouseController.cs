@@ -92,14 +92,22 @@ namespace API.Controller
                 }
 
                 // Update only the fields that are provided in the DTO
-                if (!string.IsNullOrEmpty(mainWearhouseDTO.MainName))
+                if (!string.IsNullOrEmpty(mainWearhouseDTO.MainNameEn))
                 {
-                    existingItem.MainNameEn = mainWearhouseDTO.MainName;
+                    existingItem.MainNameEn = mainWearhouseDTO.MainNameEn;
+                }
+                if (!string.IsNullOrEmpty(mainWearhouseDTO.MainNameAr))
+                {
+                    existingItem.MainNameEn = mainWearhouseDTO.MainNameAr;
                 }
 
-                if (!string.IsNullOrEmpty(mainWearhouseDTO.MainDescription))
+                if (!string.IsNullOrEmpty(mainWearhouseDTO.MainDescriptionEn))
                 {
-                    existingItem.MainDescriptionEn = mainWearhouseDTO.MainDescription;
+                    existingItem.MainDescriptionEn = mainWearhouseDTO.MainDescriptionEn;
+                }
+                if (!string.IsNullOrEmpty(mainWearhouseDTO.MainDescriptionAr))
+                {
+                    existingItem.MainDescriptionEn = mainWearhouseDTO.MainDescriptionAr;
                 }
 
                 if (!string.IsNullOrEmpty(mainWearhouseDTO.MainAdderess))

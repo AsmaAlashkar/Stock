@@ -7,6 +7,8 @@ using Standard.Entities;
 using Standard.DTOs;
 using Repository.VMainWearhouseItem;
 using Repository.VWearhouseWithSubHierarchy;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace API.Controller
 {
@@ -29,58 +31,59 @@ namespace API.Controller
             _vwhw = vwhw;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<List<ViewWearhouseWithSubHierarchyDTO>>> GetMainWearhouse()
-        //{
-        //    var vwhi = await _vwh.GetAllMainWearHouse();
+        [HttpGet]
+       
+        public async Task<ActionResult<List<ViewWearhouseWithSubHierarchyDTO>>>  getmainwearhouse()
+        {
+            var vwhi = await _vwh.GetAllMainWearHouse();
 
-        //    var vmhiDtos = _mapper.Map<List<ViewWearhouseWithSubHierarchyDTO>>(vwhi);
+            var vmhidtos = _mapper.Map<List<ViewWearhouseWithSubHierarchyDTO>>(vwhi);
 
-        //    // Return the list of DTOs
-        //    return Ok(vmhiDtos);
-        //}
+            // return the list of dtos
+            return Ok(vmhidtos);
+        }
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<ViewWearhouseWithSubHierarchyDTO?>> GetMainWearhouseById(int id)
-        //{
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<ViewWearhouseWithSubHierarchyDTO>>> getmainwearhousebyid(int id)
+        {
 
-        //    var mainwearhouse = await _vwhw.GetMainWearHouseById(id);
-
-
-        //    if (mainwearhouse == null)
-        //    {
-        //        return NotFound("MainWearhouse not found or has been deleted.");
-        //    }
-
-        //    // Map the entity to a DTO and return it
-        //    return Ok(_mapper.Map<ViewWearhouseWithSubHierarchyDTO>(mainwearhouse));
-        //}
-
-        //[HttpGet]
-        //public async Task<ActionResult<List<ViewWearhouseWithSubHierarchyDTO>>> GetSubWearhouse()
-        //{
-        //    var vwhi = await _vwhw.GetAllSubWearHouse();
-
-        //    var vmhiDtos = _mapper.Map<List<ViewWearhouseWithSubHierarchyDTO>>(vwhi);
-
-        //    // Return the list of DTOs
-        //    return Ok(vmhiDtos);
-        //}
-
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<ViewWearhouseWithSubHierarchyDTO?>> GetSubWearhouseById(int id)
-        //{
-
-        //    var subwearhouse = await _vwhw.GetSubWearHouseById(id);
+            var mainwearhouse = await _vwhw.GetMainWearHouseById(id);
 
 
-        //    if (subwearhouse == null)
-        //    {
-        //        return NotFound("SubWearhouse not found or has been deleted.");
-        //    }
+            if (mainwearhouse == null)
+            {
+                return NotFound("mainwearhouse not found or has been deleted.");
+            }
 
-        //    // Map the entity to a DTO and return it
-        //    return Ok(_mapper.Map<ViewWearhouseWithSubHierarchyDTO>(subwearhouse));
-        //}
+            // map the entity to a dto and return it
+            return Ok(_mapper.Map<ViewWearhouseWithSubHierarchyDTO>(mainwearhouse));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<ViewWearhouseWithSubHierarchyDTO>>> getsubwearhouse()
+        {
+            var vwhi = await _vwhw.GetAllSubWearHouse();
+
+            var vmhidtos = _mapper.Map<List<ViewWearhouseWithSubHierarchyDTO>>(vwhi);
+
+            // return the list of dtos
+            return Ok(vmhidtos);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<ViewWearhouseWithSubHierarchyDTO>>> getsubwearhousebyid(int id)
+        {
+
+            var subwearhouse = await _vwhw.GetSubWearHouseById(id);
+
+
+            if (subwearhouse == null)
+            {
+                return NotFound("subwearhouse not found or has been deleted.");
+            }
+
+            // map the entity to a dto and return it
+            return Ok(_mapper.Map<ViewWearhouseWithSubHierarchyDTO>(subwearhouse));
+        }
     }
 }
