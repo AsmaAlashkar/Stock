@@ -23,6 +23,7 @@ namespace API.Controller
             _mapper = mapper;
             _cp = cp;
         }
+
         [HttpGet("GetCategories")]
         public async Task<ActionResult<List<CategoriesHirarichy>>> GetCategories()
         {
