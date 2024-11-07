@@ -23,15 +23,15 @@ namespace API.Controller
             _mapper = mapper;
             _cp = cp;
         }
-        [HttpGet("GetCategories")]
-        public async Task<ActionResult<List<CategoriesHirarichy>>> GetCategories()
-        {
-            var cat = await _cp.GetCategories();
+        //[HttpGet("GetCategories")]
+        //public async Task<ActionResult<List<CategoriesHirarichy>>> GetCategories()
+        //{
+        //    var cat = await _cp.GetCategories();
 
-            var catDtos = _mapper.Map<List<CategoriesHirarichy>>(cat);
+        //    var catDtos = _mapper.Map<List<CategoriesHirarichy>>(cat);
 
-            return Ok(catDtos);
-        }
+        //    return Ok(catDtos);
+        //}
 
         [HttpPost("CreateCategory")]
         public async Task<ActionResult> CreateCategory(CategoryDto category)
@@ -44,22 +44,22 @@ namespace API.Controller
         }
 
 
-        [HttpGet("GetCategoryById/{id}")]
-        public async Task<ActionResult<CategoriesHirarichy>> GetCategoryById(int id)
-        {
+        //[HttpGet("GetCategoryById/{id}")]
+        //public async Task<ActionResult<CategoriesHirarichy>> GetCategoryById(int id)
+        //{
 
-            var category = await _cp.GetCategoryById(id);
+        //    var category = await _cp.GetCategoryById(id);
 
 
-            if (category == null)
-            {
-                return NotFound("Category not found or has been deleted.");
-            }
+        //    if (category == null)
+        //    {
+        //        return NotFound("Category not found or has been deleted.");
+        //    }
 
-            // Map the entity to a DTO and return it
-            return Ok(_mapper.Map<CategoriesHirarichy>(category));
+        //    // Map the entity to a DTO and return it
+        //    return Ok(_mapper.Map<CategoriesHirarichy>(category));
 
-        }
+        //}
 
         [HttpPut("UpdateCategory/{id}")]
         public async Task<ActionResult> UpdateCategory(int id, [FromBody] CategoryDto category)

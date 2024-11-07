@@ -39,9 +39,9 @@ namespace Repository.ItemRepo
                                                     select new ItemDetailsDto
                                                     {
                                                         ItemId = item.ItemId,
-                                                        ItemName = item.ItemName,
+                                                        ItemName = item.ItemNameEn,
                                                         ItemCode = item.ItemCode,
-                                                        UnitName = unit != null ? unit.UnitName : "N/A", // Handle null unit
+                                                        UnitName = unit != null ? unit.UnitNameEn : "N/A", // Handle null unit
                                                         CategoryName = category.CatNameEn,
                                                         // Explicitly cast CurrentQuantity to int and handle null quantities
                                                         CurrentQuantity = quantity != null && quantity.CurrentQuantity.HasValue
@@ -62,7 +62,7 @@ namespace Repository.ItemRepo
                              .Select(item => new ItemsNamesDto
                              {
                                  ItemId = item.ItemId,
-                                 ItemName = item.ItemName,
+                                 ItemName = item.ItemNameEn,
                                 ItemCode = item.ItemCode
                              })
                              .ToListAsync();
@@ -76,7 +76,7 @@ namespace Repository.ItemRepo
                              .Select(item => new ItemsNamesDto
                              {
                                  ItemId = item.ItemId,
-                                 ItemName = item.ItemName
+                                 ItemName = item.ItemNameEn
                              })
                              .ToListAsync();
 
@@ -93,9 +93,9 @@ namespace Repository.ItemRepo
                                 select new ItemDetailsDto
                                 {
                                     ItemId = item.ItemId,
-                                    ItemName = item.ItemName,
+                                    ItemName = item.ItemNameEn,
                                     ItemCode = item.ItemCode,
-                                    UnitName = unit.UnitName,
+                                    UnitName = unit.UnitNameEn,
                                     CategoryName = category.CatNameEn,  
                                     CurrentQuantity = (int)quantity.CurrentQuantity.GetValueOrDefault()  
                                 }).FirstOrDefaultAsync(); ;
@@ -131,9 +131,9 @@ namespace Repository.ItemRepo
                 .Select(i => new ItemDetailsDto
                 {
                     ItemId = i.ItemId,
-                    ItemName = i.ItemName,
+                    ItemName = i.ItemNameEn,
                     ItemCode = i.ItemCode,
-                    UnitName = i.UniteFkNavigation != null ? i.UniteFkNavigation.UnitName : "N/A",  
+                    UnitName = i.UniteFkNavigation != null ? i.UniteFkNavigation.UnitNameEn : "N/A",  
                     CategoryName = i.CatFkNavigation.CatNameEn,
                     CurrentQuantity = i.SubItems
                                       .Where(si => si.SubFk == subId)
@@ -166,9 +166,9 @@ namespace Repository.ItemRepo
                                                     select new ItemDetailsDto
                                                     {
                                                         ItemId = item.ItemId,
-                                                        ItemName = item.ItemName,
+                                                        ItemName = item.ItemNameEn,
                                                         ItemCode = item.ItemCode,
-                                                        UnitName = unit.UnitName,
+                                                        UnitName = unit.UnitNameEn,
                                                         CategoryName = category.CatNameEn,
                                                         // Explicitly cast CurrentQuantity to int
                                                         CurrentQuantity = quantity != null && quantity.CurrentQuantity.HasValue
@@ -207,9 +207,9 @@ namespace Repository.ItemRepo
                                                     select new ItemDetailsDto
                                                     {
                                                         ItemId = item.ItemId,
-                                                        ItemName = item.ItemName,
+                                                        ItemName = item.ItemNameEn,
                                                         ItemCode = item.ItemCode,
-                                                        UnitName = unit.UnitName,
+                                                        UnitName = unit.UnitNameEn,
                                                         CategoryName = category.CatNameEn,
                                                         CurrentQuantity = (int)quantity.CurrentQuantity.GetValueOrDefault()
                                                     })
@@ -240,9 +240,9 @@ namespace Repository.ItemRepo
                                                     select new ItemDetailsDto
                                                     {
                                                         ItemId = item.ItemId,
-                                                        ItemName = item.ItemName,
+                                                        ItemName = item.ItemNameEn,
                                                         ItemCode = item.ItemCode,
-                                                        UnitName = unit.UnitName,
+                                                        UnitName = unit.UnitNameEn,
                                                         CategoryName = category.CatNameEn,
                                                         CurrentQuantity = (int)quantity.CurrentQuantity.GetValueOrDefault()
                                                     })
@@ -264,9 +264,9 @@ namespace Repository.ItemRepo
                                 select new ItemDetailsDto
                                 {
                                     ItemId = item.ItemId,
-                                    ItemName = item.ItemName,
+                                    ItemName = item.ItemNameEn,
                                     ItemCode = item.ItemCode,
-                                    UnitName = unit.UnitName,
+                                    UnitName = unit.UnitNameEn,
                                     CategoryName = category.CatNameEn,  
                                     CurrentQuantity = (int)quantity.CurrentQuantity.GetValueOrDefault()  
                                 }).ToListAsync(); 

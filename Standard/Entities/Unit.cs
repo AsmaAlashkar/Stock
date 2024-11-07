@@ -7,9 +7,13 @@ public partial class Unit
 {
     public int UnitId { get; set; }
 
-    public string? UnitName { get; set; }
+    public string UnitNameEn { get; set; } = null!;
 
-    public string? UnitDesc { get; set; }
+    public string UnitNameAr { get; set; } = null!;
+
+    public string? UnitDescEn { get; set; }
+
+    public string? UnitDescAr { get; set; }
 
     public DateTime? UnitCreatedAt { get; set; }
 

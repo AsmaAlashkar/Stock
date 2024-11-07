@@ -24,7 +24,7 @@ namespace Repository.ReportRepo
                 .Include(q => q.ItemFkNavigation)
                 .Select(qi => new ItemsQuantities
                 {
-                    ItemName = qi.ItemFkNavigation.ItemName,
+                    ItemName = qi.ItemFkNavigation.ItemNameEn,
                     CurrentQuantity = qi.CurrentQuantity
                 })
                 .ToListAsync();
@@ -38,7 +38,7 @@ namespace Repository.ReportRepo
                 .Where(s=>s.SubFk ==  subId)    
                 .Select(qi => new ItemsQuantities
                 {
-                    ItemName = qi.ItemFkNavigation.ItemName,
+                    ItemName = qi.ItemFkNavigation.ItemNameEn,
                     CurrentQuantity = qi.Quantity
                 })
                 .ToListAsync();
