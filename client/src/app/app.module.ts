@@ -23,6 +23,7 @@ import { AccountModule } from './account/account.module';
 import { CategoryModule } from './category/category.module';
 import { ItemsModule } from './items/items.module';
 import { PermissionModule } from './permission/permission.module';
+import { ChatbotModule } from './chatbot/chatbot.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { PermissionModule } from './permission/permission.module';
     FormsModule,
     CoreModule,
     AccountModule,
+    ChatbotModule,
     WearhouseModule,
     CategoryModule,
     HomepageModule,

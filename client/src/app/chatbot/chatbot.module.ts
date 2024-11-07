@@ -20,7 +20,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    SharedModule
+   
   ]
 })
 export class ChatbotModule { }

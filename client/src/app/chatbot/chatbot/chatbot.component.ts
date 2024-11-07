@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { ItemDetailsResult } from 'src/app/shared/models/items';
 import { ChatbotService } from '../chatbot.service';
 
@@ -8,18 +8,23 @@ import { ChatbotService } from '../chatbot.service';
   styleUrls: ['./chatbot.component.scss']
 })
 export class ChatbotComponent {
-  keyword: string = ''; // Variable to store the keyword entered by the user
-  items: ItemDetailsResult | null = null; // Variable to store search results
-  errorMessage: string | null = null; // Variable to store any error message
+  keyword: string = '';
+  items: ItemDetailsResult | null = null;
+  errorMessage: string | null = null;
 
-  constructor(private chatbotService: ChatbotService) { }
+  constructor(
+    private chatbotService: ChatbotService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   searchItems() {
     if (this.keyword.trim()) {
       this.chatbotService.getItemsByKeyword(this.keyword).subscribe({
         next: (result) => {
-          this.items = result;
+          this.items = result;  // result will be of type ItemDetailsResult
+          console.log('API result:', result);
           this.errorMessage = null;
+          this.cdr.detectChanges(); // Trigger change detection
         },
         error: (error) => {
           this.errorMessage = 'An error occurred while fetching items.';
