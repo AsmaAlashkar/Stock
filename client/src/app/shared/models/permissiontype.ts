@@ -1,4 +1,5 @@
 export interface IPermissionType {
   perId: number
-  perTypeValue: string
+  perTypeValueAr: string,
+  perTypeValueEn: string
 }
