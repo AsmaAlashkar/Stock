@@ -24,6 +24,7 @@ namespace API.Controller
             _pt = pt;
         }
 
+
         [HttpGet("GetAllPermissionTypes")]
         public async Task<ActionResult<IList<PermissionTypeDto>>> GetAllPermissionTypes()
         {
