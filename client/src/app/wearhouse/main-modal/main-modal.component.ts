@@ -26,8 +26,10 @@ export class MainModalComponent implements OnInit {
 
   createMainWearForm() {
     this.MainWearhouseForm = this.fb.group({
-      mainName: ['',Validators.required],
-      mainDescription: [''],
+      mainNameEn: ['',Validators.required],
+      mainNameAr: ['',Validators.required],
+      mainDescriptionEn: [''],
+      mainDescriptionAr: [''],
       mainAdderess: [''],
       mainCreatedat: [null],
       mainUpdatedat: [null],

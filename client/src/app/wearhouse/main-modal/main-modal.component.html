@@ -1,16 +1,29 @@
 <form [formGroup]="MainWearhouseForm" (ngSubmit)="save()" class="custom-modal-form">
     <div class="p-field">
-        <label for="mainName">
-            Warehouse Name <span class="required-star" style="color: red;">*</span>
+        <label for="mainNameEn">
+            Warehouse NameEn <span class="required-star" style="color: red;">*</span>
           </label>
-        <input id="mainName" type="text" pInputText formControlName="mainName" />
-        <div *ngIf="MainWearhouseForm.get('mainName')?.touched && MainWearhouseForm.get('mainName')?.hasError('required')" class="error-message">
-          Warehouse Name is required.
+        <input id="mainNameEn" type="text" pInputText formControlName="mainNameEn" />
+        <div *ngIf="MainWearhouseForm.get('mainNameEn')?.touched && MainWearhouseForm.get('mainNameEn')?.hasError('required')" class="error-message">
+          Warehouse NameEn is required.
+        </div>
+      </div>
+      <div class="p-field">
+        <label for="mainNameAr">
+            Warehouse NameAr <span class="required-star" style="color: red;">*</span>
+          </label>
+        <input id="mainNameAr" type="text" pInputText formControlName="mainNameAr" />
+        <div *ngIf="MainWearhouseForm.get('mainNameAr')?.touched && MainWearhouseForm.get('mainNameAr')?.hasError('required')" class="error-message">
+          Warehouse NameAr is required.
         </div>
       </div>
     <div class="p-field">
-      <label for="mainDescription">Description</label>
-      <textarea id="mainDescription" pInputTextarea formControlName="mainDescription"></textarea>
+      <label for="mainDescriptionEn">DescriptionEn</label>
+      <textarea id="mainDescriptionEn" pInputTextarea formControlName="mainDescriptionEn"></textarea>
+    </div>
+    <div class="p-field">
+      <label for="mainDescriptionAr">DescriptionAr</label>
+      <textarea id="mainDescriptionAr" pInputTextarea formControlName="mainDescriptionAr"></textarea>
     </div>
     <div class="p-field">
       <label for="mainAdderess">Address</label>

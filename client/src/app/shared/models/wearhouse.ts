@@ -1,7 +1,9 @@
 export interface IMainWearhouse {
     mainId: number
-    mainName: string
-    mainDescription: string
+    mainNameEn: string
+    mainNameAr: string
+    mainDescriptionEn: string
+    mainDescriptionAr: string
     mainAdderess: string
     mainCreatedat: string
     mainUpdatedat: string
