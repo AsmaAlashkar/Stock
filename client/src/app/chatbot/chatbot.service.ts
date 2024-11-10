@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ItemDetailsResult } from '../shared/models/items';
+import { ItemDetailsDto, ItemDetailsResult } from '../shared/models/items';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class ChatbotService {
     })
   };
 
-  getItemsByKeyword(keyword: string): Observable<ItemDetailsResult> {
-    return this.http.get<ItemDetailsResult>(`${environment.getItemsByKeyword}?keyword=${encodeURIComponent(keyword)}`, this.httpHeader);
+  getItemsByKeyword(keyword: string): Observable<ItemDetailsDto[]> {
+    return this.http.get<ItemDetailsDto[]>(`${environment.getItemsByKeyword}?keyword=${encodeURIComponent(keyword)}`, this.httpHeader);
   }
 }

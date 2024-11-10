@@ -79,59 +79,78 @@ namespace API.Controller
         {
             try
             {
+                // Retrieve the existing MainWearhouse from the repository by its ID
                 var existingItem = await _repo.GetById(id);
 
-                if (existingItem == null )
-                {
-                    return NotFound($"MainWearHouse with ID {id} not found");
-                }
-                // Check if the Delet field is true and return NotFound
-                if (mainWearhouseDTO.Delet == true)
+                // If the item doesn't exist, return a NotFound response
+                if (existingItem == null)
                 {
                     return NotFound($"MainWearHouse with ID {id} not found");
                 }
 
-                // Update only the fields that are provided in the DTO
+                // Check if the Delet field is true and return NotFound if it is
+                if (mainWearhouseDTO.Delet == true)
+                {
+                    return NotFound($"MainWearHouse with ID {id} has been marked for deletion");
+                }
+
+                // Set Delet to false during the update, just like in CreateNewMainWearhouse
+                existingItem.Delet = false;
+
+                // Update only the fields that are provided in the DTO, preserving existing values where not specified
+
+                // Update MainNameEn if a value is provided in the DTO
                 if (!string.IsNullOrEmpty(mainWearhouseDTO.MainNameEn))
                 {
                     existingItem.MainNameEn = mainWearhouseDTO.MainNameEn;
                 }
+
+                // Update MainNameAr if a value is provided in the DTO
                 if (!string.IsNullOrEmpty(mainWearhouseDTO.MainNameAr))
                 {
-                    existingItem.MainNameEn = mainWearhouseDTO.MainNameAr;
+                    existingItem.MainNameAr = mainWearhouseDTO.MainNameAr; // Corrected here
                 }
 
+                // Update MainDescriptionEn if a value is provided in the DTO
                 if (!string.IsNullOrEmpty(mainWearhouseDTO.MainDescriptionEn))
                 {
                     existingItem.MainDescriptionEn = mainWearhouseDTO.MainDescriptionEn;
                 }
+
+                // Update MainDescriptionAr if a value is provided in the DTO
                 if (!string.IsNullOrEmpty(mainWearhouseDTO.MainDescriptionAr))
                 {
-                    existingItem.MainDescriptionEn = mainWearhouseDTO.MainDescriptionAr;
+                    existingItem.MainDescriptionAr = mainWearhouseDTO.MainDescriptionAr; // Corrected here
                 }
 
+                // Update MainAdderess if a value is provided in the DTO
                 if (!string.IsNullOrEmpty(mainWearhouseDTO.MainAdderess))
                 {
                     existingItem.MainAdderess = mainWearhouseDTO.MainAdderess;
                 }
 
+                // If the Delet flag is set to null, ensure it is not updated
                 if (mainWearhouseDTO.Delet.HasValue)
                 {
-                    existingItem.Delet = false;
+                    existingItem.Delet = false; // Keep Delet as false if it's not null
                 }
 
+                // Set the update timestamp
                 existingItem.MainUpdatedat = DateTime.Now;
 
+                // Save the updated entity to the repository
                 await _repo.Update(existingItem);
 
+                // Return a success response
                 return Ok("MainWearHouse updated successfully");
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it accordingly
+                // Catch any exceptions and return a BadRequest with the error message
                 return BadRequest($"Error updating MainWearHouse: {ex.Message}");
             }
         }
+
 
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> SoftDeleteMainWearHouse(int id)
