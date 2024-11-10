@@ -24,7 +24,7 @@ namespace API.Controller
             IMWHRepository mWH, IVWHIRepository vWH,
             IVWHIWHRepository vwhw,
             IMapper mapper)
-        { 
+        {
             _repo = repo;
             _mapper = mapper;
             _mwh = mWH;
@@ -66,7 +66,7 @@ namespace API.Controller
             var mwh = _mapper.Map<MainWearhouse>(mainwearhouse);
 
             mwh.MainCreatedat = DateTime.Now;
-            mwh.MainUpdatedat = null; 
+            mwh.MainUpdatedat = null;
             mwh.Delet = false;
 
             await _repo.CreateNew(mwh);
