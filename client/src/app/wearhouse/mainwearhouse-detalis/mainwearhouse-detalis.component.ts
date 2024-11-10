@@ -28,8 +28,10 @@ export class MainwearhouseDetalisComponent {
 
   initForm() {
     this.wearhouseForm = this.fb.group({
-      mainName: [''],       
-      mainDescription: [''],
+      mainNameEn: [''],
+      mainNameAr: [''],
+      mainDescriptionEn: [''],       
+      mainDescriptionAr: [''],
       mainAdderess: [''],
       mainCreatedat: [''],
       mainUpdatedat: [''],
@@ -57,8 +59,10 @@ export class MainwearhouseDetalisComponent {
     if (this.mainwearhouse && this.mainwearhouse.length > 0) {
       const data = this.mainwearhouse[0];  
       this.wearhouseForm.patchValue({
-        mainName: data.mainNameEn,
-        mainDescription: data.mainDescriptionEn,
+        mainNameEn: data.mainNameEn,
+        mainNameAr: data.mainNameAr,
+        mainDescriptionEn: data.mainDescriptionEn,
+        mainDescriptionAr: data.mainDescriptionAr,
         mainAdderess: data.mainAdderess,
         mainCreatedat: data.mainCreatedat,
         mainUpdatedat: data.mainUpdatedat,

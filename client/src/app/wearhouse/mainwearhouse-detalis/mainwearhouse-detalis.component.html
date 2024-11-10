@@ -23,13 +23,20 @@
           <!-- Form to update wearhouse details -->
           <form [formGroup]="wearhouseForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
-              <label for="mainName"><strong>Name of WearHouse:</strong></label>
-              <input type="text" id="mainName" class="form-control" formControlName="mainName" />
+              <label for="mainNameEn"><strong>Name of WearHouseEn:</strong></label>
+              <input type="text" id="mainNameEn" class="form-control" formControlName="mainNameEn" />
             </div>
-          
+            <div class="form-group">
+              <label for="mainNameAr"><strong>Name of WearHouseAr:</strong></label>
+              <input type="text" id="mainNameAr" class="form-control" formControlName="mainNameAr" />
+            </div>
             <div class="form-group">
               <label for="mainDescription"><strong>Description:</strong></label>
-              <input type="text" id="mainDescription" class="form-control" formControlName="mainDescription" />
+              <textarea type="text" id="mainDescriptionEn" class="form-control" formControlName="mainDescriptionEn" ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="mainDescriptionAr"><strong>Description:</strong></label>
+              <textarea type="text" id="mainDescriptionAr" class="form-control" formControlName="mainDescriptionAr" ></textarea>
             </div>
 
             <div class="form-group">
