@@ -12,7 +12,6 @@
     </nav>
 
     <section class="subwearhouse-details">
-      <h3>{{ subwearhouse.mainNameEn }}</h3>
       <div class="wearhouse-info">
         <div class="wearhouse-section">
           <h4>Sub Warehouse Details</h4>
@@ -20,25 +19,47 @@
           <!-- Form to update warehouse details -->
           <form [formGroup]="wearhouseForm" (ngSubmit)="onSubmit()"> 
             <div class="form-group">
-              <label for="subName">
-                <strong>Name of Warehouse:</strong>
+              <label for="subNameEn">
+                <strong>NameEn of Warehouse:</strong>
                 <span class="text-danger">*</span>
               </label>
-              <input type="text" id="subName" class="form-control" formControlName="subName" />
-              <div *ngIf="wearhouseForm.get('subName')?.invalid && (wearhouseForm.get('subName')?.dirty || wearhouseForm.get('subName')?.touched)" class="text-danger">
-                <small *ngIf="wearhouseForm.get('subName')?.errors?.['required']">Name is required.</small>
+              <input type="text" id="subNameEn" class="form-control" formControlName="subNameEn" />
+              <div *ngIf="wearhouseForm.get('subNameEn')?.invalid && (wearhouseForm.get('subNameEn')?.dirty || wearhouseForm.get('subNameEn')?.touched)" class="text-danger">
+                <small *ngIf="wearhouseForm.get('subNameEn')?.errors?.['required']">Name is required.</small>
               </div>
             </div>
 
             <div class="form-group">
-              <label for="subDescription"><strong>Description:</strong></label>
-              <input type="text" id="subDescription" class="form-control" formControlName="subDescription" />
+              <label for="subNameAr">
+                <strong>NameAr of Warehouse:</strong>
+                <span class="text-danger">*</span>
+              </label>
+              <input type="text" id="subNameAr" class="form-control" formControlName="subNameAr" />
+              <div *ngIf="wearhouseForm.get('subNameAr')?.invalid && (wearhouseForm.get('subNameAr')?.dirty || wearhouseForm.get('subNameAr')?.touched)" class="text-danger">
+                <small *ngIf="wearhouseForm.get('subNameAr')?.errors?.['required']">Name is required.</small>
+              </div>
             </div>
 
             <div class="form-group">
-              <label for="subAddress"><strong>Address:</strong></label>
-              <input type="text" id="subAddress" class="form-control" formControlName="subAddress" />
+              <label for="subDescriptionEn"><strong>DescriptionEn:</strong></label>
+              <input type="text" id="subDescriptionEn" class="form-control" formControlName="subDescriptionEn" />
             </div>
+
+            <div class="form-group">
+              <label for="subDescriptionAr"><strong>DescriptionAr:</strong></label>
+              <input type="text" id="subDescriptionAr" class="form-control" formControlName="subDescriptionAr" />
+            </div>
+
+            <div class="form-group">
+              <label for="subAddressEn"><strong>AddressEn:</strong></label>
+              <input type="text" id="subAddressEn" class="form-control" formControlName="subAddressEn" />
+            </div>
+
+            <div class="form-group">
+              <label for="subAddressAr"><strong>AddressAr:</strong></label>
+              <input type="text" id="subAddressAr" class="form-control" formControlName="subAddressAr" />
+            </div>
+
             <div class="form-group">
               <p><strong>Created AT:</strong> {{ subwearhouse.subCreatedat | date: 'yyyy-MM-dd' }}</p>
             </div>

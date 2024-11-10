@@ -2,9 +2,12 @@ export interface ISubWearhouse {
     subId: number
     mainFk: number
     parentSubWearhouseId: number
-    subName: string
-    subDescription: string
-    subAddress: string
+    subNameEn: string
+    subNameAr: string
+    subDescriptionEn: string
+    subDescriptionAr: string
+    subAddressEn: string
+    subAddressAr: string
     subCreatedat: string
     subUpdatedat: string
     delet: boolean

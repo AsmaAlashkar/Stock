@@ -1,47 +1,69 @@
-
 <form [formGroup]="SubMainWearhouseForm" (ngSubmit)="save()">
   <div class="form-group">
-    <label for="subName">Sub Warehouse Name *</label>
-    <input id="subName" type="text" formControlName="subName" class="form-control" [ngClass]="{'is-invalid': SubMainWearhouseForm.get('subName')?.invalid && SubMainWearhouseForm.get('subName')?.touched}">
-    <div *ngIf="SubMainWearhouseForm.get('subName')?.invalid && SubMainWearhouseForm.get('subName')?.touched" class="invalid-feedback">
-      Sub Warehouse Name is required.
+    <label for="subNameEn">Sub Warehouse NameEn *</label>
+    <input id="subNameEn" type="text" formControlName="subNameEn" class="form-control"
+      [ngClass]="{'is-invalid': SubMainWearhouseForm.get('subNameEn')?.invalid && SubMainWearhouseForm.get('subNameEn')?.touched}">
+    <div *ngIf="SubMainWearhouseForm.get('subNameEn')?.invalid && SubMainWearhouseForm.get('subNameEn')?.touched" class="invalid-feedback">
+      Sub Warehouse NameEn is required.
     </div>
   </div>
 
   <div class="form-group">
-    <label for="subDescription">Sub Warehouse Description</label>
-    <input id="subDescription" type="text" formControlName="subDescription" class="form-control">
+    <label for="subNameAr">Sub Warehouse NameAr *</label>
+    <input id="subNameAr" type="text" formControlName="subNameAr" class="form-control"
+      [ngClass]="{'is-invalid': SubMainWearhouseForm.get('subNameAr')?.invalid && SubMainWearhouseForm.get('subNameAr')?.touched}">
+    <div *ngIf="SubMainWearhouseForm.get('subNameAr')?.invalid && SubMainWearhouseForm.get('subNameAr')?.touched" class="invalid-feedback">
+      Sub Warehouse NameAr is required.
+    </div>
   </div>
 
   <div class="form-group">
-    <label for="subAddress">Sub Warehouse Address</label>
-    <input id="subAddress" type="text" formControlName="subAddress" class="form-control">
+    <label for="subDescriptionEn">Sub Warehouse DescriptionEn</label>
+    <input id="subDescriptionEn" type="text" formControlName="subDescriptionEn" class="form-control">
   </div>
 
+  <div class="form-group">
+    <label for="subDescriptionAr">Sub Warehouse DescriptionAr</label>
+    <input id="subDescriptionAr" type="text" formControlName="subDescriptionAr" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="subAddressEn">Sub Warehouse AddressEn</label>
+    <input id="subAddressEn" type="text" formControlName="subAddressEn" class="form-control">
+  </div>
+
+  <div class="form-group">
+    <label for="subAddressAr">Sub Warehouse AddressAr</label>
+    <input id="subAddressAr" type="text" formControlName="subAddressAr" class="form-control">
+  </div>
+
+  <!-- Hidden field for Main Warehouse ID -->
   <div class="form-group" hidden>
     <label for="mainFk">Main Warehouse ID</label>
     <input id="mainFk" type="number" formControlName="mainFk" class="form-control">
   </div>
 
-<!-- Checkbox to show/hide Parent Sub Warehouse selection -->
-<div class="form-group form-check my-3" *ngIf="getValidParentSubwearhouseCount() > 0">
-  <input type="checkbox" id="showParentSubWearhouse" class="form-check-input" formControlName="showParentSubWearhouse">
-  <label class="form-check-label" for="showParentSubWearhouse">Is Follow Parent</label>
-</div>
+  <!-- Checkbox to show/hide Parent Sub Warehouse selection -->
+  <div class="form-group form-check my-3" *ngIf="getValidParentSubwearhouseCount() > 0">
+    <input type="checkbox" id="showParentSubWearhouse" class="form-check-input"
+      formControlName="showParentSubWearhouse">
+    <label class="form-check-label" for="showParentSubWearhouse">Is Follow Parent</label>
+  </div>
 
-<!-- Parent Sub Warehouse dropdown, toggled by the checkbox -->
-<div class="form-group" *ngIf="SubMainWearhouseForm.get('showParentSubWearhouse')?.value">
-  <label for="parentSubWearhouseId">Parent Sub Warehouse</label>
-  <select id="parentSubWearhouseId" formControlName="parentSubWearhouseId" class="form-control">
-    <option *ngFor="let subWearhouse of ParentsubWearhouses" [value]="subWearhouse.subId">
-      {{ subWearhouse.subName }}
-    </option>
-  </select>
-</div>
+  <!-- Parent Sub Warehouse dropdown, toggled by the checkbox -->
+  <div class="form-group" *ngIf="SubMainWearhouseForm.get('showParentSubWearhouse')?.value">
+    <label for="parentSubWearhouseId">Parent Sub Warehouse</label>
+    <select id="parentSubWearhouseId" formControlName="parentSubWearhouseId" class="form-control">
+      <option *ngFor="let subWearhouse of ParentsubWearhouses" [value]="subWearhouse.subId">
+        {{ subWearhouse.subNameEn }}
+      </option>
+    </select>
+  </div>
 
   <button type="submit" class="btn btn-primary my-3" [disabled]="SubMainWearhouseForm.invalid">Save Sub Warehouse</button>
 </form>
 
+<!-- Error Display -->
 <div *ngIf="errors.length > 0" class="alert alert-danger">
   <ul>
     <li *ngFor="let error of errors">{{ error }}</li>
