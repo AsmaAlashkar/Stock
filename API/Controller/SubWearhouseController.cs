@@ -131,7 +131,7 @@ namespace API.Controller
                 {
                     return NotFound($"SubWearHouse with ID {id} not found");
                 }
-              
+
                 // Update only the fields that are provided in the DTO
                 if (!string.IsNullOrEmpty(subWearHouseDTO.SubNameEn))
                 {
@@ -139,7 +139,7 @@ namespace API.Controller
                 }
                 if (!string.IsNullOrEmpty(subWearHouseDTO.SubNameAr))
                 {
-                    existingItem.SubNameEn = subWearHouseDTO.SubNameAr;
+                    existingItem.SubNameAr = subWearHouseDTO.SubNameAr;
                 }
 
                 if (!string.IsNullOrEmpty(subWearHouseDTO.SubDescriptionEn))
@@ -148,7 +148,7 @@ namespace API.Controller
                 }
                 if (!string.IsNullOrEmpty(subWearHouseDTO.SubDescriptionAr))
                 {
-                    existingItem.SubDescriptionEn = subWearHouseDTO.SubDescriptionAr;
+                    existingItem.SubDescriptionAr = subWearHouseDTO.SubDescriptionAr;
                 }
 
                 if (!string.IsNullOrEmpty(subWearHouseDTO.SubAddressEn))
@@ -157,7 +157,7 @@ namespace API.Controller
                 }
                 if (!string.IsNullOrEmpty(subWearHouseDTO.SubAddressAr))
                 {
-                    existingItem.SubAddressEn = subWearHouseDTO.SubAddressAr;
+                    existingItem.SubAddressAr = subWearHouseDTO.SubAddressAr;
                 }
 
                 if (subWearHouseDTO.Delet.HasValue)
