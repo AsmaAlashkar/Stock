@@ -19,6 +19,8 @@ import { SubItemsComponent } from './wearhouse/sub-items/sub-items.component';
 import { CreateItemComponent } from './items/create-item/create-item.component';
 import { DisplayAllPermissionsComponent } from './permission/display-all-permissions/display-all-permissions.component';
 import { CreatePermissionComponent } from './permission/create-permission/create-permission.component';
+import { GenralReportComponent } from './reports/genral-report/genral-report.component';
+import { MainReportComponent } from './reports/main-report/main-report.component';
 import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
 
 const routes: Routes = [
@@ -37,12 +39,14 @@ const routes: Routes = [
   {path:'viewCategoryItems/:id',component: CategoryItemsComponent},
 
 
-  {path:'permission',component: PermissinTypeComponent},
-  {path:'allPermissions',component: DisplayAllPermissionsComponent},
-  {path:'CreatePermission',component: CreatePermissionComponent},
+  {path:'displayAllPermission',component: PermissinTypeComponent},
+  {path:'permissionDetails/:id',component: CategoryDetailsComponent},
+  // {path:'CreatePermission',component: CreatePermissionComponent},
 
   {path:'items',component: DisplayItemsComponent},
   // {path:'createItem',component:CreateItemComponent},
+
+  {path: 'reports', loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule)},
 
   // {path:'reports',component: },
   {path:'chatbot',component: ChatbotComponent},

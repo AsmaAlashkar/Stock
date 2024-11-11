@@ -1,14 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../shared/shared.module';
-
-
+import { GenralReportComponent } from './genral-report/genral-report.component';
+import { RouterModule } from '@angular/router';
+import { MainReportComponent } from './main-report/main-report.component';
+import { ReportsRoutingModule } from './reports-routing.module';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { SecondReportComponent } from './second-report/second-report.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    GenralReportComponent,
+    MainReportComponent,
+    SecondReportComponent
+  ],
   imports: [
     CommonModule,
-    SharedModule
+    RouterModule,
+    ReportsRoutingModule,
+    TableModule,
+    ButtonModule
   ]
 })
 export class ReportsModule { }

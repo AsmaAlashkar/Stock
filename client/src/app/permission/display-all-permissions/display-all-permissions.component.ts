@@ -12,6 +12,7 @@ import { IPermissionType } from 'src/app/shared/models/permissiontype';
 export class DisplayAllPermissionsComponent {
 
   displayAllPermVM: DisplayAllPermissionVM[] = [];
+  PermVM!: DisplayAllPermissionVM;
   displayAllPerm!: DisplayAllPermission;
   pageNumber: number = 1;
   pageSize: number = 10;
@@ -29,6 +30,8 @@ export class DisplayAllPermissionsComponent {
 
   ngOnInit() {
     this.loadPermissionTypes();
+
+
   }
 
   getAllPermissions($event: TableLazyLoadEvent) {
@@ -40,6 +43,8 @@ export class DisplayAllPermissionsComponent {
         this.loading = false;
         this.displayAllPermVM = data.values;
         this.totalRecords = data.totalRecords;
+        this.PermVM = data.values[0]
+        console.log( this.PermVM);
       },
       error: (error) => {
         this.loading = false;
@@ -70,7 +75,7 @@ export class DisplayAllPermissionsComponent {
       next: (data) => {
         this.loading = false;
         this.displayAllPermVM = data;
-        this.totalRecords = data.length;
+        // this.totalRecords = data.length;
       },
       error: (error) => {
         this.loading = false;
