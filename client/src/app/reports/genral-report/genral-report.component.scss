@@ -1,17 +1,17 @@
 @media print {
-    /* Ensure header and footer are fixed for each page */
-    header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        padding: 10px; /* Adjust padding to reduce header size */
-        font-size: 14px; /* Adjust font size if needed */
-        background-color: white; /* Optional: background color */
-        z-index: 1000;
-      }
-  
-     /* Style adjustments for footer */
+  /* Ensure header and footer are fixed for each page */
+  header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 10px; /* Adjust padding to reduce header size */
+      font-size: 14px; /* Adjust font size if needed */
+      background-color: white; /* Optional: background color */
+      z-index: 1000;
+    }
+
+    /* Style adjustments for footer */
   footer {
     position: fixed;
     bottom: 0;
@@ -22,19 +22,21 @@
     background-color: white; /* Optional: background color */
     z-index: 1000;
   }
-  
-    /* Offset the content to avoid overlap with header and footer */
-    .container {
-      margin-top: 150px; /* Adjust based on header height */
-      margin-bottom: 100px; /* Adjust based on footer height */
-    }
+
+  /* Offset the content to avoid overlap with header and footer */
+  .container {
+    margin-top: 150px; /* Adjust based on header height */
+    margin-bottom: 100px; /* Adjust based on footer height */
+  }
+
   header img {
     width: 80px; /* Adjust as needed */
     height: 60px; /* Adjust as needed */
   }
-    /* Prevent page breaks within the header and footer */
-    header, footer {
-      page-break-before: always;
-      page-break-after: always;
-    }
+
+  /* Prevent page breaks within the header and footer */
+  header, footer {
+    page-break-before: always;
+    page-break-after: always;
+  }
   }
