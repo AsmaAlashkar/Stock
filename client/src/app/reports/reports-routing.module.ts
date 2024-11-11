@@ -7,7 +7,7 @@ import { SecondReportComponent } from './second-report/second-report.component';
 const routes: Routes = [
   { path: '', component: GenralReportComponent, children: [
       { path: 'main-report', component: MainReportComponent },
-      { path: 'second-report/:subId', component: SecondReportComponent }
+      { path: 'second-report', component: SecondReportComponent }
     ]
   }];
 
