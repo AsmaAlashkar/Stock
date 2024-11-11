@@ -7,6 +7,13 @@ import { Component } from '@angular/core';
 })
 export class GenralReportComponent {
 
-  constructor() { }
+  // constructor() { }
+  // currentDate: string;
+
+  // constructor() {
+  //   // Get the current date and format it (you can adjust the format as needed)
+  //   const today = new Date();
+  //   this.currentDate = today.toLocaleDateString();  // This will format the date as 'MM/DD/YYYY'
+  // }
 
 }
