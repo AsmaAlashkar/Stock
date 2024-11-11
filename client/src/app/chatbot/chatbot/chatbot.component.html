@@ -1,0 +1,53 @@
+<div class="container-fluid mt-5">
+<div class="chat-container">
+  <div class="chat-box">
+    <!-- Display messages -->
+    <div *ngFor="let message of messages" [ngClass]="{'user-message': message.sender === 'user', 'bot-message': message.sender === 'bot'}">
+      <ng-container *ngIf="message.type === 'text'">
+        <p>{{ message.text }}</p>
+      </ng-container>
+
+      <!-- Display results as a table within bot messages -->
+      <ng-container *ngIf="message.type === 'results' && message.items?.length">
+        <h3>Search Results (Total: {{ message.items?.length }})</h3>
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Item ID</th>
+              <th>Item Name</th>
+            
+              <th>Unit Name</th>
+              <th>Category Name</th>
+              <th>Current Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of message.items">
+              <td>{{ item.itemId }}</td>
+              <td>{{ item.itemName }}</td>
+        
+              <td>{{ item.unitName }}</td>
+              <td>{{ item.categoryName }}</td>
+              <td>{{ item.currentQuantity }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+
+      <!-- Display no results message if search returned empty -->
+      <p *ngIf="message.type === 'results' && !message.items?.length">No items found for "{{ keyword }}".</p>
+    </div>
+  </div>
+
+  <!-- Input box for user messages -->
+  <div class="chat-input">
+    <input
+      type="text"
+      [(ngModel)]="keyword"
+      placeholder="Type your message..."
+      (keyup.enter)="sendMessage()"
+    />
+    <button (click)="sendMessage()">Send</button>
+  </div>
+</div>
+</div>

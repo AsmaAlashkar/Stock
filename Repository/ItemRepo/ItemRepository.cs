@@ -274,5 +274,32 @@ namespace Repository.ItemRepo
             return result;
         }
 
+        public async Task<List<ItemDetailsDto>> GetItemsByKeywordForChatbotAsync(string keyword)
+        {
+            // Get the list of items filtered by the keyword (search in both ItemNameEn and ItemCode)
+            var items = await (from item in _context.Items
+                               join unit in _context.Units on item.UniteFk equals unit.UnitId into unitGroup
+                               from unit in unitGroup.DefaultIfEmpty()
+                               join category in _context.Categories on item.CatFk equals category.CatId
+                               join quantity in _context.Quantities on item.ItemId equals quantity.ItemFk into quantityGroup
+                               from quantity in quantityGroup.DefaultIfEmpty()
+                               where EF.Functions.Like(item.ItemNameEn, $"%{keyword}%") || EF.Functions.Like(item.ItemCode, $"%{keyword}%")
+                               select new ItemDetailsDto
+                               {
+                                   ItemId = item.ItemId,
+                                   ItemName = item.ItemNameEn,
+                                   ItemCode = item.ItemCode,
+                                   UnitName = unit != null ? unit.UnitNameEn : "N/A", // Handle null unit
+                                   CategoryName = category.CatNameEn,
+                                   CurrentQuantity = quantity != null && quantity.CurrentQuantity.HasValue
+                                                     ? (int)quantity.CurrentQuantity.Value // Cast to int
+                                                     : 0 // Default to 0 if quantity is null
+                               })
+                               .OrderBy(i => i.ItemId)  // Sort by ItemId or any other field you desire
+                               .ToListAsync(); // Return the list without pagination
+
+            return items;  // Return the matching list of items
+        }
+
     }
 }

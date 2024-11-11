@@ -24,6 +24,7 @@ export const environment = {
     getItemsByCategoryId:'http://localhost:5050/api/Item/GetItemsByCategoryId/',
     getItemsBySubId:'http://localhost:5050/api/Item/GetItemsBySubWHId/',
     createItem:'http://localhost:5050/api/Item/CreateItem',
+    getItemsByKeyword:'http://localhost:5050/api/ChatBot/GetItemsByKeyword',
 
     getUnitsNames:'http://localhost:5050/api/Unit/GetUnitsNames',
 

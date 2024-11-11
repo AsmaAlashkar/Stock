@@ -19,6 +19,7 @@ import { SubItemsComponent } from './wearhouse/sub-items/sub-items.component';
 import { CreateItemComponent } from './items/create-item/create-item.component';
 import { DisplayAllPermissionsComponent } from './permission/display-all-permissions/display-all-permissions.component';
 import { CreatePermissionComponent } from './permission/create-permission/create-permission.component';
+import { ChatbotComponent } from './chatbot/chatbot/chatbot.component';
 
 const routes: Routes = [
   {path:'', component:HomeComponent},
@@ -44,7 +45,9 @@ const routes: Routes = [
   // {path:'createItem',component:CreateItemComponent},
 
   // {path:'reports',component: },
+  {path:'chatbot',component: ChatbotComponent},
 
+  
   {path:'login', component:LoginComponent},
   {path:'register', component:RegisterComponent},
   {path:'**', redirectTo:'', pathMatch: 'full'},
