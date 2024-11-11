@@ -24,7 +24,9 @@ export class MainReportComponent implements OnInit{
       }
     });
   }
-
+  printPage() {
+    window.print();
+  }
   printReportPDF(): void {
     let printWindow = window.open('', 'width=800,height=600');
   let content = `
