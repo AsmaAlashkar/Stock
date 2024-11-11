@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { Reports } from 'src/app/shared/models/reports';
 import { ReportsService } from '../reports.service';
 
@@ -110,4 +110,5 @@ export class MainReportComponent implements OnInit{
   // printWindow?.close();
   // }
 
+  
 }
