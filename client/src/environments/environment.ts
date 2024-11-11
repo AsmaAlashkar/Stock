@@ -34,7 +34,10 @@ export const environment = {
     generateNextPermissionCode:'http://localhost:5050/api/Permission/GenerateNextPermissionCode',
     createPermission: 'http://localhost:5050/api/Permission/CreatePermission',
     getPermissionsByDate: 'http://localhost:5050/api/Permission/GetPermissionsByDate/',
-    getPermissionsByTypeId: 'http://localhost:5050/api/Permission/GetPermissionByTypeId/'
+    getPermissionsByTypeId: 'http://localhost:5050/api/Permission/GetPermissionByTypeId/',
+
+    getAllItemsQuantitiesInAllSubsReports: "http://localhost:5050/api/Report/getAllItemsQuantitiesInAllSubs",
+    getAllItemsQuantitiesBySubIdReports: "http://localhost:5050/api/Report/getAllItemsQuantitiesBySubId",
   };
 
   /*

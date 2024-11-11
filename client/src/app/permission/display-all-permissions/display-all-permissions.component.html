@@ -25,34 +25,39 @@
     <ng-template pTemplate="header">
         <tr>
             <th>
-                <div class="flex align-items-center">
-                    Code
-                </div>
-            </th>
-            <th>
-                <div class="flex align-items-center">
-                    Order Type Name
-                </div>
-            </th>
-            <th>
-                <div class="flex align-items-center">
-                    SubWearhouse
-                </div>
-            </th>
-            <th>
-                <div class="flex align-items-center">
-                    SubWearhouse Destination
-                </div>
-            </th>
-            <th>
-                <div class="flex align-items-center">
-                    Number of Items
-                </div>
+              <div class="flex align-items-center">
+                Code
+              </div>
             </th>
             <th>
               <div class="flex align-items-center">
-                  Date
+                Order Type Name
               </div>
+            </th>
+            <th>
+              <div class="flex align-items-center">
+                SubWearhouse
+              </div>
+            </th>
+            <th>
+              <div class="flex align-items-center">
+                SubWearhouse Destination
+              </div>
+            </th>
+            <th>
+              <div class="flex align-items-center">
+                Number of Items
+              </div>
+            </th>
+            <th>
+              <div class="flex align-items-center">
+                Date
+              </div>
+          </th>
+          <th>
+            <div class="flex align-items-center">
+              Actions
+            </div>
           </th>
         </tr>
         <tr>
@@ -79,10 +84,11 @@
               dateFormat="mm/dd/yy"
               appendTo="body"
               placeholder="Select Date"
-              [touchUI]="true" [readonlyInput]="true"
+              [readonlyInput]="true"
               >
             </p-calendar>
           </th>
+          <th></th>
       </tr>
       <!-- <tr>
         <th pSortableColumn="permCode" style="width:20%">Code <p-sortIcon field="permCode"></p-sortIcon></th>
@@ -113,6 +119,26 @@
             <td>
               {{ perm.permCreatedat | date: 'MM/dd/yyyy' }}
             </td>
+              <!-- <th style="width: 94px;">
+              <button class="btn btn-outline-info me-2" pInputText [pTooltip]="tooltipView" [hideDelay]="500"
+                tooltipPosition="top" [routerLink]="['/permissionDetails', selectedPermId]">
+                <i class="fa fa-eye"></i>
+              </button>
+              <ng-template #tooltipView>
+                <div class="flex align-items-center">
+                  <span><b>View Permission</b></span>
+                </div>
+              </ng-template>
+              <button class="btn btn-outline-primary" pInputText [pTooltip]="tooltipEditView" [hideDelay]="500"
+                tooltipPosition="top" [routerLink]="['/permissionDetails', selectedPermId]">
+                <i class="fa fa-edit"></i>
+              </button>
+              <ng-template #tooltipEditView>
+                <div class="flex align-items-center">
+                  <span><b>EditView Permission</b></span>
+                </div>
+              </ng-template>
+            </th> -->
         </tr>
     </ng-template>
     <ng-template pTemplate="emptymessage">
