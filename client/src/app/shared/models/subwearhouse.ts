@@ -1,13 +1,16 @@
 export interface ISubWearhouse {
-    subId: number
-    mainFk: number
-    parentSubWearhouseId: number
-    subName: string
-    subDescription: string
-    subAddress: string
-    subCreatedat: string
-    subUpdatedat: string
-    delet: boolean
+  subId: number
+  mainFk: number
+  parentSubWearhouseId: number
+  subNameEn: string
+  subNameAr: string
+  subDescriptionEn: string
+  subDescriptionAr: string
+  subAddressEn: string
+  subAddressAr: string
+  subCreatedat: string
+  subUpdatedat: string
+  delet: boolean
   }
 
 export interface Column {

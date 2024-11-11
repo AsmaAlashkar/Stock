@@ -10,6 +10,8 @@ namespace Standard.DTOs
     {
         public int PerId { get; set; }
 
-        public string PerTypeValue { get; set; } = null!;
+        public string PerTypeValueAr { get; set; } = null!;
+
+        public string PerTypeValueEn { get; set; } = null!;
     }
 }

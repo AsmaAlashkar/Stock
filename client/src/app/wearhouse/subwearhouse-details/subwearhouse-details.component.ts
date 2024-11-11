@@ -31,9 +31,12 @@ export class SubwearhouseDetailsComponent implements OnInit {
 
   initForm() {
     this.wearhouseForm = this.fb.group({
-      subName: ['', Validators.required],
-      subDescription: [''],
-      subAddress: ['']
+      subNameEn: ['', Validators.required],
+      subNameAr: ['', Validators.required],
+      subDescriptionEn: [''],
+      subDescriptionAr: [''],
+      subAddressEn: [''],
+      subAddressAr: ['']
     });
   }
 
@@ -53,13 +56,17 @@ export class SubwearhouseDetailsComponent implements OnInit {
       );
     }
   }
+  
 
   populateForm() {
     if (this.subwearhouse) {
       this.wearhouseForm.patchValue({
-        subName: this.subwearhouse.subName,
-        subDescription: this.subwearhouse.subDescription,
-        subAddress: this.subwearhouse.subAddress
+        subNameEn: this.subwearhouse.subNameEn,
+        subNameAr: this.subwearhouse.subNameAr,
+        subDescriptionEn: this.subwearhouse.subDescriptionEn,
+        subDescriptionAr: this.subwearhouse.subDescriptionAr,
+        subAddressEn: this.subwearhouse.subAddressEn,
+        subAddressAr: this.subwearhouse.subAddressAr
       });
     }
   }

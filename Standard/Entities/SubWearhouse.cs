@@ -11,11 +11,17 @@ public partial class SubWearhouse
 
     public int? ParentSubWearhouseId { get; set; }
 
-    public string SubName { get; set; } = null!;
+    public string SubNameEn { get; set; } = null!;
 
-    public string? SubDescription { get; set; }
+    public string SubNameAr { get; set; } = null!;
 
-    public string? SubAddress { get; set; }
+    public string? SubDescriptionEn { get; set; }
+
+    public string? SubDescriptionAr { get; set; }
+
+    public string? SubAddressEn { get; set; }
+
+    public string? SubAddressAr { get; set; }
 
     public DateTime? SubCreatedat { get; set; }
 

@@ -7,6 +7,8 @@ public partial class Permission
 {
     public int PermId { get; set; }
 
+    public string PermCode { get; set; } = null!;
+
     public int? PermTypeFk { get; set; }
 
     public DateTime? PermCreatedat { get; set; }
@@ -14,8 +16,6 @@ public partial class Permission
     public int SubFk { get; set; }
 
     public int? DestinationSubFk { get; set; }
-
-    public string PermCode { get; set; } = null!;
 
     public virtual SubWearhouse? DestinationSubFkNavigation { get; set; }
 

@@ -23,6 +23,7 @@ import { TreeTableModule } from 'primeng/treetable';
 import { TooltipModule } from 'primeng/tooltip';
 import { SubItemsComponent } from './sub-items/sub-items.component';
 import { TableModule } from 'primeng/table';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -59,7 +60,8 @@ import { TableModule } from 'primeng/table';
     BrowserAnimationsModule,
     TreeTableModule,
     TooltipModule,
-    TableModule
+    TableModule,
+    SharedModule
   ],
   exports:[MainwearhouseComponent,SubwearhouseComponent,MainModalComponent,CreatesubModalComponent
     ,SubwearhouseComponent,SubwearhouseDetailsComponent]

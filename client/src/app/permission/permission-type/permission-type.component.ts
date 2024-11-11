@@ -46,7 +46,7 @@ export class PermissinTypeComponent implements OnDestroy{
       this.filteredPermissionTypes = this.permissionTypes;
     } else {
       this.filteredPermissionTypes = this.permissionTypes.filter((permissionType) =>
-        permissionType.perTypeValue.toLowerCase().includes(this.filterName.toLowerCase())
+        permissionType.perTypeValueEn.toLowerCase().includes(this.filterName.toLowerCase())
       );
     }
   }
@@ -58,7 +58,7 @@ export class PermissinTypeComponent implements OnDestroy{
 
   show(selectedPermissionType: IPermissionType) {
     console.log("selectedPermissionType :", selectedPermissionType);
-    const headerValue = selectedPermissionType ? selectedPermissionType.perTypeValue : 'Default Header';
+    const headerValue = selectedPermissionType ? selectedPermissionType.perTypeValueEn : 'Default Header';
 
     this.ref = this.dialogService.open(PermissionActionComponent, {
         header: headerValue,
@@ -77,7 +77,7 @@ export class PermissinTypeComponent implements OnDestroy{
             this.messageService.add({
                 severity: 'info',
                 summary: 'Product Selected',
-                detail: permissionTypes.perTypeValue
+                detail: permissionTypes.perTypeValueEn
             });
         }
     });

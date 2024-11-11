@@ -9,7 +9,6 @@ import { AccountService } from './account/account.service';
 export class AppComponent {
   title = 'Stock';
   constructor(private accountService: AccountService) {
-
   }
   ngOnInit(): void {
     this.loadCurrentUser();

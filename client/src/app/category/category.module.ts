@@ -19,6 +19,7 @@ import { TreeTableModule } from 'primeng/treetable';
 import { TooltipModule } from 'primeng/tooltip';
 import { CategoryItemsComponent } from './category-items/category-items.component';
 import { TableModule } from 'primeng/table';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { TableModule } from 'primeng/table';
   imports: [
     TableModule,
     CommonModule,
+    SharedModule,
     TreeModule,
     CardModule,
     CommonModule,

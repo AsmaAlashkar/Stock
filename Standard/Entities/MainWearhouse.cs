@@ -7,9 +7,13 @@ public partial class MainWearhouse
 {
     public int MainId { get; set; }
 
-    public string MainName { get; set; } = null!;
+    public string MainNameEn { get; set; } = null!;
 
-    public string? MainDescription { get; set; }
+    public string MainNameAr { get; set; } = null!;
+
+    public string? MainDescriptionEn { get; set; }
+
+    public string? MainDescriptionAr { get; set; }
 
     public string? MainAdderess { get; set; }
 

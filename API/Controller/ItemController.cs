@@ -194,7 +194,7 @@ namespace API.Controller
 
                 if (!string.IsNullOrEmpty(Item.ItemName))
                 {
-                    existingItem.ItemName = Item.ItemName;
+                    existingItem.ItemNameEn = Item.ItemName;
                 }
                 if (!string.IsNullOrEmpty(Item.ItemCode))
                 {

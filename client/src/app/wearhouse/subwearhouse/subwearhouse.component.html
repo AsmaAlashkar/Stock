@@ -6,7 +6,7 @@
       </li>
       <li class="breadcrumb-item active" aria-current="page" *ngIf="subwearhouses[0]">
         <a style="font-size: larger;">
-          {{ subwearhouses[0].mainName }}
+          {{ subwearhouses[0].mainNameEn }}
         </a>
       </li>
     </ol>
@@ -22,7 +22,7 @@
         <div class="card-body">
           <p>Total Sub-Warehouses: <strong>{{ getValidSubwearhouseCount() }}</strong></p>
 
-          <p>Main Warehouse: <strong>{{ subwearhouses[0].mainName }}</strong></p>
+          <p>Main Warehouse: <strong>{{ subwearhouses[0].mainNameEn }}</strong></p>
         </div>
       </div>
 
@@ -61,7 +61,7 @@
       <!-- Fallback message for when there are no valid sub-warehouses -->
       <ng-template #noSubwearhouses>
         <p class="text-center text-muted">
-          <strong>No Sub-Warehouses available for this Main Warehouse: {{ subwearhouses[0].mainName }}</strong>
+          <strong>No Sub-Warehouses available for this Main Warehouse: {{ subwearhouses[0].mainNameEn }}</strong>
         </p>
       </ng-template>
 

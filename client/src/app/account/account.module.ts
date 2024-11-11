@@ -5,6 +5,7 @@ import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -19,6 +20,7 @@ import { RouterModule } from '@angular/router';
     ToastrModule.forRoot(),
     ReactiveFormsModule,
     RouterModule,
+    SharedModule
   ],
   exports:[LoginComponent,
     RegisterComponent]
