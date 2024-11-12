@@ -28,7 +28,10 @@ export class MainReportComponent implements OnInit{
   printPage() {
     window.print();
   }
-
+  // Helper method to format numbers in Arabic numerals
+  formatArabicNumber(number: number): string {
+    return new Intl.NumberFormat('ar-EG').format(number);
+  }
   // printReportPDF(): void {
   //   let printWindow = window.open('', 'width=800,height=600');
   // let content = `
