@@ -15,7 +15,8 @@
       <ng-template pTemplate="body" let-reports>
           <tr>
               <td>{{ reports.itemName }}</td>
-              <td>{{ formatArabicNumber(reports.currentQuantity) }}</td>
+              <td>{{reports.currentQuantity }}</td>
+              <!-- <td>{{ formatArabicNumber(reports.currentQuantity) }}</td> -->
           </tr>
       </ng-template>
   </p-table>
