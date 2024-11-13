@@ -16,6 +16,21 @@ namespace API.Controller
         {
             _report = report;
         }
+
+        [HttpPost("UploadExcelFile")]
+        public async Task<IActionResult> UploadExcelFile(IFormFile file)
+        {
+            try
+            {
+                var result = await _report.ProcessExcelFileAsync(file);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpGet("getAllItemsQuantitiesInAllSubs")]
         public async Task<ActionResult<List<Quantity>>> getAllItemsQuantitiesInAllSubs()
         {

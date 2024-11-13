@@ -1,4 +1,5 @@
-﻿using Standard.DTOs.ReportDtos;
+﻿using Microsoft.AspNetCore.Http;
+using Standard.DTOs.ReportDtos;
 using Standard.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,6 @@ namespace Repository.ReportRepo
     {
         Task<List<ItemsQuantities>> getAllItemsQuantitiesInAllSubs();
         Task<List<ItemsQuantities>> getAllItemsQuantitiesBySubId(int subId);
-
+        Task<string> ProcessExcelFileAsync(IFormFile file);
     }
 }
