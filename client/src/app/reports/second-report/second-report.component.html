@@ -1,9 +1,55 @@
-<div class="col-2">
-  <p-button icon="pi pi-print" [rounded]="true" [text]="true" severity="info" >
+<!-- <div class="but col-2">
+  <p-button icon="pi pi-print" [rounded]="true" [text]="true" severity="info" (click)="printPage()">
 </p-button>
 <p-button icon="pi pi-file-excel" [rounded]="true" [text]="true" severity="success" >
 </p-button>
 </div>
+
+<div class="but col-sm-12 col-md-6">
+  <span class="p-float-label">
+  <label for="SubWearFrom">From</label>
+  <p-dropdown [options]="subWearhouses" [(ngModel)]="selectedSubWear"
+    (ngModelChange)="onSubWearhouseChange()" optionLabel="subName"
+    [filter]="true" filterBy="subName" appendTo="body" placeholder="Select SubWarehouse"
+    name="SubWearFrom" id="SubWearFrom">
+    <ng-template let-item pTemplate="item">
+      <div class="flex align-items-center gap-2">
+        <div>{{ item.subName }}</div>
+      </div>
+    </ng-template>
+  </p-dropdown>
+  <label for="float-label">Select SubWearhouse</label>
+  </span>
+</div> -->
+
+<div class="but">
+  <div class="row">
+    <div class="col-9">
+      <p-button icon="pi pi-print" [rounded]="true" [text]="true" severity="info" (click)="printPage()">
+      </p-button>
+      <p-button icon="pi pi-file-excel" [rounded]="true" [text]="true" severity="success">
+      </p-button>
+    </div>
+
+    <div class="col-2 mb-1 mr-0">
+      <span class="p-float-label">
+        <label for="SubWearFrom">From</label>
+        <p-dropdown [options]="subWearhouses" [(ngModel)]="selectedSubWear"
+          (ngModelChange)="onSubWearhouseChange()" optionLabel="subName"
+          [filter]="true" filterBy="subName" appendTo="body" placeholder="Select SubWarehouse"
+          name="SubWearFrom" id="SubWearFrom">
+          <ng-template let-item pTemplate="item">
+            <div class="flex align-items-center gap-2">
+              <div>{{ item.subName }}</div>
+            </div>
+          </ng-template>
+        </p-dropdown>
+        <label for="float-label">Select SubWearhouse</label>
+      </span>
+    </div>
+  </div>
+</div>
+
 <div class="card">
   <p-table [value]="reports" >
       <ng-template pTemplate="header">
@@ -15,8 +61,15 @@
       <ng-template pTemplate="body" let-reports>
           <tr>
               <td>{{ reports.itemName }}</td>
-              <td>{{ reports.currentQuantity }}</td>
+              <td>{{ formatArabicNumber(reports.currentQuantity) }}</td>
           </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="6" style="text-align: center;">
+            <h6>No Data Available</h6>
+          </td>
+        </tr>
       </ng-template>
   </p-table>
 </div>

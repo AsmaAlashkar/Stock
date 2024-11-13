@@ -7,6 +7,8 @@ import { ReportsRoutingModule } from './reports-routing.module';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { SecondReportComponent } from './second-report/second-report.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { SecondReportComponent } from './second-report/second-report.component';
     RouterModule,
     ReportsRoutingModule,
     TableModule,
-    ButtonModule
+    ButtonModule,
+    DropdownModule,
+    FormsModule
   ]
 })
 export class ReportsModule { }
