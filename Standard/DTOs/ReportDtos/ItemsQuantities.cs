@@ -8,7 +8,8 @@ namespace Standard.DTOs.ReportDtos
 {
     public class ItemsQuantities
     {
-        public string ItemName { get; set; } = null!;
+        public string ItemNameEn { get; set; } = null!;
+        public string ItemNameAr { get; set; } = null!;
         public double? CurrentQuantity { get; set; }
 
     }

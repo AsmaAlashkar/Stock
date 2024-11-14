@@ -55,7 +55,8 @@ namespace Repository.SubWearHouse
                             .Select(sub => new SubNamesDto
                             {
                                 SubId = sub.SubId,
-                                SubName = sub.SubNameEn,
+                                SubNameEn = sub.SubNameEn,
+                                SubNameAr = sub.SubNameAr,
                             })
                             .ToListAsync();
 

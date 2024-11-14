@@ -9,7 +9,8 @@ namespace Standard.DTOs.SubDto
     public class SubNamesDto
     {
         public int SubId { get; set; }
-        public string SubName { get; set; } = null!;
+        public string SubNameEn { get; set; } = null!;
 
+        public string SubNameAr { get; set; } = null!;
     }
 }

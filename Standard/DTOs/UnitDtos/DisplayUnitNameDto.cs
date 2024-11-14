@@ -9,6 +9,8 @@ namespace Standard.DTOs.UnitDtos
     public class DisplayUnitNameDto
     {
         public int UnitId { get; set; }
-        public string? UnitName { get; set; }
+        public string UnitNameEn { get; set; } = null!;
+
+        public string UnitNameAr { get; set; } = null!;
     }
 }
