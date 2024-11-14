@@ -12,7 +12,8 @@ export interface ItemDetailsDto {
 export interface Item{
   itemId: number,
   itemCode:string,
-  itemName: string,
+  itemNameEn: string,
+  itemNameAr: string,
   catFk:number,
   uniteFk:number,
   itemExperationdate:Date,

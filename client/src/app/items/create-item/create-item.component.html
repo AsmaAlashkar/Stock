@@ -11,10 +11,20 @@
     </div>
 
     <div class="form-group">
-        <label for="itemName">Item Name<span class="req">*</span></label>
-        <input id="itemName" type="text" formControlName="itemName" class="form-control"
-            [ngClass]="{'is-invalid': ItemForm.get('itemName')?.invalid && ItemForm.get('itemName')?.touched}">
-        <div *ngIf="ItemForm.get('itemName')?.invalid && ItemForm.get('itemName')?.touched"
+        <label for="itemNameEn">Item Name in English<span class="req">*</span></label>
+        <input id="itemNameEn" type="text" formControlName="itemNameEn" class="form-control"
+            [ngClass]="{'is-invalid': ItemForm.get('itemNameEn')?.invalid && ItemForm.get('itemNameEn')?.touched}">
+        <div *ngIf="ItemForm.get('itemNameEn')?.invalid && ItemForm.get('itemNameEn')?.touched"
+            class="invalid-feedback">
+            Item Name is required.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="itemNameAr">Item Name in Arabic<span class="req">*</span></label>
+        <input id="itemNameAr" type="text" formControlName="itemNameAr" class="form-control"
+            [ngClass]="{'is-invalid': ItemForm.get('itemNameAr')?.invalid && ItemForm.get('itemNameAr')?.touched}">
+        <div *ngIf="ItemForm.get('itemNameAr')?.invalid && ItemForm.get('itemNameAr')?.touched"
             class="invalid-feedback">
             Item Name is required.
         </div>
@@ -52,7 +62,7 @@
         <label for="itemExperationdate">Item Expiration Date</label>
         <input id="itemExperationdate" type="date" formControlName="itemExperationdate" class="form-control">
       </div>
-      
+
 
     <div class="form-group" hidden>
         <label for="itemId">Item ID</label>

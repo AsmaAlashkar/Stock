@@ -17,7 +17,7 @@ export class CreateItemComponent implements OnInit{
   ItemForm!: FormGroup;
   errors: string[] = [];
   categories: Category[] = [];
-  units: Unit[] = []; 
+  units: Unit[] = [];
   selectedCategoryId: number | null = null;
 
   constructor(
@@ -29,7 +29,7 @@ export class CreateItemComponent implements OnInit{
     public config: DynamicDialogConfig,
     public ref: DynamicDialogRef
   ) { }
-  
+
   ngOnInit(): void {
     this.selectedCategoryId = this.config.data?.categoryId || null;
     this.createItemForm();
@@ -41,7 +41,8 @@ export class CreateItemComponent implements OnInit{
     this.ItemForm = this.fb.group({
       itemId: [0],
       itemCode: ['', Validators.required],
-      itemName:  ['', Validators.required],
+      itemNameEn:  ['', Validators.required],
+      itemNameAr:  ['', Validators.required],
       catFk:[this.selectedCategoryId || 0, Validators.required],
       uniteFk:[0, Validators.required],
       itemExperationdate:[null],
@@ -78,7 +79,7 @@ export class CreateItemComponent implements OnInit{
       itemCreatedat: currentDate,
       itemUpdatedat: currentDate
     });
-    
+
     this.itemService.createItem(this.ItemForm.value).subscribe({
       next: () => {
         this.toastr.success('Item created successfully');
