@@ -11,7 +11,7 @@ public partial class Category
 
     public string CatNameAr { get; set; } = null!;
 
-    public string? CatNameEn { get; set; }
+    public string CatNameEn { get; set; } = null!;
 
     public string? CatDesAr { get; set; }
 

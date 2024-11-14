@@ -4,12 +4,6 @@ using Standard.DTOs.ReportDtos;
 using Standard.Entities;
 using ExcelDataReader;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Repository.ReportRepo
 {
     public class ReportRepository:IReportRepository

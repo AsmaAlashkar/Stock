@@ -9,6 +9,6 @@ namespace Standard.DTOs.ItemDtos
     public class ItemDto
     {
         public int ItemId { get; set; }
-        public int Quantity { get; set; }
+        public double Quantity { get; set; }
     }
 }

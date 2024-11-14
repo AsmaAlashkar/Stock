@@ -6,6 +6,7 @@ using Repository;
 using Standard.Entities;
 using Standard.DTOs;
 using Standard.DTOs.ItemDtos;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controller
 {
@@ -128,7 +129,7 @@ namespace API.Controller
                 return NotFound("No items found for the given sub-warehouse.");
             }
 
-            return Ok(items); // Directly return the result since it's already in ItemDetailsDto format
+            return Ok(items); 
         }
 
 
@@ -150,7 +151,7 @@ namespace API.Controller
         }
 
 
-        [HttpGet]
+        [HttpGet("GetAllItemsWithDetails")]
         public async Task<IActionResult> GetAllItemsWithDetails()
         {
             try
@@ -171,52 +172,27 @@ namespace API.Controller
         }
 
         [HttpPost("CreateItem")]
-        public async Task<ActionResult> CreateItem(CreateItemDto Item)
+        public async Task<ActionResult> CreateItem(CreateItemDto item)
         {
-            var newItem = _mapper.Map<Item>(Item);
+            var newItem = _mapper.Map<Item>(item);
 
             await _repo.CreateNew(newItem);
             return Ok("Item Created Successfully");
 
         }
-
         [HttpPut("UpdateItem/{id}")]
-        public async Task<ActionResult> UpdateItem(int id, [FromBody] CreateItemDto Item)
+        public async Task<ActionResult> UpdateItem(int id, [FromBody] CreateItemDto item)
         {
             try
             {
-                var existingItem = await _repo.GetById(id);
+                var resultMessage = await _item.UpdateItem(id, item);
 
-                if (existingItem == null)
+                if (resultMessage.Contains("not found") || resultMessage.Contains("already exists"))
                 {
-                    return NotFound($"Item with ID {id} not found");
-                }
-
-                if (!string.IsNullOrEmpty(Item.ItemName))
-                {
-                    existingItem.ItemNameEn = Item.ItemName;
-                }
-                if (!string.IsNullOrEmpty(Item.ItemCode))
-                {
-                    existingItem.ItemCode = Item.ItemCode;
+                    return BadRequest(resultMessage);
                 }
 
-                if (Item.CatFk!=0)
-                {
-                    existingItem.CatFk = Item.CatFk;
-                }
-                if (Item.UniteFk != 0)
-                {
-                    existingItem.UniteFk = Item.UniteFk;
-                }
-                if (Item.ItemExperationdate.HasValue)
-                {
-                    existingItem.ItemExperationdate = Item.ItemExperationdate.Value;
-                }
-
-                await _repo.Update(existingItem);
-
-                return Ok("Item updated successfully");
+                return Ok(resultMessage);
             }
             catch (Exception ex)
             {

@@ -9,10 +9,13 @@ namespace Standard.DTOs.ItemDtos
     public class ItemDetailsDto
     {
         public int ItemId { get; set; }
-        public string ItemName { get; set; }
+        public string ItemNameEn { get; set; } = null!;
+        public string ItemNameAr { get; set; } = null!;
         public string ItemCode { get; set; } = null!;
-        public string UnitName { get; set; }
-        public string CategoryName { get; set; }
-        public int CurrentQuantity { get; set; }
+        public string UnitNameEn { get; set; } = null!;
+        public string UnitNameAr { get; set; } = null!;
+        public string CatNameAr { get; set; } = null!;
+        public string CatNameEn { get; set; } = null!;
+        public double? CurrentQuantity { get; set; }
     }
 }

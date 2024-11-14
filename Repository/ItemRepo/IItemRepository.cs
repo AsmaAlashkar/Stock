@@ -22,6 +22,7 @@ namespace Repository.ItemRepo
         Task<ItemDetailsResult> GetItemsByUnitId(int unitId, DTOPaging paging);
         Task<List<ItemDetailsDto>> GetAllItemsWithDetailsAsync();
         Task<List<ItemDetailsDto>> GetItemsByKeywordForChatbotAsync(string keyword);
+        Task<string> UpdateItem(int id, CreateItemDto item);
 
     }
 }
