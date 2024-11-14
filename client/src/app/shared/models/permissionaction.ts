@@ -27,8 +27,10 @@ export interface DisplayAllPermissionVM {
   permTypeFk: number,
   perTypeValueAr: string,
   perTypeValueEn: string,
-  subName: string,
-  destinationSubName: string | null,
+  subNameEn: string,
+  subNameAr: string,
+  destinationSubNameEn: string | null,
+  destinationSubNameAr: string | null,
   itemCount: number,
   permCreatedat: string
 }

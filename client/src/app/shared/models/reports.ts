@@ -1,4 +1,5 @@
 export interface Reports {
-  itemName: string,
-  currentQuantity: number
+  itemNameEn: string;
+  itemNameAr: string;
+  currentQuantity: number;
 }

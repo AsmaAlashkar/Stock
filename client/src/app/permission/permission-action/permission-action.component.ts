@@ -88,7 +88,7 @@ export class PermissionActionComponent implements OnInit {
     this.wearhouseService.getsubWearhouseVM().subscribe({
       next: (data) => {
         this.subWearhouses = data.map(sub=>({
-          subId: sub.subId, subName: sub.subName
+          subId: sub.subId, subNameEn: sub.subNameEn
         }));
         console.log("subWearhouses :", this.subWearhouses);
       },

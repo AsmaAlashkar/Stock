@@ -20,5 +20,5 @@ export interface Column {
 
 export interface subWearhouseVM {
   subId: number;
-  subName: string;
+  subNameEn: string;
 }

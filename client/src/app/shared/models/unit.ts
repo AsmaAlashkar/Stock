@@ -1,4 +1,6 @@
 export interface Unit {
     unitId:number;
-    unitName:string;
+    unitNameEn:string;
+    unitNameAr:string;
+
 }

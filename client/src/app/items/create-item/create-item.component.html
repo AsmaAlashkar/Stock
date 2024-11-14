@@ -50,7 +50,7 @@
             [ngClass]="{'is-invalid': ItemForm.get('uniteFk')?.invalid && ItemForm.get('uniteFk')?.touched}">
             <!-- <option value="0">Select Unit</option> -->
             <option *ngFor="let unit of units" [value]="unit.unitId">
-                {{ unit.unitName }}
+                {{ unit.unitNameEn }}
             </option>
         </select>
         <div *ngIf="ItemForm.get('uniteFk')?.invalid && ItemForm.get('uniteFk')?.touched" class="invalid-feedback">
