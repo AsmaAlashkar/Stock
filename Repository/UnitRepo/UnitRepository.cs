@@ -24,7 +24,8 @@ namespace Repository.UnitRepo
                              .Select(item => new DisplayUnitNameDto
                              {
                                  UnitId=item.UnitId,
-                                 UnitName=item.UnitNameEn
+                                 UnitNameEn=item.UnitNameEn,
+                                 UnitNameAr=item.UnitNameAr,
                              })
                              .ToListAsync();
             return units;

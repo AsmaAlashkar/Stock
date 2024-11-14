@@ -28,9 +28,12 @@ namespace Repository.PermissionRepo
                 {
                     PermId = permission.PermId,
                     PermCode = permission.PermCode,
-                    PerTypeValue = permission.PermTypeFkNavigation.PerTypeValueEn,
-                    SubName = permission.SubFkNavigation.SubNameEn,
-                    DestinationSubName = permission.DestinationSubFkNavigation.SubNameEn,
+                    PerTypeValueEn = permission.PermTypeFkNavigation.PerTypeValueEn,
+                    PerTypeValueAr = permission.PermTypeFkNavigation.PerTypeValueAr,
+                    SubNameEn = permission.SubFkNavigation.SubNameEn,
+                    SubNameAr = permission.SubFkNavigation.SubNameAr,
+                    DestinationSubNameEn = permission.DestinationSubFkNavigation.SubNameEn,
+                    DestinationSubNameAr = permission.DestinationSubFkNavigation.SubNameAr,
                     PermCreatedat = permission.PermCreatedat,
                     ItemCount = permission.ItemPermissions.Count(),
                 })
@@ -47,9 +50,12 @@ namespace Repository.PermissionRepo
                 {
                     PermId = permission.PermId,
                     PermCode = permission.PermCode,
-                    PerTypeValue = permission.PermTypeFkNavigation.PerTypeValueEn,
-                    SubName = permission.SubFkNavigation.SubNameEn,
-                    DestinationSubName = permission.DestinationSubFkNavigation.SubNameEn,
+                    PerTypeValueEn = permission.PermTypeFkNavigation.PerTypeValueEn,
+                    PerTypeValueAr = permission.PermTypeFkNavigation.PerTypeValueAr,
+                    SubNameEn = permission.SubFkNavigation.SubNameEn,
+                    SubNameAr = permission.SubFkNavigation.SubNameAr,
+                    DestinationSubNameEn = permission.DestinationSubFkNavigation.SubNameEn,
+                    DestinationSubNameAr = permission.DestinationSubFkNavigation.SubNameAr,
                     PermCreatedat = permission.PermCreatedat,
                     ItemCount = permission.ItemPermissions.Count(),
                 });
@@ -74,9 +80,12 @@ namespace Repository.PermissionRepo
                 {
                     PermId = permission.PermId,
                     PermCode = permission.PermCode,
-                    PerTypeValue = permission.PermTypeFkNavigation.PerTypeValueEn,
-                    SubName = permission.SubFkNavigation.SubNameEn,
-                    DestinationSubName = permission.DestinationSubFkNavigation.SubNameEn,
+                    PerTypeValueEn = permission.PermTypeFkNavigation.PerTypeValueEn,
+                    PerTypeValueAr = permission.PermTypeFkNavigation.PerTypeValueAr,
+                    SubNameEn = permission.SubFkNavigation.SubNameEn,
+                    SubNameAr = permission.SubFkNavigation.SubNameAr,
+                    DestinationSubNameEn = permission.DestinationSubFkNavigation.SubNameEn,
+                    DestinationSubNameAr = permission.DestinationSubFkNavigation.SubNameAr,
                     PermCreatedat = permission.PermCreatedat,
                     ItemCount = permission.ItemPermissions.Count(),
                 })
@@ -99,9 +108,12 @@ namespace Repository.PermissionRepo
                 {
                     PermId = permission.PermId,
                     PermCode = permission.PermCode,
-                    PerTypeValue = permission.PermTypeFkNavigation.PerTypeValueEn,
-                    SubName = permission.SubFkNavigation.SubNameEn,
-                    DestinationSubName = permission.DestinationSubFkNavigation.SubNameEn,
+                    PerTypeValueEn = permission.PermTypeFkNavigation.PerTypeValueEn,
+                    PerTypeValueAr = permission.PermTypeFkNavigation.PerTypeValueAr,
+                    SubNameEn = permission.SubFkNavigation.SubNameEn,
+                    SubNameAr = permission.SubFkNavigation.SubNameAr,
+                    DestinationSubNameEn = permission.DestinationSubFkNavigation.SubNameEn,
+                    DestinationSubNameAr = permission.DestinationSubFkNavigation.SubNameAr,
                     PermCreatedat = permission.PermCreatedat,
                     ItemCount = permission.ItemPermissions.Count(),
                 })
@@ -120,9 +132,12 @@ namespace Repository.PermissionRepo
                 {
                     PermId = permission.PermId,
                     PermCode = permission.PermCode,
-                    PerTypeValue = permission.PermTypeFkNavigation.PerTypeValueEn,
-                    SubName = permission.SubFkNavigation.SubNameEn,
-                    DestinationSubName = permission.DestinationSubFkNavigation.SubNameEn,
+                    PerTypeValueEn = permission.PermTypeFkNavigation.PerTypeValueEn,
+                    PerTypeValueAr = permission.PermTypeFkNavigation.PerTypeValueAr,
+                    SubNameEn = permission.SubFkNavigation.SubNameEn,
+                    SubNameAr = permission.SubFkNavigation.SubNameAr,
+                    DestinationSubNameEn = permission.DestinationSubFkNavigation.SubNameEn,
+                    DestinationSubNameAr = permission.DestinationSubFkNavigation.SubNameAr,
                     PermCreatedat = permission.PermCreatedat,
                     ItemCount = permission.ItemPermissions.Count(),
                     Items = permission.ItemPermissions
@@ -130,9 +145,12 @@ namespace Repository.PermissionRepo
                     { 
                         ItemId= permItem.ItemFk,
                         ItemCode = permItem.ItemFkNavigation.ItemCode,
-                        ItemName = permItem.ItemFkNavigation.ItemNameEn,
+                        ItemNameEn = permItem.ItemFkNavigation.ItemNameEn,
+                        ItemNameAr = permItem.ItemFkNavigation.ItemNameAr,
                         CatNameEn = permItem.ItemFkNavigation.CatFkNavigation.CatNameEn,
-                        UnitName = permItem.ItemFkNavigation.UniteFkNavigation.UnitNameEn,
+                        CatNameAr = permItem.ItemFkNavigation.CatFkNavigation.CatNameAr,
+                        UnitNameEn = permItem.ItemFkNavigation.UniteFkNavigation.UnitNameEn,
+                        UnitNameAr = permItem.ItemFkNavigation.UniteFkNavigation.UnitNameAr,
                         Quantity = permItem.Quantity
                     }).ToList()
                 })
