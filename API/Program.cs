@@ -75,6 +75,8 @@ builder.Services.AddAutoMapper(
 
 builder.Services.AddHttpClient();
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddCors();
 // Add controller services
 builder.Services.AddControllers();
 
@@ -115,11 +117,11 @@ builder.Services.AddSwaggerGen(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+//}
 
 app.UseHttpsRedirection();
 app.UseHsts();
@@ -150,6 +152,6 @@ using (var scope = app.Services.CreateScope())
     //var roleManager = serviceProvider.GetRequiredService<RoleManager<AppRole>>();
     //await IdentityServiceExtensions.AddRoles(roleManager);
 }
-
+app.MapControllers();
 // Run the app
 app.Run();
